@@ -99,6 +99,8 @@ interface Directives {
   allMembersHomeless: boolean;
   onTribalLands: boolean;
   filingStatus: FilingStatus | null;
+  /** Set only by the separated-spouse criterion, never by any other disqualifier. */
+  separatedSpouseRulesFailed: boolean;
   excludedMembers: Set<number>;
   disqualifiedChildren: Set<number>;
   forcedPass: Set<string>;
@@ -115,6 +117,7 @@ function emptyDirectives(): Directives {
     allMembersHomeless: false,
     onTribalLands: false,
     filingStatus: null,
+    separatedSpouseRulesFailed: false,
     excludedMembers: new Set(),
     disqualifiedChildren: new Set(),
     forcedPass: new Set(),
@@ -232,6 +235,14 @@ function collectDirectives(
 
     const { choice } = effectiveChoice(criterion, answer, tau);
 
+    // Recorded separately from the generic disqualifier, so that the reason shown to
+    // a household names what actually barred them. Reusing the shared fail set here
+    // made a household with no earned income get told they were barred as a married
+    // separate filer.
+    if (criterion.id === 'eitc.separated_spouse_rules' && choice === 'false') {
+      d.separatedSpouseRulesFailed = true;
+    }
+
     if (criterion.type === 'noul') {
       const tokens = choice === 'true' ? effect.onTrue : effect.onFalse;
       for (const token of tokens ?? []) applyDirective(d, token, criterion.subjectIndex);
@@ -267,10 +278,18 @@ interface Income {
 
 function incomeFrom(state: ScreeningState, d: Directives): Income {
   const notes: string[] = [];
-  const period: Period = d.incomePeriod ?? state.facts.incomePeriod ?? 'monthly';
+  // The parser wins whenever it read an explicit period out of the description.
+  // Converting a weekly figure to a monthly one is arithmetic, and arithmetic is not
+  // delegated to the engine; the criterion exists to fill the gap when the description
+  // never said, not to overrule a period that was stated in plain words.
+  const period: Period = state.facts.incomePeriod ?? d.incomePeriod ?? 'monthly';
 
-  if (state.facts.incomePeriod === null && d.incomePeriod === null) {
-    notes.push('No period was stated for the income figure; it was read as monthly.');
+  if (state.facts.incomePeriod === null) {
+    notes.push(
+      d.incomePeriod === null
+        ? 'No period was stated for the income figure; it was read as monthly.'
+        : `No period was stated for the income figure; it was taken as ${d.incomePeriod}.`
+    );
   }
 
   const amount = state.facts.incomeAmount ?? 0;
@@ -359,8 +378,21 @@ function criterionTruth(
 // The evaluator
 // ---------------------------------------------------------------------------
 
+/**
+ * The order programs are evaluated in.
+ *
+ * Lifeline can qualify through SNAP enrollment, so SNAP has to have a verdict before
+ * Lifeline is evaluated. Relying on the order the files happen to load in would make
+ * that silently break the day someone reorders them.
+ */
+const EVALUATION_ORDER = ['snap', 'eitc', 'lifeline'];
+
 export function evaluate(state: ScreeningState, answers: Answers): Verdicts {
-  const programs = loadPrograms();
+  const programs = [...loadPrograms()].sort((a, b) => {
+    const ai = EVALUATION_ORDER.indexOf(a.id);
+    const bi = EVALUATION_ORDER.indexOf(b.id);
+    return (ai === -1 ? Number.MAX_SAFE_INTEGER : ai) - (bi === -1 ? Number.MAX_SAFE_INTEGER : bi);
+  });
   const criteria = instantiate(programs, state.shape);
   const tau = state.tau ?? DEFAULT_PRESUMPTION_TAU;
   const d = collectDirectives(criteria, answers, tau);
@@ -432,7 +464,7 @@ export function evaluate(state: ScreeningState, answers: Answers): Verdicts {
         filingStatus: d.filingStatus ?? 'other',
         investmentIncomeAnnualCents: 0,
         claimantAge,
-        marriedFilingSeparatelyIneligible: d.forcedFail.has('eitc'),
+        marriedFilingSeparatelyIneligible: d.separatedSpouseRulesFailed,
       };
 
       const result = eitcCredit(facts, t);

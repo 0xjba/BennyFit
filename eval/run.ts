@@ -202,7 +202,7 @@ async function main() {
   const rows = await runOnce(households, engine, tau, maxQuestions);
   const summary = summarise(rows);
 
-  let tauSweep: { tau: number; questionRelevance: number; meanBalancedAccuracy: number; medianQuestions: number }[] = [];
+  const tauSweep: { tau: number; questionRelevance: number; meanBalancedAccuracy: number; medianQuestions: number }[] = [];
   if (sweep) {
     console.log('\nsweeping tau...');
     for (const candidate of [0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8]) {

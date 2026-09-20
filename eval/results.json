@@ -1,5 +1,5 @@
 {
-  "runAt": "2026-09-20T22:23:45.771Z",
+  "runAt": "2026-09-20T22:33:04.371Z",
   "engine": "fixture-local",
   "isFixture": true,
   "tau": 0.4,
@@ -60,11 +60,11 @@
   "underspecifiedCount": 30,
   "specifiedCount": 120,
   "medianCriteriaPerHousehold": 32,
-  "medianWallClockMs": 6.8541250000000105,
-  "medianEngineMs": 0.7327285000000074,
+  "medianWallClockMs": 7.2657294999999635,
+  "medianEngineMs": 0.7384989999999334,
   "medianQuestionsAsked": 3,
   "medianPasses": 4,
-  "totalAnnualValueSurfaced": 812708,
+  "totalAnnualValueSurfaced": 816014,
   "totalAnnualValueAvailable": 881344,
   "tauSweep": [],
   "perHousehold": [
@@ -98,8 +98,8 @@
       ],
       "firstQuestion": "snap.income_source",
       "criteriaEvaluated": 50,
-      "wallClockMs": 34.980875,
-      "engineMs": 2.007916000000023,
+      "wallClockMs": 35.059167,
+      "engineMs": 1.940417999999994,
       "passes": 4
     },
     {
@@ -132,8 +132,8 @@
       ],
       "firstQuestion": "snap.income_source",
       "criteriaEvaluated": 59,
-      "wallClockMs": 25.03450000000001,
-      "engineMs": 1.2586660000000052,
+      "wallClockMs": 25.733833000000004,
+      "engineMs": 1.272874999999999,
       "passes": 4
     },
     {
@@ -166,8 +166,8 @@
       ],
       "firstQuestion": "snap.income_source",
       "criteriaEvaluated": 50,
-      "wallClockMs": 16.093874999999997,
-      "engineMs": 1.1824579999999685,
+      "wallClockMs": 16.135875,
+      "engineMs": 1.185583999999949,
       "passes": 4
     },
     {
@@ -200,8 +200,8 @@
       ],
       "firstQuestion": "snap.income_source",
       "criteriaEvaluated": 41,
-      "wallClockMs": 11.600707999999997,
-      "engineMs": 0.9745830000000524,
+      "wallClockMs": 11.678374999999988,
+      "engineMs": 0.962791999999979,
       "passes": 4
     },
     {
@@ -234,8 +234,8 @@
       ],
       "firstQuestion": "snap.income_source",
       "criteriaEvaluated": 50,
-      "wallClockMs": 15.476042000000007,
-      "engineMs": 1.1390019999999765,
+      "wallClockMs": 15.756333000000012,
+      "engineMs": 1.1503749999999968,
       "passes": 4
     },
     {
@@ -268,8 +268,8 @@
       ],
       "firstQuestion": "snap.income_source",
       "criteriaEvaluated": 50,
-      "wallClockMs": 15.729250000000008,
-      "engineMs": 1.1709160000000338,
+      "wallClockMs": 15.631374999999991,
+      "engineMs": 1.068083999999999,
       "passes": 4
     },
     {
@@ -302,8 +302,8 @@
       ],
       "firstQuestion": "snap.income_source",
       "criteriaEvaluated": 50,
-      "wallClockMs": 15.435000000000002,
-      "engineMs": 1.0656250000000114,
+      "wallClockMs": 15.218250000000012,
+      "engineMs": 1.0567499999999939,
       "passes": 4
     },
     {
@@ -336,8 +336,8 @@
       ],
       "firstQuestion": "snap.income_source",
       "criteriaEvaluated": 59,
-      "wallClockMs": 20.99479199999999,
-      "engineMs": 1.6266250000000184,
+      "wallClockMs": 20.64891700000001,
+      "engineMs": 1.3332079999999848,
       "passes": 4
     },
     {
@@ -370,8 +370,8 @@
       ],
       "firstQuestion": "snap.income_source",
       "criteriaEvaluated": 41,
-      "wallClockMs": 10.686374999999998,
-      "engineMs": 0.9249590000000012,
+      "wallClockMs": 11.274500000000018,
+      "engineMs": 0.926542000000012,
       "passes": 4
     },
     {
@@ -404,8 +404,8 @@
       ],
       "firstQuestion": "snap.income_source",
       "criteriaEvaluated": 59,
-      "wallClockMs": 19.898082999999986,
-      "engineMs": 1.4710000000000036,
+      "wallClockMs": 20.309874999999977,
+      "engineMs": 1.3470839999999953,
       "passes": 4
     },
     {
@@ -438,8 +438,8 @@
       ],
       "firstQuestion": "snap.income_source",
       "criteriaEvaluated": 59,
-      "wallClockMs": 19.847208999999964,
-      "engineMs": 1.212334999999996,
+      "wallClockMs": 20.13737500000002,
+      "engineMs": 1.2024590000000899,
       "passes": 4
     },
     {
@@ -472,8 +472,8 @@
       ],
       "firstQuestion": "snap.income_source",
       "criteriaEvaluated": 41,
-      "wallClockMs": 10.825040999999999,
-      "engineMs": 0.8356240000001094,
+      "wallClockMs": 10.834917000000019,
+      "engineMs": 0.8459150000000477,
       "passes": 4
     },
     {
@@ -506,8 +506,8 @@
       ],
       "firstQuestion": "snap.income_source",
       "criteriaEvaluated": 50,
-      "wallClockMs": 15.628874999999994,
-      "engineMs": 1.2913750000000164,
+      "wallClockMs": 15.237500000000011,
+      "engineMs": 1.1981670000000122,
       "passes": 4
     },
     {
@@ -540,8 +540,8 @@
       ],
       "firstQuestion": "snap.income_source",
       "criteriaEvaluated": 59,
-      "wallClockMs": 19.519790999999998,
-      "engineMs": 1.3462079999999332,
+      "wallClockMs": 19.752999999999986,
+      "engineMs": 1.3743740000000457,
       "passes": 4
     },
     {
@@ -574,8 +574,8 @@
       ],
       "firstQuestion": "snap.income_source",
       "criteriaEvaluated": 41,
-      "wallClockMs": 10.205709000000013,
-      "engineMs": 0.9838340000001153,
+      "wallClockMs": 10.379999999999995,
+      "engineMs": 0.9750010000000202,
       "passes": 4
     },
     {
@@ -608,8 +608,8 @@
       ],
       "firstQuestion": "snap.income_source",
       "criteriaEvaluated": 59,
-      "wallClockMs": 19.151791000000003,
-      "engineMs": 1.522248999999988,
+      "wallClockMs": 19.823333000000048,
+      "engineMs": 1.3453330000000392,
       "passes": 4
     },
     {
@@ -642,8 +642,8 @@
       ],
       "firstQuestion": "snap.income_source",
       "criteriaEvaluated": 50,
-      "wallClockMs": 14.69991600000003,
-      "engineMs": 1.0794579999999883,
+      "wallClockMs": 14.788415999999984,
+      "engineMs": 1.1159590000000321,
       "passes": 4
     },
     {
@@ -676,8 +676,8 @@
       ],
       "firstQuestion": "snap.income_source",
       "criteriaEvaluated": 41,
-      "wallClockMs": 10.783166999999992,
-      "engineMs": 0.9168339999999375,
+      "wallClockMs": 11.400791999999967,
+      "engineMs": 0.9442490000000134,
       "passes": 4
     },
     {
@@ -710,8 +710,8 @@
       ],
       "firstQuestion": "snap.income_source",
       "criteriaEvaluated": 59,
-      "wallClockMs": 19.99641600000001,
-      "engineMs": 1.2030409999999847,
+      "wallClockMs": 20.515041999999994,
+      "engineMs": 1.1801250000000323,
       "passes": 4
     },
     {
@@ -744,8 +744,8 @@
       ],
       "firstQuestion": "snap.income_source",
       "criteriaEvaluated": 59,
-      "wallClockMs": 19.634124999999983,
-      "engineMs": 1.2004990000000362,
+      "wallClockMs": 20.243749999999977,
+      "engineMs": 1.3098349999999641,
       "passes": 4
     },
     {
@@ -778,8 +778,8 @@
       ],
       "firstQuestion": "snap.income_source",
       "criteriaEvaluated": 50,
-      "wallClockMs": 14.355916999999977,
-      "engineMs": 1.0881239999999366,
+      "wallClockMs": 16.556624999999997,
+      "engineMs": 1.1291239999999902,
       "passes": 4
     },
     {
@@ -812,8 +812,8 @@
       ],
       "firstQuestion": "snap.income_source",
       "criteriaEvaluated": 59,
-      "wallClockMs": 21.34575000000001,
-      "engineMs": 1.3011660000000234,
+      "wallClockMs": 20.64616699999999,
+      "engineMs": 1.3621250000001055,
       "passes": 4
     },
     {
@@ -846,8 +846,8 @@
       ],
       "firstQuestion": "snap.income_source",
       "criteriaEvaluated": 59,
-      "wallClockMs": 19.726624999999956,
-      "engineMs": 1.3640430000000947,
+      "wallClockMs": 20.10679200000004,
+      "engineMs": 1.1749580000000606,
       "passes": 4
     },
     {
@@ -880,8 +880,8 @@
       ],
       "firstQuestion": "snap.income_source",
       "criteriaEvaluated": 50,
-      "wallClockMs": 15.124166999999943,
-      "engineMs": 1.1100419999999644,
+      "wallClockMs": 15.24758300000002,
+      "engineMs": 1.0781249999998863,
       "passes": 4
     },
     {
@@ -914,8 +914,8 @@
       ],
       "firstQuestion": "snap.income_source",
       "criteriaEvaluated": 41,
-      "wallClockMs": 11.194000000000074,
-      "engineMs": 1.0782080000000178,
+      "wallClockMs": 11.57483400000001,
+      "engineMs": 0.9492089999998825,
       "passes": 4
     },
     {
@@ -948,8 +948,8 @@
       ],
       "firstQuestion": "snap.income_source",
       "criteriaEvaluated": 41,
-      "wallClockMs": 10.582416999999964,
-      "engineMs": 0.8019159999998919,
+      "wallClockMs": 10.647457999999915,
+      "engineMs": 0.7869160000000193,
       "passes": 4
     },
     {
@@ -982,8 +982,8 @@
       ],
       "firstQuestion": "snap.income_source",
       "criteriaEvaluated": 50,
-      "wallClockMs": 14.71329199999991,
-      "engineMs": 0.9009580000000597,
+      "wallClockMs": 14.842708000000016,
+      "engineMs": 0.8754999999999882,
       "passes": 4
     },
     {
@@ -1016,8 +1016,8 @@
       ],
       "firstQuestion": "snap.income_source",
       "criteriaEvaluated": 59,
-      "wallClockMs": 19.445542000000046,
-      "engineMs": 1.1630420000000186,
+      "wallClockMs": 19.78754200000003,
+      "engineMs": 1.2324159999999438,
       "passes": 4
     },
     {
@@ -1050,8 +1050,8 @@
       ],
       "firstQuestion": "eitc.investment_income_over_limit",
       "criteriaEvaluated": 41,
-      "wallClockMs": 10.474000000000046,
-      "engineMs": 0.9247910000001411,
+      "wallClockMs": 11.192333000000076,
+      "engineMs": 1.1147909999998546,
       "passes": 4
     },
     {
@@ -1084,8 +1084,8 @@
       ],
       "firstQuestion": "snap.income_source",
       "criteriaEvaluated": 59,
-      "wallClockMs": 18.790417000000048,
-      "engineMs": 1.190082000000075,
+      "wallClockMs": 19.87245900000005,
+      "engineMs": 1.2077090000001363,
       "passes": 4
     },
     {
@@ -1118,8 +1118,8 @@
       ],
       "firstQuestion": "lifeline.receives_fpha",
       "criteriaEvaluated": 63,
-      "wallClockMs": 22.764499999999998,
-      "engineMs": 1.085916999999995,
+      "wallClockMs": 24.15995799999996,
+      "engineMs": 1.155958000000055,
       "passes": 4
     },
     {
@@ -1152,8 +1152,8 @@
       ],
       "firstQuestion": "snap.categorical",
       "criteriaEvaluated": 32,
-      "wallClockMs": 6.973834000000011,
-      "engineMs": 0.535750000000121,
+      "wallClockMs": 7.263584000000037,
+      "engineMs": 0.6184579999999187,
       "passes": 4
     },
     {
@@ -1186,8 +1186,8 @@
       ],
       "firstQuestion": "snap.categorical",
       "criteriaEvaluated": 41,
-      "wallClockMs": 10.447084000000018,
-      "engineMs": 0.89162500000009,
+      "wallClockMs": 11.31229200000007,
+      "engineMs": 0.9227500000001783,
       "passes": 4
     },
     {
@@ -1220,8 +1220,8 @@
       ],
       "firstQuestion": "snap.categorical",
       "criteriaEvaluated": 41,
-      "wallClockMs": 11.065041999999949,
-      "engineMs": 0.980666000000042,
+      "wallClockMs": 10.736667000000011,
+      "engineMs": 0.9119170000001304,
       "passes": 4
     },
     {
@@ -1254,8 +1254,8 @@
       ],
       "firstQuestion": "lifeline.receives_fpha",
       "criteriaEvaluated": 45,
-      "wallClockMs": 13.468624999999975,
-      "engineMs": 1.0223760000000084,
+      "wallClockMs": 13.423165999999924,
+      "engineMs": 1.0145840000000135,
       "passes": 4
     },
     {
@@ -1288,8 +1288,8 @@
       ],
       "firstQuestion": "snap.categorical",
       "criteriaEvaluated": 36,
-      "wallClockMs": 8.45945800000004,
-      "engineMs": 0.7449169999999867,
+      "wallClockMs": 9.120000000000005,
+      "engineMs": 0.7810819999998557,
       "passes": 4
     },
     {
@@ -1322,8 +1322,8 @@
       ],
       "firstQuestion": "snap.categorical",
       "criteriaEvaluated": 36,
-      "wallClockMs": 8.284582999999998,
-      "engineMs": 0.7472080000000005,
+      "wallClockMs": 8.81783299999995,
+      "engineMs": 0.7574150000000373,
       "passes": 4
     },
     {
@@ -1356,8 +1356,8 @@
       ],
       "firstQuestion": "lifeline.receives_fpha",
       "criteriaEvaluated": 54,
-      "wallClockMs": 16.520624999999995,
-      "engineMs": 1.1556660000001102,
+      "wallClockMs": 18.55895799999996,
+      "engineMs": 1.2282490000000053,
       "passes": 4
     },
     {
@@ -1390,8 +1390,8 @@
       ],
       "firstQuestion": "snap.categorical",
       "criteriaEvaluated": 32,
-      "wallClockMs": 6.677791999999954,
-      "engineMs": 0.6887909999999238,
+      "wallClockMs": 6.7975830000000315,
+      "engineMs": 0.6710840000000644,
       "passes": 4
     },
     {
@@ -1424,8 +1424,8 @@
       ],
       "firstQuestion": "lifeline.receives_fpha",
       "criteriaEvaluated": 45,
-      "wallClockMs": 12.061916999999994,
-      "engineMs": 0.996708000000126,
+      "wallClockMs": 12.680082999999968,
+      "engineMs": 0.9708339999998543,
       "passes": 4
     },
     {
@@ -1458,8 +1458,8 @@
       ],
       "firstQuestion": "lifeline.receives_fpha",
       "criteriaEvaluated": 54,
-      "wallClockMs": 16.175666999999976,
-      "engineMs": 1.152582999999936,
+      "wallClockMs": 17.018791999999962,
+      "engineMs": 1.2542929999999615,
       "passes": 4
     },
     {
@@ -1492,8 +1492,8 @@
       ],
       "firstQuestion": "snap.categorical",
       "criteriaEvaluated": 36,
-      "wallClockMs": 8.329917000000023,
-      "engineMs": 0.7739169999999831,
+      "wallClockMs": 8.535041999999976,
+      "engineMs": 0.7803339999999253,
       "passes": 4
     },
     {
@@ -1526,8 +1526,8 @@
       ],
       "firstQuestion": "snap.categorical",
       "criteriaEvaluated": 36,
-      "wallClockMs": 8.010209000000032,
-      "engineMs": 0.7306659999999283,
+      "wallClockMs": 8.557457999999997,
+      "engineMs": 0.7810829999999669,
       "passes": 4
     },
     {
@@ -1560,8 +1560,8 @@
       ],
       "firstQuestion": "lifeline.receives_fpha",
       "criteriaEvaluated": 45,
-      "wallClockMs": 11.952791000000047,
-      "engineMs": 1.0022500000000036,
+      "wallClockMs": 12.567750000000046,
+      "engineMs": 1.0149999999999864,
       "passes": 4
     },
     {
@@ -1594,8 +1594,8 @@
       ],
       "firstQuestion": "lifeline.receives_fpha",
       "criteriaEvaluated": 54,
-      "wallClockMs": 16.845249999999965,
-      "engineMs": 1.2030839999998761,
+      "wallClockMs": 17.936500000000024,
+      "engineMs": 1.266042000000084,
       "passes": 4
     },
     {
@@ -1628,8 +1628,8 @@
       ],
       "firstQuestion": "snap.categorical",
       "criteriaEvaluated": 36,
-      "wallClockMs": 7.962292000000048,
-      "engineMs": 0.7566250000000991,
+      "wallClockMs": 8.635541999999987,
+      "engineMs": 0.8025010000000066,
       "passes": 4
     },
     {
@@ -1662,8 +1662,8 @@
       ],
       "firstQuestion": "snap.categorical",
       "criteriaEvaluated": 36,
-      "wallClockMs": 7.783083000000033,
-      "engineMs": 0.7487090000000762,
+      "wallClockMs": 8.5082910000001,
+      "engineMs": 0.7940009999999802,
       "passes": 4
     },
     {
@@ -1696,8 +1696,8 @@
       ],
       "firstQuestion": "snap.categorical",
       "criteriaEvaluated": 36,
-      "wallClockMs": 7.98920899999996,
-      "engineMs": 0.7477100000000974,
+      "wallClockMs": 8.730666000000042,
+      "engineMs": 0.8514570000000958,
       "passes": 4
     },
     {
@@ -1730,8 +1730,8 @@
       ],
       "firstQuestion": "snap.categorical",
       "criteriaEvaluated": 41,
-      "wallClockMs": 9.96124999999995,
-      "engineMs": 0.8720830000000888,
+      "wallClockMs": 10.50508400000001,
+      "engineMs": 0.8830410000000484,
       "passes": 4
     },
     {
@@ -1764,8 +1764,8 @@
       ],
       "firstQuestion": "snap.categorical",
       "criteriaEvaluated": 32,
-      "wallClockMs": 6.629582999999911,
-      "engineMs": 0.832958000000076,
+      "wallClockMs": 6.647500000000036,
+      "engineMs": 0.7176250000001119,
       "passes": 4
     },
     {
@@ -1798,8 +1798,8 @@
       ],
       "firstQuestion": "snap.categorical",
       "criteriaEvaluated": 41,
-      "wallClockMs": 10.062041000000022,
-      "engineMs": 0.8889589999998861,
+      "wallClockMs": 10.480332999999973,
+      "engineMs": 0.9974169999999276,
       "passes": 4
     },
     {
@@ -1832,8 +1832,8 @@
       ],
       "firstQuestion": "snap.categorical",
       "criteriaEvaluated": 32,
-      "wallClockMs": 6.566332999999986,
-      "engineMs": 0.6720409999998083,
+      "wallClockMs": 6.85979199999997,
+      "engineMs": 0.6634579999999914,
       "passes": 4
     },
     {
@@ -1866,8 +1866,8 @@
       ],
       "firstQuestion": "lifeline.receives_fpha",
       "criteriaEvaluated": 45,
-      "wallClockMs": 11.568541000000096,
-      "engineMs": 1.1127090000002227,
+      "wallClockMs": 12.366583999999989,
+      "engineMs": 1.0010850000002165,
       "passes": 4
     },
     {
@@ -1900,8 +1900,8 @@
       ],
       "firstQuestion": "lifeline.receives_fpha",
       "criteriaEvaluated": 54,
-      "wallClockMs": 16.176708000000076,
-      "engineMs": 1.1515009999999393,
+      "wallClockMs": 16.39250000000004,
+      "engineMs": 1.128376000000003,
       "passes": 4
     },
     {
@@ -1934,8 +1934,8 @@
       ],
       "firstQuestion": "snap.categorical",
       "criteriaEvaluated": 36,
-      "wallClockMs": 7.764541999999892,
-      "engineMs": 0.7058749999998781,
+      "wallClockMs": 8.296666000000073,
+      "engineMs": 0.7379999999999427,
       "passes": 4
     },
     {
@@ -1968,8 +1968,8 @@
       ],
       "firstQuestion": "snap.categorical",
       "criteriaEvaluated": 32,
-      "wallClockMs": 6.475957999999991,
-      "engineMs": 0.8032919999999422,
+      "wallClockMs": 6.654458000000091,
+      "engineMs": 0.6430000000000291,
       "passes": 4
     },
     {
@@ -2002,8 +2002,8 @@
       ],
       "firstQuestion": "lifeline.receives_fpha",
       "criteriaEvaluated": 45,
-      "wallClockMs": 11.548708000000033,
-      "engineMs": 0.9547489999998788,
+      "wallClockMs": 12.169999999999959,
+      "engineMs": 1.0057489999999234,
       "passes": 4
     },
     {
@@ -2036,8 +2036,8 @@
       ],
       "firstQuestion": "lifeline.receives_fpha",
       "criteriaEvaluated": 54,
-      "wallClockMs": 16.032332999999994,
-      "engineMs": 1.203040000000101,
+      "wallClockMs": 16.342540999999983,
+      "engineMs": 1.1709999999999354,
       "passes": 4
     },
     {
@@ -2070,8 +2070,8 @@
       ],
       "firstQuestion": "snap.categorical",
       "criteriaEvaluated": 32,
-      "wallClockMs": 6.474249999999984,
-      "engineMs": 0.6488749999999754,
+      "wallClockMs": 7.053333000000066,
+      "engineMs": 0.68974999999989,
       "passes": 4
     },
     {
@@ -2104,8 +2104,8 @@
       ],
       "firstQuestion": "lifeline.receives_fpha",
       "criteriaEvaluated": 54,
-      "wallClockMs": 15.648500000000013,
-      "engineMs": 1.176166999999964,
+      "wallClockMs": 16.74908300000004,
+      "engineMs": 1.2168760000000702,
       "passes": 4
     },
     {
@@ -2138,8 +2138,8 @@
       ],
       "firstQuestion": "snap.income_source",
       "criteriaEvaluated": 32,
-      "wallClockMs": 6.58887500000003,
-      "engineMs": 0.5616649999999481,
+      "wallClockMs": 7.008916999999997,
+      "engineMs": 0.619542000000024,
       "passes": 4
     },
     {
@@ -2172,8 +2172,8 @@
       ],
       "firstQuestion": "snap.income_source",
       "criteriaEvaluated": 32,
-      "wallClockMs": 5.478749999999991,
-      "engineMs": 0.44966699999974935,
+      "wallClockMs": 6.339375000000018,
+      "engineMs": 0.48379099999988284,
       "passes": 4
     },
     {
@@ -2206,8 +2206,8 @@
       ],
       "firstQuestion": "snap.income_source",
       "criteriaEvaluated": 32,
-      "wallClockMs": 6.28875000000005,
-      "engineMs": 0.5057089999999107,
+      "wallClockMs": 6.682332999999971,
+      "engineMs": 0.5458740000000262,
       "passes": 4
     },
     {
@@ -2240,8 +2240,8 @@
       ],
       "firstQuestion": "snap.income_source",
       "criteriaEvaluated": 32,
-      "wallClockMs": 6.087083000000007,
-      "engineMs": 0.4560820000000376,
+      "wallClockMs": 6.6593749999999545,
+      "engineMs": 0.5092079999999441,
       "passes": 4
     },
     {
@@ -2274,8 +2274,8 @@
       ],
       "firstQuestion": "snap.categorical",
       "criteriaEvaluated": 32,
-      "wallClockMs": 6.053500000000099,
-      "engineMs": 0.4992090000000644,
+      "wallClockMs": 6.556167000000073,
+      "engineMs": 0.5627100000000382,
       "passes": 4
     },
     {
@@ -2308,8 +2308,8 @@
       ],
       "firstQuestion": "snap.income_source",
       "criteriaEvaluated": 32,
-      "wallClockMs": 6.239875000000097,
-      "engineMs": 0.6430820000000494,
+      "wallClockMs": 6.89487500000007,
+      "engineMs": 0.6541669999999158,
       "passes": 4
     },
     {
@@ -2342,8 +2342,8 @@
       ],
       "firstQuestion": "snap.income_source",
       "criteriaEvaluated": 32,
-      "wallClockMs": 5.8851660000000265,
-      "engineMs": 0.6154589999999871,
+      "wallClockMs": 6.035624999999982,
+      "engineMs": 0.6219589999998334,
       "passes": 4
     },
     {
@@ -2376,8 +2376,8 @@
       ],
       "firstQuestion": "snap.income_source",
       "criteriaEvaluated": 32,
-      "wallClockMs": 6.355542000000014,
-      "engineMs": 0.6312080000000151,
+      "wallClockMs": 6.701166999999941,
+      "engineMs": 0.6514170000000377,
       "passes": 4
     },
     {
@@ -2410,8 +2410,8 @@
       ],
       "firstQuestion": "snap.income_source",
       "criteriaEvaluated": 32,
-      "wallClockMs": 6.46691700000008,
-      "engineMs": 0.7997930000001361,
+      "wallClockMs": 6.487625000000094,
+      "engineMs": 0.7276680000001079,
       "passes": 4
     },
     {
@@ -2444,8 +2444,8 @@
       ],
       "firstQuestion": "snap.income_source",
       "criteriaEvaluated": 32,
-      "wallClockMs": 5.618165999999974,
-      "engineMs": 0.597791000000143,
+      "wallClockMs": 6.291707999999971,
+      "engineMs": 0.6262929999999187,
       "passes": 4
     },
     {
@@ -2478,8 +2478,8 @@
       ],
       "firstQuestion": "snap.income_source",
       "criteriaEvaluated": 32,
-      "wallClockMs": 6.73441600000001,
-      "engineMs": 0.7306250000000318,
+      "wallClockMs": 6.832791000000043,
+      "engineMs": 0.7389979999999241,
       "passes": 4
     },
     {
@@ -2512,8 +2512,8 @@
       ],
       "firstQuestion": "snap.income_source",
       "criteriaEvaluated": 32,
-      "wallClockMs": 6.533790999999951,
-      "engineMs": 0.7414159999999583,
+      "wallClockMs": 7.26787499999989,
+      "engineMs": 0.7833750000003192,
       "passes": 4
     },
     {
@@ -2546,8 +2546,8 @@
       ],
       "firstQuestion": "snap.income_source",
       "criteriaEvaluated": 32,
-      "wallClockMs": 6.578458000000069,
-      "engineMs": 0.6809160000000247,
+      "wallClockMs": 6.768083000000161,
+      "engineMs": 0.6374989999999343,
       "passes": 4
     },
     {
@@ -2580,8 +2580,8 @@
       ],
       "firstQuestion": "snap.income_source",
       "criteriaEvaluated": 32,
-      "wallClockMs": 6.246958999999947,
-      "engineMs": 0.7347910000000866,
+      "wallClockMs": 6.290415999999823,
+      "engineMs": 0.7527509999999893,
       "passes": 4
     },
     {
@@ -2614,8 +2614,8 @@
       ],
       "firstQuestion": "snap.income_source",
       "criteriaEvaluated": 32,
-      "wallClockMs": 6.215542000000028,
-      "engineMs": 0.6292920000000777,
+      "wallClockMs": 6.4128330000000915,
+      "engineMs": 0.6480420000000322,
       "passes": 4
     },
     {
@@ -2648,8 +2648,8 @@
       ],
       "firstQuestion": "snap.income_source",
       "criteriaEvaluated": 32,
-      "wallClockMs": 6.19945800000005,
-      "engineMs": 0.655373999999938,
+      "wallClockMs": 6.485957999999982,
+      "engineMs": 0.6578759999997601,
       "passes": 4
     },
     {
@@ -2681,8 +2681,8 @@
       ],
       "firstQuestion": "lifeline.tribal_lands",
       "criteriaEvaluated": 32,
-      "wallClockMs": 5.34704099999999,
-      "engineMs": 0.43583300000000236,
+      "wallClockMs": 5.583999999999833,
+      "engineMs": 0.4288329999999405,
       "passes": 3
     },
     {
@@ -2715,8 +2715,8 @@
       ],
       "firstQuestion": "snap.income_source",
       "criteriaEvaluated": 32,
-      "wallClockMs": 6.141999999999825,
-      "engineMs": 0.6541250000000218,
+      "wallClockMs": 6.414708000000019,
+      "engineMs": 0.6637090000001535,
       "passes": 4
     },
     {
@@ -2749,8 +2749,8 @@
       ],
       "firstQuestion": "lifeline.tribal_lands",
       "criteriaEvaluated": 32,
-      "wallClockMs": 6.19337500000006,
-      "engineMs": 0.6716660000001866,
+      "wallClockMs": 6.296082999999953,
+      "engineMs": 0.6752070000000003,
       "passes": 4
     },
     {
@@ -2783,8 +2783,8 @@
       ],
       "firstQuestion": "lifeline.tribal_lands",
       "criteriaEvaluated": 32,
-      "wallClockMs": 6.3064999999999145,
-      "engineMs": 0.692625000000362,
+      "wallClockMs": 6.668582999999899,
+      "engineMs": 0.6982080000002497,
       "passes": 4
     },
     {
@@ -2816,8 +2816,8 @@
       ],
       "firstQuestion": "lifeline.tribal_lands",
       "criteriaEvaluated": 32,
-      "wallClockMs": 6.136749999999893,
-      "engineMs": 0.4157920000000104,
+      "wallClockMs": 6.411875000000009,
+      "engineMs": 0.45849999999995816,
       "passes": 3
     },
     {
@@ -2850,8 +2850,8 @@
       ],
       "firstQuestion": "snap.income_source",
       "criteriaEvaluated": 32,
-      "wallClockMs": 6.029458999999861,
-      "engineMs": 0.6407090000000153,
+      "wallClockMs": 6.802458999999999,
+      "engineMs": 0.6670830000000478,
       "passes": 4
     },
     {
@@ -2884,8 +2884,8 @@
       ],
       "firstQuestion": "snap.income_source",
       "criteriaEvaluated": 32,
-      "wallClockMs": 5.678707999999915,
-      "engineMs": 0.6179570000001604,
+      "wallClockMs": 6.215542000000141,
+      "engineMs": 0.7848320000002786,
       "passes": 4
     },
     {
@@ -2918,8 +2918,8 @@
       ],
       "firstQuestion": "snap.income_source",
       "criteriaEvaluated": 32,
-      "wallClockMs": 6.398292000000083,
-      "engineMs": 0.6583749999999782,
+      "wallClockMs": 6.845209000000068,
+      "engineMs": 0.701249000000189,
       "passes": 4
     },
     {
@@ -2952,8 +2952,8 @@
       ],
       "firstQuestion": "snap.income_source",
       "criteriaEvaluated": 32,
-      "wallClockMs": 5.991084000000001,
-      "engineMs": 0.6044589999996788,
+      "wallClockMs": 6.588791000000128,
+      "engineMs": 0.6112500000001546,
       "passes": 4
     },
     {
@@ -2986,8 +2986,8 @@
       ],
       "firstQuestion": "lifeline.tribal_lands",
       "criteriaEvaluated": 32,
-      "wallClockMs": 6.590417000000116,
-      "engineMs": 0.6852919999998903,
+      "wallClockMs": 6.697374999999965,
+      "engineMs": 0.6983750000003965,
       "passes": 4
     },
     {
@@ -3020,8 +3020,8 @@
       ],
       "firstQuestion": "snap.income_source",
       "criteriaEvaluated": 32,
-      "wallClockMs": 5.982582999999977,
-      "engineMs": 0.6890840000000935,
+      "wallClockMs": 6.413084000000026,
+      "engineMs": 0.6800839999998516,
       "passes": 4
     },
     {
@@ -3054,8 +3054,8 @@
       ],
       "firstQuestion": "snap.income_source",
       "criteriaEvaluated": 32,
-      "wallClockMs": 6.169208000000026,
-      "engineMs": 0.9142490000001544,
+      "wallClockMs": 6.351541999999881,
+      "engineMs": 0.7023340000000644,
       "passes": 4
     },
     {
@@ -3087,8 +3087,8 @@
       ],
       "firstQuestion": "lifeline.tribal_lands",
       "criteriaEvaluated": 32,
-      "wallClockMs": 5.582333000000062,
-      "engineMs": 0.5068330000001424,
+      "wallClockMs": 5.482999999999947,
+      "engineMs": 0.4312499999998636,
       "passes": 3
     },
     {
@@ -3120,8 +3120,8 @@
       ],
       "firstQuestion": "lifeline.tribal_lands",
       "criteriaEvaluated": 32,
-      "wallClockMs": 5.585583999999926,
-      "engineMs": 0.4776680000002216,
+      "wallClockMs": 5.644875000000184,
+      "engineMs": 0.4646250000000691,
       "passes": 3
     },
     {
@@ -3154,8 +3154,8 @@
       ],
       "firstQuestion": "snap.income_source",
       "criteriaEvaluated": 32,
-      "wallClockMs": 6.250374999999849,
-      "engineMs": 0.7908329999997932,
+      "wallClockMs": 6.340832999999975,
+      "engineMs": 0.6735830000000078,
       "passes": 4
     },
     {
@@ -3188,8 +3188,8 @@
       ],
       "firstQuestion": "snap.income_source",
       "criteriaEvaluated": 32,
-      "wallClockMs": 6.127165999999988,
-      "engineMs": 0.6203330000000733,
+      "wallClockMs": 6.525499999999965,
+      "engineMs": 0.6427919999998721,
       "passes": 4
     },
     {
@@ -3222,8 +3222,8 @@
       ],
       "firstQuestion": "snap.income_source",
       "criteriaEvaluated": 32,
-      "wallClockMs": 6.158666999999923,
-      "engineMs": 0.6542919999999413,
+      "wallClockMs": 6.479250000000093,
+      "engineMs": 0.6759180000001379,
       "passes": 4
     },
     {
@@ -3256,8 +3256,8 @@
       ],
       "firstQuestion": "snap.income_source",
       "criteriaEvaluated": 32,
-      "wallClockMs": 5.643125000000055,
-      "engineMs": 0.6201680000001488,
+      "wallClockMs": 5.922792000000072,
+      "engineMs": 0.6215000000001965,
       "passes": 4
     },
     {
@@ -3289,8 +3289,8 @@
       ],
       "firstQuestion": "lifeline.tribal_lands",
       "criteriaEvaluated": 32,
-      "wallClockMs": 5.37700000000018,
-      "engineMs": 0.46229100000027756,
+      "wallClockMs": 5.671041999999943,
+      "engineMs": 0.5154160000001866,
       "passes": 3
     },
     {
@@ -3323,8 +3323,8 @@
       ],
       "firstQuestion": "lifeline.tribal_lands",
       "criteriaEvaluated": 32,
-      "wallClockMs": 6.06029199999989,
-      "engineMs": 0.6775010000003476,
+      "wallClockMs": 6.329500000000053,
+      "engineMs": 0.681166000000303,
       "passes": 4
     },
     {
@@ -3357,8 +3357,8 @@
       ],
       "firstQuestion": "snap.income_source",
       "criteriaEvaluated": 32,
-      "wallClockMs": 6.111457999999857,
-      "engineMs": 0.6759579999998095,
+      "wallClockMs": 6.355916999999863,
+      "engineMs": 0.6963749999997617,
       "passes": 4
     },
     {
@@ -3391,8 +3391,8 @@
       ],
       "firstQuestion": "snap.income_source",
       "criteriaEvaluated": 32,
-      "wallClockMs": 5.986249999999927,
-      "engineMs": 0.6850410000004103,
+      "wallClockMs": 6.320875000000115,
+      "engineMs": 0.7115409999998974,
       "passes": 4
     },
     {
@@ -3425,8 +3425,8 @@
       ],
       "firstQuestion": "snap.income_source",
       "criteriaEvaluated": 32,
-      "wallClockMs": 6.110916000000088,
-      "engineMs": 0.6337080000005244,
+      "wallClockMs": 6.5776250000001255,
+      "engineMs": 0.6559999999997217,
       "passes": 4
     },
     {
@@ -3459,8 +3459,8 @@
       ],
       "firstQuestion": "snap.income_source",
       "criteriaEvaluated": 32,
-      "wallClockMs": 6.028957999999875,
-      "engineMs": 0.6130420000004051,
+      "wallClockMs": 6.507832999999891,
+      "engineMs": 0.616914999999608,
       "passes": 4
     },
     {
@@ -3494,8 +3494,8 @@
       "firstQuestion": "snap.all_members_homeless",
       "loadBearingGap": "snap.income_source",
       "criteriaEvaluated": 59,
-      "wallClockMs": 18.29754200000002,
-      "engineMs": 1.2305830000002516,
+      "wallClockMs": 18.971250000000055,
+      "engineMs": 1.2471250000000964,
       "passes": 4
     },
     {
@@ -3529,8 +3529,8 @@
       "firstQuestion": "snap.income_source",
       "loadBearingGap": "snap.income_source",
       "criteriaEvaluated": 41,
-      "wallClockMs": 9.705832999999984,
-      "engineMs": 0.6978750000000673,
+      "wallClockMs": 10.332750000000033,
+      "engineMs": 0.8437500000002274,
       "passes": 4
     },
     {
@@ -3564,8 +3564,8 @@
       "firstQuestion": "snap.income_source",
       "loadBearingGap": "snap.income_source",
       "criteriaEvaluated": 32,
-      "wallClockMs": 6.064834000000019,
-      "engineMs": 0.4979169999999158,
+      "wallClockMs": 6.674291999999923,
+      "engineMs": 0.5599569999997129,
       "passes": 4
     },
     {
@@ -3599,8 +3599,8 @@
       "firstQuestion": "snap.all_members_homeless",
       "loadBearingGap": "snap.income_source",
       "criteriaEvaluated": 50,
-      "wallClockMs": 13.508209000000079,
-      "engineMs": 0.8101249999999709,
+      "wallClockMs": 14.373166999999967,
+      "engineMs": 0.8107079999997495,
       "passes": 4
     },
     {
@@ -3634,8 +3634,8 @@
       "firstQuestion": "lifeline.tribal_lands",
       "loadBearingGap": "snap.income_source",
       "criteriaEvaluated": 50,
-      "wallClockMs": 13.304250000000138,
-      "engineMs": 0.767500999999811,
+      "wallClockMs": 14.080083000000059,
+      "engineMs": 0.7502919999997175,
       "passes": 4
     },
     {
@@ -3669,8 +3669,8 @@
       "firstQuestion": "snap.all_members_homeless",
       "loadBearingGap": "snap.income_source",
       "criteriaEvaluated": 50,
-      "wallClockMs": 13.575916000000007,
-      "engineMs": 0.7854999999999563,
+      "wallClockMs": 14.25283300000001,
+      "engineMs": 0.790625000000091,
       "passes": 4
     },
     {
@@ -3704,8 +3704,8 @@
       "firstQuestion": "snap.income_source",
       "loadBearingGap": "snap.income_source",
       "criteriaEvaluated": 32,
-      "wallClockMs": 6.370542000000114,
-      "engineMs": 0.4871250000001055,
+      "wallClockMs": 6.679499999999962,
+      "engineMs": 0.46962500000017826,
       "passes": 4
     },
     {
@@ -3739,8 +3739,8 @@
       "firstQuestion": "lifeline.tribal_lands",
       "loadBearingGap": "snap.income_source",
       "criteriaEvaluated": 59,
-      "wallClockMs": 17.566708999999946,
-      "engineMs": 0.8708330000001752,
+      "wallClockMs": 18.5575409999999,
+      "engineMs": 0.9894589999998971,
       "passes": 4
     },
     {
@@ -3774,8 +3774,8 @@
       "firstQuestion": "snap.income_source",
       "loadBearingGap": "snap.income_source",
       "criteriaEvaluated": 59,
-      "wallClockMs": 17.867083000000093,
-      "engineMs": 0.8704990000001089,
+      "wallClockMs": 18.5073339999999,
+      "engineMs": 0.9083749999999782,
       "passes": 4
     },
     {
@@ -3809,8 +3809,8 @@
       "firstQuestion": "snap.income_source",
       "loadBearingGap": "snap.income_source",
       "criteriaEvaluated": 32,
-      "wallClockMs": 5.676584000000048,
-      "engineMs": 0.4876680000002125,
+      "wallClockMs": 6.296499999999924,
+      "engineMs": 0.5175840000001699,
       "passes": 4
     },
     {
@@ -3844,8 +3844,8 @@
       "firstQuestion": "lifeline.tribal_lands",
       "loadBearingGap": "snap.income_source",
       "criteriaEvaluated": 32,
-      "wallClockMs": 6.1249169999998685,
-      "engineMs": 0.5402909999997974,
+      "wallClockMs": 6.210917000000109,
+      "engineMs": 0.5386670000000322,
       "passes": 4
     },
     {
@@ -3879,8 +3879,8 @@
       "firstQuestion": "lifeline.tribal_lands",
       "loadBearingGap": "snap.income_source",
       "criteriaEvaluated": 32,
-      "wallClockMs": 6.256791000000021,
-      "engineMs": 0.45995799999991505,
+      "wallClockMs": 6.497292000000016,
+      "engineMs": 0.46029000000044107,
       "passes": 4
     },
     {
@@ -3914,8 +3914,8 @@
       "firstQuestion": "snap.income_source",
       "loadBearingGap": "snap.income_source",
       "criteriaEvaluated": 50,
-      "wallClockMs": 13.098291999999901,
-      "engineMs": 0.8077920000002905,
+      "wallClockMs": 13.826375000000098,
+      "engineMs": 0.8057090000002063,
       "passes": 4
     },
     {
@@ -3949,8 +3949,8 @@
       "firstQuestion": "snap.income_source",
       "loadBearingGap": "snap.income_source",
       "criteriaEvaluated": 32,
-      "wallClockMs": 5.857124999999996,
-      "engineMs": 0.4889990000003763,
+      "wallClockMs": 6.531040999999959,
+      "engineMs": 0.4834989999997106,
       "passes": 4
     },
     {
@@ -3984,8 +3984,8 @@
       "firstQuestion": "snap.income_source",
       "loadBearingGap": "snap.income_source",
       "criteriaEvaluated": 32,
-      "wallClockMs": 6.029999999999973,
-      "engineMs": 0.4971660000001066,
+      "wallClockMs": 6.141875000000027,
+      "engineMs": 0.49941599999988284,
       "passes": 4
     },
     {
@@ -4019,8 +4019,8 @@
       "firstQuestion": "snap.income_source",
       "loadBearingGap": "snap.income_source",
       "criteriaEvaluated": 32,
-      "wallClockMs": 6.119208999999955,
-      "engineMs": 0.4953330000000733,
+      "wallClockMs": 6.260416999999961,
+      "engineMs": 0.5889159999994718,
       "passes": 4
     },
     {
@@ -4054,8 +4054,8 @@
       "firstQuestion": "snap.income_source",
       "loadBearingGap": "snap.income_source",
       "criteriaEvaluated": 32,
-      "wallClockMs": 6.007415999999921,
-      "engineMs": 0.49937599999998383,
+      "wallClockMs": 6.510041999999885,
+      "engineMs": 0.5074590000001535,
       "passes": 4
     },
     {
@@ -4089,8 +4089,8 @@
       "firstQuestion": "snap.all_members_homeless",
       "loadBearingGap": "snap.income_source",
       "criteriaEvaluated": 41,
-      "wallClockMs": 10.120791000000054,
-      "engineMs": 0.6238329999998768,
+      "wallClockMs": 10.573292000000038,
+      "engineMs": 0.7390410000000429,
       "passes": 4
     },
     {
@@ -4124,8 +4124,8 @@
       "firstQuestion": "snap.income_source",
       "loadBearingGap": "snap.income_source",
       "criteriaEvaluated": 32,
-      "wallClockMs": 6.296000000000049,
-      "engineMs": 0.5011659999997846,
+      "wallClockMs": 6.96879100000001,
+      "engineMs": 0.5017510000000129,
       "passes": 4
     },
     {
@@ -4159,8 +4159,8 @@
       "firstQuestion": "snap.income_source",
       "loadBearingGap": "snap.income_source",
       "criteriaEvaluated": 32,
-      "wallClockMs": 5.986083000000008,
-      "engineMs": 0.4660009999995509,
+      "wallClockMs": 6.176708999999846,
+      "engineMs": 0.4812070000002677,
       "passes": 4
     },
     {
@@ -4194,8 +4194,8 @@
       "firstQuestion": "snap.all_members_homeless",
       "loadBearingGap": "snap.income_source",
       "criteriaEvaluated": 50,
-      "wallClockMs": 13.317667000000029,
-      "engineMs": 0.8808339999995951,
+      "wallClockMs": 14.3471669999999,
+      "engineMs": 0.8345009999998183,
       "passes": 4
     },
     {
@@ -4229,8 +4229,8 @@
       "firstQuestion": "snap.all_members_homeless",
       "loadBearingGap": "snap.income_source",
       "criteriaEvaluated": 50,
-      "wallClockMs": 13.25004100000001,
-      "engineMs": 0.77079099999969,
+      "wallClockMs": 14.223042000000078,
+      "engineMs": 0.774916000000303,
       "passes": 4
     },
     {
@@ -4264,8 +4264,8 @@
       "firstQuestion": "snap.income_source",
       "loadBearingGap": "snap.income_source",
       "criteriaEvaluated": 32,
-      "wallClockMs": 6.154791000000159,
-      "engineMs": 0.43212500000004184,
+      "wallClockMs": 6.517708000000084,
+      "engineMs": 0.4661670000000413,
       "passes": 4
     },
     {
@@ -4299,8 +4299,8 @@
       "firstQuestion": "snap.income_source",
       "loadBearingGap": "snap.income_source",
       "criteriaEvaluated": 50,
-      "wallClockMs": 13.669292000000041,
-      "engineMs": 0.7829160000005686,
+      "wallClockMs": 13.711915999999974,
+      "engineMs": 0.785415999999941,
       "passes": 4
     },
     {
@@ -4334,8 +4334,8 @@
       "firstQuestion": "snap.income_source",
       "loadBearingGap": "snap.income_source",
       "criteriaEvaluated": 32,
-      "wallClockMs": 6.038958000000093,
-      "engineMs": 0.6030840000000808,
+      "wallClockMs": 6.336000000000013,
+      "engineMs": 0.4951669999998103,
       "passes": 4
     },
     {
@@ -4369,8 +4369,8 @@
       "firstQuestion": "snap.income_source",
       "loadBearingGap": "snap.income_source",
       "criteriaEvaluated": 41,
-      "wallClockMs": 9.549083999999993,
-      "engineMs": 0.630333999999948,
+      "wallClockMs": 9.893917000000101,
+      "engineMs": 0.7256250000000364,
       "passes": 4
     },
     {
@@ -4404,8 +4404,8 @@
       "firstQuestion": "snap.income_source",
       "loadBearingGap": "snap.income_source",
       "criteriaEvaluated": 32,
-      "wallClockMs": 5.901834000000008,
-      "engineMs": 0.48104099999977734,
+      "wallClockMs": 6.404917000000069,
+      "engineMs": 0.4875010000000657,
       "passes": 4
     },
     {
@@ -4439,8 +4439,8 @@
       "firstQuestion": "snap.income_source",
       "loadBearingGap": "snap.income_source",
       "criteriaEvaluated": 32,
-      "wallClockMs": 5.836084000000028,
-      "engineMs": 0.49529099999995196,
+      "wallClockMs": 6.401166999999987,
+      "engineMs": 0.5099580000003243,
       "passes": 4
     },
     {
@@ -4474,8 +4474,8 @@
       "firstQuestion": "snap.income_source",
       "loadBearingGap": "snap.income_source",
       "criteriaEvaluated": 32,
-      "wallClockMs": 5.8864159999998265,
-      "engineMs": 0.4987909999999829,
+      "wallClockMs": 6.102542000000085,
+      "engineMs": 0.49720899999965695,
       "passes": 4
     },
     {
@@ -4509,8 +4509,8 @@
       "firstQuestion": "snap.income_source",
       "loadBearingGap": "snap.income_source",
       "criteriaEvaluated": 32,
-      "wallClockMs": 5.914999999999964,
-      "engineMs": 0.5328759999997601,
+      "wallClockMs": 6.236458999999968,
+      "engineMs": 0.5012910000002648,
       "passes": 4
     },
     {
@@ -4537,14 +4537,14 @@
         "lifeline": 111
       },
       "questionsAsked": [
-        "snap.income_period",
+        "snap.income_source",
         "lifeline.tribal_lands",
-        "snap.income_source"
+        "snap.resources_over_limit"
       ],
-      "firstQuestion": "snap.income_period",
+      "firstQuestion": "snap.income_source",
       "criteriaEvaluated": 32,
-      "wallClockMs": 6.421875,
-      "engineMs": 0.5192919999999503,
+      "wallClockMs": 6.810042000000067,
+      "engineMs": 0.5573749999998654,
       "passes": 4
     },
     {
@@ -4577,8 +4577,8 @@
       ],
       "firstQuestion": "snap.income_source",
       "criteriaEvaluated": 32,
-      "wallClockMs": 6.081333000000086,
-      "engineMs": 0.5123329999998987,
+      "wallClockMs": 6.4471249999999145,
+      "engineMs": 0.5201669999999012,
       "passes": 4
     },
     {
@@ -4605,14 +4605,14 @@
         "lifeline": 111
       },
       "questionsAsked": [
-        "snap.income_period",
         "snap.income_source",
-        "lifeline.tribal_lands"
+        "lifeline.tribal_lands",
+        "snap.resources_over_limit"
       ],
-      "firstQuestion": "snap.income_period",
+      "firstQuestion": "snap.income_source",
       "criteriaEvaluated": 32,
-      "wallClockMs": 6.4542079999998805,
-      "engineMs": 0.5389180000004217,
+      "wallClockMs": 6.612041999999974,
+      "engineMs": 0.5336259999999129,
       "passes": 4
     },
     {
@@ -4645,8 +4645,8 @@
       ],
       "firstQuestion": "snap.income_source",
       "criteriaEvaluated": 59,
-      "wallClockMs": 18.667665999999826,
-      "engineMs": 0.9209169999996902,
+      "wallClockMs": 19.192332999999962,
+      "engineMs": 0.9535829999997532,
       "passes": 4
     },
     {
@@ -4679,8 +4679,8 @@
       ],
       "firstQuestion": "snap.income_source",
       "criteriaEvaluated": 50,
-      "wallClockMs": 13.899417000000085,
-      "engineMs": 0.7732499999997344,
+      "wallClockMs": 14.151292000000012,
+      "engineMs": 0.8178330000000642,
       "passes": 4
     },
     {
@@ -4698,7 +4698,7 @@
       },
       "predictedValues": {
         "snap": 9420,
-        "eitc": 2217.6,
+        "eitc": 4804.8,
         "lifeline": 111
       },
       "truthValues": {
@@ -4708,13 +4708,13 @@
       },
       "questionsAsked": [
         "eitc.investment_income_over_limit",
-        "snap.income_period",
-        "snap.income_source"
+        "snap.income_source",
+        "snap.all_members_homeless"
       ],
       "firstQuestion": "eitc.investment_income_over_limit",
       "criteriaEvaluated": 50,
-      "wallClockMs": 14.182125000000042,
-      "engineMs": 0.795500999999831,
+      "wallClockMs": 14.926457999999911,
+      "engineMs": 0.8178760000000693,
       "passes": 4
     },
     {
@@ -4747,8 +4747,8 @@
       ],
       "firstQuestion": "lifeline.tribal_lands",
       "criteriaEvaluated": 32,
-      "wallClockMs": 6.024374999999964,
-      "engineMs": 0.5454999999999472,
+      "wallClockMs": 6.715832999999975,
+      "engineMs": 0.5857910000001993,
       "passes": 4
     },
     {
@@ -4781,8 +4781,8 @@
       ],
       "firstQuestion": "snap.income_source",
       "criteriaEvaluated": 32,
-      "wallClockMs": 6.125749999999925,
-      "engineMs": 0.5527090000000499,
+      "wallClockMs": 6.494709000000057,
+      "engineMs": 0.682875999999851,
       "passes": 4
     },
     {
@@ -4809,14 +4809,14 @@
         "lifeline": 111
       },
       "questionsAsked": [
-        "snap.income_period",
         "lifeline.tribal_lands",
-        "snap.resources_over_limit"
+        "snap.resources_over_limit",
+        "lifeline.one_per_household"
       ],
-      "firstQuestion": "snap.income_period",
+      "firstQuestion": "lifeline.tribal_lands",
       "criteriaEvaluated": 32,
-      "wallClockMs": 6.250291999999945,
-      "engineMs": 0.5393760000001748,
+      "wallClockMs": 6.808624999999893,
+      "engineMs": 0.5304580000001806,
       "passes": 4
     },
     {
@@ -4849,8 +4849,8 @@
       ],
       "firstQuestion": "snap.income_source",
       "criteriaEvaluated": 32,
-      "wallClockMs": 6.708540999999968,
-      "engineMs": 0.4835410000000593,
+      "wallClockMs": 6.8211250000001655,
+      "engineMs": 0.5890839999999571,
       "passes": 4
     },
     {
@@ -4883,8 +4883,8 @@
       ],
       "firstQuestion": "snap.categorical",
       "criteriaEvaluated": 32,
-      "wallClockMs": 6.510625000000118,
-      "engineMs": 0.5007500000001528,
+      "wallClockMs": 6.926499999999805,
+      "engineMs": 0.5282079999999496,
       "passes": 4
     },
     {
@@ -4917,8 +4917,8 @@
       ],
       "firstQuestion": "snap.income_source",
       "criteriaEvaluated": 50,
-      "wallClockMs": 14.688750000000027,
-      "engineMs": 0.7775830000000497,
+      "wallClockMs": 15.29083300000002,
+      "engineMs": 0.7397919999998521,
       "passes": 4
     },
     {
@@ -4951,8 +4951,8 @@
       ],
       "firstQuestion": "snap.income_source",
       "criteriaEvaluated": 32,
-      "wallClockMs": 6.326874999999973,
-      "engineMs": 0.5307920000000195,
+      "wallClockMs": 6.793583000000126,
+      "engineMs": 0.5279999999997926,
       "passes": 4
     },
     {
@@ -4985,8 +4985,8 @@
       ],
       "firstQuestion": "snap.income_source",
       "criteriaEvaluated": 32,
-      "wallClockMs": 5.944666999999981,
-      "engineMs": 0.5180829999997059,
+      "wallClockMs": 6.414792000000034,
+      "engineMs": 0.5263340000001335,
       "passes": 4
     },
     {
@@ -5019,8 +5019,8 @@
       ],
       "firstQuestion": "snap.income_source",
       "criteriaEvaluated": 50,
-      "wallClockMs": 14.338624999999865,
-      "engineMs": 0.9363749999999982,
+      "wallClockMs": 14.886000000000195,
+      "engineMs": 0.8046249999999873,
       "passes": 4
     },
     {
@@ -5053,8 +5053,8 @@
       ],
       "firstQuestion": "eitc.investment_income_over_limit",
       "criteriaEvaluated": 32,
-      "wallClockMs": 7.177999999999884,
-      "engineMs": 0.5012500000000273,
+      "wallClockMs": 7.487292000000025,
+      "engineMs": 0.5131659999999556,
       "passes": 4
     },
     {
@@ -5071,8 +5071,8 @@
         "lifeline": true
       },
       "predictedValues": {
-        "snap": 9420,
-        "eitc": 4209.6,
+        "snap": 7032,
+        "eitc": 7316,
         "lifeline": 111
       },
       "truthValues": {
@@ -5081,14 +5081,14 @@
         "lifeline": 111
       },
       "questionsAsked": [
-        "snap.income_period",
+        "snap.income_source",
         "eitc.investment_income_over_limit",
-        "snap.income_source"
+        "snap.all_members_homeless"
       ],
-      "firstQuestion": "snap.income_period",
+      "firstQuestion": "snap.income_source",
       "criteriaEvaluated": 50,
-      "wallClockMs": 14.683207999999922,
-      "engineMs": 0.8084989999999834,
+      "wallClockMs": 15.300250000000005,
+      "engineMs": 0.7863330000002406,
       "passes": 4
     },
     {
@@ -5116,13 +5116,13 @@
       },
       "questionsAsked": [
         "lifeline.tribal_lands",
-        "snap.income_period",
-        "snap.income_source"
+        "snap.income_source",
+        "snap.resources_over_limit"
       ],
       "firstQuestion": "lifeline.tribal_lands",
       "criteriaEvaluated": 32,
-      "wallClockMs": 6.544624999999996,
-      "engineMs": 0.5206670000002305,
+      "wallClockMs": 6.501416999999947,
+      "engineMs": 0.5332489999996142,
       "passes": 4
     },
     {
@@ -5155,8 +5155,8 @@
       ],
       "firstQuestion": "snap.income_source",
       "criteriaEvaluated": 32,
-      "wallClockMs": 6.14754199999993,
-      "engineMs": 0.5095830000002479,
+      "wallClockMs": 6.449792000000116,
+      "engineMs": 0.5074580000002697,
       "passes": 4
     },
     {
@@ -5189,8 +5189,8 @@
       ],
       "firstQuestion": "eitc.investment_income_over_limit",
       "criteriaEvaluated": 32,
-      "wallClockMs": 6.673166999999921,
-      "engineMs": 0.5086259999998219,
+      "wallClockMs": 6.9968750000000455,
+      "engineMs": 0.5057080000001406,
       "passes": 4
     }
   ]

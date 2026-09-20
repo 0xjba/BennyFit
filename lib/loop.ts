@@ -18,7 +18,6 @@ import { Cents } from './money';
 import {
   HouseholdShape,
   InstantiatedCriterion,
-  Program,
   instantiate,
   loadPrograms,
 } from './criteria';

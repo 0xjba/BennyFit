@@ -265,10 +265,8 @@ function answerFor(state: string, id: string, options: string[]): EngineAnswer {
 
   // A little deterministic jitter so distributions are not exactly uniform, which
   // would make every unmatched criterion tie at precisely the same confidence.
-  let i = 0;
   for (const option of options) {
     weights[option] += hash(`${id}::${option}::${noise}`) * 0.25;
-    i++;
   }
 
   const probabilities = distribute(weights);

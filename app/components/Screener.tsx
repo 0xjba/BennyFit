@@ -51,7 +51,12 @@ function duration(ms: number): string {
   return `${(ms / 1000).toFixed(1)}s`;
 }
 
-/** A running millisecond counter, so the number on screen is a measurement. */
+/**
+ * A running millisecond counter, so the number on screen is a measurement.
+ *
+ * The elapsed value is only ever written from inside an animation frame, never
+ * synchronously while the effect runs, which would cascade a render on every start.
+ */
 function useStopwatch(running: boolean) {
   const [elapsed, setElapsed] = useState(0);
   const startedAt = useRef(0);
@@ -59,17 +64,14 @@ function useStopwatch(running: boolean) {
   useEffect(() => {
     if (!running) return;
     startedAt.current = performance.now();
-    setElapsed(0);
-    let frame = 0;
-    const tick = () => {
+    let frame = requestAnimationFrame(function tick() {
       setElapsed(performance.now() - startedAt.current);
       frame = requestAnimationFrame(tick);
-    };
-    frame = requestAnimationFrame(tick);
+    });
     return () => cancelAnimationFrame(frame);
   }, [running]);
 
-  return elapsed;
+  return running ? elapsed : 0;
 }
 
 function ConfidenceBar({ confidence, low }: { confidence: number; low: boolean }) {
@@ -87,15 +89,35 @@ function ConfidenceBar({ confidence, low }: { confidence: number; low: boolean }
   );
 }
 
+/**
+ * The criteria grid, filling in row by row.
+ *
+ * The reveal is presentation; the millisecond figure beside it is the measured round
+ * trip. The parent remounts this component on each pass, so the count starts at zero
+ * without any effect having to reset it, and the whole grid visibly re-reads after an
+ * answer rather than updating in place.
+ */
 function CriteriaGrid({
   criteria,
   dimSettled,
-  revealed,
 }: {
   criteria: CriterionView[];
   dimSettled: boolean;
-  revealed: number;
 }) {
+  const [revealed, setRevealed] = useState(0);
+
+  useEffect(() => {
+    const total = criteria.length;
+    const perRow = Math.max(4, Math.min(14, 420 / Math.max(total, 1)));
+    const timer = setInterval(() => {
+      setRevealed((row) => {
+        if (row + 1 >= total) clearInterval(timer);
+        return row + 1;
+      });
+    }, perRow);
+    return () => clearInterval(timer);
+  }, [criteria.length]);
+
   const grouped = useMemo(() => {
     const map = new Map<string, CriterionView[]>();
     for (const c of criteria) {
@@ -152,29 +174,12 @@ export function Screener({ asOf }: { asOf: string }) {
   const [replies, setReplies] = useState<Reply[]>([]);
   const [answer, setAnswer] = useState('');
   const [error, setError] = useState<string | null>(null);
-  const [revealed, setRevealed] = useState(0);
   const [passCount, setPassCount] = useState(0);
   const [engineMsTotal, setEngineMsTotal] = useState(0);
 
   const busy = phase === 'reading';
   const elapsed = useStopwatch(busy);
   const questionRef = useRef<HTMLInputElement>(null);
-
-  // The grid fills in row by row rather than appearing complete. The reveal is
-  // presentation; the millisecond figure beside it is the measured round trip.
-  useEffect(() => {
-    if (!data) return;
-    const total = data.criteria.length;
-    setRevealed(0);
-    const perRow = Math.max(4, Math.min(14, 420 / Math.max(total, 1)));
-    let row = 0;
-    const timer = setInterval(() => {
-      row += 1;
-      setRevealed(row);
-      if (row >= total) clearInterval(timer);
-    }, perRow);
-    return () => clearInterval(timer);
-  }, [data, passCount]);
 
   const run = useCallback(
     async (text: string, nextReplies: Reply[]) => {
@@ -476,9 +481,9 @@ export function Screener({ asOf }: { asOf: string }) {
             </summary>
             <div style={{ marginTop: 14 }}>
               <CriteriaGrid
+                key={passCount}
                 criteria={data.criteria}
                 dimSettled={phase === 'asking'}
-                revealed={revealed}
               />
             </div>
           </details>
