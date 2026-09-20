@@ -375,7 +375,7 @@ export function evaluate(state: ScreeningState, answers: Answers): Verdicts {
     let steps: Step[] = [];
     let annualValueCents: Cents | null = null;
     let monthlyValueCents: Cents | null = null;
-    let decidedBy = 'verdict expression';
+    let decidedBy = 'the verdict expression';
     const notes = [...income.notes];
 
     if (program.id === 'snap') {

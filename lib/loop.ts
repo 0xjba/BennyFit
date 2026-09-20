@@ -154,6 +154,90 @@ export function buildRequest(state: string, criteria: InstantiatedCriterion[]): 
   return { state, questions };
 }
 
+export interface Reply {
+  instanceId: string;
+  question: string;
+  reply: string;
+}
+
+export interface StepResult {
+  state: ScreeningState;
+  parse: ParseResult;
+  criteria: InstantiatedCriterion[];
+  answers: Answers;
+  verdicts: Verdicts;
+  /** The question worth asking next, or null when there is none worth asking. */
+  next: Candidate | null;
+  nextReason: string | null;
+  engine: string;
+  isFixture: boolean;
+  engineElapsedMs: number;
+  criteriaEvaluated: number;
+  lowConfidenceCount: number;
+  totalAnnualValueCents: Cents;
+  tau: number;
+}
+
+export interface StepOptions {
+  engine: EngineClient;
+  asOf?: string;
+  tau?: number;
+  maxQuestions?: number;
+}
+
+/**
+ * One pass of the loop: read the state, evaluate every criterion, decide what to ask.
+ *
+ * Stateless by design. The caller holds the replies so far and passes them back, which
+ * means a browser can drive the loop one question at a time without the server keeping
+ * a session, and the evaluation harness can drive the same code without a browser.
+ */
+export async function screenStep(
+  paragraph: string,
+  replies: Reply[],
+  options: StepOptions
+): Promise<StepResult> {
+  const tau = options.tau ?? DEFAULT_TAU;
+  const maxQuestions = options.maxQuestions ?? DEFAULT_MAX_QUESTIONS;
+  const asOf = options.asOf ?? new Date().toISOString().slice(0, 10);
+
+  const parse = parseHousehold(paragraph);
+  const shape = shapeOf(parse);
+  const programs = loadPrograms();
+  const criteria = instantiate(programs, shape);
+  const programNames = Object.fromEntries(programs.map((p) => [p.id, p.shortName]));
+
+  const state: ScreeningState = { paragraph, facts: parse.facts, shape, asOf, tau };
+  const stateText = renderState(paragraph, parse, replies);
+
+  const response = await options.engine.ask(buildRequest(stateText, criteria));
+  const answers = response.answers;
+  const verdicts = evaluate(state, answers);
+
+  const asked = new Set(replies.map((r) => r.instanceId));
+  const next =
+    replies.length >= maxQuestions
+      ? null
+      : nextQuestion(state, answers, criteria, { tau, asked });
+
+  return {
+    state,
+    parse,
+    criteria,
+    answers,
+    verdicts,
+    next,
+    nextReason: next ? reasonFor(next, programNames) : null,
+    engine: options.engine.name,
+    isFixture: options.engine.isFixture,
+    engineElapsedMs: response.elapsedMs,
+    criteriaEvaluated: criteria.length,
+    lowConfidenceCount: Object.values(answers).filter((a) => a.confidence < tau).length,
+    totalAnnualValueCents: totalAnnualValue(verdicts),
+    tau,
+  };
+}
+
 export interface ScreenOptions {
   engine: EngineClient;
   /** Returns the household's reply to a question, or null to skip it. */
@@ -169,91 +253,74 @@ export async function screen(paragraph: string, options: ScreenOptions): Promise
   const startedAt = performance.now();
   const tau = options.tau ?? DEFAULT_TAU;
   const maxQuestions = options.maxQuestions ?? DEFAULT_MAX_QUESTIONS;
-  const asOf = options.asOf ?? new Date().toISOString().slice(0, 10);
 
-  const parse = parseHousehold(paragraph);
-  const shape = shapeOf(parse);
-  const programs: Program[] = loadPrograms();
-  const criteria = instantiate(programs, shape);
-  const programNames = Object.fromEntries(programs.map((p) => [p.id, p.shortName]));
-
-  const replies: { question: string; reply: string }[] = [];
+  const replies: Reply[] = [];
   const asked: AskedQuestion[] = [];
-  const askedIds = new Set<string>();
   const passes: Pass[] = [];
 
-  const state: ScreeningState = {
-    paragraph,
-    facts: parse.facts,
-    shape,
-    asOf,
-    tau,
-  };
+  let step = await screenStep(paragraph, replies, { ...options, tau, maxQuestions });
 
-  let stateText = renderState(paragraph, parse, replies);
-  let response = await options.engine.ask(buildRequest(stateText, criteria));
-  let answers: Answers = response.answers;
-  let verdicts = evaluate(state, answers);
-
-  const recordPass = (elapsed: number) => {
+  const recordPass = () => {
     const pass: Pass = {
       index: passes.length,
-      criteriaEvaluated: criteria.length,
-      engineElapsedMs: elapsed,
-      lowConfidenceCount: Object.values(answers).filter((a) => a.confidence < tau).length,
-      totalAnnualValueCents: totalAnnualValue(verdicts),
+      criteriaEvaluated: step.criteriaEvaluated,
+      engineElapsedMs: step.engineElapsedMs,
+      lowConfidenceCount: step.lowConfidenceCount,
+      totalAnnualValueCents: step.totalAnnualValueCents,
     };
     passes.push(pass);
-    options.onPass?.(pass, answers, verdicts);
+    options.onPass?.(pass, step.answers, step.verdicts);
   };
+  recordPass();
 
-  recordPass(response.elapsedMs);
+  const skipped = new Set<string>();
 
   while (asked.length < maxQuestions) {
-    const candidate: Candidate | null = nextQuestion(state, answers, criteria, {
-      tau,
-      asked: askedIds,
-    });
+    const candidate = step.next;
     if (!candidate) break;
+    if (skipped.has(candidate.criterion.instanceId)) break;
 
     const question = candidate.criterion.askIfUnsure;
     const reply = await options.askUser(question, candidate.criterion);
 
     // A skipped question is still a question that was put, and must not be put again.
-    askedIds.add(candidate.criterion.instanceId);
-    if (reply === null) continue;
+    if (reply === null) {
+      skipped.add(candidate.criterion.instanceId);
+      const remaining = { ...options, tau, maxQuestions };
+      step = await screenStep(paragraph, [...replies], remaining);
+      // Selection would offer the same criterion again, so stop rather than loop.
+      if (step.next && skipped.has(step.next.criterion.instanceId)) break;
+      continue;
+    }
 
-    replies.push({ question, reply });
+    replies.push({ instanceId: candidate.criterion.instanceId, question, reply });
     asked.push({
       instanceId: candidate.criterion.instanceId,
       question,
-      reason: reasonFor(candidate, programNames),
+      reason: step.nextReason ?? '',
       reply,
       voiSpreadCents: candidate.voi.spreadCents,
       programsAffected: candidate.voi.programsAffected,
       confidenceBefore: candidate.confidence,
     });
 
-    stateText = renderState(paragraph, parse, replies);
-    response = await options.engine.ask(buildRequest(stateText, criteria));
-    answers = response.answers;
-    verdicts = evaluate(state, answers);
-    recordPass(response.elapsedMs);
+    step = await screenStep(paragraph, replies, { ...options, tau, maxQuestions });
+    recordPass();
   }
 
   return {
-    state,
-    parse,
-    criteria,
-    answers,
-    verdicts,
+    state: step.state,
+    parse: step.parse,
+    criteria: step.criteria,
+    answers: step.answers,
+    verdicts: step.verdicts,
     asked,
     passes,
-    engine: options.engine.name,
-    isFixture: options.engine.isFixture,
+    engine: step.engine,
+    isFixture: step.isFixture,
     tau,
     maxQuestions,
     totalElapsedMs: performance.now() - startedAt,
-    totalAnnualValueCents: totalAnnualValue(verdicts),
+    totalAnnualValueCents: step.totalAnnualValueCents,
   };
 }

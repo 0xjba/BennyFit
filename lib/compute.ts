@@ -210,7 +210,7 @@ export function snapEligibility(f: SnapFacts, t: SnapThresholds): SnapResult {
 
   const income = snapNetIncome(f, t);
   const tests: SnapResult['tests'] = [];
-  let decidedBy = 'net income test';
+  let decidedBy = 'the net income test';
 
   // Categorically eligible households skip the income and resource tests entirely.
   if (f.categoricallyEligible) {
@@ -233,7 +233,7 @@ export function snapEligibility(f: SnapFacts, t: SnapThresholds): SnapResult {
           dollars(limit)
         )} limit${f.hasElderlyOrDisabledMember ? ' (elderly or disabled member)' : ''}`,
       });
-      if (!passed) decidedBy = 'resource test';
+      if (!passed) decidedBy = 'the resource test';
     }
 
     // A household with an elderly or disabled member is tested on net income only.
@@ -245,7 +245,7 @@ export function snapEligibility(f: SnapFacts, t: SnapThresholds): SnapResult {
         passed,
         detail: `${formatDollars(income.grossCents)} against a ${formatDollars(grossLimit)} limit (130% of poverty)`,
       });
-      if (!passed) decidedBy = 'gross income test';
+      if (!passed) decidedBy = 'the gross income test';
     } else {
       tests.push({
         name: 'Gross income test',
@@ -264,7 +264,7 @@ export function snapEligibility(f: SnapFacts, t: SnapThresholds): SnapResult {
   }
 
   const eligible = tests.every((t) => t.passed);
-  if (eligible) decidedBy = f.categoricallyEligible ? 'categorical eligibility' : 'net income test';
+  if (eligible) decidedBy = f.categoricallyEligible ? 'categorical eligibility' : 'the net income test';
 
   if (!eligible) {
     return {
@@ -411,12 +411,12 @@ export function eitcCredit(f: EitcFacts, t: EitcThresholds): EitcResult {
 
   const gates = investmentOk && filingOk && ageOk;
   const decidedBy = !investmentOk
-    ? 'investment income limit'
+    ? 'the investment income limit'
     : !filingOk
-      ? 'filing status'
+      ? 'the filing status rules'
       : !ageOk
-        ? 'age requirement'
-        : 'income phase-out';
+        ? 'the age requirement'
+        : 'the income phase-out';
 
   if (!gates) {
     return { eligible: false, annualValueCents: null, steps, tests, decidedBy };
@@ -532,6 +532,6 @@ export function lifelineEligibility(
     monthlyBenefitCents: eligible ? dollars(monthly) : null,
     annualValueCents: eligible ? dollars(monthly) * 12 : null,
     tests,
-    decidedBy: matched.length > 0 ? 'program participation' : 'income test',
+    decidedBy: matched.length > 0 ? 'program participation' : 'the income test',
   };
 }

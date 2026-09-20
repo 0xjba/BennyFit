@@ -275,7 +275,7 @@ describe('EITC', () => {
     );
     expect(under.eligible).toBe(true);
     expect(over.eligible).toBe(false);
-    expect(over.decidedBy).toBe('investment income limit');
+    expect(over.decidedBy).toBe('the investment income limit');
   });
 
   it('applies the age rule only when there are no qualifying children', () => {
