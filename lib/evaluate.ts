@@ -201,6 +201,7 @@ function applies(
     const answer = answers[prerequisite.instanceId];
     if (!answer) return false;
     const { choice } = effectiveChoice(prerequisite, answer, tau);
+    if (criterion.requiresOption !== undefined) return choice === criterion.requiresOption;
     if (prerequisite.type === 'noul' && choice !== 'true') return false;
     if (prerequisite.type === 'choice' && choice === 'none') return false;
   }

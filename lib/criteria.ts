@@ -35,6 +35,12 @@ export interface Criterion {
   effect?: CriterionEffect;
   /** This criterion only applies once another has been answered a particular way. */
   requires?: string;
+  /**
+   * The specific option the prerequisite must carry. Without this, a choice
+   * prerequisite counts as satisfied by anything other than 'none', which made the
+   * separated-spouse rule apply to every filer rather than to separate filers.
+   */
+  requiresOption?: string;
   /** This criterion does not apply when another is answered affirmatively. */
   skipIf?: string;
   /**
@@ -47,6 +53,17 @@ export interface Criterion {
    * the interface shows a presumed answer as presumed rather than as read.
    */
   presumption?: string;
+  /**
+   * The presumption stated in plain language, as a condition a person could check:
+   * "you have a Social Security number valid for work".
+   */
+  assumption?: string;
+  /**
+   * Whether the assumption is worth putting in front of a household. A routine one
+   * holds for almost everybody and only adds noise to a result; a material one is
+   * commonly false and belongs on the card.
+   */
+  assumptionStrength?: 'routine' | 'material';
   note?: string;
 }
 
@@ -182,6 +199,18 @@ export function validateProgram(program: Program): void {
       }
     }
 
+    if (c.requiresOption !== undefined) {
+      const prerequisite = program.criteria.find((o) => o.id === c.requires);
+      if (!prerequisite) {
+        throw new Error(`${c.id} names requiresOption without a requires`);
+      }
+      if (!Object.keys(prerequisite.criteria).includes(c.requiresOption)) {
+        throw new Error(
+          `${c.id} requires ${c.requires} to be '${c.requiresOption}', which that criterion does not offer`
+        );
+      }
+    }
+
     for (const option of Object.keys(c.effect?.onOption ?? {})) {
       if (!options.includes(option)) {
         throw new Error(`${c.id} has an effect for option '${option}', which it does not offer`);
@@ -196,6 +225,12 @@ export function validateProgram(program: Program): void {
     if (c.presumption !== undefined && !options.includes(c.presumption)) {
       throw new Error(
         `${c.id} presumes '${c.presumption}', which is not one of its options: ${options.join(', ')}`
+      );
+    }
+    if (c.presumption !== undefined && !c.assumption) {
+      throw new Error(
+        `${c.id} carries a presumption but no 'assumption' text. An assumption that ` +
+          'cannot be stated to a household must not be made on their behalf.'
       );
     }
   }

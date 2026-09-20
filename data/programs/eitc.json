@@ -76,7 +76,10 @@
         ]
       },
       "note": "A married claimant filing separately is not barred outright. IRC 32(d) admits one who meets these rules, and the revenue procedures apply the non-joint thresholds to them.",
-      "presumption": "true"
+      "presumption": "true",
+      "assumption": "you meet the rules for a married person filing separately",
+      "requiresOption": "mfs",
+      "assumptionStrength": "routine"
     },
     {
       "id": "eitc.investment_income_over_limit",
@@ -111,7 +114,9 @@
         ]
       },
       "note": "Presumed unless the description says otherwise. A narrative almost never mentions a Social Security number, and treating silence as disqualifying would rule out nearly every household. IRC 32(m).",
-      "presumption": "true"
+      "presumption": "true",
+      "assumption": "you have a Social Security number valid for work",
+      "assumptionStrength": "material"
     },
     {
       "id": "eitc.foreign_earned_income",
@@ -129,7 +134,9 @@
         ]
       },
       "note": "IRC 32(c)(1)(D).",
-      "presumption": "false"
+      "presumption": "false",
+      "assumption": "you did not live and work outside the United States this year",
+      "assumptionStrength": "routine"
     },
     {
       "id": "eitc.claimed_as_dependent",
@@ -147,7 +154,9 @@
         ]
       },
       "note": "Applies to a claimant with no qualifying children. IRC 32(c)(1)(A)(ii).",
-      "presumption": "false"
+      "presumption": "false",
+      "assumption": "nobody else claims you as a dependent",
+      "assumptionStrength": "routine"
     },
     {
       "id": "eitc.child_relationship",
@@ -165,7 +174,9 @@
         ]
       },
       "note": "IRC 152(c)(2).",
-      "presumption": "true"
+      "presumption": "true",
+      "assumption": "the children are your own, or otherwise closely related to you",
+      "assumptionStrength": "material"
     },
     {
       "id": "eitc.child_age",
@@ -183,7 +194,9 @@
         ]
       },
       "note": "IRC 152(c)(3).",
-      "presumption": "true"
+      "presumption": "true",
+      "assumption": "the children are under 19, or under 24 and studying full time",
+      "assumptionStrength": "material"
     },
     {
       "id": "eitc.child_residency",
@@ -201,7 +214,9 @@
         ]
       },
       "note": "Presumed when children are described as living in the household. This is the test most often failed in shared custody, so when it is load-bearing the loop asks about it rather than resting on the presumption. The test most often failed in shared-custody arrangements. IRC 152(c)(1)(B).",
-      "presumption": "true"
+      "presumption": "true",
+      "assumption": "the children lived with you for more than half the year",
+      "assumptionStrength": "material"
     },
     {
       "id": "eitc.child_joint_return",
@@ -219,7 +234,9 @@
         ]
       },
       "note": "IRC 152(c)(1)(E).",
-      "presumption": "false"
+      "presumption": "false",
+      "assumption": "the children do not file a joint tax return of their own",
+      "assumptionStrength": "routine"
     },
     {
       "id": "eitc.child_claimed_elsewhere",
@@ -237,7 +254,9 @@
         ]
       },
       "note": "Only one person may claim a given child. IRC 32(c)(1)(C).",
-      "presumption": "false"
+      "presumption": "false",
+      "assumption": "nobody else claims these children on their return",
+      "assumptionStrength": "material"
     },
     {
       "id": "eitc.claimant_age_band",

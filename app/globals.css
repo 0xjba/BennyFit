@@ -509,3 +509,12 @@ figcaption strong { color: var(--ink); font-weight: 700; }
 .bdt p { color: var(--on-panel-2); font-size: 0.93rem; }
 .bdt a { color: var(--mint); text-decoration: underline; text-underline-offset: 3px; }
 .bdt .bdt-point { color: var(--mint); font-size: 1.02rem; font-weight: 600; letter-spacing: -0.018em; }
+
+/* ---------- stated conditions on a verdict ---------- */
+
+.conditions { margin-top: 16px; padding: 16px 18px; background: var(--warn-soft); border-radius: var(--r-sm); font-size: 0.87rem; }
+.conditions-head { display: block; color: var(--warn); font-weight: 600; margin-bottom: 8px; }
+.conditions ul { margin: 0; padding-left: 20px; color: var(--ink-2); }
+.conditions li { margin-bottom: 4px; }
+.conditions .cond-who { color: var(--ink-3); }
+.conditions-foot { display: block; margin-top: 9px; color: var(--ink-3); font-size: 0.83rem; }

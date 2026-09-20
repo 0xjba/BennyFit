@@ -138,8 +138,10 @@ function ChecksList({
                   {c.subjectLabel && <span className="criterion-subject"> — {c.subjectLabel}</span>}
                 </div>
                 <div className="criterion-answer">
-                  {pending ? '' : c.chosenLabel}
-                  {!pending && c.presumed && <span className="presumed"> (assumed)</span>}
+                  {pending ? '' : c.presumed ? 'not stated' : c.chosenLabel}
+                  {!pending && c.presumed && (
+                    <span className="presumed"> — taken as {c.chosenLabel.toLowerCase()}</span>
+                  )}
                 </div>
                 <CheckBar confidence={c.confidence} unsettled={!c.settled} />
               </div>
@@ -384,6 +386,44 @@ export function Screener({ asOf }: { asOf: string }) {
                     )}
                   </div>
                   <div className="card-detail">Decided by {v.decidingCriterion}.</div>
+                  {v.eligible && v.conditions.length > 0 && (
+                    <div className="conditions">
+                      <span className="conditions-head">
+                        This result takes {v.conditions.length === 1 ? 'one thing' : 'these'} as
+                        true, because you did not say otherwise:
+                      </span>
+                      <ul>
+                        {v.conditions.slice(0, 3).map((c, i) => (
+                          <li key={i}>
+                            {c.text}
+                            {c.subjectLabel && <span className="cond-who"> ({c.subjectLabel})</span>}
+                            {c.effect === 'amount' && c.amountAtStake !== undefined && (
+                              <span className="cond-who">
+                                {' '}
+                                — worth {money(c.amountAtStake)} a year
+                              </span>
+                            )}
+                          </li>
+                        ))}
+                      </ul>
+                      {v.conditions.length > 3 && (
+                        <details className="disclosure">
+                          <summary>
+                            {v.conditions.length - 3} more {v.conditions.length - 3 === 1 ? 'assumption' : 'assumptions'}
+                          </summary>
+                          <ul>
+                            {v.conditions.slice(3).map((c, i) => (
+                              <li key={i}>{c.text}</li>
+                            ))}
+                          </ul>
+                        </details>
+                      )}
+                      <span className="conditions-foot">
+                        If any of those is not the case, this result changes. Benny did not
+                        ask, because your description already settled everything else.
+                      </span>
+                    </div>
+                  )}
                   {v.notes.map((n, i) => (
                     <div className="card-detail" key={i}>
                       {n}

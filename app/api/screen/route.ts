@@ -10,6 +10,7 @@ import { NextRequest, NextResponse } from 'next/server';
 
 import { engineFromEnv } from '@/lib/engine';
 import { EngineUnavailable } from '@/lib/engine/types';
+import { conditionsByProgram } from '@/lib/conditions';
 import { effectiveChoice } from '@/lib/evaluate';
 import { Reply, screenStep } from '@/lib/loop';
 import { toDollars } from '@/lib/money';
@@ -64,6 +65,14 @@ export interface ScreenResponse {
     tests: { name: string; passed: boolean; detail: string }[];
     steps: { label: string; detail: string; amount: number; running: number; citation?: string }[];
     notes: string[];
+    /** Assumptions this verdict rests on, stated so a person can check them. */
+    conditions: {
+      text: string;
+      question: string;
+      subjectLabel: string | null;
+      effect: 'eligibility' | 'amount';
+      amountAtStake?: number;
+    }[];
   }[];
   next: {
     instanceId: string;
@@ -121,6 +130,8 @@ export async function POST(request: NextRequest) {
     const step = await screenStep(paragraph, replies, { engine, asOf });
     const active = activeSnapSet(asOf);
 
+    const conditions = conditionsByProgram(step.state, step.answers, step.criteria);
+
     const criteria: CriterionView[] = step.criteria.map((c) => {
       const answer = step.answers[c.instanceId];
       const { choice, presumed } = effectiveChoice(c, answer, step.tau);
@@ -174,6 +185,15 @@ export async function POST(request: NextRequest) {
           citation: s.citation,
         })),
         notes: v.notes,
+        conditions: (conditions[v.programId] ?? []).map((c) => ({
+          text: c.text,
+          question: c.question,
+          subjectLabel: c.subjectLabel,
+          effect: c.effect,
+          ...(c.amountAtStakeCents === undefined
+            ? {}
+            : { amountAtStake: toDollars(c.amountAtStakeCents) }),
+        })),
       })),
       next: step.next
         ? {

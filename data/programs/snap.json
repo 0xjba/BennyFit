@@ -214,7 +214,9 @@
       },
       "skipIf": "snap.categorical",
       "note": "7 CFR 273.8(b). Most states have raised or removed this limit through broad-based categorical eligibility; this screening uses the federal floor.",
-      "presumption": "false"
+      "presumption": "false",
+      "assumption": "your savings are under the limit",
+      "assumptionStrength": "material"
     },
     {
       "id": "snap.member_student",
@@ -232,7 +234,9 @@
         ]
       },
       "note": "Students meeting this description are ineligible unless an exemption applies. 7 CFR 273.5.",
-      "presumption": "false"
+      "presumption": "false",
+      "assumption": "nobody in the household is a half-time or more college student aged 18 to 49",
+      "assumptionStrength": "material"
     },
     {
       "id": "snap.member_student_exemption",
@@ -272,7 +276,9 @@
         }
       },
       "note": "Presumed unless the description says otherwise. Ineligible members are excluded from the household size while their income may still count. 7 CFR 273.4.",
-      "presumption": "citizen"
+      "presumption": "citizen",
+      "assumption": "everyone in the household is a citizen or a qualified non-citizen",
+      "assumptionStrength": "material"
     },
     {
       "id": "snap.household_purchases_together",
@@ -285,7 +291,9 @@
         "false": "no, separately"
       },
       "note": "Defines who is in the household at all. 7 CFR 273.1(a).",
-      "presumption": "true"
+      "presumption": "true",
+      "assumption": "you buy and prepare food together",
+      "assumptionStrength": "routine"
     },
     {
       "id": "snap.self_employment",
