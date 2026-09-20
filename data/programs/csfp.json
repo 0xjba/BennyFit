@@ -1,0 +1,27 @@
+{
+  "id": "csfp",
+  "name": "CSFP (monthly food box for older adults)",
+  "shortName": "CSFP",
+  "administeredBy": "USDA Food and Nutrition Administration, through state agencies",
+  "applyUrl": "https://www.fna.usda.gov/csfp/income-guidelines",
+  "ruleType": "fpgThreshold",
+  "thresholdFamily": "csfp",
+  "valueBasis": "A monthly box of food for people aged 60 and over.",
+  "criteria": [
+    {
+      "id": "csfp.member_60_plus",
+      "scope": "member",
+      "type": "noul",
+      "instructions": "Is this household member aged 60 or older? CSFP serves people aged 60 and over, and age alone is what matters here, not disability.",
+      "askIfUnsure": "Is this person 60 or older?",
+      "criteria": {
+        "true": "yes, 60 or older",
+        "false": "no"
+      }
+    }
+  ],
+  "computed": [
+    "csfp.income_test"
+  ],
+  "verdict": "member_60_plus AND income_test"
+}

@@ -1,0 +1,47 @@
+{
+  "id": "ctc",
+  "name": "Child Tax Credit",
+  "shortName": "Child Tax Credit",
+  "administeredBy": "Internal Revenue Service",
+  "applyUrl": "https://www.irs.gov/credits-deductions/individuals/child-tax-credit",
+  "ruleType": "ctc",
+  "thresholdFamily": "ctc",
+  "valueBasis": "Up to $2,200 for each qualifying child under 17, part of which is refundable.",
+  "criteria": [
+    {
+      "id": "ctc.child_under_17",
+      "scope": "child",
+      "type": "noul",
+      "instructions": "Was this child under 17 at the end of the tax year? The Child Tax Credit uses a younger age limit than the Earned Income Tax Credit.",
+      "askIfUnsure": "Was this child under 17 at the end of the year?",
+      "criteria": {
+        "true": "yes, under 17",
+        "false": "no, 17 or older"
+      },
+      "presumption": "true",
+      "assumption": "the children were under 17 at the end of the year",
+      "assumptionStrength": "material",
+      "note": "IRC 24(c)(1). A child aged 17 or 18 can still count for the Earned Income Tax Credit but not for this one."
+    },
+    {
+      "id": "ctc.child_ssn",
+      "scope": "child",
+      "type": "noul",
+      "instructions": "Does this child have a Social Security number valid for employment?",
+      "askIfUnsure": "Does this child have a Social Security number?",
+      "criteria": {
+        "true": "yes",
+        "false": "no"
+      },
+      "presumption": "true",
+      "assumption": "the children have Social Security numbers",
+      "assumptionStrength": "material",
+      "note": "IRC 24(h)(7)."
+    }
+  ],
+  "computed": [
+    "ctc.qualifying_children",
+    "ctc.income_test"
+  ],
+  "verdict": "qualifying_children AND income_test"
+}

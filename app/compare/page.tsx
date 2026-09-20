@@ -23,8 +23,7 @@ export default function Compare() {
       <main className="shell" style={{ paddingTop: 48, paddingBottom: 80, maxWidth: 1140 }}>
         <h1>The same household, two ways</h1>
         <p className="lede" style={{ maxWidth: '62ch' }}>
-          On the left, the process as it exists: one application per program, each asking
-          for most of the same facts again. On the right, one description and every rule
+          On the left, the process as it exists: one application per program, each asking for most of the same facts again. On the right, one description and every rule
           checked together. Both sides ask about exactly the same facts — the questions on
           the left are generated from the same rule library, so the repetition is real
           rather than staged.

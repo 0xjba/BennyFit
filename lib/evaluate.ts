@@ -32,9 +32,19 @@ import { EngineAnswer } from './engine/types';
 import { ParsedFacts, Period, toMonthly } from './parse';
 import {
   activeSnapSet,
+  ctcThresholdsFor,
   eitcThresholdsFor,
+  fpgProgramConfig,
   lifelineThresholdsFor,
+  medicareThresholdsFor,
+  povertyGuidelines,
 } from './thresholds';
+import {
+  childTaxCredit,
+  extraHelpEligibility,
+  fpgThresholdEligibility,
+  medicareSavingsEligibility,
+} from './compute-programs';
 
 export interface ScreeningState {
   paragraph: string;
@@ -386,7 +396,86 @@ function criterionTruth(
  * Lifeline is evaluated. Relying on the order the files happen to load in would make
  * that silently break the day someone reorders them.
  */
-const EVALUATION_ORDER = ['snap', 'eitc', 'lifeline'];
+const EVALUATION_ORDER = [
+  // SNAP first: several programs treat SNAP enrolment as automatic income eligibility,
+  // and Lifeline qualifies through it outright.
+  'snap',
+  'eitc',
+  'ctc',
+  'lifeline',
+  'wic',
+  'school_meals',
+  'csfp',
+  'liheap',
+  'head_start',
+  'medicare_savings',
+  'extra_help',
+];
+
+/** How many children satisfy every one of the named per-child criteria. */
+function childrenPassing(
+  program: Program,
+  names: string[],
+  criteria: InstantiatedCriterion[],
+  answers: Answers,
+  tau: number,
+  state: ScreeningState,
+  d: Directives
+): number {
+  const childIndexes = state.shape.members
+    .map((m, i) => ({ m, i }))
+    .filter(({ m }) => m.isChild)
+    .map(({ i }) => i)
+    .filter((i) => !d.disqualifiedChildren.has(i));
+
+  return childIndexes.filter((index) =>
+    names.every((name) => {
+      const instance = criteria.find(
+        (c) => c.id === `${program.id}.${name}` && c.subjectIndex === index
+      );
+      if (!instance) return true;
+      const answer = answers[instance.instanceId];
+      if (!answer) return true;
+      return effectiveChoice(instance, answer, tau).choice === 'true';
+    })
+  ).length;
+}
+
+/**
+ * Programs the household already receives, which several others treat as automatic
+ * income eligibility. Anything found eligible earlier in this same pass counts.
+ */
+function receivedPrograms(
+  verdicts: Verdicts,
+  d: Directives,
+  criteria: InstantiatedCriterion[],
+  answers: Answers,
+  tau: number
+): string[] {
+  const received = new Set<string>();
+
+  for (const [programId, verdict] of Object.entries(verdicts)) {
+    if (verdict.eligible) received.add(programId);
+  }
+  if (d.categoricallyEligible) received.add('tanf');
+
+  for (const criterion of criteria) {
+    const answer = answers[criterion.instanceId];
+    if (!answer) continue;
+    const { choice } = effectiveChoice(criterion, answer, tau);
+
+    if (criterion.id === 'snap.categorical' && choice !== 'none') received.add(choice);
+    if (criterion.id === 'wic.receives_qualifying' && choice !== 'none') received.add(choice);
+    if (criterion.id === 'head_start.categorical' && choice === 'public_assistance') {
+      received.add('tanf');
+    }
+    if (criterion.id.startsWith('lifeline.receives_') && choice === 'true') {
+      received.add(criterion.id.replace('lifeline.receives_', ''));
+    }
+  }
+
+  return [...received];
+}
 
 export function evaluate(state: ScreeningState, answers: Answers): Verdicts {
   const programs = [...loadPrograms()].sort((a, b) => {
@@ -502,6 +591,65 @@ export function evaluate(state: ScreeningState, answers: Answers): Verdicts {
       monthlyValueCents = result.monthlyBenefitCents;
       decidedBy = result.decidedBy;
       computed['income_test'] = tests.find((t) => t.name === 'Income test')?.passed ?? false;
+    } else if (program.ruleType === 'ctc') {
+      const t = ctcThresholdsFor(state.asOf);
+      const qualifying = childrenPassing(program, ['child_under_17', 'child_ssn'], criteria, answers, tau, state, d);
+      const result = childTaxCredit(
+        {
+          qualifyingChildren: qualifying,
+          agiAnnualCents: income.monthlyCents * 12,
+          filingStatus: d.filingStatus ?? 'other',
+        },
+        t
+      );
+      steps = result.steps;
+      tests = result.tests;
+      annualValueCents = result.annualValueCents;
+      monthlyValueCents = result.monthlyValueCents;
+      decidedBy = result.decidedBy;
+      if (result.valueNote) notes.push(result.valueNote);
+      computed['qualifying_children'] = qualifying > 0;
+      computed['income_test'] = result.eligible;
+    } else if (program.ruleType === 'fpgThreshold') {
+      const config = fpgProgramConfig(program.id, state.asOf);
+      const result = fpgThresholdEligibility(
+        {
+          householdSize: size,
+          annualIncomeCents: income.monthlyCents * 12,
+          programsReceived: receivedPrograms(verdicts, d, criteria, answers, tau),
+          // The demographic condition lives in the verdict expression, so the
+          // arithmetic here answers only the income question.
+          categoryMet: true,
+          categoryDetail: 'handled by this program\u2019s own criteria',
+        },
+        config,
+        povertyGuidelines()
+      );
+      tests = result.tests.filter((t) => t.name !== 'Who it is for');
+      annualValueCents = result.annualValueCents;
+      monthlyValueCents = result.monthlyValueCents;
+      decidedBy = result.decidedBy;
+      if (result.valueNote) notes.push(result.valueNote);
+      computed['income_test'] = result.eligible;
+    } else if (program.ruleType === 'medicareSavings' || program.ruleType === 'extraHelp') {
+      const t = medicareThresholdsFor(state.asOf);
+      const facts = {
+        onMedicare: criterionTruth(program, 'on_medicare', criteria, answers, tau),
+        married: d.filingStatus === 'joint' || size >= 2,
+        monthlyIncomeCents: income.monthlyCents,
+        resourcesCents: dollars(state.facts.savings ?? 0),
+      };
+      const result =
+        program.ruleType === 'medicareSavings'
+          ? medicareSavingsEligibility(facts, t)
+          : extraHelpEligibility(facts, t);
+      steps = result.steps;
+      tests = result.tests;
+      annualValueCents = result.annualValueCents;
+      monthlyValueCents = result.monthlyValueCents;
+      decidedBy = result.decidedBy;
+      if (result.valueNote) notes.push(result.valueNote);
+      computed['limits_test'] = result.eligible;
     }
 
     const truth = (name: string): boolean =>

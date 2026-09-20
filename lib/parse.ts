@@ -139,6 +139,14 @@ export function parseHousehold(paragraph: string): ParseResult {
   for (const m of text.matchAll(/\b(\d{1,3})\s*(?:years? old|yo\b|y\/o)/gi)) {
     ages.push(parseInt(m[1], 10));
   }
+  // "aged 4 and 8", "ages 3, 5 and 11" — a single phrase carrying several ages, which
+  // the singular patterns above read only the first of.
+  for (const m of text.matchAll(/\bages?d?\s+((?:\d{1,2}\s*(?:,|and|&)\s*)+\d{1,2})\b/gi)) {
+    for (const n of m[1].split(/\s*(?:,|and|&)\s*/)) {
+      const age = parseInt(n, 10);
+      if (Number.isFinite(age)) ages.push(age);
+    }
+  }
 
   // --- children ---------------------------------------------------------
   let childrenCount: number | null = null;
@@ -243,7 +251,7 @@ export function parseHousehold(paragraph: string): ParseResult {
       childSupportMonthly,
       medicalMonthly,
       savings,
-      ages,
+      ages: [...new Set(ages)].sort((a, b) => a - b),
       childrenCount,
       mentionsPrograms,
     },

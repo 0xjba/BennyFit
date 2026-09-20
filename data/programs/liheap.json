@@ -1,0 +1,27 @@
+{
+  "id": "liheap",
+  "name": "LIHEAP (help with energy bills)",
+  "shortName": "LIHEAP",
+  "administeredBy": "HHS, through state and tribal agencies",
+  "applyUrl": "https://www.acf.hhs.gov/ocs/low-income-home-energy-assistance-program-liheap",
+  "ruleType": "fpgThreshold",
+  "thresholdFamily": "liheap",
+  "valueBasis": "A payment toward heating or cooling bills, the size of which the state sets.",
+  "criteria": [
+    {
+      "id": "liheap.pays_home_energy",
+      "scope": "household",
+      "type": "noul",
+      "instructions": "Does the household pay for home heating or cooling, either as a bill or as part of the rent?",
+      "askIfUnsure": "Do you pay for heating or cooling, either directly or through your rent?",
+      "criteria": {
+        "true": "yes, the household pays for home energy",
+        "false": "no"
+      }
+    }
+  ],
+  "computed": [
+    "liheap.income_test"
+  ],
+  "verdict": "pays_home_energy AND income_test"
+}

@@ -1,0 +1,19 @@
+{
+  "id": "ctc-ty2025",
+  "program": "ctc",
+  "label": "Child Tax Credit, tax year 2025",
+  "taxYear": 2025,
+  "effectiveFrom": "2025-01-01",
+  "effectiveTo": "2025-12-31",
+  "status": "complete",
+  "source": "https://www.irs.gov/pub/irs-drop/rp-25-32.pdf",
+  "sourceCitation": "Rev. Proc. 2025-32 section 2.03, recording the OBBBA amendment to IRC 24(h)(2)",
+  "readOn": "2026-09-21",
+  "maxCreditPerChild": 2200,
+  "refundablePerChild": 1700,
+  "childMaxAgeExclusive": 17,
+  "phaseOutThreshold": { "joint": 400000, "other": 200000 },
+  "phaseOutPerThousand": 50,
+  "phaseOutStep": 1000,
+  "notes": "IRC 24(b)(2) sets the phase-out thresholds and they are not inflation adjusted. The credit falls by $50 for each $1,000 of modified adjusted gross income above the threshold."
+}

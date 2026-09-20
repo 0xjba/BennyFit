@@ -59,12 +59,13 @@ export const COMPARE_ROWS: CompareRow[] = [
       singlestop: { text: '20+', tone: 'good' },
       findhelp: { text: '10 core federal and state programs', tone: 'good' },
       mrelief: { text: 'SNAP only', tone: 'plain' },
-      bennyfit: { text: '3, each against its complete federal rule set', tone: 'weak' },
+      bennyfit: { text: '11, each against its federal rule set', tone: 'good' },
     },
     footnote:
-      'The one row where breadth is not ours. Two of these screen far more programs at a ' +
-      'yes-or-no level. BennyFit goes the other way: three programs implemented in full, ' +
-      'with the deductions, the thresholds and the arithmetic behind every figure.',
+      'More than findhelp and mRelief, fewer than Single Stop. The difference is what a ' +
+      'program being "covered" means: these eleven are implemented against the ' +
+      'regulations, with the deductions, the thresholds and the arithmetic behind every ' +
+      'figure, rather than screened at a yes-or-no level.',
   },
   {
     label: 'Estimated dollar value for this household',
@@ -136,9 +137,9 @@ export const COMPARE_ROWS: CompareRow[] = [
       bennyfit: { text: 'Federal floor rules; state variation not yet modelled', tone: 'weak' },
     },
     footnote:
-      'Another row where we are behind today. BennyFit applies federal minimum rules, and ' +
-      '42 states and DC raise the SNAP income limit above that floor. Every result says so ' +
-      'on screen rather than quietly under-screening.',
+      'The row where we are behind today, and the one to fix next. BennyFit applies ' +
+      'federal minimum rules, and 42 states and DC raise the SNAP income limit above that ' +
+      'floor. Every result says so on screen rather than quietly under-screening.',
   },
 ];
 

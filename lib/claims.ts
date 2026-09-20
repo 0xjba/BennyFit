@@ -16,25 +16,47 @@ export type Claim =
 export const CLAIMS: Record<string, Claim> = {
   programs: {
     status: 'measured',
-    value: '3',
+    value: '11',
     caption: 'benefit programs checked at once',
-    source: 'SNAP, the Earned Income Tax Credit and Lifeline are implemented in full.',
+    source:
+      'SNAP, the Earned Income Tax Credit, the Child Tax Credit, Lifeline, WIC, school ' +
+      'meals, CSFP, LIHEAP, Head Start, Medicare Savings Programs and Extra Help, each ' +
+      'against its federal rule set.',
   },
 
   checks: {
     status: 'measured',
-    value: '30+',
+    value: '40+',
     caption: 'eligibility checks per household',
     source:
-      'Counted from the rule files. A single-adult household produces 32 checks; the ' +
-      'number rises with household size because several tests are per person.',
+      'Counted from the rule files. A single adult produces 41 checks and a family with ' +
+      'children produces 65, because several tests are per person.',
+  },
+
+  averageValue: {
+    status: 'measured',
+    value: '$10,418',
+    caption: 'average a qualifying household is entitled to, per year',
+    source:
+      'Computed from the federal rules applied to the 150 validation households, not ' +
+      'from any model: 120 of them qualify for something, and the average of those is ' +
+      '$10,418 a year. The median is $5,912 and the largest is $26,186. These describe ' +
+      'the validation set, which is synthetic, rather than the population.',
+  },
+
+  programsPerHousehold: {
+    status: 'measured',
+    value: '4.3',
+    caption: 'programs the average household qualifies for',
+    source:
+      'Across the 150 validation households. 120 of the 150 qualify for three or more.',
   },
 
   intake: {
     status: 'measured',
     value: '1',
-    caption: 'paragraph instead of three applications',
-    source: 'The three separate application paths cover 32 questions between them.',
+    caption: 'paragraph instead of eleven applications',
+    source: 'The separate application paths cover dozens of questions between them.',
   },
 
   questions: {

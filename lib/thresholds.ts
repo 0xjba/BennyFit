@@ -15,6 +15,11 @@ import snapFy2027 from '@/data/thresholds/snap-fy2027.json';
 import eitcTy2025 from '@/data/thresholds/eitc-ty2025.json';
 import eitcTy2026 from '@/data/thresholds/eitc-ty2026.json';
 import lifeline2026 from '@/data/thresholds/lifeline-2026.json';
+import fpg2026 from '@/data/thresholds/fpg-2026.json';
+import fpgPrograms2026 from '@/data/thresholds/fpg-programs-2026.json';
+import medicare2026 from '@/data/thresholds/medicare-2026.json';
+import ctcTy2025 from '@/data/thresholds/ctc-ty2025.json';
+import ctcTy2026 from '@/data/thresholds/ctc-ty2026.json';
 
 export type SetStatus = 'complete' | 'partial';
 
@@ -200,4 +205,39 @@ export function standardDeductionFor(
     );
   }
   return value;
+}
+
+
+// ---------------------------------------------------------------------------
+// The programs added beyond the original three
+// ---------------------------------------------------------------------------
+
+import type { CtcThresholds, FpgProgramConfig, FpgTable, MedicareThresholds } from './compute-programs';
+
+const FPG_PROGRAM_SETS = [fpgPrograms2026] as unknown as (Dated & {
+  id: string;
+  programs: Record<string, FpgProgramConfig>;
+})[];
+const MEDICARE_SETS = [medicare2026] as unknown as (Dated & { id: string } & MedicareThresholds)[];
+const CTC_SETS = [ctcTy2025, ctcTy2026] as unknown as (Dated & { id: string } & CtcThresholds)[];
+
+export function povertyGuidelines(): FpgTable {
+  return fpg2026 as unknown as FpgTable;
+}
+
+export function fpgProgramConfig(programId: string, isoDate: string): FpgProgramConfig {
+  const set = pick(FPG_PROGRAM_SETS, isoDate, 'poverty-guideline program');
+  const config = set.programs[programId];
+  if (!config) {
+    throw new Error(`No poverty-guideline configuration for ${programId} in ${set.id}`);
+  }
+  return config;
+}
+
+export function medicareThresholdsFor(isoDate: string): MedicareThresholds {
+  return pick(MEDICARE_SETS, isoDate, 'Medicare');
+}
+
+export function ctcThresholdsFor(isoDate: string): CtcThresholds {
+  return pick(CTC_SETS, isoDate, 'Child Tax Credit');
 }

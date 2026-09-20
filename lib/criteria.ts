@@ -14,6 +14,14 @@
 import snap from '@/data/programs/snap.json';
 import eitc from '@/data/programs/eitc.json';
 import lifeline from '@/data/programs/lifeline.json';
+import ctc from '@/data/programs/ctc.json';
+import wic from '@/data/programs/wic.json';
+import schoolMeals from '@/data/programs/school_meals.json';
+import csfp from '@/data/programs/csfp.json';
+import liheap from '@/data/programs/liheap.json';
+import headStart from '@/data/programs/head_start.json';
+import medicareSavings from '@/data/programs/medicare_savings.json';
+import extraHelp from '@/data/programs/extra_help.json';
 
 export type CriterionType = 'noul' | 'choice' | 'score';
 export type Scope = 'household' | 'member' | 'child';
@@ -74,6 +82,14 @@ export interface Program {
   administeredBy: string;
   applyUrl: string;
   thresholdFamily: string;
+  /**
+   * Which evaluator drives this program.
+   *
+   * Most federal programs set their income test as a multiple of the poverty
+   * guidelines, so `fpgThreshold` covers several of them from one implementation and
+   * adding another of that shape is a data change rather than a code change.
+   */
+  ruleType?: 'snap' | 'eitc' | 'lifeline' | 'ctc' | 'fpgThreshold' | 'medicareSavings' | 'extraHelp';
   valueBasis: string;
   criteria: Criterion[];
   computed: string[];
@@ -88,7 +104,19 @@ export interface InstantiatedCriterion extends Criterion {
   subjectLabel: string | null;
 }
 
-const PROGRAMS = [snap, eitc, lifeline] as unknown as Program[];
+const PROGRAMS = [
+  snap,
+  eitc,
+  ctc,
+  lifeline,
+  wic,
+  schoolMeals,
+  csfp,
+  liheap,
+  headStart,
+  medicareSavings,
+  extraHelp,
+] as unknown as Program[];
 
 // ---------------------------------------------------------------------------
 // Verdict expressions

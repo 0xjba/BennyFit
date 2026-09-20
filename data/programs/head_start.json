@@ -1,0 +1,40 @@
+{
+  "id": "head_start",
+  "name": "Head Start and Early Head Start",
+  "shortName": "Head Start",
+  "administeredBy": "HHS Office of Head Start, through local programs",
+  "applyUrl": "https://eclkc.ohs.acf.hhs.gov/how-apply",
+  "ruleType": "fpgThreshold",
+  "thresholdFamily": "head_start",
+  "valueBasis": "Free early education and child care for children under five.",
+  "criteria": [
+    {
+      "id": "head_start.child_under_5",
+      "scope": "household",
+      "type": "noul",
+      "instructions": "Does the household include a child under five years old, or someone who is pregnant?",
+      "askIfUnsure": "Is there a child under five, or is anyone pregnant?",
+      "criteria": {
+        "true": "yes",
+        "false": "no"
+      }
+    },
+    {
+      "id": "head_start.categorical",
+      "scope": "household",
+      "type": "choice",
+      "instructions": "Does one of these apply to the family? Any one of them establishes eligibility regardless of income.",
+      "askIfUnsure": "Does your family get public assistance, or is your child in foster care or without stable housing?",
+      "criteria": {
+        "public_assistance": "the family receives or could receive public assistance",
+        "homeless": "the child is homeless",
+        "foster": "the child is in foster care",
+        "none": "none of these"
+      }
+    }
+  ],
+  "computed": [
+    "head_start.income_test"
+  ],
+  "verdict": "child_under_5 AND (categorical OR income_test)"
+}

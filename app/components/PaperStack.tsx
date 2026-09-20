@@ -14,9 +14,12 @@ const SHEETS = 12;
 /** An irregular sign pattern, so the fan does not alternate in a visible rhythm. */
 const DRIFT = [1, -1, 1, 1, -1, -1, 1, -1];
 
-export function PaperStack({ questions }: { questions: number }) {
+export function PaperStack({ questions, applications }: { questions: number; applications: number }) {
   return (
-    <figure className="paperstack" aria-label={`Three application forms containing ${questions} questions`}>
+    <figure
+      className="paperstack"
+      aria-label={`${applications} application forms containing ${questions} questions between them`}
+    >
       <div className="paperstack-inner">
         {Array.from({ length: SHEETS }).map((_, i) => {
           const depth = SHEETS - 1 - i;
@@ -61,13 +64,15 @@ export function PaperStack({ questions }: { questions: number }) {
         })}
 
         <span className="sheet-tag tag-1">SNAP application</span>
-        <span className="sheet-tag tag-2">EITC worksheet</span>
-        <span className="sheet-tag tag-3">Lifeline form</span>
+        <span className="sheet-tag tag-2">WIC form</span>
+        <span className="sheet-tag tag-3">Medicare Savings</span>
+        <span className="sheet-tag tag-4">+ {applications - 3} more</span>
       </div>
 
       <figcaption>
-        <strong>{questions} questions</strong> across three separate applications, most of
-        them asking for the same facts again.
+        <strong>{applications} separate applications.</strong> {questions} questions between
+        them, most asking for the same facts over and over. Nobody fills in {applications} of
+        these.
       </figcaption>
     </figure>
   );

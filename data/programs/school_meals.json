@@ -1,0 +1,27 @@
+{
+  "id": "school_meals",
+  "name": "Free and reduced price school meals",
+  "shortName": "School meals",
+  "administeredBy": "USDA, through school districts",
+  "applyUrl": "https://www.fna.usda.gov/schoolmeals/income-eligibility-guidelines",
+  "ruleType": "fpgThreshold",
+  "thresholdFamily": "school_meals",
+  "valueBasis": "A free or reduced price breakfast and lunch on every school day.",
+  "criteria": [
+    {
+      "id": "school_meals.children_in_school",
+      "scope": "household",
+      "type": "noul",
+      "instructions": "Does the household include a school-age child who attends a school taking part in the national school meal programs?",
+      "askIfUnsure": "Do you have children at school?",
+      "criteria": {
+        "true": "yes, there are school-age children",
+        "false": "no school-age children"
+      }
+    }
+  ],
+  "computed": [
+    "school_meals.income_test"
+  ],
+  "verdict": "children_in_school AND income_test"
+}

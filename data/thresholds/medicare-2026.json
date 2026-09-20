@@ -1,0 +1,46 @@
+{
+  "id": "medicare-2026",
+  "label": "Medicare cost-help programs, 2026",
+  "effectiveFrom": "2026-01-01",
+  "effectiveTo": "2026-12-31",
+  "status": "complete",
+  "readOn": "2026-09-21",
+  "sources": {
+    "savingsPrograms": "https://www.medicare.gov/basics/costs/help/medicare-savings-programs",
+    "extraHelp": "https://www.medicare.gov/basics/costs/help/drug-costs",
+    "partBPremium": "https://www.medicare.gov/basics/costs/medicare-costs"
+  },
+  "partBMonthlyPremium": 202.90,
+  "savingsPrograms": [
+    {
+      "id": "qmb",
+      "name": "Qualified Medicare Beneficiary",
+      "covers": "Part A and Part B premiums, plus deductibles, coinsurance and copayments",
+      "monthlyIncomeLimit": { "single": 1350, "married": 1824 },
+      "resourceLimit": { "single": 9950, "married": 14910 },
+      "coversPartBPremium": true
+    },
+    {
+      "id": "slmb",
+      "name": "Specified Low-Income Medicare Beneficiary",
+      "covers": "Part B premiums",
+      "monthlyIncomeLimit": { "single": 1616, "married": 2184 },
+      "resourceLimit": { "single": 9950, "married": 14910 },
+      "coversPartBPremium": true
+    },
+    {
+      "id": "qi",
+      "name": "Qualifying Individual",
+      "covers": "Part B premiums",
+      "monthlyIncomeLimit": { "single": 1816, "married": 2455 },
+      "resourceLimit": { "single": 9950, "married": 14910 },
+      "coversPartBPremium": true
+    }
+  ],
+  "extraHelp": {
+    "annualIncomeLimit": { "single": 23940, "married": 32460 },
+    "resourceLimit": { "single": 18090, "married": 36100 },
+    "note": "The income limit is 150 percent of the 2026 poverty guidelines, which the published figures match to the dollar.",
+    "benefit": "No Part D plan premium, no deductible, and capped prescription costs"
+  }
+}

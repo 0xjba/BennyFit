@@ -1,0 +1,44 @@
+{
+  "id": "wic",
+  "name": "WIC (food for women, infants and children)",
+  "shortName": "WIC",
+  "administeredBy": "USDA Food and Nutrition Administration, through state agencies",
+  "applyUrl": "https://www.fna.usda.gov/wic/eligibility",
+  "ruleType": "fpgThreshold",
+  "thresholdFamily": "wic",
+  "valueBasis": "A monthly food package, breastfeeding support and health referrals.",
+  "criteria": [
+    {
+      "id": "wic.category",
+      "scope": "household",
+      "type": "choice",
+      "instructions": "Does the household include someone WIC is for? WIC serves people who are pregnant, who gave birth within the last six months, who are breastfeeding a child under one, infants, and children under five.",
+      "askIfUnsure": "Is anyone pregnant, recently had a baby, breastfeeding, or is there a child under five?",
+      "criteria": {
+        "pregnant": "someone is pregnant",
+        "postpartum": "someone gave birth in the last six months",
+        "breastfeeding": "someone is breastfeeding a child under one",
+        "infant": "there is an infant under one",
+        "child_under_5": "there is a child under five",
+        "none": "none of these"
+      }
+    },
+    {
+      "id": "wic.receives_qualifying",
+      "scope": "household",
+      "type": "choice",
+      "instructions": "Does the household receive SNAP, Medicaid or TANF? Any one of these makes the household automatically income eligible for WIC.",
+      "askIfUnsure": "Does anyone here get SNAP, Medicaid or TANF?",
+      "criteria": {
+        "snap": "SNAP",
+        "medicaid": "Medicaid",
+        "tanf": "TANF",
+        "none": "none of these"
+      }
+    }
+  ],
+  "computed": [
+    "wic.income_test"
+  ],
+  "verdict": "category AND (receives_qualifying OR income_test)"
+}

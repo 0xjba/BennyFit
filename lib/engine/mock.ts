@@ -112,6 +112,34 @@ const CUES: Record<string, { true?: string[]; false?: string[]; options?: Record
     options: { bia_general_assistance: ['bureau of indian affairs'], tribal_tanf: ['tribal tanf'], tribal_head_start: ['head start'], fdpir: ['fdpir', 'commodities'], none: [] },
   },
   'lifeline.one_per_household': { true: ['already have lifeline'], false: [] },
+
+  'wic.category': {
+    options: {
+      pregnant: ['pregnant', 'expecting'],
+      postpartum: ['just had a baby', 'gave birth'],
+      breastfeeding: ['breastfeeding', 'nursing'],
+      infant: ['newborn', 'baby'],
+      child_under_5: ['toddler', 'preschool'],
+      none: [],
+    },
+  },
+  'wic.receives_qualifying': {
+    options: { snap: ['snap', 'food stamps'], medicaid: ['medicaid'], tanf: ['tanf'], none: [] },
+  },
+  'school_meals.children_in_school': { true: ['school', 'kindergarten', 'grade'], false: [] },
+  'csfp.member_60_plus': { true: [], false: [] },
+  'liheap.pays_home_energy': {
+    true: ['gas and electric', 'utilities', 'electric', 'heating', 'rent', 'mortgage'],
+    false: ['utilities included', 'all bills included'],
+  },
+  'head_start.child_under_5': { true: ['toddler', 'preschool', 'baby', 'pregnant'], false: [] },
+  'head_start.categorical': {
+    options: { public_assistance: ['tanf', 'welfare'], homeless: ['homeless', 'shelter'], foster: ['foster'], none: [] },
+  },
+  'medicare_savings.on_medicare': { true: ['medicare'], false: [] },
+  'extra_help.on_medicare': { true: ['medicare'], false: [] },
+  'ctc.child_under_17': { true: [], false: [] },
+  'ctc.child_ssn': { true: [], false: [] },
 };
 
 /** A stable hash, so the same state and criterion always produce the same answer. */
@@ -223,6 +251,44 @@ function answerFor(state: string, id: string, options: string[]): EngineAnswer {
     const n = hits(haystack, cues.false);
     if (n > 0) {
       weights['false'] += 8 * n;
+      matched = true;
+    }
+  }
+
+  // Several of the newer programs turn on age, and the parser has already put the
+  // ages into the state. Reading them is what a person would do; leaving these to
+  // keyword luck left whole programs unanswered.
+  const ages = agesIn(state);
+  const youngest = ages.length > 0 ? Math.min(...ages) : null;
+  const oldest = ages.length > 0 ? Math.max(...ages) : null;
+
+  const ageRule = (id: string): [string, boolean] | null => {
+    switch (id) {
+      case 'head_start.child_under_5':
+        return youngest === null ? null : ['true', youngest < 5];
+      case 'csfp.member_60_plus':
+        return oldest === null ? null : ['true', oldest >= 60];
+      case 'medicare_savings.on_medicare':
+      case 'extra_help.on_medicare':
+        return oldest === null ? null : ['true', oldest >= 65];
+      case 'school_meals.children_in_school':
+        return ages.length === 0 ? null : ['true', ages.some((a) => a >= 5 && a <= 18)];
+      case 'ctc.child_under_17':
+        return youngest === null ? null : ['true', youngest < 17];
+      default:
+        return null;
+    }
+  };
+
+  const rule = ageRule(baseId(id));
+  if (rule && options.includes('true') && options.includes('false')) {
+    weights[rule[1] ? 'true' : 'false'] += 12;
+    matched = true;
+  }
+
+  if (baseId(id) === 'wic.category' && youngest !== null && youngest < 5) {
+    if (options.includes('child_under_5')) {
+      weights['child_under_5'] += 12;
       matched = true;
     }
   }

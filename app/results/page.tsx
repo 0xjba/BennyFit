@@ -63,8 +63,7 @@ export default function Results() {
             themselves. The correct answer for each one is worked out from the federal
             rules applied to its known facts — independently of the system being tested, so
             the system is checked against the law rather than against itself. The set is
-            split five ways: clearly eligible for all three programs, clearly eligible for
-            none, eligible for some, deliberately missing one fact that decides the
+            split five ways: qualifying broadly, qualifying for nothing, qualifying for some, deliberately missing one fact that decides the
             outcome, and awkwardly phrased.
           </p>
 
@@ -137,8 +136,7 @@ export default function Results() {
             application and their trust. Telling someone they are not eligible when they
             are is the exact failure this product exists to fix, and it is silent — nobody
             ever finds out. Both are tracked separately rather than averaged away, and
-            every household is shown all three programs, including the ones judged
-            unlikely, so a person who knows their own situation can disagree with us.
+            every household is shown every program, including the ones judged unlikely, so a person who knows their own situation can disagree with us.
           </p>
 
           <h2 style={{ marginTop: 40 }}>What these numbers do not cover</h2>

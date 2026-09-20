@@ -21,7 +21,19 @@ import type { GoldHousehold } from '@/scripts/generate-gold';
 import { oracleReply } from './oracle';
 
 const AS_OF = '2026-09-21';
-const PROGRAMS = ['snap', 'eitc', 'lifeline'] as const;
+const PROGRAMS = [
+  'snap',
+  'eitc',
+  'ctc',
+  'lifeline',
+  'wic',
+  'school_meals',
+  'csfp',
+  'liheap',
+  'head_start',
+  'medicare_savings',
+  'extra_help',
+] as const;
 
 function loadGold(): GoldHousehold[] {
   const path = join(process.cwd(), 'data', 'gold', 'households.jsonl');

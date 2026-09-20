@@ -1,0 +1,27 @@
+{
+  "id": "medicare_savings",
+  "name": "Medicare Savings Programs",
+  "shortName": "Medicare Savings",
+  "administeredBy": "State Medicaid agencies, on behalf of Medicare",
+  "applyUrl": "https://www.medicare.gov/basics/costs/help/medicare-savings-programs",
+  "ruleType": "medicareSavings",
+  "thresholdFamily": "medicare",
+  "valueBasis": "Pays the Medicare Part B premium, and at the widest tier the deductibles and copayments too.",
+  "criteria": [
+    {
+      "id": "medicare_savings.on_medicare",
+      "scope": "household",
+      "type": "noul",
+      "instructions": "Is anyone in the household enrolled in Medicare, or turning 65 shortly? Medicare generally covers people aged 65 and over and some people with disabilities.",
+      "askIfUnsure": "Is anyone here on Medicare?",
+      "criteria": {
+        "true": "yes, someone is on Medicare",
+        "false": "no"
+      }
+    }
+  ],
+  "computed": [
+    "medicare_savings.limits_test"
+  ],
+  "verdict": "on_medicare AND limits_test"
+}

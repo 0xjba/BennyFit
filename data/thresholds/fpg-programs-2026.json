@@ -1,0 +1,69 @@
+{
+  "id": "fpg-programs-2026",
+  "label": "Poverty-guideline programs, 2026",
+  "effectiveFrom": "2026-01-01",
+  "effectiveTo": "2026-12-31",
+  "status": "complete",
+  "region": "48+DC",
+  "readOn": "2026-09-21",
+  "note": "Each of these programs sets its income test as a multiple of the HHS poverty guidelines. The guideline table itself is in fpg-2026.json and is read from aspe.hhs.gov.",
+  "programs": {
+    "wic": {
+      "fpgMultiple": 1.85,
+      "basis": "annual",
+      "source": "https://www.fna.usda.gov/wic/eligibility",
+      "citation": "7 CFR 246.7(d) \u2014 a gross income above 185 percent of the federal income guidelines is not eligible",
+      "adjunctivePrograms": [
+        "snap",
+        "medicaid",
+        "tanf"
+      ],
+      "monthlyValue": null,
+      "valueNote": "WIC provides a monthly food package, breastfeeding support and referrals. USDA does not publish a single national dollar value, so no amount is estimated here."
+    },
+    "school_meals": {
+      "fpgMultiple": 1.85,
+      "freeTierMultiple": 1.3,
+      "basis": "annual",
+      "source": "https://www.fna.usda.gov/schoolmeals/income-eligibility-guidelines",
+      "citation": "Child Nutrition Programs Income Eligibility Guidelines \u2014 free meals at or below 130 percent of poverty, reduced price at or below 185 percent",
+      "adjunctivePrograms": [
+        "snap",
+        "tanf",
+        "fdpir"
+      ],
+      "monthlyValue": null,
+      "valueNote": "Meals are free at or below 130 percent of the poverty guideline and reduced price up to 185 percent. The saving is the price of a breakfast and lunch each school day, which the district sets, so no amount is estimated here."
+    },
+    "csfp": {
+      "fpgMultiple": 1.3,
+      "basis": "annual",
+      "source": "https://www.fna.usda.gov/csfp/income-guidelines",
+      "citation": "CSFP Income Guidelines 2026 \u2014 130 percent of the federal poverty guidelines",
+      "adjunctivePrograms": [],
+      "monthlyValue": null,
+      "valueNote": "A monthly box of food for people aged 60 and over. USDA does not publish a per-participant dollar value, so no amount is estimated here."
+    },
+    "liheap": {
+      "fpgMultiple": 1.5,
+      "basis": "annual",
+      "source": "https://www.acf.hhs.gov/ocs/fact-sheet/liheap-fact-sheet",
+      "citation": "Grant recipients must cap income limits at no more than the greater of 150 percent of the poverty guidelines or 60 percent of state median income, and no less than 110 percent",
+      "adjunctivePrograms": [],
+      "monthlyValue": null,
+      "valueNote": "States set both the income limit, anywhere from 110 to 150 percent of poverty, and the size of the payment. 150 percent is the federal ceiling, so this screens the widest possible eligibility rather than your state's."
+    },
+    "head_start": {
+      "fpgMultiple": 1.0,
+      "basis": "annual",
+      "source": "https://eclkc.ohs.acf.hhs.gov/policy/45-cfr-chap-xiii/1302-12-determining-verifying-documenting-eligibility",
+      "citation": "45 CFR 1302.12(c) \u2014 family income at or below the poverty line, or eligible for public assistance, or the child is homeless or in foster care",
+      "adjunctivePrograms": [
+        "tanf",
+        "ssi"
+      ],
+      "monthlyValue": null,
+      "valueNote": "Early education and child care rather than a payment. Programs may also enrol families between 100 and 130 percent of poverty, so a household just above the line may still qualify locally."
+    }
+  }
+}

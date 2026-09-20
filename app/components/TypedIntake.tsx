@@ -12,12 +12,18 @@ import { useEffect, useRef, useState } from 'react';
  * Honours prefers-reduced-motion by showing the finished state immediately.
  */
 
+/**
+ * The household, and what BennyFit actually returns for it.
+ *
+ * The figures below are what the live screener produces for this exact text, not a
+ * dressed-up example. If the rules change and the answer moves, this has to move too.
+ */
 const TEXT =
-  "I'm 62, live alone in Ohio, and get about $1,150 a month. Rent is $700 and I pay my own gas and electric.";
+  'I work part time and make $430 a week. I have two kids aged 4 and 8, rent is $1,200 a month, and daycare costs $300.';
 
 const CHIPS = [
-  { k: 'Programs checked', v: '3' },
-  { k: 'Rules applied', v: '32' },
+  { k: 'Programs they qualify for', v: '8' },
+  { k: 'A year, estimated', v: '$20,263' },
   { k: 'Questions asked', v: '1' },
 ];
 
@@ -95,8 +101,8 @@ export function TypedIntake() {
       </div>
 
       <figcaption>
-        <strong>One paragraph.</strong> Every rule in all three programs checked against
-        it at once.
+        <strong>One paragraph.</strong> Every rule in all eleven programs checked against
+        it at once, and one question asked because it was worth asking.
       </figcaption>
     </figure>
   );

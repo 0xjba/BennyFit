@@ -1,0 +1,27 @@
+{
+  "id": "extra_help",
+  "name": "Extra Help with Medicare drug costs",
+  "shortName": "Extra Help",
+  "administeredBy": "Social Security Administration",
+  "applyUrl": "https://www.medicare.gov/basics/costs/help/drug-costs",
+  "ruleType": "extraHelp",
+  "thresholdFamily": "medicare",
+  "valueBasis": "No Part D plan premium, no deductible, and capped prescription costs.",
+  "criteria": [
+    {
+      "id": "extra_help.on_medicare",
+      "scope": "household",
+      "type": "noul",
+      "instructions": "Is anyone in the household enrolled in Medicare? Extra Help lowers the cost of Medicare prescription drug coverage.",
+      "askIfUnsure": "Is anyone here on Medicare?",
+      "criteria": {
+        "true": "yes, someone is on Medicare",
+        "false": "no"
+      }
+    }
+  ],
+  "computed": [
+    "extra_help.limits_test"
+  ],
+  "verdict": "on_medicare AND limits_test"
+}

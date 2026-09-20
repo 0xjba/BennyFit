@@ -5,7 +5,7 @@ import { Masthead, SiteFooter } from '@/app/components/SiteChrome';
 import { TypedIntake } from '@/app/components/TypedIntake';
 import { CITED, CLAIMS, type Claim } from '@/lib/claims';
 import { BDT, COMPARE_ROWS, COMPETITORS } from '@/lib/competitors';
-import { conventionalQuestionCount } from '@/lib/conventional';
+import { conventionalForms, conventionalQuestionCount } from '@/lib/conventional';
 
 export const metadata = {
   title: 'BennyFit — benefits screening in one conversation',
@@ -61,6 +61,7 @@ const FAQS: { q: string; a: string }[] = [
 
 export default function Landing() {
   const questionCount = conventionalQuestionCount();
+  const applications = conventionalForms().length;
 
   return (
     <>
@@ -72,26 +73,16 @@ export default function Landing() {
           <div className="hero-stage">
             <div className="hero-grid">
               <div>
-                <div className="proof">
-                  <span className="pills">
-                    <span className="pill" />
-                    <span className="pill" />
-                    <span className="pill" />
-                  </span>
-                  Three federal programs, checked together
-                </div>
-                <h1>
-                  Nobody fills in
-                  <br />
-                  three of these.
-                </h1>
+                <span className="eyebrow">Benefits eligibility screening</span>
+                <h1>Every benefit they qualify for, from one paragraph.</h1>
               </div>
               <div>
                 <p className="sub">
-                  So most people never find out what they were entitled to. BennyFit reads a
-                  household&rsquo;s situation once, in their own words, and checks every rule in
-                  all three programs against it — then asks one question, only if the answer
-                  would change what they get.
+                  BennyFit screens a household against{' '}
+                  <strong>{CLAIMS.programs.status === 'measured' ? CLAIMS.programs.value : ''} federal
+                  benefit programs</strong>{' '}
+                  from a single plain-language description — no forms, no questionnaire. Benny,
+                  our agent, asks a follow-up only when the answer would change what they get.
                 </p>
                 <div className="hero-cta">
                   <Link href="/demo" className="btn lg">
@@ -106,7 +97,7 @@ export default function Landing() {
             </div>
 
             <div className="hero-figs">
-              <PaperStack questions={questionCount} />
+              <PaperStack questions={questionCount} applications={applications} />
               <div className="versus">vs</div>
               <TypedIntake />
             </div>
@@ -118,15 +109,21 @@ export default function Landing() {
       <section className="band tight">
         <div className="shell">
           <div className="band-head center">
-            <span className="eyebrow">What one description gets you</span>
-            <h2>Every rule, at once, from a paragraph.</h2>
+            <span className="eyebrow">What one paragraph is worth</span>
+            <h2>The money people are already entitled to.</h2>
           </div>
           <div className="statrow">
+            <Stat claim={CLAIMS.averageValue} />
             <Stat claim={CLAIMS.programs} />
-            <Stat claim={CLAIMS.checks} />
+            <Stat claim={CLAIMS.programsPerHousehold} />
             <Stat claim={CLAIMS.questions} />
-            <Stat claim={CLAIMS.timeToAnswer} />
           </div>
+          <p className="disclaimer" style={{ marginTop: 30, textAlign: 'center' }}>
+            The dollar figure is computed from the federal rules applied to our 150
+            validation households, not from a model. Those households are synthetic, so it
+            describes the validation set rather than the population.{' '}
+            <Link href="/results">How this is measured</Link>.
+          </p>
         </div>
       </section>
 
@@ -249,7 +246,7 @@ export default function Landing() {
               <div className="num">2</div>
               <h3>Benny checks every rule at once</h3>
               <p>
-                Every eligibility rule across all three programs is checked against that one
+                Every eligibility rule across all eleven programs is checked against that one
                 description together, not program by program. Income, deductions and thresholds
                 are calculated from the official tables, never estimated.
               </p>
@@ -412,7 +409,7 @@ export default function Landing() {
           <div className="cta-panel">
             <h2>See it on a real household.</h2>
             <p>
-              Type a situation in your own words and watch every rule across three programs get
+              Type a situation in your own words and watch every rule across eleven programs get
               checked at once. It takes about thirty seconds.
             </p>
             <Link href="/demo" className="btn lg">

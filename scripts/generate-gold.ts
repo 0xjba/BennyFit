@@ -35,6 +35,18 @@ import {
   lifelineThresholdsFor,
 } from '@/lib/thresholds';
 import { Period } from '@/lib/parse';
+import {
+  childTaxCredit,
+  extraHelpEligibility,
+  fpgThresholdEligibility,
+  medicareSavingsEligibility,
+} from '@/lib/compute-programs';
+import {
+  ctcThresholdsFor,
+  fpgProgramConfig,
+  medicareThresholdsFor,
+  povertyGuidelines,
+} from '@/lib/thresholds';
 
 const AS_OF = '2026-09-21';
 
@@ -62,6 +74,7 @@ export interface GoldFacts {
   qualifyingChildren: number;
   filingStatus: FilingStatus;
   claimantAge: number;
+  childAges: number[];
   investmentIncome: number;
   lifelinePrograms: string[];
   onTribalLands: boolean;
@@ -163,17 +176,89 @@ function truthFor(f: GoldFacts): {
   };
   const lifeline = lifelineEligibility(lifelineFacts, lifelineSet);
 
+  // --- the programs added beyond the original three ---------------------
+  const annualIncome = dollars((f.earnedMonthly + f.unearnedMonthly) * 12);
+  const fpgTable = povertyGuidelines();
+  const received = [
+    ...f.lifelinePrograms,
+    ...(snap.eligible ? ['snap'] : []),
+    ...(f.categorical !== 'none' ? [f.categorical] : []),
+  ];
+
+  const youngest = f.childAges.length > 0 ? Math.min(...f.childAges) : null;
+  const onMedicare = f.claimantAge >= 65;
+
+  const fpgResult = (id: string, categoryMet: boolean, detail: string) =>
+    fpgThresholdEligibility(
+      {
+        householdSize: f.householdSize,
+        annualIncomeCents: annualIncome,
+        programsReceived: received,
+        categoryMet,
+        categoryDetail: detail,
+      },
+      fpgProgramConfig(id, AS_OF),
+      fpgTable
+    );
+
+  const wic = fpgResult('wic', youngest !== null && youngest < 5, 'a child under five');
+  const schoolMeals = fpgResult(
+    'school_meals',
+    f.childAges.some((a) => a >= 5 && a <= 18),
+    'a school-age child'
+  );
+  const csfp = fpgResult('csfp', f.claimantAge >= 60, 'someone aged 60 or over');
+  const liheap = fpgResult('liheap', f.rentMonthly > 0 || f.utilitiesMonthly > 0, 'pays for home energy');
+  const headStart = fpgResult('head_start', youngest !== null && youngest < 5, 'a child under five');
+
+  const medicareSet = medicareThresholdsFor(AS_OF);
+  const medicareFacts = {
+    onMedicare,
+    married: f.filingStatus === 'joint' || f.householdSize >= 2,
+    monthlyIncomeCents: dollars(f.earnedMonthly + f.unearnedMonthly),
+    resourcesCents: dollars(f.savings),
+  };
+  const msp = medicareSavingsEligibility(medicareFacts, medicareSet);
+  const extraHelp = extraHelpEligibility(medicareFacts, medicareSet);
+
+  const ctc = childTaxCredit(
+    {
+      qualifyingChildren: f.childAges.filter((a) => a < 17).length,
+      agiAnnualCents: annualIncome,
+      filingStatus: f.filingStatus,
+    },
+    ctcThresholdsFor(AS_OF)
+  );
+
+  const extra: Record<string, { eligible: boolean; annualValueCents: number | null }> = {
+    ctc,
+    wic,
+    school_meals: schoolMeals,
+    csfp,
+    liheap,
+    head_start: headStart,
+    medicare_savings: msp,
+    extra_help: extraHelp,
+  };
+
+  const truth: GoldHousehold['truth'] = {
+    snap: snap.eligible ? 'eligible' : 'ineligible',
+    eitc: eitc.eligible ? 'eligible' : 'ineligible',
+    lifeline: lifeline.eligible ? 'eligible' : 'ineligible',
+  };
+  const values: GoldHousehold['values'] = {
+    snap: snap.annualValueCents ? toDollars(snap.annualValueCents) : 0,
+    eitc: eitc.annualValueCents ? toDollars(eitc.annualValueCents) : 0,
+    lifeline: lifeline.annualValueCents ? toDollars(lifeline.annualValueCents) : 0,
+  };
+  for (const [id, r] of Object.entries(extra)) {
+    truth[id] = r.eligible ? 'eligible' : 'ineligible';
+    values[id] = r.annualValueCents ? toDollars(r.annualValueCents) : 0;
+  }
+
   return {
-    truth: {
-      snap: snap.eligible ? 'eligible' : 'ineligible',
-      eitc: eitc.eligible ? 'eligible' : 'ineligible',
-      lifeline: lifeline.eligible ? 'eligible' : 'ineligible',
-    },
-    values: {
-      snap: snap.annualValueCents ? toDollars(snap.annualValueCents) : 0,
-      eitc: eitc.annualValueCents ? toDollars(eitc.annualValueCents) : 0,
-      lifeline: lifeline.annualValueCents ? toDollars(lifeline.annualValueCents) : 0,
-    },
+    truth,
+    values,
     derivation: {
       snap: [
         ...snap.steps.map((s) => `${s.label}: ${s.detail} -> ${formatDollars(s.runningCents)}`),
@@ -227,9 +312,18 @@ function renderParagraph(f: GoldFacts, o: RenderOptions = {}): string {
       ])
     );
   } else if (f.children > 0) {
+    // Ages are stated unless the household is deliberately vague, because several
+    // programs turn entirely on how old the children are and a description that omits
+    // them is not a test of reading, only of guessing.
+    const agePhrase =
+      f.childAges.length === 0
+        ? ''
+        : f.childAges.length === 1
+          ? ` aged ${f.childAges[0]}`
+          : ` aged ${f.childAges.slice(0, -1).join(', ')} and ${f.childAges[f.childAges.length - 1]}`;
     const kids = o.vagueChildren
-      ? pick(['I have a couple of kids at home', 'I have kids living with me', "there are the little ones too"])
-      : `I have ${f.children === 1 ? 'one kid' : `${f.children} kids`}`;
+      ? pick(['I have a couple of kids at home', 'I have kids living with me', 'there are the little ones too'])
+      : `I have ${f.children === 1 ? 'one kid' : `${f.children} kids`}${agePhrase}`;
     const partner = f.filingStatus === 'joint' ? pick([' My husband is here too.', ' My wife works as well.', ' My partner and I are married.']) : '';
     parts.push(`I'm ${f.claimantAge}, I live in ${f.state}, and ${kids}.${partner}`.trim());
   } else {
@@ -323,6 +417,7 @@ function baseFacts(): GoldFacts {
     qualifyingChildren: 0,
     filingStatus: 'other',
     claimantAge: 35,
+    childAges: [],
     investmentIncome: 0,
     lifelinePrograms: [],
     onTribalLands: false,
@@ -338,6 +433,7 @@ function lowIncomeWorkingFamily(): GoldFacts {
   f.householdSize = 1 + children;
   f.children = children;
   f.qualifyingChildren = children;
+  f.childAges = Array.from({ length: children }, () => between(1, 16));
   f.claimantAge = between(24, 44);
   f.earnedMonthly = between(900, 1900, 25);
   f.rentMonthly = between(550, 1100, 25);
@@ -366,6 +462,7 @@ function comfortableHousehold(): GoldFacts {
   f.householdSize = between(1, 4);
   f.children = Math.max(0, f.householdSize - between(1, 2));
   f.qualifyingChildren = f.children;
+  f.childAges = Array.from({ length: f.children }, () => between(1, 16));
   f.claimantAge = between(30, 55);
   f.earnedMonthly = between(6000, 11000, 250);
   f.rentMonthly = between(1500, 2600, 50);
@@ -482,9 +579,14 @@ function build(): GoldHousehold[] {
       const eligibleCount = countEligible(truth);
 
       // Each slice has to actually be what it says it is.
-      if (target.slice === 'clear_eligible' && eligibleCount !== 3) continue;
+      //
+      // With eleven programs, "eligible for all of them" is not a state any household
+      // can reach: the same person cannot be under five and over sixty. So the clearly
+      // eligible slice means a household that qualifies broadly, and the clearly
+      // ineligible one means a household that qualifies for nothing at all.
+      if (target.slice === 'clear_eligible' && eligibleCount < 5) continue;
       if (target.slice === 'clear_ineligible' && eligibleCount !== 0) continue;
-      if (target.slice === 'mixed' && (eligibleCount === 0 || eligibleCount === 3)) continue;
+      if (target.slice === 'mixed' && (eligibleCount === 0 || eligibleCount >= 5)) continue;
 
       const paragraph = renderParagraph(f, options);
 
@@ -517,11 +619,11 @@ const path = join(process.cwd(), 'data', 'gold', 'households.jsonl');
 writeFileSync(path, households.map((h) => JSON.stringify(h)).join('\n') + '\n');
 
 const bySlice = new Map<string, number>();
-const eligibleBy: Record<string, number> = { snap: 0, eitc: 0, lifeline: 0 };
+const eligibleBy: Record<string, number> = {};
 for (const h of households) {
   bySlice.set(h.slice, (bySlice.get(h.slice) ?? 0) + 1);
   for (const [program, verdict] of Object.entries(h.truth)) {
-    if (verdict === 'eligible') eligibleBy[program]++;
+    eligibleBy[program] = (eligibleBy[program] ?? 0) + (verdict === 'eligible' ? 1 : 0);
   }
 }
 
