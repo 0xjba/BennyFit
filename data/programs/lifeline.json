@@ -1,0 +1,100 @@
+{
+  "id": "lifeline",
+  "name": "Lifeline (phone and internet discount)",
+  "shortName": "Lifeline",
+  "administeredBy": "FCC, administered by USAC",
+  "applyUrl": "https://www.usac.org/lifeline/",
+  "thresholdFamily": "lifeline",
+  "valueBasis": "A flat monthly discount on phone or internet service, times twelve.",
+  "criteria": [
+    {
+      "id": "lifeline.receives_snap",
+      "scope": "household",
+      "type": "noul",
+      "instructions": "Does any member of this household receive SNAP?",
+      "askIfUnsure": "Does anyone in your household get SNAP or food stamps?",
+      "criteria": { "true": "yes", "false": "no" },
+      "effect": { "onTrue": ["pass:lifeline"] },
+      "note": "Any one qualifying programme settles Lifeline on its own."
+    },
+    {
+      "id": "lifeline.receives_medicaid",
+      "scope": "household",
+      "type": "noul",
+      "instructions": "Does any member of this household receive Medicaid?",
+      "askIfUnsure": "Does anyone in your household have Medicaid?",
+      "criteria": { "true": "yes", "false": "no" },
+      "effect": { "onTrue": ["pass:lifeline"] }
+    },
+    {
+      "id": "lifeline.receives_ssi",
+      "scope": "household",
+      "type": "noul",
+      "instructions": "Does any member of this household receive Supplemental Security Income? SSI is not the same as Social Security retirement or disability insurance.",
+      "askIfUnsure": "Does anyone in your household get SSI?",
+      "criteria": { "true": "yes", "false": "no" },
+      "effect": { "onTrue": ["pass:lifeline"] },
+      "note": "The same answer settles SNAP categorical eligibility, which is why this criterion is worth more than the others when it is uncertain."
+    },
+    {
+      "id": "lifeline.receives_fpha",
+      "scope": "household",
+      "type": "noul",
+      "instructions": "Does any member receive Federal Public Housing Assistance, including a Section 8 voucher or residence in public housing?",
+      "askIfUnsure": "Do you live in public housing or use a Section 8 voucher?",
+      "criteria": { "true": "yes", "false": "no" },
+      "effect": { "onTrue": ["pass:lifeline"] }
+    },
+    {
+      "id": "lifeline.receives_veterans_pension",
+      "scope": "household",
+      "type": "noul",
+      "instructions": "Does any member receive the Veterans Pension or Survivors Pension benefit? This is the needs-based pension, not disability compensation or the GI Bill.",
+      "askIfUnsure": "Does anyone here get a Veterans Pension or Survivors Pension?",
+      "criteria": { "true": "yes", "false": "no" },
+      "effect": { "onTrue": ["pass:lifeline"] }
+    },
+    {
+      "id": "lifeline.tribal_lands",
+      "scope": "household",
+      "type": "noul",
+      "instructions": "Does this household live on federally recognised Tribal lands?",
+      "askIfUnsure": "Do you live on Tribal lands?",
+      "criteria": { "true": "yes", "false": "no" },
+      "effect": {
+        "onTrue": ["set:onTribalLands=true", "require:lifeline.tribal_programs"]
+      },
+      "note": "Raises the monthly benefit and adds four qualifying programmes."
+    },
+    {
+      "id": "lifeline.tribal_programs",
+      "scope": "household",
+      "type": "choice",
+      "instructions": "Does any member receive one of these Tribal programmes?",
+      "askIfUnsure": "Does anyone here get Bureau of Indian Affairs General Assistance, Tribal TANF, Tribal Head Start, or food from FDPIR?",
+      "criteria": {
+        "bia_general_assistance": "Bureau of Indian Affairs General Assistance",
+        "tribal_tanf": "Tribally-administered TANF",
+        "tribal_head_start": "Tribal Head Start, having met the income standard",
+        "fdpir": "Food Distribution Program on Indian Reservations",
+        "none": "none of these"
+      },
+      "requires": "lifeline.tribal_lands",
+      "effect": {
+        "onNot": { "none": ["pass:lifeline"] }
+      }
+    },
+    {
+      "id": "lifeline.one_per_household",
+      "scope": "household",
+      "type": "noul",
+      "instructions": "Does anyone at this address already receive a Lifeline benefit?",
+      "askIfUnsure": "Does anyone at your address already get a Lifeline discount?",
+      "criteria": { "true": "yes, someone already receives it", "false": "no" },
+      "effect": { "onTrue": ["fail:lifeline"] },
+      "note": "One benefit per household, where a household is people at one address who share income and expenses."
+    }
+  ],
+  "computed": ["lifeline.income_test"],
+  "verdict": "receives_snap OR receives_medicaid OR receives_ssi OR receives_fpha OR receives_veterans_pension OR tribal_programs OR income_test"
+}
