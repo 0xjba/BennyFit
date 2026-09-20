@@ -3,10 +3,11 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import type { CriterionView, ScreenResponse } from '@/app/api/screen/route';
+import { BennyAvatar } from './Logo';
 
 const SAMPLES: { tag: string; text: string }[] = [
   {
-    tag: 'Retired, living alone — the loop asks one question here',
+    tag: 'Retired, living alone — Benny asks one question here',
     text: "I'm 62, live alone in Ohio, and get about $1,150 a month. Rent is $700 and I pay my own gas and electric.",
   },
   {
@@ -21,9 +22,9 @@ const SAMPLES: { tag: string; text: string }[] = [
 
 const PROGRAM_ORDER = ['snap', 'eitc', 'lifeline'];
 const PROGRAM_NAMES: Record<string, string> = {
-  snap: 'SNAP',
+  snap: 'SNAP food assistance',
   eitc: 'Earned Income Tax Credit',
-  lifeline: 'Lifeline',
+  lifeline: 'Lifeline phone and internet',
 };
 
 type Phase = 'empty' | 'reading' | 'asking' | 'results' | 'error';
@@ -38,25 +39,14 @@ function money(value: number): string {
   return `$${Math.round(value).toLocaleString('en-US')}`;
 }
 
-/**
- * Milliseconds below a second, seconds above it.
- *
- * A round trip of under a millisecond displayed as "0.0s" reads as a broken clock. The
- * whole claim rests on this number, so it has to be legible at the scale it actually
- * lands at.
- */
+/** Milliseconds below a second, seconds above it, so the figure is legible either way. */
 function duration(ms: number): string {
   if (ms < 1) return `${ms.toFixed(2)}ms`;
   if (ms < 1000) return `${Math.round(ms)}ms`;
   return `${(ms / 1000).toFixed(1)}s`;
 }
 
-/**
- * A running millisecond counter, so the number on screen is a measurement.
- *
- * The elapsed value is only ever written from inside an animation frame, never
- * synchronously while the effect runs, which would cascade a render on every start.
- */
+/** A running counter, so the number on screen is a measurement rather than a promise. */
 function useStopwatch(running: boolean) {
   const [elapsed, setElapsed] = useState(0);
   const startedAt = useRef(0);
@@ -74,15 +64,14 @@ function useStopwatch(running: boolean) {
   return running ? elapsed : 0;
 }
 
-function ConfidenceBar({ confidence, low }: { confidence: number; low: boolean }) {
-  // Bars only, never a percentage. A confidence is conditional on the options supplied
-  // and is not a probability that the household qualifies, so rendering it as "83%"
-  // would invite exactly the reading it cannot support.
+function CheckBar({ confidence, unsettled }: { confidence: number; unsettled: boolean }) {
+  // A bar, never a percentage. The figure behind it is not a chance that the household
+  // qualifies, and printing it as one would invite exactly that reading.
   return (
     <div
-      className={low ? 'bar low' : 'bar'}
-      title={low ? 'below the threshold: the engine could not settle this' : 'settled'}
-      aria-label={low ? 'not settled' : 'settled'}
+      className={unsettled ? 'bar low' : 'bar'}
+      title={unsettled ? 'Benny could not settle this from the description' : 'settled'}
+      aria-label={unsettled ? 'not settled' : 'settled'}
     >
       <span style={{ width: `${Math.round(confidence * 100)}%` }} />
     </div>
@@ -90,14 +79,12 @@ function ConfidenceBar({ confidence, low }: { confidence: number; low: boolean }
 }
 
 /**
- * The criteria grid, filling in row by row.
+ * The full list of checks, filling in as it goes.
  *
- * The reveal is presentation; the millisecond figure beside it is the measured round
- * trip. The parent remounts this component on each pass, so the count starts at zero
- * without any effect having to reset it, and the whole grid visibly re-reads after an
- * answer rather than updating in place.
+ * The parent remounts this on each round, so the whole list visibly runs again after an
+ * answer rather than quietly updating in place.
  */
-function CriteriaGrid({
+function ChecksList({
   criteria,
   dimSettled,
 }: {
@@ -136,28 +123,25 @@ function CriteriaGrid({
         <section className="program-group" key={programId}>
           <div className="program-head">
             <span>{PROGRAM_NAMES[programId] ?? programId}</span>
-            <span>{rows.length} criteria</span>
+            <span>{rows.length} checks</span>
           </div>
           {rows.map((c) => {
-            const position = index++;
-            const pending = position >= revealed;
+            const pending = index++ >= revealed;
             const dim = dimSettled && c.settled;
             return (
               <div
                 className={`criterion${dim ? ' dim' : ''}${pending ? ' pending' : ''}`}
                 key={c.instanceId}
               >
-                <div className="criterion-label">
+                <div>
                   {c.label}
-                  {c.subjectLabel && (
-                    <span className="criterion-subject"> — {c.subjectLabel}</span>
-                  )}
+                  {c.subjectLabel && <span className="criterion-subject"> — {c.subjectLabel}</span>}
                 </div>
                 <div className="criterion-answer">
                   {pending ? '' : c.chosenLabel}
-                  {!pending && c.presumed && <span className="presumed"> (presumed)</span>}
+                  {!pending && c.presumed && <span className="presumed"> (assumed)</span>}
                 </div>
-                <ConfidenceBar confidence={c.confidence} low={!c.settled} />
+                <CheckBar confidence={c.confidence} unsettled={!c.settled} />
               </div>
             );
           })}
@@ -175,7 +159,7 @@ export function Screener({ asOf }: { asOf: string }) {
   const [answer, setAnswer] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [passCount, setPassCount] = useState(0);
-  const [engineMsTotal, setEngineMsTotal] = useState(0);
+  const [checkMsTotal, setCheckMsTotal] = useState(0);
 
   const busy = phase === 'reading';
   const elapsed = useStopwatch(busy);
@@ -200,7 +184,7 @@ export function Screener({ asOf }: { asOf: string }) {
         const result = json as ScreenResponse;
         setData(result);
         setPassCount((n) => n + 1);
-        setEngineMsTotal((ms) => ms + result.engineElapsedMs);
+        setCheckMsTotal((ms) => ms + result.engineElapsedMs);
         setPhase(result.next ? 'asking' : 'results');
         setAnswer('');
       } catch {
@@ -218,7 +202,7 @@ export function Screener({ asOf }: { asOf: string }) {
   const start = (text: string) => {
     setParagraph(text);
     setReplies([]);
-    setEngineMsTotal(0);
+    setCheckMsTotal(0);
     setPassCount(0);
     void run(text, []);
   };
@@ -226,15 +210,10 @@ export function Screener({ asOf }: { asOf: string }) {
   const submitAnswer = (reply: string | null) => {
     if (!data?.next) return;
     if (reply === null) {
-      // A skipped question still counts as put, so the loop moves on rather than
-      // offering the same one again.
       setPhase('results');
       return;
     }
-    const next = [
-      ...replies,
-      { instanceId: data.next.instanceId, question: data.next.question, reply },
-    ];
+    const next = [...replies, { instanceId: data.next.instanceId, question: data.next.question, reply }];
     setReplies(next);
     void run(paragraph, next);
   };
@@ -245,17 +224,12 @@ export function Screener({ asOf }: { asOf: string }) {
     setReplies([]);
     setPhase('empty');
     setError(null);
-    setEngineMsTotal(0);
+    setCheckMsTotal(0);
     setPassCount(0);
   };
 
   const ranked = useMemo(
-    () =>
-      data
-        ? [...data.verdicts].sort(
-            (a, b) => (b.annualValue ?? 0) - (a.annualValue ?? 0)
-          )
-        : [],
+    () => (data ? [...data.verdicts].sort((a, b) => (b.annualValue ?? 0) - (a.annualValue ?? 0)) : []),
     [data]
   );
 
@@ -275,7 +249,7 @@ export function Screener({ asOf }: { asOf: string }) {
             to find out. Nothing you type is stored.
           </p>
           <div className="row">
-            <button onClick={() => start(paragraph)} disabled={paragraph.trim().length === 0}>
+            <button className="btn" onClick={() => start(paragraph)} disabled={paragraph.trim().length === 0}>
               Check three programs
             </button>
           </div>
@@ -294,7 +268,7 @@ export function Screener({ asOf }: { asOf: string }) {
         <div className="error">
           <strong>{error}</strong>
           <div className="row">
-            <button className="secondary" onClick={() => start(paragraph)}>
+            <button className="btn ghost" onClick={() => start(paragraph)}>
               Try again
             </button>
           </div>
@@ -305,8 +279,9 @@ export function Screener({ asOf }: { asOf: string }) {
         <>
           {data.isFixture && (
             <div className="notice">
-              Answers come from the local fixture, not from a decision model. Figures show
-              that the loop runs; they measure nothing about a model.
+              Preview mode. Answers come from a local test harness rather than the live
+              service, so these figures show the process running and are not a measure of
+              its accuracy.
             </div>
           )}
           {data.thresholdNotice && <div className="notice">{data.thresholdNotice}</div>}
@@ -315,27 +290,38 @@ export function Screener({ asOf }: { asOf: string }) {
             <div className="counter">
               <div>
                 <span className="value">{data.criteriaEvaluated}</span>
-                <span className="label">criteria, one pass</span>
+                <span className="label">checks, run together</span>
               </div>
               <div>
                 <span className="value">{duration(data.engineElapsedMs)}</span>
-                <span className="label">engine round trip</span>
+                <span className="label">to run them</span>
               </div>
               <div>
-                <span className="value">{duration(elapsed)}</span>
-                <span className="label">elapsed</span>
+                {/* The live stopwatch only means anything while a round is in flight;
+                    once it settles, the useful figure is the total spent checking. */}
+                <span className="value">
+                  {busy ? duration(elapsed) : duration(checkMsTotal)}
+                </span>
+                <span className="label">{busy ? 'elapsed' : 'total checking time'}</span>
               </div>
               <div>
                 <span className="value">{data.lowConfidenceCount}</span>
-                <span className="label">below the threshold</span>
+                <span className="label">still unsettled</span>
               </div>
             </div>
           )}
 
           {phase === 'asking' && data.next && (
             <div className="question-block">
+              <div className="asker">
+                <BennyAvatar size={22} />
+                Benny needs one thing
+              </div>
               <p className="q">{data.next.question}</p>
-              <p className="why">{data.next.reason}</p>
+              <p className="why">
+                {data.next.reason}
+                {data.next.voiSpread > 0 && ` — worth about ${money(data.next.voiSpread)} a year.`}
+              </p>
               <form
                 onSubmit={(e) => {
                   e.preventDefault();
@@ -350,7 +336,7 @@ export function Screener({ asOf }: { asOf: string }) {
                   aria-label={data.next.question}
                 />
                 <div className="row">
-                  <button type="submit" disabled={answer.trim().length === 0}>
+                  <button className="btn" type="submit" disabled={answer.trim().length === 0}>
                     Answer
                   </button>
                   <button type="button" className="skip" onClick={() => submitAnswer(null)}>
@@ -370,12 +356,12 @@ export function Screener({ asOf }: { asOf: string }) {
                 </div>
                 <div>
                   <span className="value">{data.criteriaEvaluated}</span>
-                  <span className="label">criteria evaluated</span>
+                  <span className="label">checks run</span>
                 </div>
                 <div>
-                  <span className="value">{duration(engineMsTotal)}</span>
+                  <span className="value">{duration(checkMsTotal)}</span>
                   <span className="label">
-                    engine time, {passCount} {passCount === 1 ? 'pass' : 'passes'}
+                    checking time, {passCount} {passCount === 1 ? 'round' : 'rounds'}
                   </span>
                 </div>
                 <div>
@@ -407,7 +393,7 @@ export function Screener({ asOf }: { asOf: string }) {
                     Apply at the official {v.shortName} page →
                   </a>
                   {v.steps.length > 0 && (
-                    <details>
+                    <details className="disclosure">
                       <summary>Show the arithmetic</summary>
                       <ul className="steps">
                         {v.steps.map((s, i) => (
@@ -430,8 +416,8 @@ export function Screener({ asOf }: { asOf: string }) {
                     </details>
                   )}
                   {v.tests.length > 0 && (
-                    <details>
-                      <summary>Show the tests</summary>
+                    <details className="disclosure">
+                      <summary>Show the tests it had to pass</summary>
                       <ul className="steps">
                         {v.tests.map((t, i) => (
                           <li key={i}>
@@ -450,8 +436,8 @@ export function Screener({ asOf }: { asOf: string }) {
               ))}
 
               {replies.length > 0 && (
-                <details open>
-                  <summary>What was asked, and why</summary>
+                <details className="disclosure" open>
+                  <summary>What Benny asked, and why</summary>
                   <ul className="steps">
                     {replies.map((r) => (
                       <li key={r.instanceId}>
@@ -467,24 +453,19 @@ export function Screener({ asOf }: { asOf: string }) {
               )}
 
               <div className="row">
-                <button className="secondary" onClick={reset}>
+                <button className="btn ghost" onClick={reset}>
                   Start over
                 </button>
               </div>
             </>
           )}
 
-          <details open={phase !== 'results'}>
+          <details className="disclosure" open={phase !== 'results'}>
             <summary>
-              Every criterion, with what the engine made of it
-              {phase === 'asking' && ' — settled rows dimmed'}
+              Every check Benny ran{phase === 'asking' && ' — settled ones dimmed'}
             </summary>
-            <div style={{ marginTop: 14 }}>
-              <CriteriaGrid
-                key={passCount}
-                criteria={data.criteria}
-                dimSettled={phase === 'asking'}
-              />
+            <div style={{ marginTop: 16 }}>
+              <ChecksList key={passCount} criteria={data.criteria} dimSettled={phase === 'asking'} />
             </div>
           </details>
         </>

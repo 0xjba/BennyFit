@@ -14,6 +14,7 @@ import { effectiveChoice } from '@/lib/evaluate';
 import { Reply, screenStep } from '@/lib/loop';
 import { toDollars } from '@/lib/money';
 import { activeSnapSet } from '@/lib/thresholds';
+import { screeningDate } from '@/lib/today';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -113,7 +114,7 @@ export async function POST(request: NextRequest) {
   const asOf =
     typeof body.asOf === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(body.asOf)
       ? body.asOf
-      : new Date().toISOString().slice(0, 10);
+      : screeningDate();
 
   try {
     const engine = engineFromEnv();

@@ -1,60 +1,44 @@
 import Link from 'next/link';
 
-import { AccuracyStrip } from '@/app/components/AccuracyStrip';
-import { ConventionalForm } from '@/app/components/ConventionalForm';
-import { DemoLanes } from '@/app/components/DemoLanes';
-import { conventionalForms, conventionalQuestionCount } from '@/lib/conventional';
+import { Screener } from '@/app/components/Screener';
+import { Masthead } from '@/app/components/SiteChrome';
+import { TrustBar } from '@/app/components/TrustBar';
 import { readResults } from '@/lib/results';
+import { screeningDate } from '@/lib/today';
 
 export const dynamic = 'force-dynamic';
 
+export const metadata = {
+  title: 'Demo — BennyFit',
+  description:
+    'Describe a household in plain language and watch every rule across three federal benefit programs get checked at once.',
+};
+
 export default function Demo() {
   const results = readResults();
-  const forms = conventionalForms();
-  const questionCount = conventionalQuestionCount();
+  const asOf = screeningDate();
 
   return (
     <>
-      <main className="wide">
-        <h1>The same household, two ways</h1>
+      <Masthead cta={false} />
+      <main className="app">
+        <h1>What is this household entitled to?</h1>
         <p className="lede">
-          Left: the path as it exists, one application per programme. Right: one paragraph,
-          every criterion for all three programmes resolved in a single pass, and one
-          question where the description leaves something open. Both sides ask about the
-          same facts, because the questions on the left are generated from the same
-          criteria files the engine reads.
+          Describe the situation once, in plain words. Benny checks every rule across SNAP,
+          the Earned Income Tax Credit and Lifeline together, and asks a follow-up only if
+          something missing would change the answer.
         </p>
 
-        <div className="split">
-          <section className="side">
-            <div className="side-head">
-              <h2>The conventional path</h2>
-              <p className="lane-sub">
-                {forms.length} applications · {questionCount} questions
-              </p>
-            </div>
-            <ConventionalForm forms={forms} />
-          </section>
+        <Screener asOf={asOf} />
 
-          <section className="side">
-            <div className="side-head">
-              <h2>One paragraph</h2>
-              <p className="lane-sub">
-                Three lanes on the identical input: a typed readout, and the same job done
-                by generating JSON.
-              </p>
-            </div>
-            <DemoLanes />
-          </section>
-        </div>
-
-        <p className="disclaimer" style={{ marginTop: 36 }}>
-          Screening estimates from federal rules, not eligibility determinations. Nothing
-          typed here is stored. <Link href="/">Use the screener</Link> ·{' '}
-          <Link href="/method">How this is measured</Link>
+        <p className="disclaimer" style={{ marginTop: 44 }}>
+          Federal rules only. Most states are more generous than the federal minimum for
+          SNAP, so a household that does not qualify here may still qualify at home.{' '}
+          <Link href="/compare">See it beside the current process</Link> ·{' '}
+          <Link href="/results">How accuracy is measured</Link>
         </p>
       </main>
-      <AccuracyStrip results={results} />
+      <TrustBar results={results} />
     </>
   );
 }

@@ -24,6 +24,7 @@ import {
 import { EngineClient, EngineQuestion, EngineRequest } from './engine/types';
 import { Answers, ScreeningState, Verdicts, evaluate, totalAnnualValue } from './evaluate';
 import { ParseResult, parseHousehold } from './parse';
+import { screeningDate } from './today';
 import { Candidate, nextQuestion, reasonFor } from './voi';
 
 /**
@@ -198,7 +199,7 @@ export async function screenStep(
 ): Promise<StepResult> {
   const tau = options.tau ?? DEFAULT_TAU;
   const maxQuestions = options.maxQuestions ?? DEFAULT_MAX_QUESTIONS;
-  const asOf = options.asOf ?? new Date().toISOString().slice(0, 10);
+  const asOf = options.asOf ?? screeningDate();
 
   const parse = parseHousehold(paragraph);
   const shape = shapeOf(parse);
