@@ -1,0 +1,29 @@
+{
+  "id": "snap-fy2026",
+  "program": "snap",
+  "label": "SNAP FY2026 (Oct 1, 2025 - Sep 30, 2026)",
+  "effectiveFrom": "2025-10-01",
+  "effectiveTo": "2026-09-30",
+  "region": "48+DC",
+  "status": "complete",
+  "sources": {
+    "allotmentsAndDeductions": "https://www.fna.usda.gov/sites/default/files/resource-files/snap-fy26maximumAllotments-deductions.pdf",
+    "minimumAllotment": "https://www.fna.usda.gov/sites/default/files/resource-files/snap-fy26MinimumAllotments.pdf",
+    "incomeStandards": "https://www.fna.usda.gov/sites/default/files/resource-files/snap-fy26-incomeEligibilityStandards.pdf",
+    "resourceLimits": "https://www.fna.usda.gov/snap/recipient/eligibility"
+  },
+  "readOn": "2026-09-21",
+  "netLimitBySize":   { "1": 1305, "2": 1763, "3": 2221, "4": 2680, "5": 3138, "6": 3596, "7": 4055, "8": 4513, "increment": 459 },
+  "grossLimitBySize": { "1": 1696, "2": 2292, "3": 2888, "4": 3483, "5": 4079, "6": 4675, "7": 5271, "8": 5867, "increment": 596 },
+  "grossLimit165BySize": { "1": 2152, "2": 2909, "3": 3665, "4": 4421, "5": 5177, "6": 5934, "7": 6690, "8": 7446, "increment": 757 },
+  "maxAllotmentBySize": { "1": 298, "2": 546, "3": 785, "4": 994, "5": 1183, "6": 1421, "7": 1571, "8": 1789, "increment": 218 },
+  "standardDeductionBySize": { "1": 209, "2": 209, "3": 209, "4": 223, "5": 261, "6+": 299 },
+  "earnedIncomeDeductionRate": 0.20,
+  "excessShelterCap": 744,
+  "homelessShelterDeduction": 198.99,
+  "excessMedicalThreshold": 35,
+  "resourceLimit": 3000,
+  "resourceLimitElderlyDisabled": 4500,
+  "minimumAllotment": 24,
+  "benefitContributionRate": 0.30
+}

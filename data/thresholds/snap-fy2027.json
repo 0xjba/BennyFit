@@ -1,0 +1,68 @@
+{
+  "id": "snap-fy2027",
+  "program": "snap",
+  "label": "SNAP FY2027 (Oct 1, 2026 - Sep 30, 2027)",
+  "effectiveFrom": "2026-10-01",
+  "effectiveTo": "2027-09-30",
+  "region": "48+DC",
+  "status": "partial",
+  "statusNote": "Income standards are derived from the 2026 poverty guidelines using the rule verified against every published FY2026 figure. The allotment and deduction tables come from the FY2027 COLA memo, which was not published at the USDA COLA index as of the read date, so they are null here. A threshold set with status 'partial' cannot be used to compute a benefit.",
+  "sources": {
+    "povertyGuidelines": "https://aspe.hhs.gov/topics/poverty-economic-mobility/poverty-guidelines",
+    "derivationRule": "7 CFR 273.9(a) and 273.9(d)(1)(i)",
+    "colaMemo": "https://www.fna.usda.gov/snap/allotment/cola/fy27"
+  },
+  "readOn": "2026-09-21",
+  "derivedBy": "scripts/derive-thresholds.py",
+  "netLimitBySize": {
+    "1": 1330,
+    "2": 1804,
+    "3": 2277,
+    "4": 2750,
+    "5": 3224,
+    "6": 3697,
+    "7": 4170,
+    "8": 4644,
+    "increment": 474
+  },
+  "grossLimitBySize": {
+    "1": 1729,
+    "2": 2345,
+    "3": 2960,
+    "4": 3575,
+    "5": 4191,
+    "6": 4806,
+    "7": 5421,
+    "8": 6037,
+    "increment": 616
+  },
+  "grossLimit165BySize": {
+    "1": 2195,
+    "2": 2976,
+    "3": 3757,
+    "4": 4538,
+    "5": 5319,
+    "6": 6100,
+    "7": 6881,
+    "8": 7662,
+    "increment": 781
+  },
+  "maxAllotmentBySize": null,
+  "standardDeductionBySize": {
+    "1": null,
+    "2": null,
+    "3": null,
+    "4": 229,
+    "5": 268,
+    "6+": 308,
+    "note": "Sizes 1-3 fall below the minimum standard deduction, which is CPI-adjusted and published only in the FY2027 COLA memo."
+  },
+  "earnedIncomeDeductionRate": 0.2,
+  "excessShelterCap": null,
+  "homelessShelterDeduction": null,
+  "excessMedicalThreshold": 35,
+  "resourceLimit": null,
+  "resourceLimitElderlyDisabled": null,
+  "minimumAllotment": null,
+  "benefitContributionRate": 0.3
+}

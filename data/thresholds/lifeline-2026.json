@@ -1,0 +1,21 @@
+{
+  "id": "lifeline-2026",
+  "program": "lifeline",
+  "label": "Lifeline 2026 (135% of the 2026 poverty guidelines)",
+  "year": 2026,
+  "effectiveFrom": "2026-01-01",
+  "effectiveTo": "2026-12-31",
+  "status": "complete",
+  "region": "48+DC",
+  "sources": {
+    "incomeAndPrograms": "https://www.usac.org/lifeline/consumer-eligibility/",
+    "benefitAmount": "https://www.usac.org/lifeline/"
+  },
+  "readOn": "2026-09-21",
+  "fpgMultiple": 1.35,
+  "annualIncomeLimitBySize": { "1": 21546, "2": 29214, "3": 36882, "4": 44550, "5": 52218, "6": 59886, "7": 67554, "8": 75222, "increment": 7668 },
+  "monthlyBenefit": 9.25,
+  "monthlyBenefitTribal": 34.25,
+  "qualifyingPrograms": ["snap", "medicaid", "ssi", "fpha", "veterans_pension"],
+  "qualifyingProgramsTribal": ["bia_general_assistance", "tribal_tanf", "tribal_head_start", "fdpir"]
+}

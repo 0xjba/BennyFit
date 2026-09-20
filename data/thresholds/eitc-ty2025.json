@@ -1,0 +1,21 @@
+{
+  "id": "eitc-ty2025",
+  "program": "eitc",
+  "label": "EITC tax year 2025",
+  "taxYear": 2025,
+  "effectiveFrom": "2025-01-01",
+  "effectiveTo": "2025-12-31",
+  "status": "complete",
+  "source": "https://www.irs.gov/pub/irs-drop/rp-24-40.pdf",
+  "sourceCitation": "Rev. Proc. 2024-40, section 3.06",
+  "readOn": "2026-09-21",
+  "investmentIncomeLimit": 11950,
+  "childlessMinAge": 25,
+  "childlessMaxAgeExclusive": 65,
+  "byChildren": {
+    "0": { "phaseInRate": 0.0765, "phaseOutRate": 0.0765, "earnedIncomeAmount": 8490,  "maxCredit": 649,  "thresholdPhaseout": { "joint": 17730, "other": 10620 }, "completedPhaseout": { "joint": 26214, "other": 19104 } },
+    "1": { "phaseInRate": 0.34,   "phaseOutRate": 0.1598, "earnedIncomeAmount": 12730, "maxCredit": 4328, "thresholdPhaseout": { "joint": 30470, "other": 23350 }, "completedPhaseout": { "joint": 57554, "other": 50434 } },
+    "2": { "phaseInRate": 0.40,   "phaseOutRate": 0.2106, "earnedIncomeAmount": 17880, "maxCredit": 7152, "thresholdPhaseout": { "joint": 30470, "other": 23350 }, "completedPhaseout": { "joint": 64430, "other": 57310 } },
+    "3": { "phaseInRate": 0.45,   "phaseOutRate": 0.2106, "earnedIncomeAmount": 17880, "maxCredit": 8046, "thresholdPhaseout": { "joint": 30470, "other": 23350 }, "completedPhaseout": { "joint": 68675, "other": 61555 } }
+  }
+}

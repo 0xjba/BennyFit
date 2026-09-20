@@ -1,0 +1,10 @@
+{
+  "id": "fpg-2026",
+  "label": "HHS poverty guidelines, 2026",
+  "year": 2026,
+  "source": "https://aspe.hhs.gov/topics/poverty-economic-mobility/poverty-guidelines",
+  "readOn": "2026-09-21",
+  "region": "48+DC",
+  "annualBySize": { "1": 15960, "2": 21640, "3": 27320, "4": 33000, "5": 38680, "6": 44360, "7": 50040, "8": 55720 },
+  "annualIncrement": 5680
+}
