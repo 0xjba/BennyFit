@@ -69,7 +69,7 @@ const CUES: Record<string, { true?: string[]; false?: string[]; options?: Record
   'snap.dependent_care_paid': { true: ['daycare', 'child care', 'childcare', 'babysitter'], false: [] },
   'snap.child_support_paid': { true: ['child support'], false: [] },
   'snap.medical_expenses': { true: ['medical', 'prescription', 'medication', 'doctor'], false: [] },
-  'snap.resources_over_limit': { true: ['savings', 'in the bank', 'inheritance'], false: ['no savings', 'nothing saved'] },
+  'snap.resources_over_limit': { true: ['savings', 'saved', 'put away', 'in the bank', 'inheritance'], false: ['no savings', 'nothing saved'] },
   'snap.member_student': { true: ['college', 'university', 'student'], false: [] },
   'snap.member_student_exemption': { true: ['work-study', 'works 20 hours', 'part-time job'], false: [] },
   'snap.member_citizenship': {
@@ -150,9 +150,14 @@ function agesIn(state: string): number[] {
  */
 function negated(haystack: string, cue: string): boolean {
   let from = 0;
+  let found = false;
   for (;;) {
     const at = haystack.indexOf(cue, from);
-    if (at === -1) return false;
+    // Having seen every occurrence without hitting an unnegated one, the cue is
+    // negated throughout. Returning false here instead would report a cue that only
+    // ever appears under a negation as present.
+    if (at === -1) return found;
+    found = true;
     const before = haystack.slice(Math.max(0, at - 40), at);
     const isNegated =
       /\b(no|not|never|hardly|barely|without)\b[^.;]*$/.test(before) ||
@@ -218,6 +223,18 @@ function answerFor(state: string, id: string, options: string[]): EngineAnswer {
     const n = hits(haystack, cues.false);
     if (n > 0) {
       weights['false'] += 8 * n;
+      matched = true;
+    }
+  }
+
+  // A savings figure already established in the state answers the resource question
+  // properly. A keyword matcher cannot tell $400 from $4,000, and this criterion turns
+  // entirely on which side of a few thousand dollars the figure falls.
+  if (baseId(id) === 'snap.resources_over_limit') {
+    const stated = state.match(/Savings mentioned: \$([0-9,]+)/i);
+    if (stated) {
+      const amount = parseInt(stated[1].replace(/,/g, ''), 10);
+      weights[amount > 3000 ? 'true' : 'false'] += 12;
       matched = true;
     }
   }

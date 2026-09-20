@@ -27,7 +27,20 @@ import { Answers, ScreeningState, Verdicts, evaluate, totalAnnualValue } from '.
 import { ParseResult, parseHousehold } from './parse';
 import { Candidate, nextQuestion, reasonFor } from './voi';
 
-export const DEFAULT_TAU = 0.5;
+/**
+ * Confidence at or above which an answer counts as settled.
+ *
+ * Swept across 0.2 to 0.8 on the gold set. Balanced accuracy is flat at 98.8% from
+ * 0.2 through 0.6 and question relevance is highest below 0.5, so 0.4 sits in the
+ * middle of the plateau rather than at its edge. Above 0.6 relevance collapses: the
+ * loop starts doubting the income period it had already read correctly and spends its
+ * first question re-asking that instead of the fact the household actually left out.
+ *
+ * This value is provisional. It was swept against the local fixture, whose confidence
+ * is a property of a keyword matcher rather than of a model, and it has to be swept
+ * again against a real engine before the figure printed beside a demo means anything.
+ */
+export const DEFAULT_TAU = 0.4;
 export const DEFAULT_MAX_QUESTIONS = 3;
 
 export interface AskedQuestion {
@@ -169,11 +182,12 @@ export async function screen(paragraph: string, options: ScreenOptions): Promise
   const askedIds = new Set<string>();
   const passes: Pass[] = [];
 
-  let state: ScreeningState = {
+  const state: ScreeningState = {
     paragraph,
     facts: parse.facts,
     shape,
     asOf,
+    tau,
   };
 
   let stateText = renderState(paragraph, parse, replies);

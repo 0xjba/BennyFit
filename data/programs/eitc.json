@@ -11,10 +11,17 @@
       "id": "eitc.has_earned_income",
       "scope": "household",
       "type": "noul",
-      "instructions": "Does anyone in this household have earned income — wages, salary, tips or self-employment? Social Security, unemployment and other benefits are not earned income.",
+      "instructions": "Does anyone in this household have earned income \u2014 wages, salary, tips or self-employment? Social Security, unemployment and other benefits are not earned income.",
       "askIfUnsure": "Did anyone in your household work for pay during the year?",
-      "criteria": { "true": "yes, someone worked for pay", "false": "no earned income" },
-      "effect": { "onFalse": ["fail:eitc"] },
+      "criteria": {
+        "true": "yes, someone worked for pay",
+        "false": "no earned income"
+      },
+      "effect": {
+        "onFalse": [
+          "fail:eitc"
+        ]
+      },
       "note": "Without earned income the credit is zero regardless of everything else. IRC 32(a)."
     },
     {
@@ -32,11 +39,22 @@
       },
       "effect": {
         "onOption": {
-          "mfj": ["set:filingStatus=joint"],
-          "single": ["set:filingStatus=other"],
-          "hoh": ["set:filingStatus=other"],
-          "qss": ["set:filingStatus=other"],
-          "mfs": ["set:filingStatus=other", "require:eitc.separated_spouse_rules"]
+          "mfj": [
+            "set:filingStatus=joint"
+          ],
+          "single": [
+            "set:filingStatus=other"
+          ],
+          "hoh": [
+            "set:filingStatus=other"
+          ],
+          "qss": [
+            "set:filingStatus=other"
+          ],
+          "mfs": [
+            "set:filingStatus=other",
+            "require:eitc.separated_spouse_rules"
+          ]
         }
       },
       "note": "Married filing jointly has a higher phase-out threshold in every bracket."
@@ -47,19 +65,34 @@
       "type": "noul",
       "instructions": "This person is married and not filing jointly. Do they meet the separated-spouse rules: legally separated under a written agreement or decree, or living apart from their spouse for the last six months of the year, with a qualifying child living with them for more than half the year?",
       "askIfUnsure": "Have you lived apart from your spouse since at least the middle of the year, with your child living with you?",
-      "criteria": { "true": "yes, the rules are met", "false": "no" },
+      "criteria": {
+        "true": "yes, the rules are met",
+        "false": "no"
+      },
       "requires": "eitc.filing_status",
-      "effect": { "onFalse": ["fail:eitc"] },
-      "note": "A married claimant filing separately is not barred outright. IRC 32(d) admits one who meets these rules, and the revenue procedures apply the non-joint thresholds to them."
+      "effect": {
+        "onFalse": [
+          "fail:eitc"
+        ]
+      },
+      "note": "A married claimant filing separately is not barred outright. IRC 32(d) admits one who meets these rules, and the revenue procedures apply the non-joint thresholds to them.",
+      "presumption": "true"
     },
     {
       "id": "eitc.investment_income_over_limit",
       "scope": "household",
       "type": "noul",
-      "instructions": "Does this person have investment income — interest, dividends, capital gains, rental income — above the annual limit?",
+      "instructions": "Does this person have investment income \u2014 interest, dividends, capital gains, rental income \u2014 above the annual limit?",
       "askIfUnsure": "Did you earn more than about twelve thousand dollars from savings, investments or rent?",
-      "criteria": { "true": "yes, above the limit", "false": "no, below the limit" },
-      "effect": { "onTrue": ["fail:eitc"] },
+      "criteria": {
+        "true": "yes, above the limit",
+        "false": "no, below the limit"
+      },
+      "effect": {
+        "onTrue": [
+          "fail:eitc"
+        ]
+      },
       "note": "A cliff rather than a phase-out: one dollar over forfeits the entire credit. IRC 32(i)."
     },
     {
@@ -68,9 +101,17 @@
       "type": "noul",
       "instructions": "Does the claimant have a Social Security number valid for employment?",
       "askIfUnsure": "Do you have a Social Security number that lets you work?",
-      "criteria": { "true": "yes", "false": "no" },
-      "effect": { "onFalse": ["fail:eitc"] },
-      "note": "IRC 32(m)."
+      "criteria": {
+        "true": "yes",
+        "false": "no"
+      },
+      "effect": {
+        "onFalse": [
+          "fail:eitc"
+        ]
+      },
+      "note": "Presumed unless the description says otherwise. A narrative almost never mentions a Social Security number, and treating silence as disqualifying would rule out nearly every household. IRC 32(m).",
+      "presumption": "true"
     },
     {
       "id": "eitc.foreign_earned_income",
@@ -78,9 +119,17 @@
       "type": "noul",
       "instructions": "Would this person file Form 2555 for foreign earned income?",
       "askIfUnsure": "Did you live and work outside the United States this year?",
-      "criteria": { "true": "yes", "false": "no" },
-      "effect": { "onTrue": ["fail:eitc"] },
-      "note": "IRC 32(c)(1)(D)."
+      "criteria": {
+        "true": "yes",
+        "false": "no"
+      },
+      "effect": {
+        "onTrue": [
+          "fail:eitc"
+        ]
+      },
+      "note": "IRC 32(c)(1)(D).",
+      "presumption": "false"
     },
     {
       "id": "eitc.claimed_as_dependent",
@@ -88,9 +137,17 @@
       "type": "noul",
       "instructions": "Could this person be claimed as a dependent or qualifying child on someone else's return?",
       "askIfUnsure": "Does anyone else claim you on their tax return?",
-      "criteria": { "true": "yes", "false": "no" },
-      "effect": { "onTrue": ["fail:eitc"] },
-      "note": "Applies to a claimant with no qualifying children. IRC 32(c)(1)(A)(ii)."
+      "criteria": {
+        "true": "yes",
+        "false": "no"
+      },
+      "effect": {
+        "onTrue": [
+          "fail:eitc"
+        ]
+      },
+      "note": "Applies to a claimant with no qualifying children. IRC 32(c)(1)(A)(ii).",
+      "presumption": "false"
     },
     {
       "id": "eitc.child_relationship",
@@ -98,9 +155,17 @@
       "type": "noul",
       "instructions": "Is this child the claimant's son, daughter, stepchild, foster child, brother, sister, half-sibling, step-sibling, or a descendant of any of them?",
       "askIfUnsure": "How is this child related to you?",
-      "criteria": { "true": "yes, a qualifying relationship", "false": "no" },
-      "effect": { "onFalse": ["disqualify_child"] },
-      "note": "IRC 152(c)(2)."
+      "criteria": {
+        "true": "yes, a qualifying relationship",
+        "false": "no"
+      },
+      "effect": {
+        "onFalse": [
+          "disqualify_child"
+        ]
+      },
+      "note": "IRC 152(c)(2).",
+      "presumption": "true"
     },
     {
       "id": "eitc.child_age",
@@ -108,9 +173,17 @@
       "type": "noul",
       "instructions": "Is this child under 19 at the end of the year, or under 24 and a full-time student, or permanently and totally disabled at any age?",
       "askIfUnsure": "How old is this child, and are they a full-time student?",
-      "criteria": { "true": "yes, meets the age test", "false": "no" },
-      "effect": { "onFalse": ["disqualify_child"] },
-      "note": "IRC 152(c)(3)."
+      "criteria": {
+        "true": "yes, meets the age test",
+        "false": "no"
+      },
+      "effect": {
+        "onFalse": [
+          "disqualify_child"
+        ]
+      },
+      "note": "IRC 152(c)(3).",
+      "presumption": "true"
     },
     {
       "id": "eitc.child_residency",
@@ -118,9 +191,17 @@
       "type": "noul",
       "instructions": "Did this child live with the claimant in the United States for more than half of the year?",
       "askIfUnsure": "Did this child live with you for more than six months of the year?",
-      "criteria": { "true": "yes, more than half the year", "false": "no" },
-      "effect": { "onFalse": ["disqualify_child"] },
-      "note": "The test most often failed in shared-custody arrangements. IRC 152(c)(1)(B)."
+      "criteria": {
+        "true": "yes, more than half the year",
+        "false": "no"
+      },
+      "effect": {
+        "onFalse": [
+          "disqualify_child"
+        ]
+      },
+      "note": "Presumed when children are described as living in the household. This is the test most often failed in shared custody, so when it is load-bearing the loop asks about it rather than resting on the presumption. The test most often failed in shared-custody arrangements. IRC 152(c)(1)(B).",
+      "presumption": "true"
     },
     {
       "id": "eitc.child_joint_return",
@@ -128,9 +209,17 @@
       "type": "noul",
       "instructions": "Did this child file a joint return for the year, other than solely to claim a refund?",
       "askIfUnsure": "Is this child married and filing taxes jointly?",
-      "criteria": { "true": "yes", "false": "no" },
-      "effect": { "onTrue": ["disqualify_child"] },
-      "note": "IRC 152(c)(1)(E)."
+      "criteria": {
+        "true": "yes",
+        "false": "no"
+      },
+      "effect": {
+        "onTrue": [
+          "disqualify_child"
+        ]
+      },
+      "note": "IRC 152(c)(1)(E).",
+      "presumption": "false"
     },
     {
       "id": "eitc.child_claimed_elsewhere",
@@ -138,9 +227,17 @@
       "type": "noul",
       "instructions": "Is this child claimed for the EITC on another person's return for the same year?",
       "askIfUnsure": "Does the child's other parent claim them on their taxes?",
-      "criteria": { "true": "yes", "false": "no" },
-      "effect": { "onTrue": ["disqualify_child"] },
-      "note": "Only one person may claim a given child. IRC 32(c)(1)(C)."
+      "criteria": {
+        "true": "yes",
+        "false": "no"
+      },
+      "effect": {
+        "onTrue": [
+          "disqualify_child"
+        ]
+      },
+      "note": "Only one person may claim a given child. IRC 32(c)(1)(C).",
+      "presumption": "false"
     },
     {
       "id": "eitc.claimant_age_band",
@@ -160,5 +257,5 @@
     "eitc.income_limit_test",
     "eitc.credit_above_zero"
   ],
-  "verdict": "has_earned_income AND valid_ssn AND NOT investment_income_over_limit AND income_limit_test AND credit_above_zero"
+  "verdict": "has_earned_income AND NOT investment_income_over_limit AND income_limit_test AND credit_above_zero"
 }

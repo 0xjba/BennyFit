@@ -21,9 +21,15 @@
       },
       "effect": {
         "onOption": {
-          "ssi": ["set:categoricallyEligible=true"],
-          "tanf": ["set:categoricallyEligible=true"],
-          "ga": ["set:categoricallyEligible=true"]
+          "ssi": [
+            "set:categoricallyEligible=true"
+          ],
+          "tanf": [
+            "set:categoricallyEligible=true"
+          ],
+          "ga": [
+            "set:categoricallyEligible=true"
+          ]
         }
       },
       "note": "Categorically eligible households are exempt from the income and resource tests. 7 CFR 273.2(j) and 273.8(a)."
@@ -34,7 +40,10 @@
       "type": "noul",
       "instructions": "Is this household member aged 60 or older, or living with a disability?",
       "askIfUnsure": "Is this person 60 or older, or living with a disability?",
-      "criteria": { "true": "yes, 60 or older or disabled", "false": "no" },
+      "criteria": {
+        "true": "yes, 60 or older or disabled",
+        "false": "no"
+      },
       "effect": {
         "onTrue": [
           "set:hasElderlyOrDisabledMember=true",
@@ -59,10 +68,18 @@
       },
       "effect": {
         "onOption": {
-          "earned": ["set:earnedShare=all"],
-          "unearned": ["set:earnedShare=none"],
-          "mixed": ["set:earnedShare=split"],
-          "none": ["set:earnedShare=none"]
+          "earned": [
+            "set:earnedShare=all"
+          ],
+          "unearned": [
+            "set:earnedShare=none"
+          ],
+          "mixed": [
+            "set:earnedShare=split"
+          ],
+          "none": [
+            "set:earnedShare=none"
+          ]
         }
       },
       "note": "Only earned income gets the 20% deduction, so this changes net income and the benefit figure. 7 CFR 273.9(d)(2)."
@@ -81,10 +98,18 @@
       },
       "effect": {
         "onOption": {
-          "weekly": ["set:incomePeriod=weekly"],
-          "biweekly": ["set:incomePeriod=biweekly"],
-          "monthly": ["set:incomePeriod=monthly"],
-          "annual": ["set:incomePeriod=annual"]
+          "weekly": [
+            "set:incomePeriod=weekly"
+          ],
+          "biweekly": [
+            "set:incomePeriod=biweekly"
+          ],
+          "monthly": [
+            "set:incomePeriod=monthly"
+          ],
+          "annual": [
+            "set:incomePeriod=annual"
+          ]
         }
       },
       "note": "A weekly figure read as monthly understates income more than fourfold. This is the criterion the adversarially phrased households are built to break."
@@ -95,8 +120,15 @@
       "type": "noul",
       "instructions": "Does the description state a rent, mortgage or housing cost the household pays?",
       "askIfUnsure": "How much do you pay for rent or mortgage each month?",
-      "criteria": { "true": "yes, a housing cost is stated", "false": "no housing cost is stated" },
-      "effect": { "onTrue": ["require:snap.utilities_paid_separately"] }
+      "criteria": {
+        "true": "yes, a housing cost is stated",
+        "false": "no housing cost is stated"
+      },
+      "effect": {
+        "onTrue": [
+          "require:snap.utilities_paid_separately"
+        ]
+      }
     },
     {
       "id": "snap.utilities_paid_separately",
@@ -104,7 +136,10 @@
       "type": "noul",
       "instructions": "Does the household pay for heating, cooling or utilities separately from its rent?",
       "askIfUnsure": "Do you pay for heating or electricity on top of your rent?",
-      "criteria": { "true": "yes, paid separately", "false": "no, included in rent or not paid" },
+      "criteria": {
+        "true": "yes, paid separately",
+        "false": "no, included in rent or not paid"
+      },
       "note": "Utilities count toward shelter costs, which raises the excess shelter deduction. 7 CFR 273.9(d)(6)(ii)."
     },
     {
@@ -113,8 +148,16 @@
       "type": "noul",
       "instructions": "Are all members of this household homeless, and not receiving free shelter throughout the month?",
       "askIfUnsure": "Is everyone in your household without stable housing right now?",
-      "criteria": { "true": "yes, all members homeless", "false": "no" },
-      "effect": { "onTrue": ["set:allMembersHomeless=true", "skip:snap.utilities_paid_separately"] },
+      "criteria": {
+        "true": "yes, all members homeless",
+        "false": "no"
+      },
+      "effect": {
+        "onTrue": [
+          "set:allMembersHomeless=true",
+          "skip:snap.utilities_paid_separately"
+        ]
+      },
       "note": "Takes a flat homeless shelter deduction instead of actual shelter costs. 7 CFR 273.9(d)(6)(i)."
     },
     {
@@ -123,7 +166,10 @@
       "type": "noul",
       "instructions": "Does the household pay for child care or dependent care in order to work, look for work, or attend training or school?",
       "askIfUnsure": "Do you pay for child care or care for an adult so that you can work or study?",
-      "criteria": { "true": "yes", "false": "no" },
+      "criteria": {
+        "true": "yes",
+        "false": "no"
+      },
       "note": "7 CFR 273.9(d)(4)."
     },
     {
@@ -132,7 +178,10 @@
       "type": "noul",
       "instructions": "Does any member pay legally obligated child support to someone outside the household?",
       "askIfUnsure": "Does anyone here pay court-ordered child support?",
-      "criteria": { "true": "yes", "false": "no" },
+      "criteria": {
+        "true": "yes",
+        "false": "no"
+      },
       "note": "7 CFR 273.9(d)(5)."
     },
     {
@@ -141,7 +190,10 @@
       "type": "noul",
       "instructions": "Does an elderly or disabled member have out-of-pocket medical costs above $35 a month?",
       "askIfUnsure": "Do you spend more than $35 a month on medical costs that insurance does not cover?",
-      "criteria": { "true": "yes", "false": "no" },
+      "criteria": {
+        "true": "yes",
+        "false": "no"
+      },
       "requires": "snap.member_elderly_or_disabled",
       "note": "Available only to households with an elderly or disabled member. 7 CFR 273.9(d)(3)."
     },
@@ -149,12 +201,20 @@
       "id": "snap.resources_over_limit",
       "scope": "household",
       "type": "noul",
-      "instructions": "Does the household hold countable resources — cash, bank accounts, stocks — above the limit? Retirement accounts and the home do not count.",
+      "instructions": "Does the household hold countable resources \u2014 cash, bank accounts, stocks \u2014 above the limit? Retirement accounts and the home do not count.",
       "askIfUnsure": "Do you have more than a few thousand dollars in savings or a bank account?",
-      "criteria": { "true": "yes, over the limit", "false": "no, under the limit" },
-      "effect": { "onTrue": ["fail:snap"] },
+      "criteria": {
+        "true": "yes, over the limit",
+        "false": "no, under the limit"
+      },
+      "effect": {
+        "onTrue": [
+          "fail:snap"
+        ]
+      },
       "skipIf": "snap.categorical",
-      "note": "7 CFR 273.8(b). Most states have raised or removed this limit through broad-based categorical eligibility; this screening uses the federal floor."
+      "note": "7 CFR 273.8(b). Most states have raised or removed this limit through broad-based categorical eligibility; this screening uses the federal floor.",
+      "presumption": "false"
     },
     {
       "id": "snap.member_student",
@@ -162,9 +222,17 @@
       "type": "noul",
       "instructions": "Is this member aged 18 through 49 and enrolled at least half time in a college or other institution of higher education?",
       "askIfUnsure": "Is this person in college at least half time?",
-      "criteria": { "true": "yes", "false": "no" },
-      "effect": { "onTrue": ["require:snap.member_student_exemption"] },
-      "note": "Students meeting this description are ineligible unless an exemption applies. 7 CFR 273.5."
+      "criteria": {
+        "true": "yes",
+        "false": "no"
+      },
+      "effect": {
+        "onTrue": [
+          "require:snap.member_student_exemption"
+        ]
+      },
+      "note": "Students meeting this description are ineligible unless an exemption applies. 7 CFR 273.5.",
+      "presumption": "false"
     },
     {
       "id": "snap.member_student_exemption",
@@ -172,9 +240,16 @@
       "type": "noul",
       "instructions": "Does this student meet an exemption: working at least 20 hours a week, caring for a young child, receiving TANF, or in a state-approved work-study or training programme?",
       "askIfUnsure": "Does this student work 20 hours a week, or care for a young child?",
-      "criteria": { "true": "yes, exempt", "false": "no exemption applies" },
+      "criteria": {
+        "true": "yes, exempt",
+        "false": "no exemption applies"
+      },
       "requires": "snap.member_student",
-      "effect": { "onFalse": ["exclude_member"] },
+      "effect": {
+        "onFalse": [
+          "exclude_member"
+        ]
+      },
       "note": "7 CFR 273.5(b)."
     },
     {
@@ -189,8 +264,15 @@
         "other": "neither",
         "unknown": "not stated"
       },
-      "effect": { "onOption": { "other": ["exclude_member"] } },
-      "note": "Ineligible members are excluded from the household size while their income may still count. 7 CFR 273.4."
+      "effect": {
+        "onOption": {
+          "other": [
+            "exclude_member"
+          ]
+        }
+      },
+      "note": "Presumed unless the description says otherwise. Ineligible members are excluded from the household size while their income may still count. 7 CFR 273.4.",
+      "presumption": "citizen"
     },
     {
       "id": "snap.household_purchases_together",
@@ -198,8 +280,12 @@
       "type": "noul",
       "instructions": "Do the people described buy and prepare food together? People sharing an address but buying food separately are separate households.",
       "askIfUnsure": "Do you buy and cook food together with everyone you live with?",
-      "criteria": { "true": "yes, together", "false": "no, separately" },
-      "note": "Defines who is in the household at all. 7 CFR 273.1(a)."
+      "criteria": {
+        "true": "yes, together",
+        "false": "no, separately"
+      },
+      "note": "Defines who is in the household at all. 7 CFR 273.1(a).",
+      "presumption": "true"
     },
     {
       "id": "snap.self_employment",
@@ -207,7 +293,10 @@
       "type": "noul",
       "instructions": "Is any of the household's earned income from self-employment rather than wages?",
       "askIfUnsure": "Is any of that income from self-employment or your own business?",
-      "criteria": { "true": "yes", "false": "no" },
+      "criteria": {
+        "true": "yes",
+        "false": "no"
+      },
       "note": "Self-employment income is counted net of business costs. 7 CFR 273.11(a)."
     }
   ],

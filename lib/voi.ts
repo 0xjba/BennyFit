@@ -79,6 +79,8 @@ export interface Candidate {
   criterion: InstantiatedCriterion;
   confidence: number;
   voi: VoiResult;
+  /** True when a declared presumption is standing in for the engine's answer. */
+  presumed: boolean;
 }
 
 export interface SelectionOptions {
@@ -113,12 +115,25 @@ export function nextQuestion(
 
     const result = voi(criterion, state, answers);
     if (result.spreadCents <= 0) continue;
-    candidates.push({ criterion, confidence: answer.confidence, voi: result });
+    candidates.push({
+      criterion,
+      confidence: answer.confidence,
+      voi: result,
+      presumed: criterion.presumption !== undefined,
+    });
   }
 
   if (candidates.length === 0) return null;
 
   candidates.sort((a, b) => {
+    // A criterion carrying a presumption ranks below every one that does not, however
+    // much money pinning its options apart appears to move. The presumption is a
+    // declaration that silence has a known meaning, so the spread is hypothetical: it
+    // measures what would happen if the household contradicted the assumption, not
+    // uncertainty about what they meant. Without this, three questions get spent
+    // asking whether someone has a Social Security number and what they have in
+    // savings, while the fact that actually decides the benefit goes unasked.
+    if (a.presumed !== b.presumed) return a.presumed ? 1 : -1;
     if (b.voi.spreadCents !== a.voi.spreadCents) return b.voi.spreadCents - a.voi.spreadCents;
     if (b.voi.programsAffected !== a.voi.programsAffected) {
       return b.voi.programsAffected - a.voi.programsAffected;

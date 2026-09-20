@@ -37,6 +37,16 @@ export interface Criterion {
   requires?: string;
   /** This criterion does not apply when another is answered affirmatively. */
   skipIf?: string;
+  /**
+   * The option to use when the engine is not confident enough to have settled this.
+   *
+   * Some criteria ask about facts a narrative almost never states. Nobody writes "I
+   * have a Social Security number valid for employment" when describing their
+   * household, so reading silence as a no would disqualify nearly everyone. A
+   * presumption says what a screening should assume in the absence of evidence, and
+   * the interface shows a presumed answer as presumed rather than as read.
+   */
+  presumption?: string;
   note?: string;
 }
 
@@ -181,6 +191,12 @@ export function validateProgram(program: Program): void {
       if (!options.includes(option)) {
         throw new Error(`${c.id} has an onNot effect for option '${option}', which it does not offer`);
       }
+    }
+
+    if (c.presumption !== undefined && !options.includes(c.presumption)) {
+      throw new Error(
+        `${c.id} presumes '${c.presumption}', which is not one of its options: ${options.join(', ')}`
+      );
     }
   }
 

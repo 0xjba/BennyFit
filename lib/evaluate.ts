@@ -42,6 +42,30 @@ export interface ScreeningState {
   shape: HouseholdShape;
   /** The date the screening is for. Selects every threshold table. */
   asOf: string;
+  /** Confidence at or above which an answer counts as settled. */
+  tau?: number;
+}
+
+export const DEFAULT_PRESUMPTION_TAU = 0.5;
+
+/**
+ * The option a criterion should be treated as having, and whether that came from the
+ * engine or from a presumption.
+ *
+ * An engine that is not confident about a criterion carrying a presumption is
+ * overridden by it. The engine's own distribution is left untouched, so the interface
+ * can still show what it actually read, and the value-of-information rule still sees
+ * the criterion as unsettled and can choose to ask about it.
+ */
+export function effectiveChoice(
+  criterion: { presumption?: string },
+  answer: EngineAnswer,
+  tau: number
+): { choice: string; presumed: boolean } {
+  if (criterion.presumption !== undefined && answer.confidence < tau) {
+    return { choice: criterion.presumption, presumed: true };
+  }
+  return { choice: answer.choice, presumed: false };
 }
 
 export type Answers = Record<string, EngineAnswer>;
@@ -161,7 +185,8 @@ function applyDirective(d: Directives, token: string, subjectIndex: number | nul
 function applies(
   criterion: InstantiatedCriterion,
   answers: Answers,
-  criteria: InstantiatedCriterion[]
+  criteria: InstantiatedCriterion[],
+  tau: number
 ): boolean {
   if (criterion.requires) {
     const prerequisite = criteria.find(
@@ -172,14 +197,18 @@ function applies(
     if (!prerequisite) return false;
     const answer = answers[prerequisite.instanceId];
     if (!answer) return false;
-    if (prerequisite.type === 'noul' && answer.choice !== 'true') return false;
-    if (prerequisite.type === 'choice' && answer.choice === 'none') return false;
+    const { choice } = effectiveChoice(prerequisite, answer, tau);
+    if (prerequisite.type === 'noul' && choice !== 'true') return false;
+    if (prerequisite.type === 'choice' && choice === 'none') return false;
   }
 
   if (criterion.skipIf) {
     const blocker = criteria.find((c) => baseId(c.instanceId) === criterion.skipIf);
     const answer = blocker ? answers[blocker.instanceId] : undefined;
-    if (answer && answer.choice !== 'false' && answer.choice !== 'none') return false;
+    if (answer && blocker) {
+      const { choice } = effectiveChoice(blocker, answer, tau);
+      if (choice !== 'false' && choice !== 'none') return false;
+    }
   }
 
   return true;
@@ -187,7 +216,8 @@ function applies(
 
 function collectDirectives(
   criteria: InstantiatedCriterion[],
-  answers: Answers
+  answers: Answers,
+  tau: number
 ): Directives {
   const d = emptyDirectives();
 
@@ -195,23 +225,25 @@ function collectDirectives(
   for (const criterion of criteria) {
     const answer = answers[criterion.instanceId];
     if (!answer) continue;
-    if (!applies(criterion, answers, criteria)) continue;
+    if (!applies(criterion, answers, criteria, tau)) continue;
 
     const effect = criterion.effect;
     if (!effect) continue;
 
+    const { choice } = effectiveChoice(criterion, answer, tau);
+
     if (criterion.type === 'noul') {
-      const tokens = answer.choice === 'true' ? effect.onTrue : effect.onFalse;
+      const tokens = choice === 'true' ? effect.onTrue : effect.onFalse;
       for (const token of tokens ?? []) applyDirective(d, token, criterion.subjectIndex);
     }
 
     for (const [option, tokens] of Object.entries(effect.onOption ?? {})) {
-      if (answer.choice === option) {
+      if (choice === option) {
         for (const token of tokens) applyDirective(d, token, criterion.subjectIndex);
       }
     }
     for (const [option, tokens] of Object.entries(effect.onNot ?? {})) {
-      if (answer.choice !== option) {
+      if (choice !== option) {
         for (const token of tokens) applyDirective(d, token, criterion.subjectIndex);
       }
     }
@@ -306,7 +338,8 @@ function criterionTruth(
   program: Program,
   name: string,
   criteria: InstantiatedCriterion[],
-  answers: Answers
+  answers: Answers,
+  tau: number
 ): boolean {
   const wanted = `${program.id}.${name}`;
   const instances = criteria.filter((c) => baseId(c.instanceId) === wanted);
@@ -316,8 +349,9 @@ function criterionTruth(
   return instances.some((instance) => {
     const answer = answers[instance.instanceId];
     if (!answer) return false;
-    if (instance.type === 'noul') return answer.choice === 'true';
-    return answer.choice !== 'none';
+    const { choice } = effectiveChoice(instance, answer, tau);
+    if (instance.type === 'noul') return choice === 'true';
+    return choice !== 'none';
   });
 }
 
@@ -328,7 +362,8 @@ function criterionTruth(
 export function evaluate(state: ScreeningState, answers: Answers): Verdicts {
   const programs = loadPrograms();
   const criteria = instantiate(programs, state.shape);
-  const d = collectDirectives(criteria, answers);
+  const tau = state.tau ?? DEFAULT_PRESUMPTION_TAU;
+  const d = collectDirectives(criteria, answers, tau);
 
   const size = householdSizeFrom(state, d);
   const income = incomeFrom(state, d);
@@ -351,23 +386,23 @@ export function evaluate(state: ScreeningState, answers: Answers): Verdicts {
         householdSize: size,
         earnedMonthlyCents: income.earnedMonthlyCents,
         unearnedMonthlyCents: income.unearnedMonthlyCents,
-        medicalMonthlyCents: criterionTruth(program, 'medical_expenses', criteria, answers)
+        medicalMonthlyCents: criterionTruth(program, 'medical_expenses', criteria, answers, tau)
           ? dollars(state.facts.medicalMonthly ?? 0)
           : 0,
-        dependentCareMonthlyCents: criterionTruth(program, 'dependent_care_paid', criteria, answers)
+        dependentCareMonthlyCents: criterionTruth(program, 'dependent_care_paid', criteria, answers, tau)
           ? dollars(state.facts.dependentCareMonthly ?? 0)
           : 0,
-        childSupportPaidMonthlyCents: criterionTruth(program, 'child_support_paid', criteria, answers)
+        childSupportPaidMonthlyCents: criterionTruth(program, 'child_support_paid', criteria, answers, tau)
           ? dollars(state.facts.childSupportMonthly ?? 0)
           : 0,
         shelterMonthlyCents:
           dollars(state.facts.rentMonthly ?? 0) +
-          (criterionTruth(program, 'utilities_paid_separately', criteria, answers)
+          (criterionTruth(program, 'utilities_paid_separately', criteria, answers, tau)
             ? dollars(state.facts.utilitiesMonthly ?? 0)
             : 0),
         hasElderlyOrDisabledMember:
           d.hasElderlyOrDisabledMember ||
-          criterionTruth(program, 'member_elderly_or_disabled', criteria, answers),
+          criterionTruth(program, 'member_elderly_or_disabled', criteria, answers, tau),
         allMembersHomeless: d.allMembersHomeless,
         countableResourcesCents: dollars(state.facts.savings ?? 0),
         categoricallyEligible: d.categoricallyEligible,
@@ -412,7 +447,7 @@ export function evaluate(state: ScreeningState, answers: Answers): Verdicts {
     } else if (program.id === 'lifeline') {
       const t = lifelineThresholdsFor(state.asOf);
       const received = t.qualifyingPrograms.filter((p) =>
-        criterionTruth(program, `receives_${p === 'fpha' ? 'fpha' : p}`, criteria, answers)
+        criterionTruth(program, `receives_${p === 'fpha' ? 'fpha' : p}`, criteria, answers, tau)
       );
 
       // SNAP eligibility found in this same pass is itself a Lifeline qualifier.
@@ -437,7 +472,7 @@ export function evaluate(state: ScreeningState, answers: Answers): Verdicts {
     }
 
     const truth = (name: string): boolean =>
-      name in computed ? computed[name] : criterionTruth(program, name, criteria, answers);
+      name in computed ? computed[name] : criterionTruth(program, name, criteria, answers, tau);
 
     let eligible = evalExpr(parseVerdict(program.verdict), truth);
     if (d.forcedFail.has(program.id)) {

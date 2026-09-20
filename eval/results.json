@@ -1,0 +1,5240 @@
+{
+  "runAt": "2026-09-20T22:18:11.406Z",
+  "engine": "fixture-local",
+  "isFixture": true,
+  "tau": 0.4,
+  "maxQuestions": 3,
+  "n": 150,
+  "balancedAccuracyByProgram": {
+    "snap": 0.9833333333333334,
+    "eitc": 0.9875,
+    "lifeline": 0.9944444444444445
+  },
+  "accuracyDetail": {
+    "snap": {
+      "balanced": 0.9833333333333334,
+      "plain": 0.975,
+      "truePositiveRate": 0.9666666666666667,
+      "trueNegativeRate": 1,
+      "counts": {
+        "tp": 87,
+        "fp": 0,
+        "tn": 30,
+        "fn": 3
+      }
+    },
+    "eitc": {
+      "balanced": 0.9875,
+      "plain": 0.9916666666666667,
+      "truePositiveRate": 0.975,
+      "trueNegativeRate": 1,
+      "counts": {
+        "tp": 39,
+        "fp": 0,
+        "tn": 80,
+        "fn": 1
+      }
+    },
+    "lifeline": {
+      "balanced": 0.9944444444444445,
+      "plain": 0.9916666666666667,
+      "truePositiveRate": 0.9888888888888889,
+      "trueNegativeRate": 1,
+      "counts": {
+        "tp": 89,
+        "fp": 0,
+        "tn": 30,
+        "fn": 1
+      }
+    }
+  },
+  "accuracyBySlice": {
+    "clear_eligible": 1,
+    "clear_ineligible": 1,
+    "mixed": 0.9875,
+    "underspecified": 0.9710144927536232,
+    "adversarial": 0.97
+  },
+  "questionRelevance": 0.6666666666666666,
+  "questionAskedAtAllRate": 0.8,
+  "underspecifiedCount": 30,
+  "specifiedCount": 120,
+  "medianCriteriaPerHousehold": 32,
+  "medianWallClockMs": 7.066624999999988,
+  "medianEngineMs": 0.7145209999999906,
+  "medianQuestionsAsked": 3,
+  "medianPasses": 4,
+  "totalAnnualValueSurfaced": 812708,
+  "totalAnnualValueAvailable": 881344,
+  "tauSweep": [
+    {
+      "tau": 0.2,
+      "questionRelevance": 0.6666666666666666,
+      "meanBalancedAccuracy": 0.9884259259259259,
+      "medianQuestions": 3
+    },
+    {
+      "tau": 0.3,
+      "questionRelevance": 0.6666666666666666,
+      "meanBalancedAccuracy": 0.9884259259259259,
+      "medianQuestions": 3
+    },
+    {
+      "tau": 0.4,
+      "questionRelevance": 0.6666666666666666,
+      "meanBalancedAccuracy": 0.9884259259259259,
+      "medianQuestions": 3
+    },
+    {
+      "tau": 0.5,
+      "questionRelevance": 0.6333333333333333,
+      "meanBalancedAccuracy": 0.9884259259259259,
+      "medianQuestions": 3
+    },
+    {
+      "tau": 0.6,
+      "questionRelevance": 0.6333333333333333,
+      "meanBalancedAccuracy": 0.9884259259259259,
+      "medianQuestions": 3
+    },
+    {
+      "tau": 0.7,
+      "questionRelevance": 0,
+      "meanBalancedAccuracy": 0.9925925925925926,
+      "medianQuestions": 3
+    },
+    {
+      "tau": 0.8,
+      "questionRelevance": 0,
+      "meanBalancedAccuracy": 0.9962962962962963,
+      "medianQuestions": 3
+    }
+  ],
+  "perHousehold": [
+    {
+      "id": "gh-001",
+      "slice": "clear_eligible",
+      "predicted": {
+        "snap": true,
+        "eitc": true,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": true,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 8940,
+        "eitc": 5880,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 8940,
+        "eitc": 5880,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "snap.income_source",
+        "eitc.investment_income_over_limit",
+        "lifeline.tribal_lands"
+      ],
+      "firstQuestion": "snap.income_source",
+      "criteriaEvaluated": 50,
+      "wallClockMs": 34.066083000000006,
+      "engineMs": 2.3762919999999923,
+      "passes": 4
+    },
+    {
+      "id": "gh-002",
+      "slice": "clear_eligible",
+      "predicted": {
+        "snap": true,
+        "eitc": true,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": true,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 9036,
+        "eitc": 8231,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 9036,
+        "eitc": 8231,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "snap.income_source",
+        "eitc.investment_income_over_limit",
+        "snap.all_members_homeless"
+      ],
+      "firstQuestion": "snap.income_source",
+      "criteriaEvaluated": 59,
+      "wallClockMs": 25.41408299999999,
+      "engineMs": 1.4160419999999618,
+      "passes": 4
+    },
+    {
+      "id": "gh-003",
+      "slice": "clear_eligible",
+      "predicted": {
+        "snap": true,
+        "eitc": true,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": true,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 8796,
+        "eitc": 5040,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 8796,
+        "eitc": 5040,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "snap.income_source",
+        "eitc.investment_income_over_limit",
+        "lifeline.tribal_lands"
+      ],
+      "firstQuestion": "snap.income_source",
+      "criteriaEvaluated": 50,
+      "wallClockMs": 15.817167000000012,
+      "engineMs": 1.219458000000003,
+      "passes": 4
+    },
+    {
+      "id": "gh-004",
+      "slice": "clear_eligible",
+      "predicted": {
+        "snap": true,
+        "eitc": true,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": true,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 4908,
+        "eitc": 4427,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 4908,
+        "eitc": 4427,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "snap.income_source",
+        "eitc.investment_income_over_limit",
+        "lifeline.tribal_lands"
+      ],
+      "firstQuestion": "snap.income_source",
+      "criteriaEvaluated": 41,
+      "wallClockMs": 11.60570899999999,
+      "engineMs": 0.9727499999999907,
+      "passes": 4
+    },
+    {
+      "id": "gh-005",
+      "slice": "clear_eligible",
+      "predicted": {
+        "snap": true,
+        "eitc": true,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": true,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 7704,
+        "eitc": 5760,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 7704,
+        "eitc": 5760,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "snap.income_source",
+        "eitc.investment_income_over_limit",
+        "lifeline.tribal_lands"
+      ],
+      "firstQuestion": "snap.income_source",
+      "criteriaEvaluated": 50,
+      "wallClockMs": 15.41458399999999,
+      "engineMs": 1.0667500000000132,
+      "passes": 4
+    },
+    {
+      "id": "gh-006",
+      "slice": "clear_eligible",
+      "predicted": {
+        "snap": true,
+        "eitc": true,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": true,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 6768,
+        "eitc": 7200,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 6768,
+        "eitc": 7200,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "snap.income_source",
+        "eitc.investment_income_over_limit",
+        "lifeline.tribal_lands"
+      ],
+      "firstQuestion": "snap.income_source",
+      "criteriaEvaluated": 50,
+      "wallClockMs": 15.635625000000005,
+      "engineMs": 1.0978750000000161,
+      "passes": 4
+    },
+    {
+      "id": "gh-007",
+      "slice": "clear_eligible",
+      "predicted": {
+        "snap": true,
+        "eitc": true,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": true,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 9180,
+        "eitc": 4920,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 9180,
+        "eitc": 4920,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "snap.income_source",
+        "eitc.investment_income_over_limit",
+        "lifeline.tribal_lands"
+      ],
+      "firstQuestion": "snap.income_source",
+      "criteriaEvaluated": 50,
+      "wallClockMs": 15.30249999999998,
+      "engineMs": 1.1383340000000146,
+      "passes": 4
+    },
+    {
+      "id": "gh-008",
+      "slice": "clear_eligible",
+      "predicted": {
+        "snap": true,
+        "eitc": true,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": true,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 9936,
+        "eitc": 7020,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 9936,
+        "eitc": 7020,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "snap.income_source",
+        "eitc.investment_income_over_limit",
+        "lifeline.tribal_lands"
+      ],
+      "firstQuestion": "snap.income_source",
+      "criteriaEvaluated": 59,
+      "wallClockMs": 20.849958000000015,
+      "engineMs": 1.334292000000005,
+      "passes": 4
+    },
+    {
+      "id": "gh-009",
+      "slice": "clear_eligible",
+      "predicted": {
+        "snap": true,
+        "eitc": true,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": true,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 4224,
+        "eitc": 4427,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 4224,
+        "eitc": 4427,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "snap.income_source",
+        "eitc.investment_income_over_limit",
+        "lifeline.tribal_lands"
+      ],
+      "firstQuestion": "snap.income_source",
+      "criteriaEvaluated": 41,
+      "wallClockMs": 10.637749999999983,
+      "engineMs": 0.9299169999999606,
+      "passes": 4
+    },
+    {
+      "id": "gh-010",
+      "slice": "clear_eligible",
+      "predicted": {
+        "snap": true,
+        "eitc": true,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": true,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 11376,
+        "eitc": 8231,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 11376,
+        "eitc": 8231,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "snap.income_source",
+        "eitc.investment_income_over_limit",
+        "snap.all_members_homeless"
+      ],
+      "firstQuestion": "snap.income_source",
+      "criteriaEvaluated": 59,
+      "wallClockMs": 19.620292000000035,
+      "engineMs": 1.3959999999999866,
+      "passes": 4
+    },
+    {
+      "id": "gh-011",
+      "slice": "clear_eligible",
+      "predicted": {
+        "snap": true,
+        "eitc": true,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": true,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 8640,
+        "eitc": 8231,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 8640,
+        "eitc": 8231,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "snap.income_source",
+        "eitc.investment_income_over_limit",
+        "lifeline.tribal_lands"
+      ],
+      "firstQuestion": "snap.income_source",
+      "criteriaEvaluated": 59,
+      "wallClockMs": 20.249792000000014,
+      "engineMs": 1.243167000000028,
+      "passes": 4
+    },
+    {
+      "id": "gh-012",
+      "slice": "clear_eligible",
+      "predicted": {
+        "snap": true,
+        "eitc": true,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": true,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 5280,
+        "eitc": 4427,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 5280,
+        "eitc": 4427,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "snap.income_source",
+        "eitc.investment_income_over_limit",
+        "lifeline.tribal_lands"
+      ],
+      "firstQuestion": "snap.income_source",
+      "criteriaEvaluated": 41,
+      "wallClockMs": 10.877250000000004,
+      "engineMs": 0.8616260000000011,
+      "passes": 4
+    },
+    {
+      "id": "gh-013",
+      "slice": "clear_eligible",
+      "predicted": {
+        "snap": true,
+        "eitc": true,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": true,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 8664,
+        "eitc": 7316,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 8664,
+        "eitc": 7316,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "snap.income_source",
+        "eitc.investment_income_over_limit",
+        "snap.all_members_homeless"
+      ],
+      "firstQuestion": "snap.income_source",
+      "criteriaEvaluated": 50,
+      "wallClockMs": 14.799958999999944,
+      "engineMs": 1.1555420000000254,
+      "passes": 4
+    },
+    {
+      "id": "gh-014",
+      "slice": "clear_eligible",
+      "predicted": {
+        "snap": true,
+        "eitc": true,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": true,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 11928,
+        "eitc": 6615,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 11928,
+        "eitc": 6615,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "snap.income_source",
+        "eitc.investment_income_over_limit",
+        "snap.all_members_homeless"
+      ],
+      "firstQuestion": "snap.income_source",
+      "criteriaEvaluated": 59,
+      "wallClockMs": 19.123792000000037,
+      "engineMs": 1.3542909999999893,
+      "passes": 4
+    },
+    {
+      "id": "gh-015",
+      "slice": "clear_eligible",
+      "predicted": {
+        "snap": true,
+        "eitc": true,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": true,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 6288,
+        "eitc": 4427,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 6288,
+        "eitc": 4427,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "snap.income_source",
+        "eitc.investment_income_over_limit",
+        "snap.all_members_homeless"
+      ],
+      "firstQuestion": "snap.income_source",
+      "criteriaEvaluated": 41,
+      "wallClockMs": 10.264415999999983,
+      "engineMs": 0.9815419999999904,
+      "passes": 4
+    },
+    {
+      "id": "gh-016",
+      "slice": "clear_eligible",
+      "predicted": {
+        "snap": true,
+        "eitc": true,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": true,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 10248,
+        "eitc": 6750,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 10248,
+        "eitc": 6750,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "snap.income_source",
+        "eitc.investment_income_over_limit",
+        "lifeline.tribal_lands"
+      ],
+      "firstQuestion": "snap.income_source",
+      "criteriaEvaluated": 59,
+      "wallClockMs": 18.92629199999999,
+      "engineMs": 1.3327930000000379,
+      "passes": 4
+    },
+    {
+      "id": "gh-017",
+      "slice": "clear_eligible",
+      "predicted": {
+        "snap": true,
+        "eitc": true,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": true,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 9420,
+        "eitc": 6960,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 9420,
+        "eitc": 6960,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "snap.income_source",
+        "eitc.investment_income_over_limit",
+        "snap.all_members_homeless"
+      ],
+      "firstQuestion": "snap.income_source",
+      "criteriaEvaluated": 50,
+      "wallClockMs": 14.431083000000001,
+      "engineMs": 1.064625000000035,
+      "passes": 4
+    },
+    {
+      "id": "gh-018",
+      "slice": "clear_eligible",
+      "predicted": {
+        "snap": true,
+        "eitc": true,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": true,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 4932,
+        "eitc": 4427,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 4932,
+        "eitc": 4427,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "snap.income_source",
+        "eitc.investment_income_over_limit",
+        "snap.all_members_homeless"
+      ],
+      "firstQuestion": "snap.income_source",
+      "criteriaEvaluated": 41,
+      "wallClockMs": 10.808541999999989,
+      "engineMs": 0.9402929999999969,
+      "passes": 4
+    },
+    {
+      "id": "gh-019",
+      "slice": "clear_eligible",
+      "predicted": {
+        "snap": true,
+        "eitc": true,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": true,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 8052,
+        "eitc": 8231,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 8052,
+        "eitc": 8231,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "snap.income_source",
+        "eitc.investment_income_over_limit",
+        "lifeline.tribal_lands"
+      ],
+      "firstQuestion": "snap.income_source",
+      "criteriaEvaluated": 59,
+      "wallClockMs": 19.763166999999953,
+      "engineMs": 1.1881250000000136,
+      "passes": 4
+    },
+    {
+      "id": "gh-020",
+      "slice": "clear_eligible",
+      "predicted": {
+        "snap": true,
+        "eitc": true,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": true,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 9924,
+        "eitc": 8231,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 9924,
+        "eitc": 8231,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "snap.income_source",
+        "eitc.investment_income_over_limit",
+        "lifeline.tribal_lands"
+      ],
+      "firstQuestion": "snap.income_source",
+      "criteriaEvaluated": 59,
+      "wallClockMs": 19.201000000000022,
+      "engineMs": 1.206000999999958,
+      "passes": 4
+    },
+    {
+      "id": "gh-021",
+      "slice": "clear_eligible",
+      "predicted": {
+        "snap": true,
+        "eitc": true,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": true,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 7524,
+        "eitc": 7316,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 7524,
+        "eitc": 7316,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "snap.income_source",
+        "eitc.investment_income_over_limit",
+        "lifeline.tribal_lands"
+      ],
+      "firstQuestion": "snap.income_source",
+      "criteriaEvaluated": 50,
+      "wallClockMs": 14.326750000000004,
+      "engineMs": 1.119374999999991,
+      "passes": 4
+    },
+    {
+      "id": "gh-022",
+      "slice": "clear_eligible",
+      "predicted": {
+        "snap": true,
+        "eitc": true,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": true,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 11040,
+        "eitc": 7965,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 11040,
+        "eitc": 7965,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "snap.income_source",
+        "eitc.investment_income_over_limit",
+        "lifeline.tribal_lands"
+      ],
+      "firstQuestion": "snap.income_source",
+      "criteriaEvaluated": 59,
+      "wallClockMs": 19.28816599999999,
+      "engineMs": 1.2581260000000043,
+      "passes": 4
+    },
+    {
+      "id": "gh-023",
+      "slice": "clear_eligible",
+      "predicted": {
+        "snap": true,
+        "eitc": true,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": true,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 11472,
+        "eitc": 4995,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 11472,
+        "eitc": 4995,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "snap.income_source",
+        "eitc.investment_income_over_limit",
+        "lifeline.tribal_lands"
+      ],
+      "firstQuestion": "snap.income_source",
+      "criteriaEvaluated": 59,
+      "wallClockMs": 19.06729200000001,
+      "engineMs": 1.1984979999999155,
+      "passes": 4
+    },
+    {
+      "id": "gh-024",
+      "slice": "clear_eligible",
+      "predicted": {
+        "snap": true,
+        "eitc": true,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": true,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 9000,
+        "eitc": 4800,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 9000,
+        "eitc": 4800,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "snap.income_source",
+        "eitc.investment_income_over_limit",
+        "lifeline.tribal_lands"
+      ],
+      "firstQuestion": "snap.income_source",
+      "criteriaEvaluated": 50,
+      "wallClockMs": 14.605500000000006,
+      "engineMs": 1.0402500000000714,
+      "passes": 4
+    },
+    {
+      "id": "gh-025",
+      "slice": "clear_eligible",
+      "predicted": {
+        "snap": true,
+        "eitc": true,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": true,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 4596,
+        "eitc": 4427,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 4596,
+        "eitc": 4427,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "snap.income_source",
+        "eitc.investment_income_over_limit",
+        "lifeline.tribal_lands"
+      ],
+      "firstQuestion": "snap.income_source",
+      "criteriaEvaluated": 41,
+      "wallClockMs": 10.46283299999999,
+      "engineMs": 0.9390830000000392,
+      "passes": 4
+    },
+    {
+      "id": "gh-026",
+      "slice": "clear_eligible",
+      "predicted": {
+        "snap": true,
+        "eitc": true,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": true,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 6420,
+        "eitc": 4386,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 6420,
+        "eitc": 4386,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "snap.income_source",
+        "eitc.investment_income_over_limit",
+        "lifeline.tribal_lands"
+      ],
+      "firstQuestion": "snap.income_source",
+      "criteriaEvaluated": 41,
+      "wallClockMs": 10.398291000000029,
+      "engineMs": 0.9123330000000465,
+      "passes": 4
+    },
+    {
+      "id": "gh-027",
+      "slice": "clear_eligible",
+      "predicted": {
+        "snap": true,
+        "eitc": true,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": true,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 9420,
+        "eitc": 5640,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 9420,
+        "eitc": 5640,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "snap.income_source",
+        "eitc.investment_income_over_limit",
+        "snap.all_members_homeless"
+      ],
+      "firstQuestion": "snap.income_source",
+      "criteriaEvaluated": 50,
+      "wallClockMs": 14.431040999999937,
+      "engineMs": 0.8166240000000471,
+      "passes": 4
+    },
+    {
+      "id": "gh-028",
+      "slice": "clear_eligible",
+      "predicted": {
+        "snap": true,
+        "eitc": true,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": true,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 9564,
+        "eitc": 7155,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 9564,
+        "eitc": 7155,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "snap.income_source",
+        "eitc.investment_income_over_limit",
+        "lifeline.tribal_lands"
+      ],
+      "firstQuestion": "snap.income_source",
+      "criteriaEvaluated": 59,
+      "wallClockMs": 20.270125000000007,
+      "engineMs": 1.209292000000005,
+      "passes": 4
+    },
+    {
+      "id": "gh-029",
+      "slice": "clear_eligible",
+      "predicted": {
+        "snap": true,
+        "eitc": true,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": true,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 6552,
+        "eitc": 3672,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 6552,
+        "eitc": 3672,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "eitc.investment_income_over_limit",
+        "snap.income_source",
+        "snap.all_members_homeless"
+      ],
+      "firstQuestion": "eitc.investment_income_over_limit",
+      "criteriaEvaluated": 41,
+      "wallClockMs": 10.431708000000071,
+      "engineMs": 1.137958000000026,
+      "passes": 4
+    },
+    {
+      "id": "gh-030",
+      "slice": "clear_eligible",
+      "predicted": {
+        "snap": true,
+        "eitc": true,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": true,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 9312,
+        "eitc": 8231,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 9312,
+        "eitc": 8231,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "snap.income_source",
+        "eitc.investment_income_over_limit",
+        "lifeline.tribal_lands"
+      ],
+      "firstQuestion": "snap.income_source",
+      "criteriaEvaluated": 59,
+      "wallClockMs": 18.9135,
+      "engineMs": 1.309541999999965,
+      "passes": 4
+    },
+    {
+      "id": "gh-031",
+      "slice": "clear_ineligible",
+      "predicted": {
+        "snap": false,
+        "eitc": false,
+        "lifeline": false
+      },
+      "truth": {
+        "snap": false,
+        "eitc": false,
+        "lifeline": false
+      },
+      "predictedValues": {
+        "snap": 0,
+        "eitc": 0,
+        "lifeline": 0
+      },
+      "truthValues": {
+        "snap": 0,
+        "eitc": 0,
+        "lifeline": 0
+      },
+      "questionsAsked": [
+        "lifeline.receives_fpha",
+        "lifeline.receives_medicaid",
+        "lifeline.receives_snap"
+      ],
+      "firstQuestion": "lifeline.receives_fpha",
+      "criteriaEvaluated": 63,
+      "wallClockMs": 22.460207999999966,
+      "engineMs": 1.1244589999997743,
+      "passes": 4
+    },
+    {
+      "id": "gh-032",
+      "slice": "clear_ineligible",
+      "predicted": {
+        "snap": false,
+        "eitc": false,
+        "lifeline": false
+      },
+      "truth": {
+        "snap": false,
+        "eitc": false,
+        "lifeline": false
+      },
+      "predictedValues": {
+        "snap": 0,
+        "eitc": 0,
+        "lifeline": 0
+      },
+      "truthValues": {
+        "snap": 0,
+        "eitc": 0,
+        "lifeline": 0
+      },
+      "questionsAsked": [
+        "snap.categorical",
+        "lifeline.receives_fpha",
+        "lifeline.receives_medicaid"
+      ],
+      "firstQuestion": "snap.categorical",
+      "criteriaEvaluated": 32,
+      "wallClockMs": 7.157916999999998,
+      "engineMs": 0.5099999999999909,
+      "passes": 4
+    },
+    {
+      "id": "gh-033",
+      "slice": "clear_ineligible",
+      "predicted": {
+        "snap": false,
+        "eitc": false,
+        "lifeline": false
+      },
+      "truth": {
+        "snap": false,
+        "eitc": false,
+        "lifeline": false
+      },
+      "predictedValues": {
+        "snap": 0,
+        "eitc": 0,
+        "lifeline": 0
+      },
+      "truthValues": {
+        "snap": 0,
+        "eitc": 0,
+        "lifeline": 0
+      },
+      "questionsAsked": [
+        "snap.categorical",
+        "lifeline.receives_fpha",
+        "lifeline.receives_medicaid"
+      ],
+      "firstQuestion": "snap.categorical",
+      "criteriaEvaluated": 41,
+      "wallClockMs": 10.442082999999911,
+      "engineMs": 0.879624999999919,
+      "passes": 4
+    },
+    {
+      "id": "gh-034",
+      "slice": "clear_ineligible",
+      "predicted": {
+        "snap": false,
+        "eitc": false,
+        "lifeline": false
+      },
+      "truth": {
+        "snap": false,
+        "eitc": false,
+        "lifeline": false
+      },
+      "predictedValues": {
+        "snap": 0,
+        "eitc": 0,
+        "lifeline": 0
+      },
+      "truthValues": {
+        "snap": 0,
+        "eitc": 0,
+        "lifeline": 0
+      },
+      "questionsAsked": [
+        "snap.categorical",
+        "lifeline.receives_fpha",
+        "lifeline.receives_medicaid"
+      ],
+      "firstQuestion": "snap.categorical",
+      "criteriaEvaluated": 41,
+      "wallClockMs": 10.457583999999997,
+      "engineMs": 0.9210849999999482,
+      "passes": 4
+    },
+    {
+      "id": "gh-035",
+      "slice": "clear_ineligible",
+      "predicted": {
+        "snap": false,
+        "eitc": false,
+        "lifeline": false
+      },
+      "truth": {
+        "snap": false,
+        "eitc": false,
+        "lifeline": false
+      },
+      "predictedValues": {
+        "snap": 0,
+        "eitc": 0,
+        "lifeline": 0
+      },
+      "truthValues": {
+        "snap": 0,
+        "eitc": 0,
+        "lifeline": 0
+      },
+      "questionsAsked": [
+        "lifeline.receives_fpha",
+        "lifeline.receives_medicaid",
+        "lifeline.receives_snap"
+      ],
+      "firstQuestion": "lifeline.receives_fpha",
+      "criteriaEvaluated": 45,
+      "wallClockMs": 12.732082999999989,
+      "engineMs": 0.9883340000001226,
+      "passes": 4
+    },
+    {
+      "id": "gh-036",
+      "slice": "clear_ineligible",
+      "predicted": {
+        "snap": false,
+        "eitc": false,
+        "lifeline": false
+      },
+      "truth": {
+        "snap": false,
+        "eitc": false,
+        "lifeline": false
+      },
+      "predictedValues": {
+        "snap": 0,
+        "eitc": 0,
+        "lifeline": 0
+      },
+      "truthValues": {
+        "snap": 0,
+        "eitc": 0,
+        "lifeline": 0
+      },
+      "questionsAsked": [
+        "snap.categorical",
+        "lifeline.receives_fpha",
+        "lifeline.receives_medicaid"
+      ],
+      "firstQuestion": "snap.categorical",
+      "criteriaEvaluated": 36,
+      "wallClockMs": 8.704042000000072,
+      "engineMs": 0.7561239999998861,
+      "passes": 4
+    },
+    {
+      "id": "gh-037",
+      "slice": "clear_ineligible",
+      "predicted": {
+        "snap": false,
+        "eitc": false,
+        "lifeline": false
+      },
+      "truth": {
+        "snap": false,
+        "eitc": false,
+        "lifeline": false
+      },
+      "predictedValues": {
+        "snap": 0,
+        "eitc": 0,
+        "lifeline": 0
+      },
+      "truthValues": {
+        "snap": 0,
+        "eitc": 0,
+        "lifeline": 0
+      },
+      "questionsAsked": [
+        "snap.categorical",
+        "lifeline.receives_fpha",
+        "lifeline.receives_medicaid"
+      ],
+      "firstQuestion": "snap.categorical",
+      "criteriaEvaluated": 36,
+      "wallClockMs": 8.261417000000051,
+      "engineMs": 0.8419999999999845,
+      "passes": 4
+    },
+    {
+      "id": "gh-038",
+      "slice": "clear_ineligible",
+      "predicted": {
+        "snap": false,
+        "eitc": false,
+        "lifeline": false
+      },
+      "truth": {
+        "snap": false,
+        "eitc": false,
+        "lifeline": false
+      },
+      "predictedValues": {
+        "snap": 0,
+        "eitc": 0,
+        "lifeline": 0
+      },
+      "truthValues": {
+        "snap": 0,
+        "eitc": 0,
+        "lifeline": 0
+      },
+      "questionsAsked": [
+        "lifeline.receives_fpha",
+        "lifeline.receives_medicaid",
+        "lifeline.receives_snap"
+      ],
+      "firstQuestion": "lifeline.receives_fpha",
+      "criteriaEvaluated": 54,
+      "wallClockMs": 16.656167000000096,
+      "engineMs": 1.1864579999999023,
+      "passes": 4
+    },
+    {
+      "id": "gh-039",
+      "slice": "clear_ineligible",
+      "predicted": {
+        "snap": false,
+        "eitc": false,
+        "lifeline": false
+      },
+      "truth": {
+        "snap": false,
+        "eitc": false,
+        "lifeline": false
+      },
+      "predictedValues": {
+        "snap": 0,
+        "eitc": 0,
+        "lifeline": 0
+      },
+      "truthValues": {
+        "snap": 0,
+        "eitc": 0,
+        "lifeline": 0
+      },
+      "questionsAsked": [
+        "snap.categorical",
+        "lifeline.receives_fpha",
+        "lifeline.receives_medicaid"
+      ],
+      "firstQuestion": "snap.categorical",
+      "criteriaEvaluated": 32,
+      "wallClockMs": 6.364167000000066,
+      "engineMs": 0.648958999999877,
+      "passes": 4
+    },
+    {
+      "id": "gh-040",
+      "slice": "clear_ineligible",
+      "predicted": {
+        "snap": false,
+        "eitc": false,
+        "lifeline": false
+      },
+      "truth": {
+        "snap": false,
+        "eitc": false,
+        "lifeline": false
+      },
+      "predictedValues": {
+        "snap": 0,
+        "eitc": 0,
+        "lifeline": 0
+      },
+      "truthValues": {
+        "snap": 0,
+        "eitc": 0,
+        "lifeline": 0
+      },
+      "questionsAsked": [
+        "lifeline.receives_fpha",
+        "lifeline.receives_medicaid",
+        "lifeline.receives_snap"
+      ],
+      "firstQuestion": "lifeline.receives_fpha",
+      "criteriaEvaluated": 45,
+      "wallClockMs": 11.837625000000003,
+      "engineMs": 0.9437500000000227,
+      "passes": 4
+    },
+    {
+      "id": "gh-041",
+      "slice": "clear_ineligible",
+      "predicted": {
+        "snap": false,
+        "eitc": false,
+        "lifeline": false
+      },
+      "truth": {
+        "snap": false,
+        "eitc": false,
+        "lifeline": false
+      },
+      "predictedValues": {
+        "snap": 0,
+        "eitc": 0,
+        "lifeline": 0
+      },
+      "truthValues": {
+        "snap": 0,
+        "eitc": 0,
+        "lifeline": 0
+      },
+      "questionsAsked": [
+        "lifeline.receives_fpha",
+        "lifeline.receives_medicaid",
+        "lifeline.receives_snap"
+      ],
+      "firstQuestion": "lifeline.receives_fpha",
+      "criteriaEvaluated": 54,
+      "wallClockMs": 16.20316600000001,
+      "engineMs": 1.208332999999925,
+      "passes": 4
+    },
+    {
+      "id": "gh-042",
+      "slice": "clear_ineligible",
+      "predicted": {
+        "snap": false,
+        "eitc": false,
+        "lifeline": false
+      },
+      "truth": {
+        "snap": false,
+        "eitc": false,
+        "lifeline": false
+      },
+      "predictedValues": {
+        "snap": 0,
+        "eitc": 0,
+        "lifeline": 0
+      },
+      "truthValues": {
+        "snap": 0,
+        "eitc": 0,
+        "lifeline": 0
+      },
+      "questionsAsked": [
+        "snap.categorical",
+        "lifeline.receives_fpha",
+        "lifeline.receives_medicaid"
+      ],
+      "firstQuestion": "snap.categorical",
+      "criteriaEvaluated": 36,
+      "wallClockMs": 8.242917000000034,
+      "engineMs": 0.7505010000000993,
+      "passes": 4
+    },
+    {
+      "id": "gh-043",
+      "slice": "clear_ineligible",
+      "predicted": {
+        "snap": false,
+        "eitc": false,
+        "lifeline": false
+      },
+      "truth": {
+        "snap": false,
+        "eitc": false,
+        "lifeline": false
+      },
+      "predictedValues": {
+        "snap": 0,
+        "eitc": 0,
+        "lifeline": 0
+      },
+      "truthValues": {
+        "snap": 0,
+        "eitc": 0,
+        "lifeline": 0
+      },
+      "questionsAsked": [
+        "snap.categorical",
+        "lifeline.receives_fpha",
+        "lifeline.receives_medicaid"
+      ],
+      "firstQuestion": "snap.categorical",
+      "criteriaEvaluated": 36,
+      "wallClockMs": 8.43383300000005,
+      "engineMs": 0.900457000000074,
+      "passes": 4
+    },
+    {
+      "id": "gh-044",
+      "slice": "clear_ineligible",
+      "predicted": {
+        "snap": false,
+        "eitc": false,
+        "lifeline": false
+      },
+      "truth": {
+        "snap": false,
+        "eitc": false,
+        "lifeline": false
+      },
+      "predictedValues": {
+        "snap": 0,
+        "eitc": 0,
+        "lifeline": 0
+      },
+      "truthValues": {
+        "snap": 0,
+        "eitc": 0,
+        "lifeline": 0
+      },
+      "questionsAsked": [
+        "lifeline.receives_fpha",
+        "lifeline.receives_medicaid",
+        "lifeline.receives_snap"
+      ],
+      "firstQuestion": "lifeline.receives_fpha",
+      "criteriaEvaluated": 45,
+      "wallClockMs": 11.856666000000018,
+      "engineMs": 1.064958000000047,
+      "passes": 4
+    },
+    {
+      "id": "gh-045",
+      "slice": "clear_ineligible",
+      "predicted": {
+        "snap": false,
+        "eitc": false,
+        "lifeline": false
+      },
+      "truth": {
+        "snap": false,
+        "eitc": false,
+        "lifeline": false
+      },
+      "predictedValues": {
+        "snap": 0,
+        "eitc": 0,
+        "lifeline": 0
+      },
+      "truthValues": {
+        "snap": 0,
+        "eitc": 0,
+        "lifeline": 0
+      },
+      "questionsAsked": [
+        "lifeline.receives_fpha",
+        "lifeline.receives_medicaid",
+        "lifeline.receives_snap"
+      ],
+      "firstQuestion": "lifeline.receives_fpha",
+      "criteriaEvaluated": 54,
+      "wallClockMs": 16.903042000000028,
+      "engineMs": 1.196957999999995,
+      "passes": 4
+    },
+    {
+      "id": "gh-046",
+      "slice": "clear_ineligible",
+      "predicted": {
+        "snap": false,
+        "eitc": false,
+        "lifeline": false
+      },
+      "truth": {
+        "snap": false,
+        "eitc": false,
+        "lifeline": false
+      },
+      "predictedValues": {
+        "snap": 0,
+        "eitc": 0,
+        "lifeline": 0
+      },
+      "truthValues": {
+        "snap": 0,
+        "eitc": 0,
+        "lifeline": 0
+      },
+      "questionsAsked": [
+        "snap.categorical",
+        "lifeline.receives_fpha",
+        "lifeline.receives_medicaid"
+      ],
+      "firstQuestion": "snap.categorical",
+      "criteriaEvaluated": 36,
+      "wallClockMs": 7.887208999999984,
+      "engineMs": 0.7535820000000513,
+      "passes": 4
+    },
+    {
+      "id": "gh-047",
+      "slice": "clear_ineligible",
+      "predicted": {
+        "snap": false,
+        "eitc": false,
+        "lifeline": false
+      },
+      "truth": {
+        "snap": false,
+        "eitc": false,
+        "lifeline": false
+      },
+      "predictedValues": {
+        "snap": 0,
+        "eitc": 0,
+        "lifeline": 0
+      },
+      "truthValues": {
+        "snap": 0,
+        "eitc": 0,
+        "lifeline": 0
+      },
+      "questionsAsked": [
+        "snap.categorical",
+        "lifeline.receives_fpha",
+        "lifeline.receives_medicaid"
+      ],
+      "firstQuestion": "snap.categorical",
+      "criteriaEvaluated": 36,
+      "wallClockMs": 8.039375000000064,
+      "engineMs": 0.8588329999998905,
+      "passes": 4
+    },
+    {
+      "id": "gh-048",
+      "slice": "clear_ineligible",
+      "predicted": {
+        "snap": false,
+        "eitc": false,
+        "lifeline": false
+      },
+      "truth": {
+        "snap": false,
+        "eitc": false,
+        "lifeline": false
+      },
+      "predictedValues": {
+        "snap": 0,
+        "eitc": 0,
+        "lifeline": 0
+      },
+      "truthValues": {
+        "snap": 0,
+        "eitc": 0,
+        "lifeline": 0
+      },
+      "questionsAsked": [
+        "snap.categorical",
+        "lifeline.receives_fpha",
+        "lifeline.receives_medicaid"
+      ],
+      "firstQuestion": "snap.categorical",
+      "criteriaEvaluated": 36,
+      "wallClockMs": 7.767875000000004,
+      "engineMs": 0.7439170000001241,
+      "passes": 4
+    },
+    {
+      "id": "gh-049",
+      "slice": "clear_ineligible",
+      "predicted": {
+        "snap": false,
+        "eitc": false,
+        "lifeline": false
+      },
+      "truth": {
+        "snap": false,
+        "eitc": false,
+        "lifeline": false
+      },
+      "predictedValues": {
+        "snap": 0,
+        "eitc": 0,
+        "lifeline": 0
+      },
+      "truthValues": {
+        "snap": 0,
+        "eitc": 0,
+        "lifeline": 0
+      },
+      "questionsAsked": [
+        "snap.categorical",
+        "lifeline.receives_fpha",
+        "lifeline.receives_medicaid"
+      ],
+      "firstQuestion": "snap.categorical",
+      "criteriaEvaluated": 41,
+      "wallClockMs": 9.866084,
+      "engineMs": 0.8876670000000786,
+      "passes": 4
+    },
+    {
+      "id": "gh-050",
+      "slice": "clear_ineligible",
+      "predicted": {
+        "snap": false,
+        "eitc": false,
+        "lifeline": false
+      },
+      "truth": {
+        "snap": false,
+        "eitc": false,
+        "lifeline": false
+      },
+      "predictedValues": {
+        "snap": 0,
+        "eitc": 0,
+        "lifeline": 0
+      },
+      "truthValues": {
+        "snap": 0,
+        "eitc": 0,
+        "lifeline": 0
+      },
+      "questionsAsked": [
+        "snap.categorical",
+        "lifeline.receives_fpha",
+        "lifeline.receives_medicaid"
+      ],
+      "firstQuestion": "snap.categorical",
+      "criteriaEvaluated": 32,
+      "wallClockMs": 6.422625000000039,
+      "engineMs": 0.6913329999997586,
+      "passes": 4
+    },
+    {
+      "id": "gh-051",
+      "slice": "clear_ineligible",
+      "predicted": {
+        "snap": false,
+        "eitc": false,
+        "lifeline": false
+      },
+      "truth": {
+        "snap": false,
+        "eitc": false,
+        "lifeline": false
+      },
+      "predictedValues": {
+        "snap": 0,
+        "eitc": 0,
+        "lifeline": 0
+      },
+      "truthValues": {
+        "snap": 0,
+        "eitc": 0,
+        "lifeline": 0
+      },
+      "questionsAsked": [
+        "snap.categorical",
+        "lifeline.receives_fpha",
+        "lifeline.receives_medicaid"
+      ],
+      "firstQuestion": "snap.categorical",
+      "criteriaEvaluated": 41,
+      "wallClockMs": 9.556832999999983,
+      "engineMs": 0.8679170000001477,
+      "passes": 4
+    },
+    {
+      "id": "gh-052",
+      "slice": "clear_ineligible",
+      "predicted": {
+        "snap": false,
+        "eitc": false,
+        "lifeline": false
+      },
+      "truth": {
+        "snap": false,
+        "eitc": false,
+        "lifeline": false
+      },
+      "predictedValues": {
+        "snap": 0,
+        "eitc": 0,
+        "lifeline": 0
+      },
+      "truthValues": {
+        "snap": 0,
+        "eitc": 0,
+        "lifeline": 0
+      },
+      "questionsAsked": [
+        "snap.categorical",
+        "lifeline.receives_fpha",
+        "lifeline.receives_medicaid"
+      ],
+      "firstQuestion": "snap.categorical",
+      "criteriaEvaluated": 32,
+      "wallClockMs": 6.588583999999969,
+      "engineMs": 0.6758339999998952,
+      "passes": 4
+    },
+    {
+      "id": "gh-053",
+      "slice": "clear_ineligible",
+      "predicted": {
+        "snap": false,
+        "eitc": false,
+        "lifeline": false
+      },
+      "truth": {
+        "snap": false,
+        "eitc": false,
+        "lifeline": false
+      },
+      "predictedValues": {
+        "snap": 0,
+        "eitc": 0,
+        "lifeline": 0
+      },
+      "truthValues": {
+        "snap": 0,
+        "eitc": 0,
+        "lifeline": 0
+      },
+      "questionsAsked": [
+        "lifeline.receives_fpha",
+        "lifeline.receives_medicaid",
+        "lifeline.receives_snap"
+      ],
+      "firstQuestion": "lifeline.receives_fpha",
+      "criteriaEvaluated": 45,
+      "wallClockMs": 11.606292000000053,
+      "engineMs": 1.0164589999999407,
+      "passes": 4
+    },
+    {
+      "id": "gh-054",
+      "slice": "clear_ineligible",
+      "predicted": {
+        "snap": false,
+        "eitc": false,
+        "lifeline": false
+      },
+      "truth": {
+        "snap": false,
+        "eitc": false,
+        "lifeline": false
+      },
+      "predictedValues": {
+        "snap": 0,
+        "eitc": 0,
+        "lifeline": 0
+      },
+      "truthValues": {
+        "snap": 0,
+        "eitc": 0,
+        "lifeline": 0
+      },
+      "questionsAsked": [
+        "lifeline.receives_fpha",
+        "lifeline.receives_medicaid",
+        "lifeline.receives_snap"
+      ],
+      "firstQuestion": "lifeline.receives_fpha",
+      "criteriaEvaluated": 54,
+      "wallClockMs": 16.11304199999995,
+      "engineMs": 1.214083999999957,
+      "passes": 4
+    },
+    {
+      "id": "gh-055",
+      "slice": "clear_ineligible",
+      "predicted": {
+        "snap": false,
+        "eitc": false,
+        "lifeline": false
+      },
+      "truth": {
+        "snap": false,
+        "eitc": false,
+        "lifeline": false
+      },
+      "predictedValues": {
+        "snap": 0,
+        "eitc": 0,
+        "lifeline": 0
+      },
+      "truthValues": {
+        "snap": 0,
+        "eitc": 0,
+        "lifeline": 0
+      },
+      "questionsAsked": [
+        "snap.categorical",
+        "lifeline.receives_fpha",
+        "lifeline.receives_medicaid"
+      ],
+      "firstQuestion": "snap.categorical",
+      "criteriaEvaluated": 36,
+      "wallClockMs": 7.844541999999933,
+      "engineMs": 0.7176670000000058,
+      "passes": 4
+    },
+    {
+      "id": "gh-056",
+      "slice": "clear_ineligible",
+      "predicted": {
+        "snap": false,
+        "eitc": false,
+        "lifeline": false
+      },
+      "truth": {
+        "snap": false,
+        "eitc": false,
+        "lifeline": false
+      },
+      "predictedValues": {
+        "snap": 0,
+        "eitc": 0,
+        "lifeline": 0
+      },
+      "truthValues": {
+        "snap": 0,
+        "eitc": 0,
+        "lifeline": 0
+      },
+      "questionsAsked": [
+        "snap.categorical",
+        "lifeline.receives_fpha",
+        "lifeline.receives_medicaid"
+      ],
+      "firstQuestion": "snap.categorical",
+      "criteriaEvaluated": 32,
+      "wallClockMs": 6.523458000000005,
+      "engineMs": 0.645415999999841,
+      "passes": 4
+    },
+    {
+      "id": "gh-057",
+      "slice": "clear_ineligible",
+      "predicted": {
+        "snap": false,
+        "eitc": false,
+        "lifeline": false
+      },
+      "truth": {
+        "snap": false,
+        "eitc": false,
+        "lifeline": false
+      },
+      "predictedValues": {
+        "snap": 0,
+        "eitc": 0,
+        "lifeline": 0
+      },
+      "truthValues": {
+        "snap": 0,
+        "eitc": 0,
+        "lifeline": 0
+      },
+      "questionsAsked": [
+        "lifeline.receives_fpha",
+        "lifeline.receives_medicaid",
+        "lifeline.receives_snap"
+      ],
+      "firstQuestion": "lifeline.receives_fpha",
+      "criteriaEvaluated": 45,
+      "wallClockMs": 11.59212500000001,
+      "engineMs": 0.9510000000001355,
+      "passes": 4
+    },
+    {
+      "id": "gh-058",
+      "slice": "clear_ineligible",
+      "predicted": {
+        "snap": false,
+        "eitc": false,
+        "lifeline": false
+      },
+      "truth": {
+        "snap": false,
+        "eitc": false,
+        "lifeline": false
+      },
+      "predictedValues": {
+        "snap": 0,
+        "eitc": 0,
+        "lifeline": 0
+      },
+      "truthValues": {
+        "snap": 0,
+        "eitc": 0,
+        "lifeline": 0
+      },
+      "questionsAsked": [
+        "lifeline.receives_fpha",
+        "lifeline.receives_medicaid",
+        "lifeline.receives_snap"
+      ],
+      "firstQuestion": "lifeline.receives_fpha",
+      "criteriaEvaluated": 54,
+      "wallClockMs": 15.452249999999935,
+      "engineMs": 1.126916000000051,
+      "passes": 4
+    },
+    {
+      "id": "gh-059",
+      "slice": "clear_ineligible",
+      "predicted": {
+        "snap": false,
+        "eitc": false,
+        "lifeline": false
+      },
+      "truth": {
+        "snap": false,
+        "eitc": false,
+        "lifeline": false
+      },
+      "predictedValues": {
+        "snap": 0,
+        "eitc": 0,
+        "lifeline": 0
+      },
+      "truthValues": {
+        "snap": 0,
+        "eitc": 0,
+        "lifeline": 0
+      },
+      "questionsAsked": [
+        "snap.categorical",
+        "lifeline.receives_fpha",
+        "lifeline.receives_medicaid"
+      ],
+      "firstQuestion": "snap.categorical",
+      "criteriaEvaluated": 32,
+      "wallClockMs": 6.227459000000067,
+      "engineMs": 0.631249999999909,
+      "passes": 4
+    },
+    {
+      "id": "gh-060",
+      "slice": "clear_ineligible",
+      "predicted": {
+        "snap": false,
+        "eitc": false,
+        "lifeline": false
+      },
+      "truth": {
+        "snap": false,
+        "eitc": false,
+        "lifeline": false
+      },
+      "predictedValues": {
+        "snap": 0,
+        "eitc": 0,
+        "lifeline": 0
+      },
+      "truthValues": {
+        "snap": 0,
+        "eitc": 0,
+        "lifeline": 0
+      },
+      "questionsAsked": [
+        "lifeline.receives_fpha",
+        "lifeline.receives_medicaid",
+        "lifeline.receives_snap"
+      ],
+      "firstQuestion": "lifeline.receives_fpha",
+      "criteriaEvaluated": 54,
+      "wallClockMs": 16.338499999999954,
+      "engineMs": 1.2874579999997877,
+      "passes": 4
+    },
+    {
+      "id": "gh-061",
+      "slice": "mixed",
+      "predicted": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 2436,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 2436,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "snap.income_source",
+        "lifeline.tribal_lands",
+        "snap.resources_over_limit"
+      ],
+      "firstQuestion": "snap.income_source",
+      "criteriaEvaluated": 32,
+      "wallClockMs": 7.116374999999948,
+      "engineMs": 0.59212500000001,
+      "passes": 4
+    },
+    {
+      "id": "gh-062",
+      "slice": "mixed",
+      "predicted": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 1824,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 1824,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "snap.income_source",
+        "lifeline.tribal_lands",
+        "lifeline.one_per_household"
+      ],
+      "firstQuestion": "snap.income_source",
+      "criteriaEvaluated": 32,
+      "wallClockMs": 6.181791999999973,
+      "engineMs": 0.5634159999999611,
+      "passes": 4
+    },
+    {
+      "id": "gh-063",
+      "slice": "mixed",
+      "predicted": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 288,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 288,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "snap.income_source",
+        "lifeline.tribal_lands",
+        "snap.resources_over_limit"
+      ],
+      "firstQuestion": "snap.income_source",
+      "criteriaEvaluated": 32,
+      "wallClockMs": 6.411749999999984,
+      "engineMs": 0.5404580000000578,
+      "passes": 4
+    },
+    {
+      "id": "gh-064",
+      "slice": "mixed",
+      "predicted": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 2004,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 2004,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "snap.income_source",
+        "lifeline.tribal_lands",
+        "lifeline.one_per_household"
+      ],
+      "firstQuestion": "snap.income_source",
+      "criteriaEvaluated": 32,
+      "wallClockMs": 6.100542000000019,
+      "engineMs": 0.47941500000001724,
+      "passes": 4
+    },
+    {
+      "id": "gh-065",
+      "slice": "mixed",
+      "predicted": {
+        "snap": false,
+        "eitc": false,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 0,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 384,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "snap.categorical",
+        "lifeline.tribal_lands",
+        "lifeline.one_per_household"
+      ],
+      "firstQuestion": "snap.categorical",
+      "criteriaEvaluated": 32,
+      "wallClockMs": 6.177167000000054,
+      "engineMs": 0.46449999999992997,
+      "passes": 4
+    },
+    {
+      "id": "gh-066",
+      "slice": "mixed",
+      "predicted": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 492,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 492,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "snap.income_source",
+        "lifeline.tribal_lands",
+        "snap.resources_over_limit"
+      ],
+      "firstQuestion": "snap.income_source",
+      "criteriaEvaluated": 32,
+      "wallClockMs": 6.197957999999971,
+      "engineMs": 0.6222920000000158,
+      "passes": 4
+    },
+    {
+      "id": "gh-067",
+      "slice": "mixed",
+      "predicted": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 2004,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 2004,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "snap.income_source",
+        "lifeline.tribal_lands",
+        "lifeline.one_per_household"
+      ],
+      "firstQuestion": "snap.income_source",
+      "criteriaEvaluated": 32,
+      "wallClockMs": 5.778167000000053,
+      "engineMs": 0.6479180000000042,
+      "passes": 4
+    },
+    {
+      "id": "gh-068",
+      "slice": "mixed",
+      "predicted": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 288,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 288,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "snap.income_source",
+        "lifeline.tribal_lands",
+        "snap.resources_over_limit"
+      ],
+      "firstQuestion": "snap.income_source",
+      "criteriaEvaluated": 32,
+      "wallClockMs": 6.521417000000042,
+      "engineMs": 0.6667509999999766,
+      "passes": 4
+    },
+    {
+      "id": "gh-069",
+      "slice": "mixed",
+      "predicted": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 3216,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 3216,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "snap.income_source",
+        "lifeline.tribal_lands",
+        "snap.resources_over_limit"
+      ],
+      "firstQuestion": "snap.income_source",
+      "criteriaEvaluated": 32,
+      "wallClockMs": 5.99795800000004,
+      "engineMs": 0.7113749999999754,
+      "passes": 4
+    },
+    {
+      "id": "gh-070",
+      "slice": "mixed",
+      "predicted": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 2040,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 2040,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "snap.income_source",
+        "lifeline.tribal_lands",
+        "lifeline.one_per_household"
+      ],
+      "firstQuestion": "snap.income_source",
+      "criteriaEvaluated": 32,
+      "wallClockMs": 5.718457999999941,
+      "engineMs": 0.5978320000001531,
+      "passes": 4
+    },
+    {
+      "id": "gh-071",
+      "slice": "mixed",
+      "predicted": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 1188,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 1188,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "snap.income_source",
+        "lifeline.tribal_lands",
+        "snap.resources_over_limit"
+      ],
+      "firstQuestion": "snap.income_source",
+      "criteriaEvaluated": 32,
+      "wallClockMs": 6.700417000000016,
+      "engineMs": 0.7715820000000804,
+      "passes": 4
+    },
+    {
+      "id": "gh-072",
+      "slice": "mixed",
+      "predicted": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 2052,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 2052,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "snap.income_source",
+        "lifeline.tribal_lands",
+        "snap.resources_over_limit"
+      ],
+      "firstQuestion": "snap.income_source",
+      "criteriaEvaluated": 32,
+      "wallClockMs": 6.521750000000111,
+      "engineMs": 0.7592089999999416,
+      "passes": 4
+    },
+    {
+      "id": "gh-073",
+      "slice": "mixed",
+      "predicted": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 2496,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 2496,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "snap.income_source",
+        "lifeline.tribal_lands",
+        "snap.resources_over_limit"
+      ],
+      "firstQuestion": "snap.income_source",
+      "criteriaEvaluated": 32,
+      "wallClockMs": 6.367874999999913,
+      "engineMs": 0.679166999999893,
+      "passes": 4
+    },
+    {
+      "id": "gh-074",
+      "slice": "mixed",
+      "predicted": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 288,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 288,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "snap.income_source",
+        "lifeline.tribal_lands",
+        "snap.resources_over_limit"
+      ],
+      "firstQuestion": "snap.income_source",
+      "criteriaEvaluated": 32,
+      "wallClockMs": 6.1852910000000065,
+      "engineMs": 0.699374000000148,
+      "passes": 4
+    },
+    {
+      "id": "gh-075",
+      "slice": "mixed",
+      "predicted": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 2580,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 2580,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "snap.income_source",
+        "lifeline.tribal_lands",
+        "snap.resources_over_limit"
+      ],
+      "firstQuestion": "snap.income_source",
+      "criteriaEvaluated": 32,
+      "wallClockMs": 6.0966660000000275,
+      "engineMs": 0.6563749999999118,
+      "passes": 4
+    },
+    {
+      "id": "gh-076",
+      "slice": "mixed",
+      "predicted": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 1296,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 1296,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "snap.income_source",
+        "lifeline.tribal_lands",
+        "snap.resources_over_limit"
+      ],
+      "firstQuestion": "snap.income_source",
+      "criteriaEvaluated": 32,
+      "wallClockMs": 6.1100830000000315,
+      "engineMs": 0.6700420000000804,
+      "passes": 4
+    },
+    {
+      "id": "gh-077",
+      "slice": "mixed",
+      "predicted": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 2088,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 2088,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "lifeline.tribal_lands",
+        "lifeline.one_per_household"
+      ],
+      "firstQuestion": "lifeline.tribal_lands",
+      "criteriaEvaluated": 32,
+      "wallClockMs": 5.261167,
+      "engineMs": 0.4456670000000713,
+      "passes": 3
+    },
+    {
+      "id": "gh-078",
+      "slice": "mixed",
+      "predicted": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 2700,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 2700,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "snap.income_source",
+        "lifeline.tribal_lands",
+        "snap.resources_over_limit"
+      ],
+      "firstQuestion": "snap.income_source",
+      "criteriaEvaluated": 32,
+      "wallClockMs": 5.998708000000079,
+      "engineMs": 0.6273740000000316,
+      "passes": 4
+    },
+    {
+      "id": "gh-079",
+      "slice": "mixed",
+      "predicted": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 1284,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 1284,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "lifeline.tribal_lands",
+        "snap.income_source",
+        "snap.resources_over_limit"
+      ],
+      "firstQuestion": "lifeline.tribal_lands",
+      "criteriaEvaluated": 32,
+      "wallClockMs": 6.0883329999999205,
+      "engineMs": 0.6760820000000649,
+      "passes": 4
+    },
+    {
+      "id": "gh-080",
+      "slice": "mixed",
+      "predicted": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 3576,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 3576,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "lifeline.tribal_lands",
+        "snap.resources_over_limit",
+        "lifeline.one_per_household"
+      ],
+      "firstQuestion": "lifeline.tribal_lands",
+      "criteriaEvaluated": 32,
+      "wallClockMs": 6.3005829999999605,
+      "engineMs": 0.6677929999998469,
+      "passes": 4
+    },
+    {
+      "id": "gh-081",
+      "slice": "mixed",
+      "predicted": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 3576,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 3576,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "lifeline.tribal_lands",
+        "lifeline.one_per_household"
+      ],
+      "firstQuestion": "lifeline.tribal_lands",
+      "criteriaEvaluated": 32,
+      "wallClockMs": 6.2654999999999745,
+      "engineMs": 0.4486249999999927,
+      "passes": 3
+    },
+    {
+      "id": "gh-082",
+      "slice": "mixed",
+      "predicted": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 2136,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 2136,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "snap.income_source",
+        "lifeline.tribal_lands",
+        "lifeline.one_per_household"
+      ],
+      "firstQuestion": "snap.income_source",
+      "criteriaEvaluated": 32,
+      "wallClockMs": 5.956583000000137,
+      "engineMs": 0.6512499999998909,
+      "passes": 4
+    },
+    {
+      "id": "gh-083",
+      "slice": "mixed",
+      "predicted": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 2040,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 2040,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "snap.income_source",
+        "lifeline.tribal_lands",
+        "lifeline.one_per_household"
+      ],
+      "firstQuestion": "snap.income_source",
+      "criteriaEvaluated": 32,
+      "wallClockMs": 5.45900000000006,
+      "engineMs": 0.6606670000001031,
+      "passes": 4
+    },
+    {
+      "id": "gh-084",
+      "slice": "mixed",
+      "predicted": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 288,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 288,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "snap.income_source",
+        "lifeline.tribal_lands",
+        "snap.resources_over_limit"
+      ],
+      "firstQuestion": "snap.income_source",
+      "criteriaEvaluated": 32,
+      "wallClockMs": 6.143707999999833,
+      "engineMs": 0.6280409999999392,
+      "passes": 4
+    },
+    {
+      "id": "gh-085",
+      "slice": "mixed",
+      "predicted": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 2220,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 2220,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "snap.income_source",
+        "lifeline.tribal_lands",
+        "lifeline.one_per_household"
+      ],
+      "firstQuestion": "snap.income_source",
+      "criteriaEvaluated": 32,
+      "wallClockMs": 6.063957999999957,
+      "engineMs": 0.6290419999997994,
+      "passes": 4
+    },
+    {
+      "id": "gh-086",
+      "slice": "mixed",
+      "predicted": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 3576,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 3576,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "lifeline.tribal_lands",
+        "snap.resources_over_limit",
+        "lifeline.one_per_household"
+      ],
+      "firstQuestion": "lifeline.tribal_lands",
+      "criteriaEvaluated": 32,
+      "wallClockMs": 6.430540999999948,
+      "engineMs": 0.7222509999999147,
+      "passes": 4
+    },
+    {
+      "id": "gh-087",
+      "slice": "mixed",
+      "predicted": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 2688,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 2688,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "snap.income_source",
+        "lifeline.tribal_lands",
+        "snap.resources_over_limit"
+      ],
+      "firstQuestion": "snap.income_source",
+      "criteriaEvaluated": 32,
+      "wallClockMs": 6.179167000000007,
+      "engineMs": 0.6930839999999989,
+      "passes": 4
+    },
+    {
+      "id": "gh-088",
+      "slice": "mixed",
+      "predicted": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 1356,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 1356,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "snap.income_source",
+        "lifeline.tribal_lands",
+        "snap.resources_over_limit"
+      ],
+      "firstQuestion": "snap.income_source",
+      "criteriaEvaluated": 32,
+      "wallClockMs": 6.268790999999965,
+      "engineMs": 0.6808759999998983,
+      "passes": 4
+    },
+    {
+      "id": "gh-089",
+      "slice": "mixed",
+      "predicted": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 2268,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 2268,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "lifeline.tribal_lands",
+        "lifeline.one_per_household"
+      ],
+      "firstQuestion": "lifeline.tribal_lands",
+      "criteriaEvaluated": 32,
+      "wallClockMs": 5.528582999999799,
+      "engineMs": 0.4591250000000855,
+      "passes": 3
+    },
+    {
+      "id": "gh-090",
+      "slice": "mixed",
+      "predicted": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 2580,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 2580,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "lifeline.tribal_lands",
+        "lifeline.one_per_household"
+      ],
+      "firstQuestion": "lifeline.tribal_lands",
+      "criteriaEvaluated": 32,
+      "wallClockMs": 5.442207999999937,
+      "engineMs": 0.45541700000012497,
+      "passes": 3
+    },
+    {
+      "id": "gh-091",
+      "slice": "mixed",
+      "predicted": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 2700,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 2700,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "snap.income_source",
+        "lifeline.tribal_lands",
+        "snap.resources_over_limit"
+      ],
+      "firstQuestion": "snap.income_source",
+      "criteriaEvaluated": 32,
+      "wallClockMs": 5.86912499999994,
+      "engineMs": 0.6484570000000076,
+      "passes": 4
+    },
+    {
+      "id": "gh-092",
+      "slice": "mixed",
+      "predicted": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 1548,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 1548,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "snap.income_source",
+        "lifeline.tribal_lands",
+        "snap.resources_over_limit"
+      ],
+      "firstQuestion": "snap.income_source",
+      "criteriaEvaluated": 32,
+      "wallClockMs": 6.228665999999976,
+      "engineMs": 0.5943750000001273,
+      "passes": 4
+    },
+    {
+      "id": "gh-093",
+      "slice": "mixed",
+      "predicted": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 2256,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 2256,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "snap.income_source",
+        "lifeline.tribal_lands",
+        "snap.resources_over_limit"
+      ],
+      "firstQuestion": "snap.income_source",
+      "criteriaEvaluated": 32,
+      "wallClockMs": 6.336000000000013,
+      "engineMs": 0.685416000000032,
+      "passes": 4
+    },
+    {
+      "id": "gh-094",
+      "slice": "mixed",
+      "predicted": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 2316,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 2316,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "snap.income_source",
+        "lifeline.tribal_lands",
+        "lifeline.one_per_household"
+      ],
+      "firstQuestion": "snap.income_source",
+      "criteriaEvaluated": 32,
+      "wallClockMs": 5.701207999999951,
+      "engineMs": 0.6132490000002235,
+      "passes": 4
+    },
+    {
+      "id": "gh-095",
+      "slice": "mixed",
+      "predicted": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 1956,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 1956,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "lifeline.tribal_lands",
+        "lifeline.one_per_household"
+      ],
+      "firstQuestion": "lifeline.tribal_lands",
+      "criteriaEvaluated": 32,
+      "wallClockMs": 5.442999999999984,
+      "engineMs": 0.45495899999991707,
+      "passes": 3
+    },
+    {
+      "id": "gh-096",
+      "slice": "mixed",
+      "predicted": {
+        "snap": false,
+        "eitc": false,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 0,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 288,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "lifeline.tribal_lands",
+        "snap.categorical",
+        "lifeline.one_per_household"
+      ],
+      "firstQuestion": "lifeline.tribal_lands",
+      "criteriaEvaluated": 32,
+      "wallClockMs": 6.602499999999964,
+      "engineMs": 0.7080009999997401,
+      "passes": 4
+    },
+    {
+      "id": "gh-097",
+      "slice": "mixed",
+      "predicted": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 1524,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 1524,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "snap.income_source",
+        "lifeline.tribal_lands",
+        "snap.resources_over_limit"
+      ],
+      "firstQuestion": "snap.income_source",
+      "criteriaEvaluated": 32,
+      "wallClockMs": 6.316917000000103,
+      "engineMs": 0.6610830000004171,
+      "passes": 4
+    },
+    {
+      "id": "gh-098",
+      "slice": "mixed",
+      "predicted": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 1608,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 1608,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "snap.income_source",
+        "lifeline.tribal_lands",
+        "snap.resources_over_limit"
+      ],
+      "firstQuestion": "snap.income_source",
+      "criteriaEvaluated": 32,
+      "wallClockMs": 6.227624999999989,
+      "engineMs": 0.6866250000000491,
+      "passes": 4
+    },
+    {
+      "id": "gh-099",
+      "slice": "mixed",
+      "predicted": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 1392,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 1392,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "snap.income_source",
+        "lifeline.tribal_lands",
+        "snap.resources_over_limit"
+      ],
+      "firstQuestion": "snap.income_source",
+      "criteriaEvaluated": 32,
+      "wallClockMs": 6.35870900000009,
+      "engineMs": 0.7705839999998716,
+      "passes": 4
+    },
+    {
+      "id": "gh-100",
+      "slice": "mixed",
+      "predicted": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 2316,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 2316,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "snap.income_source",
+        "lifeline.tribal_lands",
+        "lifeline.one_per_household"
+      ],
+      "firstQuestion": "snap.income_source",
+      "criteriaEvaluated": 32,
+      "wallClockMs": 6.057457999999997,
+      "engineMs": 0.6092939999998634,
+      "passes": 4
+    },
+    {
+      "id": "gh-101",
+      "slice": "underspecified",
+      "predicted": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": true,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 11928,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 11928,
+        "eitc": 6075,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "snap.all_members_homeless",
+        "lifeline.tribal_lands",
+        "snap.resources_over_limit"
+      ],
+      "firstQuestion": "snap.all_members_homeless",
+      "loadBearingGap": "snap.income_source",
+      "criteriaEvaluated": 59,
+      "wallClockMs": 18.116708000000017,
+      "engineMs": 1.3132510000000366,
+      "passes": 4
+    },
+    {
+      "id": "gh-102",
+      "slice": "underspecified",
+      "predicted": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 1692,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 1692,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "snap.income_source",
+        "lifeline.tribal_lands",
+        "snap.member_citizenship#0"
+      ],
+      "firstQuestion": "snap.income_source",
+      "loadBearingGap": "snap.income_source",
+      "criteriaEvaluated": 41,
+      "wallClockMs": 9.784625000000005,
+      "engineMs": 0.7184980000004089,
+      "passes": 4
+    },
+    {
+      "id": "gh-103",
+      "slice": "underspecified",
+      "predicted": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 2652,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 2652,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "snap.income_source",
+        "lifeline.tribal_lands",
+        "snap.resources_over_limit"
+      ],
+      "firstQuestion": "snap.income_source",
+      "loadBearingGap": "snap.income_source",
+      "criteriaEvaluated": 32,
+      "wallClockMs": 6.22783400000003,
+      "engineMs": 0.5057930000002671,
+      "passes": 4
+    },
+    {
+      "id": "gh-104",
+      "slice": "underspecified",
+      "predicted": {
+        "snap": true,
+        "eitc": true,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": true,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 9420,
+        "eitc": 6840,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 9420,
+        "eitc": 6840,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "snap.all_members_homeless",
+        "snap.income_source",
+        "eitc.investment_income_over_limit"
+      ],
+      "firstQuestion": "snap.all_members_homeless",
+      "loadBearingGap": "snap.income_source",
+      "criteriaEvaluated": 50,
+      "wallClockMs": 14.016999999999825,
+      "engineMs": 0.9225829999998041,
+      "passes": 4
+    },
+    {
+      "id": "gh-105",
+      "slice": "underspecified",
+      "predicted": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 9240,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 9240,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "lifeline.tribal_lands",
+        "snap.income_source",
+        "snap.resources_over_limit"
+      ],
+      "firstQuestion": "lifeline.tribal_lands",
+      "loadBearingGap": "snap.income_source",
+      "criteriaEvaluated": 50,
+      "wallClockMs": 13.092040999999881,
+      "engineMs": 0.722208000000137,
+      "passes": 4
+    },
+    {
+      "id": "gh-106",
+      "slice": "underspecified",
+      "predicted": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 9420,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 9420,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "snap.all_members_homeless",
+        "lifeline.tribal_lands",
+        "snap.resources_over_limit"
+      ],
+      "firstQuestion": "snap.all_members_homeless",
+      "loadBearingGap": "snap.income_source",
+      "criteriaEvaluated": 50,
+      "wallClockMs": 13.700166999999965,
+      "engineMs": 0.7431249999999636,
+      "passes": 4
+    },
+    {
+      "id": "gh-107",
+      "slice": "underspecified",
+      "predicted": {
+        "snap": true,
+        "eitc": true,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": true,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 3060,
+        "eitc": 576.79,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 3060,
+        "eitc": 576.79,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "snap.income_source",
+        "eitc.investment_income_over_limit",
+        "lifeline.tribal_lands"
+      ],
+      "firstQuestion": "snap.income_source",
+      "loadBearingGap": "snap.income_source",
+      "criteriaEvaluated": 32,
+      "wallClockMs": 6.236707999999908,
+      "engineMs": 0.4978339999997843,
+      "passes": 4
+    },
+    {
+      "id": "gh-108",
+      "slice": "underspecified",
+      "predicted": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 11712,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 11712,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "lifeline.tribal_lands",
+        "snap.income_source",
+        "snap.resources_over_limit"
+      ],
+      "firstQuestion": "lifeline.tribal_lands",
+      "loadBearingGap": "snap.income_source",
+      "criteriaEvaluated": 59,
+      "wallClockMs": 17.75195799999983,
+      "engineMs": 0.8496679999998378,
+      "passes": 4
+    },
+    {
+      "id": "gh-109",
+      "slice": "underspecified",
+      "predicted": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 10980,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 10980,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "snap.income_source",
+        "lifeline.tribal_lands",
+        "snap.resources_over_limit"
+      ],
+      "firstQuestion": "snap.income_source",
+      "loadBearingGap": "snap.income_source",
+      "criteriaEvaluated": 59,
+      "wallClockMs": 17.386250000000018,
+      "engineMs": 0.8876249999996162,
+      "passes": 4
+    },
+    {
+      "id": "gh-110",
+      "slice": "underspecified",
+      "predicted": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 3576,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 3576,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "snap.income_source",
+        "lifeline.tribal_lands",
+        "snap.resources_over_limit"
+      ],
+      "firstQuestion": "snap.income_source",
+      "loadBearingGap": "snap.income_source",
+      "criteriaEvaluated": 32,
+      "wallClockMs": 5.934416999999939,
+      "engineMs": 0.4877079999998841,
+      "passes": 4
+    },
+    {
+      "id": "gh-111",
+      "slice": "underspecified",
+      "predicted": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 3576,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 3576,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "lifeline.tribal_lands",
+        "snap.resources_over_limit",
+        "lifeline.one_per_household"
+      ],
+      "firstQuestion": "lifeline.tribal_lands",
+      "loadBearingGap": "snap.income_source",
+      "criteriaEvaluated": 32,
+      "wallClockMs": 6.352082999999993,
+      "engineMs": 0.503374000000349,
+      "passes": 4
+    },
+    {
+      "id": "gh-112",
+      "slice": "underspecified",
+      "predicted": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 288,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 288,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "lifeline.tribal_lands",
+        "snap.income_source",
+        "snap.resources_over_limit"
+      ],
+      "firstQuestion": "lifeline.tribal_lands",
+      "loadBearingGap": "snap.income_source",
+      "criteriaEvaluated": 32,
+      "wallClockMs": 6.304916000000048,
+      "engineMs": 0.4583340000001499,
+      "passes": 4
+    },
+    {
+      "id": "gh-113",
+      "slice": "underspecified",
+      "predicted": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 4788,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 4788,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "snap.income_source",
+        "snap.all_members_homeless",
+        "lifeline.tribal_lands"
+      ],
+      "firstQuestion": "snap.income_source",
+      "loadBearingGap": "snap.income_source",
+      "criteriaEvaluated": 50,
+      "wallClockMs": 13.591042000000016,
+      "engineMs": 0.7764169999995829,
+      "passes": 4
+    },
+    {
+      "id": "gh-114",
+      "slice": "underspecified",
+      "predicted": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 1068,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 1068,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "snap.income_source",
+        "lifeline.tribal_lands",
+        "snap.resources_over_limit"
+      ],
+      "firstQuestion": "snap.income_source",
+      "loadBearingGap": "snap.income_source",
+      "criteriaEvaluated": 32,
+      "wallClockMs": 6.161499999999933,
+      "engineMs": 0.48695900000029724,
+      "passes": 4
+    },
+    {
+      "id": "gh-115",
+      "slice": "underspecified",
+      "predicted": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 3336,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 3336,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "snap.income_source",
+        "lifeline.tribal_lands",
+        "snap.resources_over_limit"
+      ],
+      "firstQuestion": "snap.income_source",
+      "loadBearingGap": "snap.income_source",
+      "criteriaEvaluated": 32,
+      "wallClockMs": 5.970083000000159,
+      "engineMs": 0.4740400000000591,
+      "passes": 4
+    },
+    {
+      "id": "gh-116",
+      "slice": "underspecified",
+      "predicted": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 1980,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 1980,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "snap.income_source",
+        "lifeline.tribal_lands",
+        "snap.resources_over_limit"
+      ],
+      "firstQuestion": "snap.income_source",
+      "loadBearingGap": "snap.income_source",
+      "criteriaEvaluated": 32,
+      "wallClockMs": 5.829083999999966,
+      "engineMs": 0.4901260000001457,
+      "passes": 4
+    },
+    {
+      "id": "gh-117",
+      "slice": "underspecified",
+      "predicted": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 1680,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 1680,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "snap.income_source",
+        "lifeline.tribal_lands",
+        "snap.resources_over_limit"
+      ],
+      "firstQuestion": "snap.income_source",
+      "loadBearingGap": "snap.income_source",
+      "criteriaEvaluated": 32,
+      "wallClockMs": 5.830165999999963,
+      "engineMs": 0.5145410000000084,
+      "passes": 4
+    },
+    {
+      "id": "gh-118",
+      "slice": "underspecified",
+      "predicted": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": true,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 6552,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 6552,
+        "eitc": 3672,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "snap.all_members_homeless",
+        "lifeline.tribal_lands",
+        "snap.resources_over_limit"
+      ],
+      "firstQuestion": "snap.all_members_homeless",
+      "loadBearingGap": "snap.income_source",
+      "criteriaEvaluated": 41,
+      "wallClockMs": 9.78491699999995,
+      "engineMs": 0.6005839999997988,
+      "passes": 4
+    },
+    {
+      "id": "gh-119",
+      "slice": "underspecified",
+      "predicted": {
+        "snap": true,
+        "eitc": true,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": true,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 2148,
+        "eitc": 301.4,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 2148,
+        "eitc": 301.4,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "snap.income_source",
+        "eitc.filing_status",
+        "eitc.investment_income_over_limit"
+      ],
+      "firstQuestion": "snap.income_source",
+      "loadBearingGap": "snap.income_source",
+      "criteriaEvaluated": 32,
+      "wallClockMs": 6.483500000000049,
+      "engineMs": 0.5735839999999826,
+      "passes": 4
+    },
+    {
+      "id": "gh-120",
+      "slice": "underspecified",
+      "predicted": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 288,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 288,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "snap.income_source",
+        "lifeline.tribal_lands",
+        "snap.resources_over_limit"
+      ],
+      "firstQuestion": "snap.income_source",
+      "loadBearingGap": "snap.income_source",
+      "criteriaEvaluated": 32,
+      "wallClockMs": 6.282416999999896,
+      "engineMs": 0.4661260000002585,
+      "passes": 4
+    },
+    {
+      "id": "gh-121",
+      "slice": "underspecified",
+      "predicted": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": true,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 9420,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 9420,
+        "eitc": 4800,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "snap.all_members_homeless",
+        "lifeline.tribal_lands",
+        "snap.resources_over_limit"
+      ],
+      "firstQuestion": "snap.all_members_homeless",
+      "loadBearingGap": "snap.income_source",
+      "criteriaEvaluated": 50,
+      "wallClockMs": 13.04383299999995,
+      "engineMs": 0.7575419999998303,
+      "passes": 4
+    },
+    {
+      "id": "gh-122",
+      "slice": "underspecified",
+      "predicted": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": true,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 9420,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 9420,
+        "eitc": 4680,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "snap.all_members_homeless",
+        "lifeline.tribal_lands",
+        "snap.resources_over_limit"
+      ],
+      "firstQuestion": "snap.all_members_homeless",
+      "loadBearingGap": "snap.income_source",
+      "criteriaEvaluated": 50,
+      "wallClockMs": 13.562207999999828,
+      "engineMs": 0.7628340000003391,
+      "passes": 4
+    },
+    {
+      "id": "gh-123",
+      "slice": "underspecified",
+      "predicted": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 3048,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 3048,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "snap.income_source",
+        "lifeline.tribal_lands",
+        "snap.resources_over_limit"
+      ],
+      "firstQuestion": "snap.income_source",
+      "loadBearingGap": "snap.income_source",
+      "criteriaEvaluated": 32,
+      "wallClockMs": 6.266667000000098,
+      "engineMs": 0.4677919999999176,
+      "passes": 4
+    },
+    {
+      "id": "gh-124",
+      "slice": "underspecified",
+      "predicted": {
+        "snap": true,
+        "eitc": true,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": true,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 6960,
+        "eitc": 7316,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 6960,
+        "eitc": 7316,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "snap.income_source",
+        "eitc.investment_income_over_limit",
+        "lifeline.tribal_lands"
+      ],
+      "firstQuestion": "snap.income_source",
+      "loadBearingGap": "snap.income_source",
+      "criteriaEvaluated": 50,
+      "wallClockMs": 13.436208999999963,
+      "engineMs": 0.7411670000003596,
+      "passes": 4
+    },
+    {
+      "id": "gh-125",
+      "slice": "underspecified",
+      "predicted": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 2952,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 2952,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "snap.income_source",
+        "lifeline.tribal_lands",
+        "snap.resources_over_limit"
+      ],
+      "firstQuestion": "snap.income_source",
+      "loadBearingGap": "snap.income_source",
+      "criteriaEvaluated": 32,
+      "wallClockMs": 5.818042000000105,
+      "engineMs": 0.4474170000000868,
+      "passes": 4
+    },
+    {
+      "id": "gh-126",
+      "slice": "underspecified",
+      "predicted": {
+        "snap": true,
+        "eitc": true,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": true,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 5088,
+        "eitc": 4427,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 5088,
+        "eitc": 4427,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "snap.income_source",
+        "eitc.investment_income_over_limit",
+        "lifeline.tribal_lands"
+      ],
+      "firstQuestion": "snap.income_source",
+      "loadBearingGap": "snap.income_source",
+      "criteriaEvaluated": 41,
+      "wallClockMs": 9.496082999999999,
+      "engineMs": 0.6069569999999658,
+      "passes": 4
+    },
+    {
+      "id": "gh-127",
+      "slice": "underspecified",
+      "predicted": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 2796,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 2796,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "snap.income_source",
+        "lifeline.tribal_lands",
+        "snap.resources_over_limit"
+      ],
+      "firstQuestion": "snap.income_source",
+      "loadBearingGap": "snap.income_source",
+      "criteriaEvaluated": 32,
+      "wallClockMs": 5.940541000000167,
+      "engineMs": 0.4630000000001928,
+      "passes": 4
+    },
+    {
+      "id": "gh-128",
+      "slice": "underspecified",
+      "predicted": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 2784,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 2784,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "snap.income_source",
+        "lifeline.tribal_lands",
+        "snap.resources_over_limit"
+      ],
+      "firstQuestion": "snap.income_source",
+      "loadBearingGap": "snap.income_source",
+      "criteriaEvaluated": 32,
+      "wallClockMs": 5.918124999999918,
+      "engineMs": 0.47441699999990306,
+      "passes": 4
+    },
+    {
+      "id": "gh-129",
+      "slice": "underspecified",
+      "predicted": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 3336,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 3336,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "snap.income_source",
+        "lifeline.tribal_lands",
+        "snap.resources_over_limit"
+      ],
+      "firstQuestion": "snap.income_source",
+      "loadBearingGap": "snap.income_source",
+      "criteriaEvaluated": 32,
+      "wallClockMs": 5.803875000000062,
+      "engineMs": 0.46641700000009223,
+      "passes": 4
+    },
+    {
+      "id": "gh-130",
+      "slice": "underspecified",
+      "predicted": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 2652,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 2652,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "snap.income_source",
+        "lifeline.tribal_lands",
+        "snap.resources_over_limit"
+      ],
+      "firstQuestion": "snap.income_source",
+      "loadBearingGap": "snap.income_source",
+      "criteriaEvaluated": 32,
+      "wallClockMs": 5.923041000000012,
+      "engineMs": 0.4687909999997828,
+      "passes": 4
+    },
+    {
+      "id": "gh-131",
+      "slice": "adversarial",
+      "predicted": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 2376,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 2376,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "snap.income_period",
+        "lifeline.tribal_lands",
+        "snap.income_source"
+      ],
+      "firstQuestion": "snap.income_period",
+      "criteriaEvaluated": 32,
+      "wallClockMs": 6.75933299999997,
+      "engineMs": 0.5058329999997113,
+      "passes": 4
+    },
+    {
+      "id": "gh-132",
+      "slice": "adversarial",
+      "predicted": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 2508,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 2508,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "snap.income_source",
+        "lifeline.tribal_lands",
+        "snap.resources_over_limit"
+      ],
+      "firstQuestion": "snap.income_source",
+      "criteriaEvaluated": 32,
+      "wallClockMs": 6.312834000000066,
+      "engineMs": 0.5307920000000195,
+      "passes": 4
+    },
+    {
+      "id": "gh-133",
+      "slice": "adversarial",
+      "predicted": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 1812,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 1812,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "snap.income_period",
+        "snap.income_source",
+        "lifeline.tribal_lands"
+      ],
+      "firstQuestion": "snap.income_period",
+      "criteriaEvaluated": 32,
+      "wallClockMs": 6.31512500000008,
+      "engineMs": 0.5343740000000707,
+      "passes": 4
+    },
+    {
+      "id": "gh-134",
+      "slice": "adversarial",
+      "predicted": {
+        "snap": true,
+        "eitc": true,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": true,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 10860,
+        "eitc": 6210,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 10860,
+        "eitc": 6210,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "snap.income_source",
+        "eitc.investment_income_over_limit",
+        "lifeline.tribal_lands"
+      ],
+      "firstQuestion": "snap.income_source",
+      "criteriaEvaluated": 59,
+      "wallClockMs": 18.40150000000017,
+      "engineMs": 0.912541999999803,
+      "passes": 4
+    },
+    {
+      "id": "gh-135",
+      "slice": "adversarial",
+      "predicted": {
+        "snap": true,
+        "eitc": true,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": true,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 9420,
+        "eitc": 6240,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 9420,
+        "eitc": 6240,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "snap.income_source",
+        "eitc.investment_income_over_limit",
+        "snap.all_members_homeless"
+      ],
+      "firstQuestion": "snap.income_source",
+      "criteriaEvaluated": 50,
+      "wallClockMs": 13.960083000000168,
+      "engineMs": 0.7800830000001042,
+      "passes": 4
+    },
+    {
+      "id": "gh-136",
+      "slice": "adversarial",
+      "predicted": {
+        "snap": true,
+        "eitc": true,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": true,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 9420,
+        "eitc": 2217.6,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 9420,
+        "eitc": 4800,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "eitc.investment_income_over_limit",
+        "snap.income_period",
+        "snap.income_source"
+      ],
+      "firstQuestion": "eitc.investment_income_over_limit",
+      "criteriaEvaluated": 50,
+      "wallClockMs": 14.56508400000007,
+      "engineMs": 0.8253740000000107,
+      "passes": 4
+    },
+    {
+      "id": "gh-137",
+      "slice": "adversarial",
+      "predicted": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 3576,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 3576,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "lifeline.tribal_lands",
+        "snap.resources_over_limit",
+        "lifeline.one_per_household"
+      ],
+      "firstQuestion": "lifeline.tribal_lands",
+      "criteriaEvaluated": 32,
+      "wallClockMs": 6.304041999999981,
+      "engineMs": 0.5335840000000189,
+      "passes": 4
+    },
+    {
+      "id": "gh-138",
+      "slice": "adversarial",
+      "predicted": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 576,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 576,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "snap.income_source",
+        "lifeline.tribal_lands",
+        "snap.resources_over_limit"
+      ],
+      "firstQuestion": "snap.income_source",
+      "criteriaEvaluated": 32,
+      "wallClockMs": 5.9552500000002055,
+      "engineMs": 0.55012499999998,
+      "passes": 4
+    },
+    {
+      "id": "gh-139",
+      "slice": "adversarial",
+      "predicted": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 3576,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 3576,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "snap.income_period",
+        "lifeline.tribal_lands",
+        "snap.resources_over_limit"
+      ],
+      "firstQuestion": "snap.income_period",
+      "criteriaEvaluated": 32,
+      "wallClockMs": 6.2026670000000195,
+      "engineMs": 0.5359579999997095,
+      "passes": 4
+    },
+    {
+      "id": "gh-140",
+      "slice": "adversarial",
+      "predicted": {
+        "snap": true,
+        "eitc": true,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": true,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 2724,
+        "eitc": 507.94,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 8568,
+        "eitc": 5160,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "snap.income_source",
+        "eitc.investment_income_over_limit",
+        "lifeline.tribal_lands"
+      ],
+      "firstQuestion": "snap.income_source",
+      "criteriaEvaluated": 32,
+      "wallClockMs": 6.538917000000083,
+      "engineMs": 0.46541599999977734,
+      "passes": 4
+    },
+    {
+      "id": "gh-141",
+      "slice": "adversarial",
+      "predicted": {
+        "snap": false,
+        "eitc": false,
+        "lifeline": false
+      },
+      "truth": {
+        "snap": true,
+        "eitc": true,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 0,
+        "eitc": 0,
+        "lifeline": 0
+      },
+      "truthValues": {
+        "snap": 7860,
+        "eitc": 7316,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "snap.categorical",
+        "eitc.filing_status",
+        "lifeline.receives_fpha"
+      ],
+      "firstQuestion": "snap.categorical",
+      "criteriaEvaluated": 32,
+      "wallClockMs": 6.711291000000074,
+      "engineMs": 0.5083329999999933,
+      "passes": 4
+    },
+    {
+      "id": "gh-142",
+      "slice": "adversarial",
+      "predicted": {
+        "snap": true,
+        "eitc": true,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": true,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 8496,
+        "eitc": 5880,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 8496,
+        "eitc": 5880,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "snap.income_source",
+        "eitc.investment_income_over_limit",
+        "lifeline.tribal_lands"
+      ],
+      "firstQuestion": "snap.income_source",
+      "criteriaEvaluated": 50,
+      "wallClockMs": 14.601083000000017,
+      "engineMs": 0.7243329999998878,
+      "passes": 4
+    },
+    {
+      "id": "gh-143",
+      "slice": "adversarial",
+      "predicted": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 1716,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 1716,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "snap.income_source",
+        "lifeline.tribal_lands",
+        "snap.resources_over_limit"
+      ],
+      "firstQuestion": "snap.income_source",
+      "criteriaEvaluated": 32,
+      "wallClockMs": 6.1932919999999285,
+      "engineMs": 0.5197499999999309,
+      "passes": 4
+    },
+    {
+      "id": "gh-144",
+      "slice": "adversarial",
+      "predicted": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 1320,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 1320,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "snap.income_source",
+        "lifeline.tribal_lands",
+        "snap.resources_over_limit"
+      ],
+      "firstQuestion": "snap.income_source",
+      "criteriaEvaluated": 32,
+      "wallClockMs": 6.309999999999945,
+      "engineMs": 0.5384570000001077,
+      "passes": 4
+    },
+    {
+      "id": "gh-145",
+      "slice": "adversarial",
+      "predicted": {
+        "snap": true,
+        "eitc": true,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": true,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 8892,
+        "eitc": 7316,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 8892,
+        "eitc": 7316,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "snap.income_source",
+        "eitc.investment_income_over_limit",
+        "snap.all_members_homeless"
+      ],
+      "firstQuestion": "snap.income_source",
+      "criteriaEvaluated": 50,
+      "wallClockMs": 14.235750000000053,
+      "engineMs": 0.7583319999998821,
+      "passes": 4
+    },
+    {
+      "id": "gh-146",
+      "slice": "adversarial",
+      "predicted": {
+        "snap": true,
+        "eitc": true,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": true,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 3576,
+        "eitc": 622.69,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 9420,
+        "eitc": 4560,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "eitc.investment_income_over_limit",
+        "snap.income_source",
+        "lifeline.tribal_lands"
+      ],
+      "firstQuestion": "eitc.investment_income_over_limit",
+      "criteriaEvaluated": 32,
+      "wallClockMs": 7.016875000000027,
+      "engineMs": 0.4962510000002567,
+      "passes": 4
+    },
+    {
+      "id": "gh-147",
+      "slice": "adversarial",
+      "predicted": {
+        "snap": true,
+        "eitc": true,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": true,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 9420,
+        "eitc": 4209.6,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 7032,
+        "eitc": 7316,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "snap.income_period",
+        "eitc.investment_income_over_limit",
+        "snap.income_source"
+      ],
+      "firstQuestion": "snap.income_period",
+      "criteriaEvaluated": 50,
+      "wallClockMs": 14.414415999999846,
+      "engineMs": 0.7999579999998332,
+      "passes": 4
+    },
+    {
+      "id": "gh-148",
+      "slice": "adversarial",
+      "predicted": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 3552,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 3564,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "lifeline.tribal_lands",
+        "snap.income_period",
+        "snap.income_source"
+      ],
+      "firstQuestion": "lifeline.tribal_lands",
+      "criteriaEvaluated": 32,
+      "wallClockMs": 6.567833000000064,
+      "engineMs": 0.5149180000000797,
+      "passes": 4
+    },
+    {
+      "id": "gh-149",
+      "slice": "adversarial",
+      "predicted": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": false,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 1968,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 1968,
+        "eitc": 0,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "snap.income_source",
+        "lifeline.tribal_lands",
+        "snap.resources_over_limit"
+      ],
+      "firstQuestion": "snap.income_source",
+      "criteriaEvaluated": 32,
+      "wallClockMs": 6.051832999999988,
+      "engineMs": 0.4993340000000899,
+      "passes": 4
+    },
+    {
+      "id": "gh-150",
+      "slice": "adversarial",
+      "predicted": {
+        "snap": true,
+        "eitc": true,
+        "lifeline": true
+      },
+      "truth": {
+        "snap": true,
+        "eitc": true,
+        "lifeline": true
+      },
+      "predictedValues": {
+        "snap": 3576,
+        "eitc": 664,
+        "lifeline": 111
+      },
+      "truthValues": {
+        "snap": 9420,
+        "eitc": 4680,
+        "lifeline": 111
+      },
+      "questionsAsked": [
+        "eitc.investment_income_over_limit",
+        "snap.income_source",
+        "lifeline.tribal_lands"
+      ],
+      "firstQuestion": "eitc.investment_income_over_limit",
+      "criteriaEvaluated": 32,
+      "wallClockMs": 6.541500000000042,
+      "engineMs": 0.496293000000378,
+      "passes": 4
+    }
+  ]
+}
