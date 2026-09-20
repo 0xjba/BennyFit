@@ -365,7 +365,7 @@ export default function Landing() {
           </div>
 
           <p className="disclaimer" style={{ marginTop: 22 }}>
-            Read from each product's own pages on 21 September 2026. Where a figure is a
+            Read from each product&rsquo;s own pages on 21 September 2026. Where a figure is a
             marketing claim rather than a published measurement, the cell says so. Our own
             speed and cost per screening are still in validation and are not claimed here.
           </p>
