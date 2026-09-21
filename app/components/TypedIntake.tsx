@@ -19,11 +19,11 @@ import { useEffect, useRef, useState } from 'react';
  * dressed-up example. If the rules change and the answer moves, this has to move too.
  */
 const TEXT =
-  'I work part time and make $430 a week. I have two kids aged 4 and 8, rent is $1,200 a month, and daycare costs $300.';
+  'I work part time and make $430 a week. I have two kids aged 4 and 8, we live in Michigan, rent is $1,200 a month, and daycare costs $300.';
 
 const CHIPS = [
-  { k: 'Programs they qualify for', v: '8' },
-  { k: 'A year, estimated', v: '$20,263' },
+  { k: 'Programs they qualify for', v: '10' },
+  { k: 'A year, estimated', v: '$22,458' },
   { k: 'Questions asked', v: '1' },
 ];
 
@@ -101,8 +101,9 @@ export function TypedIntake() {
       </div>
 
       <figcaption>
-        <strong>One paragraph.</strong> Every rule in all eleven programs checked against
-        it at once, and one question asked because it was worth asking.
+        <strong>One paragraph.</strong> Every rule in all thirteen programs checked against
+        it at once, under Michigan&rsquo;s own limits, and one question asked because it was
+        worth asking.
       </figcaption>
     </figure>
   );

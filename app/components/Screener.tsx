@@ -252,7 +252,7 @@ export function Screener({ asOf }: { asOf: string }) {
           </p>
           <div className="row">
             <button className="btn" onClick={() => start(paragraph)} disabled={paragraph.trim().length === 0}>
-              Check all eleven programs
+              Check all thirteen programs
             </button>
           </div>
           <div className="samples">

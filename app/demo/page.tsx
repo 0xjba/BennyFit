@@ -11,7 +11,7 @@ export const dynamic = 'force-dynamic';
 export const metadata = {
   title: 'Demo — BennyFit',
   description:
-    'Describe a household in plain language and watch every rule across eleven federal benefit programs get checked at once.',
+    'Describe a household in plain language and watch every rule across thirteen benefit programs get checked at once, under your state's own limits.',
 };
 
 export default function Demo() {
@@ -24,8 +24,8 @@ export default function Demo() {
       <main className="app">
         <h1>What is this household entitled to?</h1>
         <p className="lede">
-          Describe the situation once, in plain words. Benny checks every rule across all eleven
-          federal programs together, and asks a follow-up only if
+          Describe the situation once, in plain words. Benny checks every rule across all thirteen
+          programs together, using your state's own limits,, and asks a follow-up only if
           something missing would change the answer.
         </p>
 
