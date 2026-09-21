@@ -248,9 +248,14 @@ export default function Results() {
                   : `The median household is now asked ${engineRun.medianQuestionsAsked} follow-ups.`}{' '}
                 A question is chosen by how much money its answer is expected to move, weighed by
                 how likely each answer is, and one expected to move less than $25 a year is not
-                asked.{comparedRun && ` Before that change these households were asked ${comparedRun.totalQuestionsAsked} questions in all; they are now asked ${engineRun.totalQuestionsAsked}, with no loss of accuracy.`} The weak spot that remains: where a description never says
-                whether the money comes from a job or from benefits, the model sometimes guesses
-                confidently instead of asking.
+                asked.{comparedRun && ` Before that change these households were asked ${comparedRun.totalQuestionsAsked} questions in all; they are now asked ${engineRun.totalQuestionsAsked}, with no loss of accuracy.`} The weak spot this run showed: where a description never says
+                whether the money comes from a job or from benefits, the model sometimes guessed
+                confidently instead of asking, and it read some people of 62 to 64 as already on
+                Medicare. Both are addressed since — an explicit &ldquo;not stated&rdquo; answer for
+                the first, an age check in code for the second — and on the development
+                households the missing fact is now asked first 60% of the time rather than 40%.
+                The figures above are from before those changes: the held-out households are not
+                re-scored after being fixed against.
               </p>
               {baselineRun && comparedRun && (
                 <h4 style={{ marginTop: 28, fontSize: '1rem' }}>
