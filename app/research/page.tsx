@@ -63,9 +63,6 @@ export default function Research() {
               </a>
             ))}
           </div>
-          <a className="btn" href={`mailto:${AUTHOR.email}?subject=BennyFit`}>
-            Get in touch
-          </a>
         </div>
       </section>
 
@@ -177,7 +174,7 @@ export default function Research() {
         <div className="shell">
           <div className="band-head center">
             <span className="eyebrow">Technical report</span>
-            <h2>Screening households for twenty-one U.S. benefit programs from a single narrative</h2>
+            <h2>Screening households for U.S. benefit programs from a short description</h2>
             <p>
               A typed-readout decision model compared with schema-constrained generation.{' '}
               {AUTHOR.name}, September 2026. {reader.pages.length} pages.

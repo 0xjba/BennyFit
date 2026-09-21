@@ -93,7 +93,7 @@ const architecture = `<svg viewBox="0 0 640 210" xmlns="http://www.w3.org/2000/s
 <text x="320" y="204" font-size="9.5">the reply is appended to the state and the loop runs again (at most three questions)</text></g></svg>`;
 
 
-const html = `<!doctype html><html lang="en"><head><meta charset="utf-8"><title>BennyFit technical report</title>
+const html = `<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Screening Households for U.S. Benefit Programs from a Short Description</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=STIX+Two+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
 <style>
 @page { size: Letter; margin: 0.85in 0.9in 0.9in; @bottom-center { content: counter(page); font: 9pt 'STIX Two Text', serif; } }
@@ -130,9 +130,9 @@ code { font-family: 'SFMono-Regular', Menlo, monospace; font-size: 8.6pt; }
 .small { font-size: 9pt; }
 </style></head><body>
 
-<h1>Screening Households for Twenty-One U.S. Benefit Programs from a Single Narrative:<br>A Typed-Readout Decision Model Compared with Schema-Constrained Generation</h1>
+<h1>Screening Households for U.S. Benefit Programs from a Short Description:<br>A Typed-Readout Decision Model Compared with Schema-Constrained Generation</h1>
 <div class="authors">Jobin Ayathil</div>
-<div class="meta">Independent &middot; jobinb6444@gmail.com &middot; Technical report, September 2026 &middot; Code and data: github.com/0xjba/BennyFit (commit ${d.commit})</div>
+<div class="meta">Independent &middot; jobinb6444@gmail.com &middot; Technical report, September 2026 &middot; Code and data: github.com/0xjba/BennyFit</div>
 
 <div class="abstract"><h2>Abstract</h2><p>
 We describe BennyFit, a system that takes one plain-language description of a household and returns a screening verdict for ${d.setup.programs} U.S. federal and state benefit programs, asking a follow-up question only where an answer is expected to change the result. Arithmetic, dates, thresholds and state rules are implemented in code and tested against ${d.setup.conformance.total} hand-computed cases taken from primary sources (${d.setup.conformance.passed} of ${d.setup.conformance.total} agree). Judgements that depend on the narrative are delegated to a typed-readout model, TypeSafe's Jev (<code>${d.setup.jevModel}</code>), which returns a probability distribution over a fixed set of options for every criterion in a single request. On ${J.households} held-out synthetic households, the full system reached ${pct(J.specified.right / J.specified.total, 2)} per-verdict accuracy on fully specified households (95% CI ${ci(J.specified.ci)}), against ${pct(B.specified.right / B.specified.total, 2)} (${ci(B.specified.ci)}) for Claude Sonnet 5 run through the identical pipeline with schema-constrained output; the difference is not significant (exact McNemar <i>p</i> = ${P.mcnemarP.toFixed(2)}). The typed readout completed a screening in a median ${J.medianSeconds.toFixed(1)} s against ${B.medianSeconds.toFixed(1)} s and at ${usd(J.costPerHouseholdUSD, 5)} against ${usd(B.costPerHouseholdUSD, 3)} per household as billed. On households missing a deciding fact the generative baseline was more accurate (${pct(B.underspecified.right / B.underspecified.total)} against ${pct(J.underspecified.right / J.underspecified.total)}, <i>p</i> = ${PU.mcnemarP.toFixed(3)}), because the typed readout answered some unstated facts confidently instead of leaving them to be asked. For reading the narrative, code that proposes candidate values with the model choosing among them read ${pct(ed(6, 'code+jev').rate)} of hand-labelled facts in fresh text, against ${pct(ed(6).rate)} for pattern-matching code alone. All households are synthetic, and the limitations this imposes are discussed.

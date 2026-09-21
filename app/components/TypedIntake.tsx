@@ -15,7 +15,7 @@ import { HERO_FIGURES, HERO_TEXT as TEXT } from '@/lib/hero';
  */
 
 const CHIPS = [
-  { k: 'Programs they qualify for', v: String(HERO_FIGURES.programs) },
+  { k: 'Programs this household qualifies for', v: String(HERO_FIGURES.programs) },
   { k: 'A year, estimated', v: `$${HERO_FIGURES.annualDollars.toLocaleString('en-US')}` },
   { k: 'Rules checked', v: String(HERO_FIGURES.rulesChecked) },
 ];
