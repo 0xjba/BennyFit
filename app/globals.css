@@ -553,3 +553,11 @@ figcaption strong { color: var(--ink); font-weight: 700; }
 .btn-circle:disabled { opacity: 0.3; cursor: default; }
 .reader-page { background: #fff; box-shadow: inset 0 0 0 1px var(--line); }
 .reader-page img { width: 100%; height: 100%; object-fit: contain; display: block; pointer-events: none; }
+.hero .hook {
+  display: inline-block; margin-bottom: 22px; padding: 8px 16px; border-radius: var(--r-pill);
+  background: var(--paper); border: 1px solid var(--line-2); font-size: 0.9rem; color: var(--ink-2);
+}
+@media (min-width: 720px) { .hero .hook { white-space: nowrap; } }
+@media (max-width: 719px) { .hero .hook { border-radius: var(--r-md); } }
+.hero .hook strong { color: var(--ink); font-weight: 800; }
+.hero .hook a { margin-left: 4px; font-size: 0.78rem; color: var(--ink-3); text-decoration: underline; text-underline-offset: 2px; }

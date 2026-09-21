@@ -1,6 +1,8 @@
 # BennyFit
 
-Describe a household in a few sentences and BennyFit screens it for U.S. federal and state benefit programs at once, asking a follow-up question only where the answer could change what the household gets.
+**Eligible Americans forgo more than $140 billion in federal benefits every year**, and the effort of finding out what you qualify for is a key reason ([GAO-25-107239](https://www.gao.gov/products/gao-25-107239), citing an OMB estimate).
+
+BennyFit takes that effort away. Describe a household in a few sentences and it screens the household for U.S. federal and state benefit programs at once, asking a follow-up question only where the answer could change what the household gets.
 
 **Live:** [bennyfit.vercel.app](https://bennyfit.vercel.app) · **Demo:** [/demo](https://bennyfit.vercel.app/demo) · **Research:** [/research](https://bennyfit.vercel.app/research) · **Technical report:** [PDF](public/research/bennyfit-technical-report.pdf)
 

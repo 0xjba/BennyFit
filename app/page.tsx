@@ -73,7 +73,13 @@ export default function Landing() {
           <div className="hero-stage">
             <div className="hero-grid">
               <div>
-                <span className="eyebrow">Benefits eligibility screening</span>
+                <p className="hook">
+                  <strong>{CITED.unclaimedFederal.value}</strong> in federal benefits goes unclaimed
+                  every year.{' '}
+                  <a href={CITED.unclaimedFederal.href} target="_blank" rel="noreferrer">
+                    GAO
+                  </a>
+                </p>
                 <h1>Every benefit a household qualifies for, from a few sentences.</h1>
               </div>
               <div>
@@ -81,9 +87,9 @@ export default function Landing() {
                   BennyFit screens a household against{' '}
                   <strong>{CLAIMS.programs.status === 'measured' ? CLAIMS.programs.value : ''} federal
                   and state benefit programs</strong>{' '}
-                  from a single plain-language description, under each state&rsquo;s own SNAP,
+                  from a few plain-language sentences, under each state&rsquo;s own SNAP,
                   Medicaid and tax-credit rules. Benny, our agent, asks a follow-up only when the answer
-                  would change what they get.
+                  would change what the household gets.
                 </p>
                 <div className="hero-cta">
                   <Link href="/demo" className="btn lg">

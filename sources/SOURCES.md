@@ -99,6 +99,12 @@ so the two can never drift apart.
 The USAC table divided by 1.35 returns the HHS 2026 guidelines exactly
 (21546 ÷ 1.35 = 15960; 7668 ÷ 1.35 = 5680), so the two sources agree.
 
+## The size of the gap
+
+| Figure | Source |
+|---|---|
+| Eligible Americans forgo claiming more than $140 billion in federal benefits each year | U.S. Government Accountability Office, *Administrative Burden: OMB Should Update Instructions to Help Agency Assessment Efforts*, GAO-25-107239, April 2025, citing an estimate cited by OMB. https://www.gao.gov/products/gao-25-107239 (read 22 September 2026) |
+
 ## Decision engine: Jev (TypeSafe)
 
 Read 2026-09-21 from docs.typesafe.ai. Cached copies in `raw/typesafe/`.

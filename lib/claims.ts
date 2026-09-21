@@ -122,6 +122,12 @@ export function claimValue(key: string): string | null {
  * them is a result this software has produced, and the pages that use them say so.
  */
 export const CITED = {
+  unclaimedFederal: {
+    value: '$140 billion',
+    claim: 'in federal benefits that eligible Americans forgo claiming each year',
+    source: 'GAO-25-107239 (April 2025), citing an OMB estimate',
+    href: 'https://www.gao.gov/products/gao-25-107239',
+  },
   eitcUnclaimedPeople: {
     value: '~5 million',
     claim: 'eligible taxpayers do not claim the Earned Income Tax Credit each year',
