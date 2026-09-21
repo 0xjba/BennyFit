@@ -1,161 +1,68 @@
-# Using a decision model's uncertainty to choose the next question
+# Same verdicts, 15.7× faster and 345× cheaper: screening 21 benefit programs with a typed-readout model
 
-*Draft. Figures marked `[TK]` depend on a run against a real engine and are not yet
-measured. Everything else is measured or cited.*
+*Every measured number in this post is generated from the evaluation files in the repository (`research/data.json`, commit 67a0009). The technical report has the method, the confidence intervals and every limitation: https://bennyfit.vercel.app/research*
 
 ---
 
-About one in five people eligible for SNAP does not receive it. Roughly five million
-people eligible for the Earned Income Tax Credit do not claim it, leaving around seven
-billion dollars unclaimed each year. The reasons are well documented and dull: the rules
-are complicated, the forms are long, and about half of eligible non-participants do not
-know they qualify.
+USDA estimates that 88% of people eligible for SNAP received it in fiscal year 2022. The IRS estimates that about four in five eligible workers claim the Earned Income Tax Credit, and the Tax Policy Center puts the unclaimed credit at around $7 billion a year. The money exists. Finding out that you qualify is the hard part.
 
-A randomised trial of about 30,000 likely-eligible elderly Pennsylvanians put numbers on
-what helps. Sending information raised enrollment from 6% to 11%. Sending information
-*and* offering help with the application raised it to 18%. The expensive part was not the
-information. It was someone sitting with the applicant and working out which facts
-actually mattered for them.
+A randomized trial with about 30,000 older adults who were likely eligible for SNAP showed how much that matters. Within nine months, 6% of the control group enrolled. Of those sent information, 11% did. Of those sent information and offered help with the application, 18% did. (Finkelstein and Notowidigdo, *Quarterly Journal of Economics*, 2019.)
 
-That is the part this project is about.
+BennyFit is an attempt at the first step of that help: describe a household in a few sentences and get a screening across 21 federal and state programs, with a follow-up question only where the answer could change the result.
 
-## The thing that is usually thrown away
+## The split: code does the numbers, the model does the reading
 
-A decision model — the class of model that reads a state and answers typed questions
-about it without generating text — returns, for each question, a probability distribution
-over the options that question offers. Ask "is this household's income from work or from
-benefits?" with four options and you get four numbers that sum to one.
+Eligibility is mostly arithmetic. Gross income against 130% of the poverty line, a 20% earned-income deduction, a shelter deduction capped at a figure that changes every October, a state that raised its limit. None of that should be left to a language model. In BennyFit every threshold, date and dollar amount lives in code, in integer cents, with the source it came from, and 34 hand-computed cases from primary sources check it (34 of 34 agree).
 
-Every system I have seen built on this treats those numbers as output: pick the argmax,
-maybe show a confidence, maybe threshold on it.
+What is left for a model is judgement about the text. Does "I get about $1,025 a month" mean wages or Social Security? Is the rent including heat? Does this person have a child under 13? Each of these is a closed question with a fixed set of answers.
 
-But a flat distribution is not a bad answer. It is a different kind of message. It is the
-model saying *the text you gave me does not decide this*. That is information about the
-input, not about the model's competence, and it is exactly the information you need to
-decide what to ask a person next.
+For those, BennyFit uses Jev, TypeSafe's typed-readout model. You send it the description and a set of typed questions; for each one it returns a probability distribution over the options, not generated text. A household produces a median of 53 such questions, and Jev answers all of them in a single request.
 
-## Uncertainty is not the same as importance
+## Against a general-purpose model doing the same job
 
-The obvious move — ask about whatever the model is least sure of — is wrong, and wrong in
-a way that wastes the one or two questions you can reasonably ask someone.
+To see what the typed readout buys, I ran Claude Sonnet 5 through the identical pipeline: same descriptions, same rules, same questions, same follow-up loop, same answer key. Its reply was held to a JSON schema allowing only each question's own options, the way a careful team would build this today. Both were scored once on 49 held-out households that nothing had been tuned against.
 
-Take a household: a 62-year-old living alone, about $1,150 a month, $700 rent, pays their
-own utilities. Run 32 criteria across three programs against that paragraph and 27 of
-them come back unsettled. Most of that uncertainty is worthless. Whether anyone in the
-household is a full-time college student is genuinely unclear from the text, and it
-changes nothing: the household passes or fails on income either way.
+| | Jev | Claude Sonnet 5 |
+|---|---|---|
+| Verdicts right, households that state every fact | 816 of 819 (99.63%) | 812 of 819 (99.15%) |
+| Verdicts right, households missing a deciding fact | 201 of 210 (95.7%) | 209 of 210 (99.5%) |
+| Median time to a full result | 2.2 s | 35.3 s |
+| Billed cost per household | $0.00057 | $0.195 |
+| Follow-up questions asked, in total | 81 | 124 |
 
-So the rule is not "ask about the most uncertain thing". It is:
+On households that state every fact, the two are statistically indistinguishable: Jev alone was right on 7 verdicts, Sonnet alone on 3 (exact McNemar p = 0.34). Five of Sonnet's seven errors were one misreading, rent that included utilities read as not paying for heating, where the rule says heat paid through rent counts.
 
-```
-value(c) = max over options o of  total_dollars(evaluate(state, c pinned to o))
-         − min over options o of  total_dollars(evaluate(state, c pinned to o))
-```
+The difference is time and cost: Jev was 15.7 times faster and 345 times cheaper per household. Part of that is the interface. Jev answers every question in one request and bills only the input. Sonnet had to write each answer out, and a schema for a whole household exceeded its provider's grammar limit, so each pass went out in batches of 15 questions, each repeating the household description.
 
-Force each option in turn, re-evaluate every program, and see how far the total moves. A
-criterion where every option gives the same total cannot matter, and is never asked, no
-matter how uncertain the model is about it. That single definition replaces any prose
-rule about which questions are important.
+## Where the general-purpose model did better
 
-For that household the answer is the income source. If the $1,150 is wages, a 20% earned
-income deduction applies and the SNAP benefit is one figure; if it is Social Security, it
-does not and the benefit is another. The spread is $1,248 a year. That is the question it
-asks, and the reason shown under it is the spread itself.
+On households missing a deciding fact, Sonnet was more accurate, and the difference is significant (p = 0.021). It asked the maximum three questions in 33 of 49 households, so it more often reached the missing fact. Jev's miss was different: for "I get about $1,025 a month" it answered where the money came from with high confidence, even though the description never says, so no question was asked.
 
-## What this does *not* mean
+The fix follows from how a typed readout works. A closed question with no way to say "the text doesn't say" forces a choice. That question now has a *not stated* option; when Jev picks it, the answer is treated as open and gets asked. On the development households this raised how often the deciding fact was asked first from 40% to 60%. It was prompted by held-out errors, so it has not been scored on the held-out households, and I am not claiming a held-out number for it.
 
-Three things I had to build around rather than assume.
+## Choosing which question to ask
 
-**The confidence is not a probability that you qualify.** It is normalised entropy over
-the options supplied, conditional on those options. A value of 0.9 does not mean 90%
-right. So it is drawn as a bar and never as a number, and a bar below the threshold is
-drawn as an outline rather than a shorter fill — an unsettled criterion is a different
-kind of thing, not less of the same thing.
+Every open question has a set of possible answers, and for each one BennyFit can rerun every program and see what the household would get. The first version ranked questions by the spread between the best and worst case. That ignores how likely each answer is: whether someone served in the military in wartime swings a veterans pension of about $17,000 a year, so it was asked of nearly everyone and never changed a result.
 
-**Silence is not a no.** The first version disqualified nearly every household from the
-EITC, and the cause was a criterion asking whether the claimant has a Social Security
-number valid for employment. Nobody writes that when describing their household, so it
-came back unsettled, and unsettled resolved to the argmax, which was "no". Criteria like
-that now declare a *presumption*: what a screening should assume absent evidence. The
-interface marks a presumed answer as presumed.
+Questions are now ranked by expected change in dollars, each answer weighted by its probability, and a question expected to move less than $25 a year is not asked. On the held-out households this cut follow-up questions from 81 to 51, and the median household is now asked 0. 19 of the 51 questions still asked changed the result. Fully specified accuracy was 99.51%, in line with before.
 
-That fix created the next problem. A presumed criterion still scores enormous value of
-information, because pinning it to its disqualifying option wipes out the whole program.
-The loop spent all three of its questions asking whether people had Social Security
-numbers and what they had in savings. But that spread is hypothetical: the presumption is
-a declaration that silence has a known meaning. Presumed criteria now rank below every
-criterion that carries none. Question relevance went from 16.7% to 63.3%.
+## Reading the description
 
-**The model must not do arithmetic.** Every comparison between a number and a limit
-happens in code, from tables read off federal sources, before the model is shown
-anything. The model is given the computed monthly figure and asked only whether the
-narrative supports a factual predicate. This is not a stylistic preference: a screener
-that gets the SNAP shelter deduction wrong produces a confident wrong dollar amount, and
-someone acts on it.
+Pulling facts out of how people write is where pattern-matching code struggles. Across five fresh sets of hand-labelled descriptions it scored between 86.3% and 91.4%; every new set turned up phrasings it had not seen ("base pay is about $900 and tips add around $1,100", "every other week, about $1,150 after taxes").
 
-## Measuring it
+The approach that worked is TypeSafe's own recommendation: code finds every number that could be an amount, Jev says what each one is and how often it is paid, and code copies the number and does the sums. Jev never writes a figure. On a sixth fresh set, scored once by each approach, code alone read 83.2% of facts and code with Jev choosing read 96.0%. Monthly income was right in 17 of 17 descriptions against 10 of 17; in one, code alone had taken a $140 electricity bill as the household's entire income.
 
-Two numbers, side by side, or the first one is just a claim.
+## What measuring found
 
-The first is what a household gained. The second is how often the system is right. A
-gold set of 150 synthetic households, ground truth computed from the rules applied to
-known facts rather than from the system being measured, split into five slices: clearly
-eligible for all three, clearly ineligible for all three, eligible for some, deliberately
-missing one load-bearing fact, and adversarially phrased.
-
-Accuracy is *balanced* accuracy — the mean of the true-positive and true-negative rates.
-The set is four-fifths eligible for SNAP, so a system that answered "eligible" to
-everything would score 80% on plain accuracy and 50% on this.
-
-The underspecified slice is excluded from accuracy and scores a different thing: how
-often the first question asked was the fact that was withheld.
-
-Current figures: `[TK — balanced accuracy per program]`, `[TK — question relevance]`,
-`[TK — median wall clock]`, against `[TK — engine]`.
-
-τ, the threshold below which an answer counts as unsettled, was swept from 0.2 to 0.8
-rather than chosen. Balanced accuracy is flat from 0.2 through 0.6. Relevance collapses
-above 0.6, where the loop starts doubting the income period it had already read correctly
-and spends its first question re-asking it.
-
-## The comparison that matters
-
-Generation is the obvious alternative: ask a model to read the household and emit JSON
-verdicts. It produces documents that parse, validate against a schema, and are wrong in a
-way the schema cannot see — an answer that is a perfectly valid option id belonging to a
-*different* criterion.
-
-The demo runs the same household through more than one lane. A typed readout. Where
-the engine can also generate, the same model asked to write JSON, which isolates the
-mechanism because only the readout method changes. And a general-purpose model writing
-JSON, the way most teams would build this today. Faults are counted mechanically: cross-wired, invented, missing.
-
-There is a fourth thing the comparison shows, and I think it is the real one. A generating
-model will happily write `"confidence": 0.9` into its JSON. That number is a token. It is
-not a distribution over anything, it is not conditioned on the options, and there is no
-reason to expect it to correlate with being right. A readout's confidence is a property
-of the forward pass. You can only build an elicitation loop on the second kind.
-
-`[TK — the measured comparison across the three lanes]`
+Four errors in the rules themselves turned up along the way, each now pinned by a test: the EITC maximum computed as $8,230.50 against a published $8,231; the dependent care credit counting children aged 13 and over; the Veterans Pension missing its requirement of age 65 or a disability; and pay received twice a month treated as monthly, halving income. The second was found because the first live run disagreed with the answer key, and the key was the one that was wrong.
 
 ## What I would not claim
 
-The 11%-to-18% figure is from a trial of human phone assistance. It is the mechanism this
-design rests on, not a result this software has achieved.
+- The households are synthetic, and the answer key is computed by the same rules code BennyFit uses. These figures measure reading, judgement and question choice against a known key, not agreement with agency decisions, and real descriptions are messier.
+- The samples are small: 39 fully specified and 10 underspecified held-out households.
+- Both models give slightly different answers from run to run, and the comparison is with one general-purpose model.
+- The 6%, 11% and 18% are from a trial of human assistance. They are why this is worth building, not something BennyFit has achieved.
 
-The gold set is synthetic. Its households were written from structured facts, which makes
-verdicts checkable and also makes the prose cleaner than how people actually write.
-
-The screening uses federal floor rules. 42 states and DC raise the SNAP income limit
-through broad-based categorical eligibility and many drop the asset test, so this
-under-screens in most of the country, and says so on screen.
-
-And the SNAP FY2027 tables are not in the code. The COLA memo page exists, updated in
-August 2026, and carries no tables; every candidate URL 404s. Search results confidently
-quote FY2027 figures from a PDF that will not open. What is in the code is the FY2027
-*income standards*, derived from the 2026 poverty guidelines by a rule that reproduces all
-33 published FY2026 figures and refuses to emit anything if it does not. The allotment
-tables are null, the set is marked partial, and the code will not compute a benefit from a
-partial set.
-
-Source: <https://github.com/0xjba/bennyfit> `[TK — confirm the repository URL]`
+Demo: https://bennyfit.vercel.app/demo
+Technical report: https://bennyfit.vercel.app/research
+Code and data: https://github.com/0xjba/BennyFit
