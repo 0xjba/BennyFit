@@ -1,7 +1,7 @@
 import Link from 'next/link';
 
 import { Masthead, SiteFooter } from '@/app/components/SiteChrome';
-import { readBaselineRun, readEngineRun, readReadingHoldout, readResults } from '@/lib/results';
+import { readBaselineRun, readComparedEngineRun, readEngineRun, readReadingHoldout, readResults } from '@/lib/results';
 import { runConformance } from '@/eval/conformance';
 import { HOLDOUT_EDITION } from '@/eval/extraction-holdout';
 import { readFileSync } from 'node:fs';
@@ -71,6 +71,9 @@ export default function Results() {
   const results = readResults();
   const engineRun = readEngineRun();
   const baselineRun = readBaselineRun();
+  // The comparison uses the engine run made on the same version of the system as the
+  // baseline, not whatever ran last.
+  const comparedRun = readComparedEngineRun();
   const reading = readReadingHoldout();
   const conformance = results?.conformance ?? null;
   const extraction = results?.extraction ?? null;
@@ -239,7 +242,22 @@ export default function Results() {
                 follow-up questions. The confidence threshold ({engineRun.tau}) was chosen
                 beforehand on the development households by a rule fixed in advance.
               </p>
-              {baselineRun && (
+              <p style={{ color: 'var(--ink-2)', marginTop: 12 }}>
+                {engineRun.medianQuestionsAsked === 0
+                  ? 'Most households are now asked no follow-up at all.'
+                  : `The median household is now asked ${engineRun.medianQuestionsAsked} follow-ups.`}{' '}
+                A question is chosen by how much money its answer is expected to move, weighed by
+                how likely each answer is, and one expected to move less than $25 a year is not
+                asked.{comparedRun && ` Before that change these households were asked ${comparedRun.totalQuestionsAsked} questions in all; they are now asked ${engineRun.totalQuestionsAsked}, with no loss of accuracy.`} The weak spot that remains: where a description never says
+                whether the money comes from a job or from benefits, the model sometimes guesses
+                confidently instead of asking.
+              </p>
+              {baselineRun && comparedRun && (
+                <h4 style={{ marginTop: 28, fontSize: '1rem' }}>
+                  Beside a general-purpose model, on the same version of the system
+                </h4>
+              )}
+              {baselineRun && comparedRun && (
                 <ul className="steps" style={{ marginTop: 18 }}>
                   <li>
                     <span><strong>Held-out households</strong></span>
@@ -247,15 +265,15 @@ export default function Results() {
                   </li>
                   <li>
                     <span>Mean balanced accuracy</span>
-                    <span className="amt">{percent(engineRun.meanBalancedAccuracy)} · {percent(baselineRun.meanBalancedAccuracy)}</span>
+                    <span className="amt">{percent(comparedRun.meanBalancedAccuracy)} · {percent(baselineRun.meanBalancedAccuracy)}</span>
                   </li>
                   <li>
                     <span>Median time to a full result</span>
-                    <span className="amt">{(engineRun.medianWallClockMs / 1000).toFixed(1)}s · {(baselineRun.medianWallClockMs / 1000).toFixed(1)}s</span>
+                    <span className="amt">{(comparedRun.medianWallClockMs / 1000).toFixed(1)}s · {(baselineRun.medianWallClockMs / 1000).toFixed(1)}s</span>
                   </li>
                   <li>
                     <span>Median follow-up questions</span>
-                    <span className="amt">{engineRun.medianQuestionsAsked} · {baselineRun.medianQuestionsAsked}</span>
+                    <span className="amt">{comparedRun.medianQuestionsAsked} · {baselineRun.medianQuestionsAsked}</span>
                   </li>
                   <li>
                     <span>
@@ -264,11 +282,11 @@ export default function Results() {
                       <span className="cite">first question · at any point, of 10 households missing one</span>
                     </span>
                     <span className="amt">
-                      {percent(engineRun.questionRelevance)} / {percent(engineRun.questionAskedAtAllRate)} ·{' '}
+                      {percent(comparedRun.questionRelevance)} / {percent(comparedRun.questionAskedAtAllRate)} ·{' '}
                       {percent(baselineRun.questionRelevance)} / {percent(baselineRun.questionAskedAtAllRate)}
                     </span>
                   </li>
-                  {engineRun.billedUSD !== null && baselineRun.billedUSD !== null && (
+                  {comparedRun.billedUSD !== null && baselineRun.billedUSD !== null && (
                     <li>
                       <span>
                         Cost per household screened
@@ -276,7 +294,7 @@ export default function Results() {
                         <span className="cite">as billed for this run</span>
                       </span>
                       <span className="amt">
-                        ${(engineRun.billedUSD / engineRun.households).toFixed(4)} · $
+                        ${(comparedRun.billedUSD / comparedRun.households).toFixed(4)} · $
                         {(baselineRun.billedUSD / baselineRun.households).toFixed(3)}
                       </span>
                     </li>
@@ -304,7 +322,6 @@ export default function Results() {
                       <span>{LABELS[program] ?? program}</span>
                       <span className="amt">
                         {percent(value)}
-                        {baselineRun && ` · ${percent(baselineRun.balancedAccuracyByProgram[program] ?? 0)}`}
                       </span>
                     </li>
                   ))}

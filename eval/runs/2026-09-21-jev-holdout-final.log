@@ -1,0 +1,42 @@
+
+rules conformance: 31 of 31 hand-computed cases agree with the published sources
+extraction, development set: 702/716 fields (98.0%)
+extraction, held out:        104/125 fields (83.2%)  <- the reported figure
+engine: jev
+households: 150
+
+usage: 117 calls, 565,750 input tokens, 222,942 output tokens over 49 households
+
+balanced accuracy by program (39 fully specified households):
+  snap       100.0%   (plain 100.0%, tp=29 fp=0 tn=10 fn=0)
+  eitc       100.0%   (plain 100.0%, tp=13 fp=0 tn=26 fn=0)
+  ctc        88.5%   (plain 92.3%, tp=10 fp=0 tn=26 fn=3)
+  lifeline   100.0%   (plain 100.0%, tp=29 fp=0 tn=10 fn=0)
+  wic        100.0%   (plain 100.0%, tp=6 fp=0 tn=33 fn=0)
+  school_meals 100.0%   (plain 100.0%, tp=10 fp=0 tn=29 fn=0)
+  csfp       100.0%   (plain 100.0%, tp=3 fp=0 tn=36 fn=0)
+  liheap     100.0%   (plain 100.0%, tp=29 fp=0 tn=10 fn=0)
+  head_start 100.0%   (plain 100.0%, tp=5 fp=0 tn=34 fn=0)
+  medicare_savings 100.0%   (plain 100.0%, tp=2 fp=0 tn=37 fn=0)
+  extra_help 98.6%   (plain 97.4%, tp=2 fp=1 tn=36 fn=0)
+  medicaid   100.0%   (plain 100.0%, tp=12 fp=0 tn=27 fn=0)
+  chip       100.0%   (plain 100.0%, tp=13 fp=0 tn=26 fn=0)
+  state_eitc 100.0%   (plain 100.0%, tp=6 fp=0 tn=33 fn=0)
+  cdctc      100.0%   (plain 100.0%, tp=5 fp=0 tn=34 fn=0)
+  va_pension 100.0%   (plain 100.0%, tp=1 fp=0 tn=38 fn=0)
+  summer_ebt 100.0%   (plain 100.0%, tp=10 fp=0 tn=29 fn=0)
+  sfmnp      100.0%   (plain 100.0%, tp=3 fp=0 tn=36 fn=0)
+  cacfp      100.0%   (plain 100.0%, tp=6 fp=0 tn=33 fn=0)
+  fdpir      100.0%   (plain 100.0%, tp=0 fp=0 tn=39 fn=0)
+  wap        100.0%   (plain 100.0%, tp=29 fp=0 tn=10 fn=0)
+
+question relevance: 30.0% of 10 underspecified households
+  load-bearing fact asked at any point: 30.0%
+  underspecified households, balanced accuracy after follow-ups: 95.6%
+  questions that changed the result: 37.3% of 51
+median criteria per household: 54
+median wall clock: 3649.8ms  (engine 3281.3ms)
+median questions asked: 0
+annual value surfaced: $351,830 of $366,881 available
+
+wrote eval/results.json

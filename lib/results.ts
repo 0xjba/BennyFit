@@ -104,6 +104,8 @@ export interface RunSummary {
   /** Of households missing a deciding fact: asked for it first, and asked for it at all. */
   questionRelevance: number;
   questionAskedAtAllRate: number;
+  /** Follow-up questions asked across every household in the run. */
+  totalQuestionsAsked: number;
 }
 
 function summaryOf(parsed: Record<string, unknown>): RunSummary {
@@ -125,6 +127,10 @@ function summaryOf(parsed: Record<string, unknown>): RunSummary {
     billedNote: typeof parsed.billedNote === 'string' ? parsed.billedNote : null,
     questionRelevance: Number(parsed.questionRelevance ?? 0),
     questionAskedAtAllRate: Number(parsed.questionAskedAtAllRate ?? 0),
+    totalQuestionsAsked: ((parsed.perHousehold ?? []) as { questionsAsked?: unknown[] }[]).reduce(
+      (n, h) => n + (h.questionsAsked?.length ?? 0),
+      0
+    ),
   };
 }
 
