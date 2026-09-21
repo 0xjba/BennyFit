@@ -15,7 +15,7 @@
  * touches the held-out half: it is for measuring cost before a full run.
  */
 
-import { readFileSync, writeFileSync } from 'node:fs';
+import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 
 import { toDollars } from '@/lib/money';
@@ -29,6 +29,7 @@ import { runExtraction } from './extraction';
 import { HOLDOUT_CASES, HOLDOUT_WRITTEN } from './extraction-holdout';
 
 const AS_OF = '2026-09-21';
+const CONCURRENCY = Number(process.env.EVAL_CONCURRENCY) || 8;
 const PROGRAMS = [
   'snap',
   'eitc',
@@ -122,9 +123,21 @@ async function runOnce(
   tau: number,
   maxQuestions: number
 ): Promise<PerHousehold[]> {
-  const rows: PerHousehold[] = [];
+  const rows: PerHousehold[] = new Array(households.length);
 
-  for (const household of households) {
+  // A few households at a time. Each is screened independently, so running them
+  // concurrently changes nothing but the wall clock; rows keep the input order.
+  let nextIndex = 0;
+  const worker = async () => {
+    while (nextIndex < households.length) {
+      const index = nextIndex++;
+      rows[index] = await screenOne(households[index]);
+    }
+  };
+  await Promise.all(Array.from({ length: Math.min(CONCURRENCY, households.length) }, worker));
+  return rows;
+
+  async function screenOne(household: GoldHousehold): Promise<PerHousehold> {
     const result = await screen(household.paragraph, {
       engine,
       asOf: AS_OF,
@@ -133,7 +146,7 @@ async function runOnce(
       askUser: async (_question, criterion) => oracleReply(criterion.instanceId, household.facts),
     });
 
-    rows.push({
+    return {
       id: household.id,
       slice: household.slice,
       predicted: Object.fromEntries(
@@ -151,10 +164,8 @@ async function runOnce(
       wallClockMs: result.totalElapsedMs,
       engineMs: result.passes.reduce((sum, p) => sum + p.engineElapsedMs, 0),
       passes: result.passes.length,
-    });
+    };
   }
-
-  return rows;
 }
 
 function summarise(rows: PerHousehold[]) {
@@ -224,6 +235,7 @@ async function main() {
   const sweep = args.includes('--sweep');
   const pilot = args.includes('--pilot') ? Number(args[args.indexOf('--pilot') + 1]) : 0;
   const outArg = args.includes('--out') ? args[args.indexOf('--out') + 1] : null;
+  const sweepOnly = args.includes('--sweep-only');
 
   const households = loadGold();
   const engine = engineFromEnv();
@@ -286,11 +298,43 @@ async function main() {
     },
   };
 
+  // --sweep-only chooses the threshold on the development half and stops, so the
+  // held-out half is scored exactly once, afterwards, at the threshold chosen here.
+  // The rule is fixed in advance: highest mean balanced accuracy, and on a tie the
+  // threshold that asks fewer questions.
+  if (sweepOnly) {
+    console.log(`\nsweeping tau on the ${development.length} development households...`);
+    const sweepResults: { tau: number; meanBalancedAccuracy: number; questionRelevance: number; medianQuestions: number }[] = [];
+    for (const candidate of [0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8]) {
+      const s = summarise(await runOnce(development, metered, candidate, maxQuestions));
+      const mean = Object.values(s.balancedAccuracyByProgram).reduce((a, b) => a + b, 0) / PROGRAMS.length;
+      sweepResults.push({ tau: candidate, meanBalancedAccuracy: mean, questionRelevance: s.questionRelevance, medianQuestions: s.medianQuestionsAsked });
+      console.log(`  tau=${candidate}  balanced accuracy=${(mean * 100).toFixed(2)}%  relevance=${(s.questionRelevance * 100).toFixed(1)}%  median questions=${s.medianQuestionsAsked}`);
+    }
+    const best = [...sweepResults].sort(
+      (a, b) => b.meanBalancedAccuracy - a.meanBalancedAccuracy || a.medianQuestions - b.medianQuestions || a.tau - b.tau
+    )[0];
+    const sweepPath = join(process.cwd(), outArg ?? 'eval/tau-sweep.json');
+    writeFileSync(
+      sweepPath,
+      JSON.stringify({ runAt: new Date().toISOString(), engine: engine.name, households: development.length, chosen: best.tau, rule: 'highest mean balanced accuracy; ties to fewer questions, then lower tau', sweep: sweepResults, usage }, null, 2) + '\n'
+    );
+    console.log(`\nchosen tau: ${best.tau}\nusage: ${usage.calls} calls, ${usage.inputTokens.toLocaleString()} input tokens\nwrote ${sweepPath.replace(process.cwd() + '/', '')}`);
+    return;
+  }
+
   const scoredSet = pilot > 0 ? pilotSet : engine.isFixture ? households : holdout;
   const rows = await runOnce(scoredSet, metered, tau, maxQuestions);
   const summary = summarise(rows);
 
   const tauSweep: { tau: number; questionRelevance: number; meanBalancedAccuracy: number; medianQuestions: number }[] = [];
+  // A threshold chosen by an earlier --sweep-only run on this engine travels with the
+  // held-out result, so the page can show how it was chosen.
+  const sweepFile = join(process.cwd(), 'eval', 'tau-sweep.json');
+  if (!sweep && existsSync(sweepFile)) {
+    const saved = JSON.parse(readFileSync(sweepFile, 'utf8'));
+    if (saved.engine === engine.name && saved.chosen === tau) tauSweep.push(...saved.sweep);
+  }
   if (sweep && pilot === 0) {
     // Tuned on the development half only. Sweeping over the held-out half would pick
     // the threshold that scores best on the very households it is then scored on.
