@@ -2,6 +2,8 @@
 
 import { useEffect, useRef, useState } from 'react';
 
+import { HERO_FIGURES, HERO_TEXT as TEXT } from '@/lib/hero';
+
 /**
  * The other side of the hero: literally what a person types.
  *
@@ -12,19 +14,10 @@ import { useEffect, useRef, useState } from 'react';
  * Honours prefers-reduced-motion by showing the finished state immediately.
  */
 
-/**
- * The household, and what BennyFit actually returns for it.
- *
- * The figures below are what the live screener produces for this exact text, not a
- * dressed-up example. If the rules change and the answer moves, this has to move too.
- */
-const TEXT =
-  'I work part time and make $430 a week. I have two kids aged 4 and 8, we live in Michigan, rent is $1,200 a month, and daycare costs $300.';
-
 const CHIPS = [
-  { k: 'Programs they qualify for', v: '10' },
-  { k: 'A year, estimated', v: '$22,458' },
-  { k: 'Questions asked', v: '1' },
+  { k: 'Programs they qualify for', v: String(HERO_FIGURES.programs) },
+  { k: 'A year, estimated', v: `$${HERO_FIGURES.annualDollars.toLocaleString('en-US')}` },
+  { k: 'Rules checked', v: String(HERO_FIGURES.rulesChecked) },
 ];
 
 export function TypedIntake() {
@@ -102,8 +95,8 @@ export function TypedIntake() {
 
       <figcaption>
         <strong>One paragraph.</strong> Every rule in all twenty-one programs checked against
-        it at once, under Michigan&rsquo;s own limits, and one question asked because it was
-        worth asking.
+        it at once, under Michigan&rsquo;s own limits. A follow-up is asked only where the
+        answer could change what they get.
       </figcaption>
     </figure>
   );

@@ -39,7 +39,7 @@ const FAQS: { q: string; a: string }[] = [
   },
   {
     q: 'Is this an eligibility determination?',
-    a: 'No, and it never presents itself as one. Every result is labelled as a screening estimate and links to the program’s own application. The system uses federal minimum rules; most states are more generous, so a household told it is unlikely to qualify may still qualify where it lives, and the result says that too.',
+    a: 'No, and it never presents itself as one. Every result is labelled as a screening estimate and links to the program’s own application. SNAP, Medicaid and state tax credits are screened under the household’s own state rules. The other programs use federal limits, which some states and local agencies raise, so a household told it is unlikely to qualify for one of those may still qualify where it lives, and the result says so.',
   },
   {
     q: 'What do you do with what people type?',
@@ -80,9 +80,9 @@ export default function Landing() {
                 <p className="sub">
                   BennyFit screens a household against{' '}
                   <strong>{CLAIMS.programs.status === 'measured' ? CLAIMS.programs.value : ''} federal
-                  benefit programs</strong>{' '}
-                  from a single plain-language description — with each state&rsquo;s own rules, not
-                  the federal minimum. Benny, our agent, asks a follow-up only when the answer
+                  and state benefit programs</strong>{' '}
+                  from a single plain-language description, under each state&rsquo;s own SNAP,
+                  Medicaid and tax-credit rules. Benny, our agent, asks a follow-up only when the answer
                   would change what they get.
                 </p>
                 <div className="hero-cta">
@@ -120,7 +120,7 @@ export default function Landing() {
             <Stat claim={CLAIMS.coverage} />
           </div>
           <p className="disclaimer" style={{ marginTop: 30, textAlign: 'center' }}>
-            The dollar figure is computed from the federal rules applied to our 150
+            The dollar figure is computed from the program rules applied to our 150
             validation households, not from a model. Those households are synthetic, so it
             describes the validation set rather than the population.{' '}
             <Link href="/results">How this is measured</Link>.

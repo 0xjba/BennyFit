@@ -43,9 +43,10 @@ export function SiteFooter() {
               <Wordmark size={26} />
             </Link>
             <p className="legal">
-              BennyFit produces screening estimates from federal program rules. It is not an
-              eligibility determination and it is not affiliated with any government agency.
-              State rules vary and are often more generous than the federal minimum.
+              BennyFit produces screening estimates from published federal and state program
+              rules. It is not an eligibility determination and it is not affiliated with any
+              government agency. Local agencies can apply limits more generous than those used
+              here.
             </p>
           </div>
           <div className="footer-links">

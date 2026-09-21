@@ -133,7 +133,7 @@ export function DemoLanes() {
         {(lanes ?? []).map((lane) => (
           <section className="lane" key={lane.lane}>
             <header>
-              <h3>{lane.lane === 'sameModel' ? 'Same model, generating' : 'Frontier model, generating'}</h3>
+              <h3>{lane.lane === 'sameModel' ? 'Same model, generating' : 'General-purpose model, generating'}</h3>
               <p className="lane-sub">{lane.model} · asked to write JSON verdicts</p>
             </header>
             <div className="lane-body">

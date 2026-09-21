@@ -99,6 +99,23 @@ so the two can never drift apart.
 The USAC table divided by 1.35 returns the HHS 2026 guidelines exactly
 (21546 ÷ 1.35 = 15960; 7668 ÷ 1.35 = 5680), so the two sources agree.
 
+## Decision engine: Jev (TypeSafe)
+
+Read 2026-09-21 from docs.typesafe.ai. Cached copies in `raw/typesafe/`.
+
+| Fact used in the code | Source |
+|---|---|
+| Endpoint `POST https://api.typesafe.ai/v1/systemone`, bearer key | [API reference](https://docs.typesafe.ai/api) |
+| Request `{ model, state, questions: { id: { type, instructions, criteria } } }` | same |
+| Noul answer `{ type, noul }`, no confidence; choice and score carry `probabilities` and `confidence` | same |
+| Response carries the versioned `model` and `usage.input_tokens` / `output_tokens` | same |
+| At most 255 options per Choice; up to 10 Score levels | same |
+| 429 and 529 are retryable; honour `retry-after` | same, and [Models](https://docs.typesafe.ai/models) |
+| `jev-1.13.0`: $0.042 per million input tokens, output free; 64k-token context; 1,200 requests a minute | [Models](https://docs.typesafe.ai/models) |
+| Pin a versioned id when thresholds are tuned against it | same |
+| TypeSafe confidence is (K · max p − 1) / (K − 1); callers may use their own measure | [Confidence](https://docs.typesafe.ai/confidence) |
+| Keep arithmetic, counting and dates in code; not trained to generate text | [Jev 1.13 jaggedness](https://docs.typesafe.ai/model-jaggedness/jev-1.13) |
+
 ## Not obtained
 
 | Item | Status |

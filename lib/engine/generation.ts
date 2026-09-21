@@ -292,9 +292,14 @@ export class GenerationBaseline {
  * The two generation lanes.
  *
  * The first holds the model fixed and changes only the readout method, which isolates
- * the mechanism: same weights, same prompt, same state. The second changes the model
- * as well, which answers the obvious objection that a more capable model would not
- * make these mistakes.
+ * the mechanism: same weights, same prompt, same state. It needs OpenJev: Jev itself is
+ * not trained to generate text (TypeSafe's jaggedness notes say so), so with only a Jev
+ * key this lane does not run.
+ *
+ * The second is a general-purpose model writing JSON, the way most teams would build
+ * this today. It defaults to Claude Haiku 4.5: capable enough that its faults cannot be
+ * put down to a weak model, cheap enough to run on every validation household. It does
+ * not answer "the strongest model would not do that"; that needs a separate run on one.
  */
 export function generationLanes(env: NodeJS.ProcessEnv = process.env): {
   sameModel: GenerationBaseline;
@@ -308,9 +313,9 @@ export function generationLanes(env: NodeJS.ProcessEnv = process.env): {
       apiKey: env.OPENJEV_API_KEY,
     }),
     frontier: new GenerationBaseline({
-      name: 'frontier model, generating JSON',
+      name: 'general-purpose model, generating JSON',
       baseUrl: env.OPENROUTER_BASE_URL ?? 'https://openrouter.ai/api/v1',
-      model: env.OPENROUTER_MODEL ?? 'anthropic/claude-sonnet-4.5',
+      model: env.OPENROUTER_MODEL || 'anthropic/claude-haiku-4.5',
       apiKey: env.OPENROUTER_API_KEY,
     }),
   };

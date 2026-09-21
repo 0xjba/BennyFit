@@ -2,10 +2,20 @@
  * The remote decision engine.
  *
  * Jev and OpenJev speak the same wire API, so one adapter covers both and the choice
- * is configuration rather than code. The request shape is taken from OpenJev's README,
- * which states Jev compatibility; the field names have not been confirmed against
- * Jev's own documentation, so `WIRE_FORMAT_UNCONFIRMED` marks what to re-check when a
- * key exists.
+ * is configuration rather than code. The shape below is checked against TypeSafe's API
+ * reference (docs.typesafe.ai/api, read 2026-09-21, cached in sources/raw/typesafe):
+ *
+ *   POST /v1/systemone  { model, state, questions: { id: { type, instructions, criteria } } }
+ *   -> { model, answers: { id: answer }, usage: { input_tokens, output_tokens } }
+ *
+ * A noul answer is `{ type: 'noul', noul: P(yes) }` with no confidence. Choice and score
+ * answers carry `probabilities` and a `confidence`, but TypeSafe's confidence is
+ * (K * max p - 1) / (K - 1), not normalised entropy. The docs say to use your own
+ * measure where it fits better, so confidence is recomputed here from the
+ * probabilities, which puts every answer, noul included, on one definition.
+ *
+ * `WIRE_FORMAT_UNCONFIRMED` lists what the docs do not settle and a first live call
+ * has to.
  *
  * The API key is read from the environment on the server and never reaches the
  * browser. Nothing in this file is imported by a client component.
@@ -22,10 +32,8 @@ import {
 } from './types';
 
 export const WIRE_FORMAT_UNCONFIRMED = [
-  'Request field names: model, state, questions{id:{type,instructions,criteria}}',
-  'Whether a noul answer returns {noul: P(yes)} or a two-option distribution',
-  'Whether confidence is returned directly, and on the same 1 - H/lnK definition',
-  'Whether the response reports forward passes',
+  'Whether OpenJev on Codiv serves the same /v1/systemone shape as Jev',
+  'How the 422 body names an offending question, for error messages',
 ];
 
 export interface RemoteEngineConfig {
@@ -33,7 +41,7 @@ export interface RemoteEngineConfig {
   baseUrl: string;
   model: string;
   apiKey: string | undefined;
-  /** Requests above this many criteria are split, to stay under the choice cardinality. */
+  /** Requests above this many criteria are split. */
   maxQuestionsPerRequest?: number;
   timeoutMs?: number;
 }
@@ -105,6 +113,8 @@ export class RemoteEngine implements EngineClient {
     let inputTokens = 0;
     let outputTokens = 0;
     let passes = 0;
+    // The versioned id that answered, e.g. jev-1.13.0, as the response reports it.
+    let servedBy = this.config.model;
 
     for (const batch of batches) {
       const response = await this.post(batch);
@@ -118,7 +128,9 @@ export class RemoteEngine implements EngineClient {
       }
       inputTokens += response.usage?.input_tokens ?? 0;
       outputTokens += response.usage?.output_tokens ?? 0;
-      passes += response.passes ?? 1;
+      // Jev does not report forward passes; one request is counted as one.
+      passes += 1;
+      if (response.model) servedBy = response.model;
     }
 
     const missing = Object.keys(request.questions).filter((id) => !(id in answers));
@@ -132,7 +144,7 @@ export class RemoteEngine implements EngineClient {
     }
 
     return {
-      model: this.config.model,
+      model: servedBy,
       answers,
       usage: { inputTokens, outputTokens },
       elapsedMs: performance.now() - started,
@@ -140,7 +152,7 @@ export class RemoteEngine implements EngineClient {
     };
   }
 
-  /** Split a request that exceeds the engine's choice cardinality. */
+  /** Split a request that exceeds the configured question limit. */
   private batch(request: EngineRequest): EngineRequest[] {
     const limit = this.config.maxQuestionsPerRequest ?? 128;
     const ids = Object.keys(request.questions);
@@ -158,9 +170,9 @@ export class RemoteEngine implements EngineClient {
   }
 
   private async post(request: EngineRequest, attempt = 0): Promise<{
+    model?: string;
     answers?: Record<string, unknown>;
     usage?: { input_tokens?: number; output_tokens?: number };
-    passes?: number;
   }> {
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), this.config.timeoutMs ?? 30000);
@@ -184,7 +196,10 @@ export class RemoteEngine implements EngineClient {
         const retryable = RETRY_STATUSES.has(response.status);
         if (retryable && attempt < 3) {
           clearTimeout(timeout);
-          await new Promise((r) => setTimeout(r, 400 * 2 ** attempt));
+          // Honour retry-after when the response carries one, as TypeSafe asks.
+          const retryAfter = Number(response.headers.get('retry-after'));
+          const waitMs = Number.isFinite(retryAfter) && retryAfter > 0 ? retryAfter * 1000 : 400 * 2 ** attempt;
+          await new Promise((r) => setTimeout(r, Math.min(waitMs, 10_000)));
           return this.post(request, attempt + 1);
         }
         throw new EngineUnavailable(

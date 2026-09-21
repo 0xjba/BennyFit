@@ -234,9 +234,12 @@ export default function Results() {
             not evidence about real applicants, and we will not present it as such.
           </p>
           <p style={{ color: 'var(--ink-2)', marginTop: 14 }}>
-            The screening also uses federal minimum rules. Most states raise the SNAP
-            income limit and many drop the savings test entirely, so a household told it is
-            unlikely to qualify may well qualify where it lives. Every result says so.
+            SNAP, Medicaid and state earned income credits are screened under each
+            state&rsquo;s own rules: the higher SNAP income limits and dropped savings tests
+            most states use, Medicaid expansion or not, and the state credit rate. The other
+            programs use federal limits, which some states and local agencies raise, so a
+            household told it is unlikely to qualify for one of those may still qualify
+            where it lives. Every result says so.
           </p>
 
           <h2 style={{ marginTop: 40 }}>Where the rules come from</h2>

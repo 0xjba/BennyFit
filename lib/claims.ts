@@ -57,7 +57,7 @@ export const CLAIMS: Record<string, Claim> = {
   coverage: {
     status: 'measured',
     value: '50 states + DC',
-    caption: 'with each state\u2019s own rules, not the federal minimum',
+    caption: 'with each state\u2019s own SNAP, Medicaid and tax-credit rules',
     source:
       'SNAP income and asset limits from USDA\u2019s own chart of states operating ' +
       'broad-based categorical eligibility, Medicaid expansion status from KFF, and ' +

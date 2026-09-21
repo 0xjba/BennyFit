@@ -34,8 +34,10 @@ export default function Demo() {
         <Screener asOf={asOf} programCount={programCount} />
 
         <p className="disclaimer" style={{ marginTop: 44 }}>
-          Federal rules only. Most states are more generous than the federal minimum for
-          SNAP, so a household that does not qualify here may still qualify at home.{' '}
+          SNAP, Medicaid and state tax credits follow the state you name. The other
+          programs use federal limits, which some states and local agencies raise, so a
+          household that does not qualify for one of those here may still qualify at
+          home.{' '}
           <Link href="/compare">See it beside the current process</Link> ·{' '}
           <Link href="/results">How accuracy is measured</Link>
         </p>

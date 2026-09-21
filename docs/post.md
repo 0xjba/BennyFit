@@ -125,10 +125,10 @@ verdicts. It produces documents that parse, validate against a schema, and are w
 way the schema cannot see — an answer that is a perfectly valid option id belonging to a
 *different* criterion.
 
-The demo runs three lanes on one household. A typed readout. The same model asked to
-generate JSON, which isolates the mechanism because only the readout method changes. And
-a frontier model generating JSON, which answers "a better model wouldn't do that" rather
-than arguing about it. Faults are counted mechanically: cross-wired, invented, missing.
+The demo runs the same household through more than one lane. A typed readout. Where
+the engine can also generate, the same model asked to write JSON, which isolates the
+mechanism because only the readout method changes. And a general-purpose model writing
+JSON, the way most teams would build this today. Faults are counted mechanically: cross-wired, invented, missing.
 
 There is a fourth thing the comparison shows, and I think it is the real one. A generating
 model will happily write `"confidence": 0.9` into its JSON. That number is a token. It is

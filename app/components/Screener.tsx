@@ -7,7 +7,7 @@ import { BennyAvatar } from './Logo';
 
 const SAMPLES: { tag: string; text: string }[] = [
   {
-    tag: 'Retired, living alone — Benny asks one question here',
+    tag: 'Retired, living alone, on Social Security',
     text: "I'm 71, live alone in Ohio, get about $1,150 a month from Social Security, and I'm on Medicare. Rent is $700 and I pay my own gas and electric.",
   },
   {
@@ -15,7 +15,7 @@ const SAMPLES: { tag: string; text: string }[] = [
     text: 'I work part time and make $430 a week. I have two kids aged 4 and 8, we live in Michigan, rent is $1,200 a month, and daycare costs $300.',
   },
   {
-    tag: 'The same household in Ohio — a different answer',
+    tag: 'Two kids, a higher income, in Ohio',
     text: 'I work and make $3,200 a month. I have two kids aged 4 and 8, we live in Ohio, and rent is $1,400 a month. I have $6,000 saved.',
   },
 ];

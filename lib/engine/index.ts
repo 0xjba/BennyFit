@@ -21,16 +21,23 @@ export function engineFromEnv(env: NodeJS.ProcessEnv = process.env): EngineClien
 
   if (requested === 'fixture') return new MockEngine();
 
-  if (requested === 'jev' || (!requested && env.JEV_API_KEY)) {
-    if (!env.JEV_API_KEY) {
-      throw new Error('ENGINE=jev was requested but JEV_API_KEY is not set.');
+  // TYPESAFE_API_KEY is the name TypeSafe's own SDKs read; JEV_API_KEY still works.
+  const jevKey = env.TYPESAFE_API_KEY ?? env.JEV_API_KEY;
+  if (requested === 'jev' || (!requested && jevKey)) {
+    if (!jevKey) {
+      throw new Error('ENGINE=jev was requested but TYPESAFE_API_KEY is not set.');
     }
     return new RemoteEngine({
       name: 'jev',
       baseUrl: env.JEV_BASE_URL ?? 'https://api.typesafe.ai',
-      model: env.JEV_MODEL ?? 'jev-latest',
-      apiKey: env.JEV_API_KEY,
-      maxQuestionsPerRequest: 255,
+      // Pinned rather than jev-latest. The alias moves when a release ships, and the
+      // confidence threshold is tuned against one version's answers; TypeSafe's model
+      // docs recommend pinning for exactly this reason.
+      model: env.JEV_MODEL ?? 'jev-1.13.0',
+      apiKey: jevKey,
+      // Jev has no per-request question limit, only a 64k-token context. A full
+      // screening is about 63 questions and 7k tokens at most, so it never splits.
+      maxQuestionsPerRequest: 400,
     });
   }
 
