@@ -46,7 +46,9 @@ const NUMBER_WORDS: Record<string, number> = {
 
 function money(text: string): number | null {
   const cleaned = text.replace(/,/g, '');
-  const m = cleaned.match(/\$\s*([0-9]+(?:\.[0-9]{1,2})?)\s*(k\b)?/i);
+  const m =
+    cleaned.match(/\$\s*([0-9]+(?:\.[0-9]{1,2})?)\s*(k\b)?/i) ??
+    cleaned.match(/^\s*([0-9]+(?:\.[0-9]{1,2})?)\s*(k\b)?/i);
   if (!m) return null;
   const value = parseFloat(m[1]);
   return m[2] ? value * 1000 : value;
@@ -78,7 +80,18 @@ function moneyMentions(
   }
   clauses.push({ text: text.slice(cursor), start: cursor });
 
-  const re = /\$\s*[0-9][0-9,]*(?:\.[0-9]{1,2})?\s*(?:k\b)?/gi;
+  // A dollar sign, a figure followed by "dollars" or "bucks", or a bare figure of three
+  // or more digits placed where only money goes: "pay 850 for rent", "rent is 900",
+  // "2400 a month". A bare figure anywhere else is left alone, because it is as likely
+  // to be a year, a street number or a zip code.
+  const PERIOD_AFTER = '\\s*(?:a|per|each|every)\\s+(?:month|week|year)|\\s*(?:monthly|weekly|annually)\\b|\\s+(?:for|in|on)\\s+(?:rent|the\\s+rent|mortgage)\\b';
+  const re = new RegExp(
+    '\\$\\s*[0-9][0-9,]*(?:\\.[0-9]{1,2})?\\s*(?:k\\b)?' +
+      '|\\b[0-9][0-9,]*(?:\\.[0-9]{1,2})?(?=\\s*(?:dollars|bucks)\\b)' +
+      `|(?<=\\b(?:rent|mortgage)\\s*(?:is|of|:)?\\s*)[0-9][0-9,]{2,}\\b(?!\\s*(?:%|people|persons|years?|kids?|children))` +
+      `|(?<![$0-9,.])\\b[0-9]{1,3}(?:,[0-9]{3})+(?=${PERIOD_AFTER})|(?<![$0-9,.])\\b[0-9]{3,6}(?=${PERIOD_AFTER})`,
+    'gi'
+  );
   for (const clause of clauses) {
     // Where a clause holds more than one amount, each is described by the words between
     // it and its neighbours rather than by the whole clause. In "I make $1,750 monthly
@@ -93,8 +106,16 @@ function moneyMentions(
       const hit = hits[k];
       const amount = money(hit[0]);
       if (amount === null) continue;
-      const from = k === 0 ? 0 : hits[k - 1].index + hits[k - 1][0].length;
-      const to = k === hits.length - 1 ? clause.text.length : hits[k + 1].index;
+      // The words between two amounts are shared unless a conjunction divides them:
+      // in "pay 1200 for rent and earn 3000 a month", "for rent" describes the first
+      // amount and "earn" the second.
+      const split = (left: number, right: number) => {
+        const gap = clause.text.slice(left, right);
+        const conj = [...gap.matchAll(/\s(?:and|but|while|plus)\s/gi)].pop();
+        return conj ? { end: left + conj.index!, start: left + conj.index! } : { end: right, start: left };
+      };
+      const from = k === 0 ? 0 : split(hits[k - 1].index + hits[k - 1][0].length, hit.index).start;
+      const to = k === hits.length - 1 ? clause.text.length : split(hit.index + hit[0].length, hits[k + 1].index).end;
       const local = clause.text.slice(from, to);
       const at = clause.start + hit.index;
       const sentenceStart = Math.max(text.lastIndexOf('.', at - 1), text.lastIndexOf('!', at - 1), text.lastIndexOf('?', at - 1)) + 1;
@@ -212,13 +233,19 @@ export function parseHousehold(paragraph: string): ParseResult {
   // --- children ---------------------------------------------------------
   let childrenCount: number | null = null;
   const CHILD_NOUN =
-    '(?:kids?|children|child|sons?|daughters?|boys?|girls?|babies|baby|toddlers?|grand(?:kids?|children|sons?|daughters?)|little ones)';
+    '(?:kids?|children|child|sons?|daughters?|boys?|girls?|babies|baby|newborns?|infants?|toddlers?|grand(?:kids?|children|sons?|daughters?)|little ones)';
   const childMatch =
     text.match(new RegExp(`\\b(\\d+|one|two|three|four|five|six|seven|eight|nine|ten)\\s+(?:younger\\s+|little\\s+|small\\s+)?${CHILD_NOUN}\\b`, 'i')) ??
     text.match(new RegExp(`\\b(?:my|our|a|her|his|their)\\s+(${CHILD_NOUN})\\b`, 'i'));
   if (childMatch) {
     const token = childMatch[1].toLowerCase();
     childrenCount = /^\d+$/.test(token) ? parseInt(token, 10) : (NUMBER_WORDS[token] ?? 1);
+  }
+  // "Single mom of one", "a dad of three": the count follows the parent.
+  const parentOf = text.match(/\b(?:mom|mother|mum|dad|father|parent)\s+of\s+(\d+|one|two|three|four|five|six|seven|eight|nine|ten)\b/i);
+  if (parentOf && childrenCount === null) {
+    const token = parentOf[1].toLowerCase();
+    childrenCount = /^\d+$/.test(token) ? parseInt(token, 10) : NUMBER_WORDS[token];
   }
   // Twins are two children and triplets three, however they are described.
   if (/\btwins\b|\btwin\s+(?:boys|girls|sons|daughters|babies)\b/i.test(text)) childrenCount = 2;
@@ -239,7 +266,9 @@ export function parseHousehold(paragraph: string): ParseResult {
 
   const EXPLICIT = [
     new RegExp(`\\b(?:household|family|home)\\s+(?:of|is|has)\\s+${NUM}(?:\\s+(?:people|persons|members))?\\b`, 'i'),
-    new RegExp(`\\b${NUM}\\s+(?:people|persons)\\s+(?:live|living|in\\s+(?:our|my|the|this))\\b`, 'i'),
+    new RegExp(`\\b${NUM}[\\s-]+(?:person|people|member)s?\\s+(?:household|family|home)\\b`, 'i'),
+    new RegExp(`\\b${NUM}\\s+(?:people|persons)\\s+(?:total|altogether|live|living|in\\s+(?:our|my|the|this))\\b`, 'i'),
+    new RegExp(`\\bwe(?:'re|\\s+are)\\s+(?:a\\s+family\\s+of\\s+)?${NUM}\\b(?!\\s*(?:years?|months?|kids?|children|adults?))`, 'i'),
     new RegExp(`\\b${NUM}\\s+of\\s+us\\b`, 'i'),
     new RegExp(`\\bhousehold\\s+size\\s+(?:is\\s+|of\\s+)?${NUM}\\b`, 'i'),
   ];
@@ -250,27 +279,52 @@ export function parseHousehold(paragraph: string): ParseResult {
       text
     );
 
+  // Adults other than a partner who are named as part of the household: "me, my
+  // mother, and my three kids" is five people, not four. Each relation counts once;
+  // "my parents" counts two.
+  // A possessive covers the whole list after it: "my niece and nephew" is two.
+  const RELATION =
+    '(?:elderly\\s+|aging\\s+|older\\s+|younger\\s+|little\\s+)?(?:mother-in-law|father-in-law|mother|mom|mum|father|dad|parents|grandmother|grandma|grandfather|grandpa|sister|brother|aunt|uncle|cousin|niece|nephew|roommate)';
+  const RELATIVES = new RegExp(
+    `\\b(?:my|our)\\s+${RELATION}(?:\\s*(?:,|and|&)\\s*(?:my\\s+|our\\s+)?${RELATION})*\\b`,
+    'gi'
+  );
+  const relations = new Set(
+    [...text.matchAll(RELATIVES)].flatMap((m) =>
+      [...m[0].matchAll(new RegExp(RELATION, 'gi'))].map((r) => r[0].toLowerCase().split(/\s+/).pop()!)
+    )
+  );
+  const relativeCount = [...relations].reduce((n, r) => n + (r === 'parents' ? 2 : 1), 0);
+
+  const ADULTS = new RegExp(`\\b${NUM}\\s+(?:adults?|parents|grown-?ups)\\b`, 'i');
+
   if (explicit) {
     householdSize = toNumber(explicit[1]);
   } else if (
-    /\b(?:live|living|lives)\s+(?:alone|by\s+myself|on\s+my\s+own)\b|\bjust\s+(?:me|myself)\b|\bit'?s\s+only\s+me\b/i.test(
+    /\b(?:live|living|lives)\s+alone\b|\bby\s+myself\b|\bon\s+my\s+own\b|\bjust\s+(?:me|myself)\b|\bit'?s\s+only\s+me\b/i.test(
       text
     ) &&
-    !childrenCount
+    !childrenCount &&
+    !hasPartner &&
+    relativeCount === 0
   ) {
+    // "On my own" also describes a single parent, so it only means a household of one
+    // when nobody else is mentioned.
     householdSize = 1;
-  } else if (new RegExp(`\\b${NUM}\\s+adults?\\b`, 'i').test(text)) {
+  } else if (ADULTS.test(text)) {
     // "Two adults, one kid" — count the adults, and add any children found.
-    const adults = toNumber(text.match(new RegExp(`\\b${NUM}\\s+adults?\\b`, 'i'))![1]);
+    const adults = toNumber(text.match(ADULTS)![1]);
     householdSize = adults + (childrenCount ?? 0);
   } else if (/\b(?:married|retired|elderly|older)\s+couple\b|\bcouple\b/i.test(text)) {
     householdSize = 2 + (childrenCount ?? 0);
-  } else if (hasPartner || childrenCount !== null) {
-    // Nothing stated outright: one adult, a partner if one appears, and any children.
+  } else if (hasPartner || childrenCount !== null || relativeCount > 0) {
+    // Nothing stated outright: one adult, a partner if one appears, any other relatives
+    // named, and any children.
     const children = childrenCount ?? 0;
-    householdSize = 1 + (hasPartner ? 1 : 0) + children;
+    householdSize = 1 + (hasPartner ? 1 : 0) + relativeCount + children;
     const parts: string[] = [];
     if (hasPartner) parts.push('a partner');
+    if (relativeCount > 0) parts.push([...relations].join(', '));
     if (children > 0) parts.push(`${children} ${children === 1 ? 'child' : 'children'}`);
     notes.push(
       `Household size of ${householdSize} inferred from ${parts.join(' and ')} plus the ` +

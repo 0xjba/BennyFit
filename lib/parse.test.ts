@@ -73,3 +73,43 @@ describe('each amount is read with the words around it', () => {
     expect(f.incomePeriod).toBe('biweekly');
   });
 });
+
+describe('shapes from the second held-out set', () => {
+  it('reads a size written as an adjective or a count', () => {
+    expect(facts("We're a two-person household in Vermont.").householdSize).toBe(2);
+    expect(facts('A 4 person household in Colorado.').householdSize).toBe(4);
+    expect(facts('5 people total in our house in Alabama.').householdSize).toBe(5);
+    expect(facts('We are six: two parents and four kids.').householdSize).toBe(6);
+  });
+
+  it('counts relatives other than children and a partner', () => {
+    expect(facts('It is me, my mother, and my three kids in Maryland.').householdSize).toBe(5);
+    expect(facts('I am raising my niece and nephew in Tennessee on my own.').householdSize).toBe(3);
+    expect(facts('My mom and dad live with me and my 2 kids.').householdSize).toBe(5);
+  });
+
+  it('reads "on my own" as one person only when nobody else is mentioned', () => {
+    expect(facts('Widower, 70, by myself in Oregon.').householdSize).toBe(1);
+    expect(facts('I live on my own with my daughter.').householdSize).toBe(2);
+  });
+
+  it('counts a newborn and a parent-of-N as children', () => {
+    const f = facts('I live in Austin, TX with my wife and our newborn.');
+    expect(f.householdSize).toBe(3);
+    expect(f.childrenCount).toBe(1);
+    expect(facts('Single mom of one in Florida.').householdSize).toBe(2);
+  });
+
+  it('reads amounts without a dollar sign where only money can go', () => {
+    const f = facts('I earn 2400 dollars a month working retail in Ohio. I live alone and pay 850 for rent.');
+    expect(f.incomeAmount).toBe(2400);
+    expect(f.incomePeriod).toBe('monthly');
+    expect(f.rentMonthly).toBe(850);
+  });
+
+  it('does not read a year or a street number as money', () => {
+    const f = facts('Born in 1985, we live at 4500 Main St. I pay 1200 for rent and earn 3000 a month.');
+    expect(f.incomeAmount).toBe(3000);
+    expect(f.rentMonthly).toBe(1200);
+  });
+});
