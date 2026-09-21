@@ -43,6 +43,16 @@ const ORDINALS: Record<number, string> = {
   1: 'first', 2: 'second', 3: 'third', 4: 'fourth', 5: 'fifth', 6: 'sixth', 7: 'seventh', 8: 'eighth',
 };
 
+/** "anthropic/claude-sonnet-5 (generating JSON)" -> "Claude Sonnet 5". */
+function modelName(engine: string): string {
+  const id = engine.replace(/\s*\(.*\)$/, '').split('/').pop() ?? engine;
+  return id
+    .split('-')
+    .map((w) => (/^\d/.test(w) ? w.replace(/(\d)-(\d)/, '$1.$2') : w[0].toUpperCase() + w.slice(1)))
+    .join(' ')
+    .replace(/(\d) (\d)/g, '$1.$2');
+}
+
 function percent(value: number): string {
   return `${(value * 100).toFixed(1)}%`;
 }
@@ -215,7 +225,7 @@ export default function Results() {
                 <ul className="steps" style={{ marginTop: 18 }}>
                   <li>
                     <span><strong>Held-out households</strong></span>
-                    <span className="amt"><strong>BennyFit</strong> · {baselineRun.engine.replace(' (generating JSON)', '')}</span>
+                    <span className="amt"><strong>BennyFit</strong> · {modelName(baselineRun.engine)}</span>
                   </li>
                   <li>
                     <span>Mean balanced accuracy</span>
@@ -229,7 +239,44 @@ export default function Results() {
                     <span>Median follow-up questions</span>
                     <span className="amt">{engineRun.medianQuestionsAsked} · {baselineRun.medianQuestionsAsked}</span>
                   </li>
+                  <li>
+                    <span>
+                      Asked for the missing deciding fact
+                      <br />
+                      <span className="cite">first question · at any point, of 10 households missing one</span>
+                    </span>
+                    <span className="amt">
+                      {percent(engineRun.questionRelevance)} / {percent(engineRun.questionAskedAtAllRate)} ·{' '}
+                      {percent(baselineRun.questionRelevance)} / {percent(baselineRun.questionAskedAtAllRate)}
+                    </span>
+                  </li>
+                  {engineRun.billedUSD !== null && baselineRun.billedUSD !== null && (
+                    <li>
+                      <span>
+                        Cost per household screened
+                        <br />
+                        <span className="cite">as billed for this run</span>
+                      </span>
+                      <span className="amt">
+                        ${(engineRun.billedUSD / engineRun.households).toFixed(4)} · $
+                        {(baselineRun.billedUSD / baselineRun.households).toFixed(3)}
+                      </span>
+                    </li>
+                  )}
                 </ul>
+              )}
+              {baselineRun && (
+                <p style={{ color: 'var(--ink-2)', marginTop: 14 }}>
+                  The comparison is a general-purpose model doing the same job the way a careful
+                  team would build it today: the same paragraph, the same rules, the same
+                  follow-up loop and answer key, with its reply held to a schema that allows
+                  only each rule&rsquo;s own options. The two are close on accuracy. The general
+                  model&rsquo;s misses cluster in one place: five times it read &ldquo;rent with
+                  utilities included&rdquo; as not paying for heating, where the rule says
+                  energy paid through the rent counts. It was more thorough about asking for a
+                  missing fact at some point, partly because it asked the maximum three
+                  questions every time. The larger differences are time and cost.
+                </p>
               )}
               <details className="disclosure">
                 <summary>Every program</summary>

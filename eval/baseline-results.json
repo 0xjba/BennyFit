@@ -1,5 +1,5 @@
 {
-  "runAt": "2026-09-21T13:35:20.325Z",
+  "runAt": "2026-09-21T13:45:45.760Z",
   "conformance": {
     "passed": 28,
     "total": 28,
@@ -409,14 +409,19 @@
     "households": 49
   },
   "usage": {
-    "calls": 145,
-    "inputTokens": 659023,
-    "outputTokens": 260674
+    "calls": 201,
+    "inputTokens": 3262482,
+    "outputTokens": 515279
   },
-  "generationFaults": null,
+  "generationFaults": {
+    "unparseable": 0,
+    "missing": 0,
+    "crossWired": 0,
+    "invented": 0
+  },
   "circular": false,
   "circularNote": null,
-  "engine": "jev",
+  "engine": "anthropic/claude-sonnet-5 (generating JSON)",
   "isFixture": false,
   "tau": 0.3,
   "maxQuestions": 3,
@@ -424,15 +429,15 @@
   "balancedAccuracyByProgram": {
     "snap": 1,
     "eitc": 1,
-    "ctc": 0.9230769230769231,
+    "ctc": 1,
     "lifeline": 1,
-    "wic": 1,
+    "wic": 0.9848484848484849,
     "school_meals": 1,
     "csfp": 1,
-    "liheap": 1,
+    "liheap": 0.9137931034482758,
     "head_start": 1,
     "medicare_savings": 1,
-    "extra_help": 0.9864864864864865,
+    "extra_help": 1,
     "medicaid": 1,
     "chip": 1,
     "state_eitc": 1,
@@ -440,7 +445,7 @@
     "va_pension": 1,
     "summer_ebt": 1,
     "sfmnp": 1,
-    "cacfp": 1,
+    "cacfp": 0.9848484848484849,
     "fdpir": 1,
     "wap": 1
   },
@@ -470,15 +475,15 @@
       }
     },
     "ctc": {
-      "balanced": 0.9230769230769231,
-      "plain": 0.9487179487179487,
-      "truePositiveRate": 0.8461538461538461,
+      "balanced": 1,
+      "plain": 1,
+      "truePositiveRate": 1,
       "trueNegativeRate": 1,
       "counts": {
-        "tp": 11,
+        "tp": 13,
         "fp": 0,
         "tn": 26,
-        "fn": 2
+        "fn": 0
       }
     },
     "lifeline": {
@@ -494,14 +499,14 @@
       }
     },
     "wic": {
-      "balanced": 1,
-      "plain": 1,
+      "balanced": 0.9848484848484849,
+      "plain": 0.9743589743589743,
       "truePositiveRate": 1,
-      "trueNegativeRate": 1,
+      "trueNegativeRate": 0.9696969696969697,
       "counts": {
         "tp": 6,
-        "fp": 0,
-        "tn": 33,
+        "fp": 1,
+        "tn": 32,
         "fn": 0
       }
     },
@@ -530,15 +535,15 @@
       }
     },
     "liheap": {
-      "balanced": 1,
-      "plain": 1,
-      "truePositiveRate": 1,
+      "balanced": 0.9137931034482758,
+      "plain": 0.8717948717948718,
+      "truePositiveRate": 0.8275862068965517,
       "trueNegativeRate": 1,
       "counts": {
-        "tp": 29,
+        "tp": 24,
         "fp": 0,
         "tn": 10,
-        "fn": 0
+        "fn": 5
       }
     },
     "head_start": {
@@ -566,14 +571,14 @@
       }
     },
     "extra_help": {
-      "balanced": 0.9864864864864865,
-      "plain": 0.9743589743589743,
+      "balanced": 1,
+      "plain": 1,
       "truePositiveRate": 1,
-      "trueNegativeRate": 0.972972972972973,
+      "trueNegativeRate": 1,
       "counts": {
         "tp": 2,
-        "fp": 1,
-        "tn": 36,
+        "fp": 0,
+        "tn": 37,
         "fn": 0
       }
     },
@@ -662,14 +667,14 @@
       }
     },
     "cacfp": {
-      "balanced": 1,
-      "plain": 1,
+      "balanced": 0.9848484848484849,
+      "plain": 0.9743589743589743,
       "truePositiveRate": 1,
-      "trueNegativeRate": 1,
+      "trueNegativeRate": 0.9696969696969697,
       "counts": {
         "tp": 6,
-        "fp": 0,
-        "tn": 33,
+        "fp": 1,
+        "tn": 32,
         "fn": 0
       }
     },
@@ -699,67 +704,24 @@
     }
   },
   "accuracyBySlice": {
-    "clear_eligible": 0.9956521739130435,
+    "clear_eligible": 0.9860411899313501,
     "clear_ineligible": 1,
-    "mixed": 1,
-    "underspecified": 0.9557978286652677,
-    "adversarial": 0.9840627371616494
+    "mixed": 0.9711538461538461,
+    "underspecified": 0.9948453608247423,
+    "adversarial": 0.9925373134328358
   },
-  "questionRelevance": 0.4,
-  "questionAskedAtAllRate": 0.4,
+  "questionRelevance": 0.2,
+  "questionAskedAtAllRate": 0.7,
   "underspecifiedCount": 10,
   "specifiedCount": 39,
   "medianCriteriaPerHousehold": 53,
-  "medianWallClockMs": 2249.825833000001,
-  "medianEngineMs": 1836.581333000001,
-  "medianQuestionsAsked": 2,
-  "medianPasses": 3,
-  "totalAnnualValueSurfaced": 355871,
+  "medianWallClockMs": 35323.59820800001,
+  "medianEngineMs": 35265.78675000003,
+  "medianQuestionsAsked": 3,
+  "medianPasses": 4,
+  "totalAnnualValueSurfaced": 361771,
   "totalAnnualValueAvailable": 368722,
-  "tauSweep": [
-    {
-      "tau": 0.2,
-      "meanBalancedAccuracy": 0.9881057299535561,
-      "questionRelevance": 0.45,
-      "medianQuestions": 1
-    },
-    {
-      "tau": 0.3,
-      "meanBalancedAccuracy": 0.9979995523473785,
-      "questionRelevance": 0.5,
-      "medianQuestions": 2
-    },
-    {
-      "tau": 0.4,
-      "meanBalancedAccuracy": 0.9979995523473785,
-      "questionRelevance": 0.5,
-      "medianQuestions": 2
-    },
-    {
-      "tau": 0.5,
-      "meanBalancedAccuracy": 0.9976733944869741,
-      "questionRelevance": 0.4,
-      "medianQuestions": 2
-    },
-    {
-      "tau": 0.6,
-      "meanBalancedAccuracy": 0.9979995523473785,
-      "questionRelevance": 0.35,
-      "medianQuestions": 3
-    },
-    {
-      "tau": 0.7,
-      "meanBalancedAccuracy": 0.9979995523473785,
-      "questionRelevance": 0.3,
-      "medianQuestions": 3
-    },
-    {
-      "tau": 0.8,
-      "meanBalancedAccuracy": 0.9976778020256283,
-      "questionRelevance": 0.35,
-      "medianQuestions": 3
-    }
-  ],
+  "tauSweep": [],
   "perHousehold": [
     {
       "id": "gh-003",
@@ -813,7 +775,7 @@
       "predictedValues": {
         "snap": 7596,
         "eitc": 7316,
-        "ctc": 2200,
+        "ctc": 4400,
         "lifeline": 111,
         "wic": 0,
         "school_meals": 0,
@@ -857,14 +819,14 @@
         "wap": 0
       },
       "questionsAsked": [
-        "eitc.valid_ssn",
-        "eitc.child_relationship#2",
-        "eitc.child_residency#1"
+        "lifeline.tribal_lands",
+        "va_pension.wartime_veteran",
+        "eitc.valid_ssn"
       ],
-      "firstQuestion": "eitc.valid_ssn",
+      "firstQuestion": "lifeline.tribal_lands",
       "criteriaEvaluated": 79,
-      "wallClockMs": 4680.0013340000005,
-      "engineMs": 4619.408415999999,
+      "wallClockMs": 43925.089334,
+      "engineMs": 43808.781834,
       "passes": 4
     },
     {
@@ -873,7 +835,7 @@
       "predicted": {
         "snap": true,
         "eitc": true,
-        "ctc": false,
+        "ctc": true,
         "lifeline": true,
         "wic": false,
         "school_meals": true,
@@ -919,7 +881,7 @@
       "predictedValues": {
         "snap": 6552,
         "eitc": 3774,
-        "ctc": 0,
+        "ctc": 2200,
         "lifeline": 111,
         "wic": 0,
         "school_meals": 0,
@@ -963,14 +925,15 @@
         "wap": 0
       },
       "questionsAsked": [
-        "eitc.child_relationship#1",
-        "eitc.valid_ssn"
+        "va_pension.wartime_veteran",
+        "eitc.valid_ssn",
+        "eitc.investment_income_over_limit"
       ],
-      "firstQuestion": "eitc.child_relationship#1",
+      "firstQuestion": "va_pension.wartime_veteran",
       "criteriaEvaluated": 66,
-      "wallClockMs": 5371.735334,
-      "engineMs": 5333.29125,
-      "passes": 3
+      "wallClockMs": 29520.908625,
+      "engineMs": 29425.736251,
+      "passes": 4
     },
     {
       "id": "gh-009",
@@ -1068,14 +1031,14 @@
         "wap": 0
       },
       "questionsAsked": [
-        "eitc.valid_ssn",
-        "eitc.child_relationship#1",
-        "eitc.child_residency#2"
+        "va_pension.wartime_veteran",
+        "lifeline.one_per_household",
+        "lifeline.tribal_lands"
       ],
-      "firstQuestion": "eitc.valid_ssn",
+      "firstQuestion": "va_pension.wartime_veteran",
       "criteriaEvaluated": 79,
-      "wallClockMs": 5516.935792,
-      "engineMs": 4894.729293,
+      "wallClockMs": 27146.659625,
+      "engineMs": 27024.702709000005,
       "passes": 4
     },
     {
@@ -1174,14 +1137,14 @@
         "wap": 0
       },
       "questionsAsked": [
-        "eitc.valid_ssn",
-        "eitc.child_relationship#2",
-        "eitc.child_residency#1"
+        "lifeline.tribal_lands",
+        "va_pension.wartime_veteran",
+        "lifeline.one_per_household"
       ],
-      "firstQuestion": "eitc.valid_ssn",
+      "firstQuestion": "lifeline.tribal_lands",
       "criteriaEvaluated": 79,
-      "wallClockMs": 4937.491709,
-      "engineMs": 4875.182249999999,
+      "wallClockMs": 37380.404833,
+      "engineMs": 37261.811416,
       "passes": 4
     },
     {
@@ -1280,14 +1243,14 @@
         "wap": 0
       },
       "questionsAsked": [
-        "eitc.valid_ssn",
-        "eitc.child_relationship#1",
-        "eitc.child_residency#2"
+        "lifeline.tribal_lands",
+        "va_pension.wartime_veteran",
+        "eitc.claimed_as_dependent"
       ],
-      "firstQuestion": "eitc.valid_ssn",
+      "firstQuestion": "lifeline.tribal_lands",
       "criteriaEvaluated": 79,
-      "wallClockMs": 4421.608625,
-      "engineMs": 4372.036041,
+      "wallClockMs": 27262.599708,
+      "engineMs": 27169.530333,
       "passes": 4
     },
     {
@@ -1301,7 +1264,7 @@
         "wic": true,
         "school_meals": true,
         "csfp": false,
-        "liheap": true,
+        "liheap": false,
         "head_start": true,
         "medicare_savings": false,
         "extra_help": false,
@@ -1312,7 +1275,7 @@
         "va_pension": false,
         "summer_ebt": true,
         "sfmnp": false,
-        "cacfp": false,
+        "cacfp": true,
         "fdpir": false,
         "wap": true
       },
@@ -1386,15 +1349,14 @@
         "wap": 0
       },
       "questionsAsked": [
-        "eitc.valid_ssn",
-        "eitc.child_relationship#1",
-        "eitc.child_relationship#2"
+        "va_pension.wartime_veteran",
+        "lifeline.one_per_household"
       ],
-      "firstQuestion": "eitc.valid_ssn",
+      "firstQuestion": "va_pension.wartime_veteran",
       "criteriaEvaluated": 92,
-      "wallClockMs": 4419.7355,
-      "engineMs": 4353.980374999999,
-      "passes": 4
+      "wallClockMs": 21037.594709,
+      "engineMs": 20907.040000000008,
+      "passes": 3
     },
     {
       "id": "gh-021",
@@ -1448,7 +1410,7 @@
       "predictedValues": {
         "snap": 11460,
         "eitc": 7425,
-        "ctc": 6600,
+        "ctc": 4400,
         "lifeline": 111,
         "wic": 0,
         "school_meals": 0,
@@ -1492,14 +1454,14 @@
         "wap": 0
       },
       "questionsAsked": [
+        "va_pension.wartime_veteran",
         "eitc.valid_ssn",
-        "eitc.child_relationship#2",
-        "eitc.child_relationship#1"
+        "snap.member_student#0"
       ],
-      "firstQuestion": "eitc.valid_ssn",
+      "firstQuestion": "va_pension.wartime_veteran",
       "criteriaEvaluated": 92,
-      "wallClockMs": 4461.841041,
-      "engineMs": 4413.381334000001,
+      "wallClockMs": 26570.391791000002,
+      "engineMs": 26476.474082999994,
       "passes": 4
     },
     {
@@ -1513,7 +1475,7 @@
         "wic": false,
         "school_meals": true,
         "csfp": false,
-        "liheap": true,
+        "liheap": false,
         "head_start": false,
         "medicare_savings": false,
         "extra_help": false,
@@ -1598,14 +1560,14 @@
         "wap": 0
       },
       "questionsAsked": [
-        "eitc.valid_ssn",
-        "eitc.child_residency#1",
-        "eitc.child_relationship#1"
+        "va_pension.wartime_veteran",
+        "lifeline.tribal_lands",
+        "eitc.valid_ssn"
       ],
-      "firstQuestion": "eitc.valid_ssn",
+      "firstQuestion": "va_pension.wartime_veteran",
       "criteriaEvaluated": 66,
-      "wallClockMs": 5196.818208,
-      "engineMs": 5152.374625000001,
+      "wallClockMs": 32257.626958,
+      "engineMs": 32166.79108200001,
       "passes": 4
     },
     {
@@ -1704,15 +1666,14 @@
         "wap": 0
       },
       "questionsAsked": [
-        "eitc.child_residency#1",
-        "eitc.child_relationship#1",
-        "eitc.claimed_as_dependent"
+        "snap.member_citizenship#0",
+        "lifeline.one_per_household"
       ],
-      "firstQuestion": "eitc.child_residency#1",
+      "firstQuestion": "snap.member_citizenship#0",
       "criteriaEvaluated": 66,
-      "wallClockMs": 2359.8979170000002,
-      "engineMs": 2313.264792000001,
-      "passes": 4
+      "wallClockMs": 25892.452958,
+      "engineMs": 25818.85299999999,
+      "passes": 3
     },
     {
       "id": "gh-030",
@@ -1810,14 +1771,14 @@
         "wap": 0
       },
       "questionsAsked": [
-        "eitc.valid_ssn",
-        "eitc.child_residency#1",
-        "eitc.child_relationship#1"
+        "va_pension.wartime_veteran",
+        "lifeline.one_per_household",
+        "eitc.valid_ssn"
       ],
-      "firstQuestion": "eitc.valid_ssn",
+      "firstQuestion": "va_pension.wartime_veteran",
       "criteriaEvaluated": 66,
-      "wallClockMs": 3136.8860410000007,
-      "engineMs": 3097.5609160000004,
+      "wallClockMs": 22544.671958,
+      "engineMs": 22446.783457000012,
       "passes": 4
     },
     {
@@ -1915,12 +1876,16 @@
         "fdpir": 0,
         "wap": 0
       },
-      "questionsAsked": [],
-      "firstQuestion": null,
+      "questionsAsked": [
+        "lifeline.receives_snap",
+        "lifeline.receives_ssi",
+        "lifeline.receives_medicaid"
+      ],
+      "firstQuestion": "lifeline.receives_snap",
       "criteriaEvaluated": 59,
-      "wallClockMs": 767.9137919999994,
-      "engineMs": 762.4585000000006,
-      "passes": 1
+      "wallClockMs": 66371.97320800001,
+      "engineMs": 66311.47279099998,
+      "passes": 4
     },
     {
       "id": "gh-036",
@@ -2017,12 +1982,16 @@
         "fdpir": 0,
         "wap": 0
       },
-      "questionsAsked": [],
-      "firstQuestion": null,
+      "questionsAsked": [
+        "lifeline.receives_snap",
+        "lifeline.receives_medicaid",
+        "lifeline.receives_ssi"
+      ],
+      "firstQuestion": "lifeline.receives_snap",
       "criteriaEvaluated": 59,
-      "wallClockMs": 763.2046250000003,
-      "engineMs": 757.2181249999994,
-      "passes": 1
+      "wallClockMs": 57170.852917,
+      "engineMs": 57098.71508299999,
+      "passes": 4
     },
     {
       "id": "gh-039",
@@ -2119,12 +2088,15 @@
         "fdpir": 0,
         "wap": 0
       },
-      "questionsAsked": [],
-      "firstQuestion": null,
+      "questionsAsked": [
+        "lifeline.receives_snap",
+        "lifeline.receives_medicaid"
+      ],
+      "firstQuestion": "lifeline.receives_snap",
       "criteriaEvaluated": 59,
-      "wallClockMs": 801.6576670000004,
-      "engineMs": 797.9212500000003,
-      "passes": 1
+      "wallClockMs": 44568.542457999996,
+      "engineMs": 44497.64091599999,
+      "passes": 3
     },
     {
       "id": "gh-042",
@@ -2221,12 +2193,15 @@
         "fdpir": 0,
         "wap": 0
       },
-      "questionsAsked": [],
-      "firstQuestion": null,
+      "questionsAsked": [
+        "lifeline.receives_snap",
+        "lifeline.receives_medicaid"
+      ],
+      "firstQuestion": "lifeline.receives_snap",
       "criteriaEvaluated": 59,
-      "wallClockMs": 814.3729169999997,
-      "engineMs": 812.1549580000001,
-      "passes": 1
+      "wallClockMs": 41721.981333,
+      "engineMs": 41638.96999899999,
+      "passes": 3
     },
     {
       "id": "gh-045",
@@ -2323,12 +2298,16 @@
         "fdpir": 0,
         "wap": 0
       },
-      "questionsAsked": [],
-      "firstQuestion": null,
+      "questionsAsked": [
+        "lifeline.receives_snap",
+        "lifeline.receives_ssi",
+        "lifeline.receives_fpha"
+      ],
+      "firstQuestion": "lifeline.receives_snap",
       "criteriaEvaluated": 53,
-      "wallClockMs": 641.193166,
-      "engineMs": 639.8319169999995,
-      "passes": 1
+      "wallClockMs": 25383.150167,
+      "engineMs": 25346.952208000002,
+      "passes": 4
     },
     {
       "id": "gh-048",
@@ -2425,12 +2404,16 @@
         "fdpir": 0,
         "wap": 0
       },
-      "questionsAsked": [],
-      "firstQuestion": null,
+      "questionsAsked": [
+        "lifeline.receives_snap",
+        "lifeline.receives_ssi",
+        "lifeline.receives_fpha"
+      ],
+      "firstQuestion": "lifeline.receives_snap",
       "criteriaEvaluated": 53,
-      "wallClockMs": 855.0597090000001,
-      "engineMs": 853.0008330000001,
-      "passes": 1
+      "wallClockMs": 30153.542708000008,
+      "engineMs": 30110.312082999997,
+      "passes": 4
     },
     {
       "id": "gh-051",
@@ -2530,8 +2513,8 @@
       "questionsAsked": [],
       "firstQuestion": null,
       "criteriaEvaluated": 53,
-      "wallClockMs": 632.5153329999994,
-      "engineMs": 630.7970000000005,
+      "wallClockMs": 6505.644624999986,
+      "engineMs": 6498.780833000012,
       "passes": 1
     },
     {
@@ -2632,8 +2615,8 @@
       "questionsAsked": [],
       "firstQuestion": null,
       "criteriaEvaluated": 53,
-      "wallClockMs": 515.7952080000005,
-      "engineMs": 514.1920840000002,
+      "wallClockMs": 6001.117125000019,
+      "engineMs": 5989.570999999996,
       "passes": 1
     },
     {
@@ -2731,12 +2714,16 @@
         "fdpir": 0,
         "wap": 0
       },
-      "questionsAsked": [],
-      "firstQuestion": null,
+      "questionsAsked": [
+        "lifeline.receives_snap",
+        "lifeline.receives_ssi",
+        "lifeline.receives_medicaid"
+      ],
+      "firstQuestion": "lifeline.receives_snap",
       "criteriaEvaluated": 59,
-      "wallClockMs": 559.6137079999999,
-      "engineMs": 553.6405000000004,
-      "passes": 1
+      "wallClockMs": 59412.34675,
+      "engineMs": 59335.063001,
+      "passes": 4
     },
     {
       "id": "gh-060",
@@ -2836,8 +2823,8 @@
       "questionsAsked": [],
       "firstQuestion": null,
       "criteriaEvaluated": 53,
-      "wallClockMs": 903.2814590000007,
-      "engineMs": 900.7752920000003,
+      "wallClockMs": 8147.717457999999,
+      "engineMs": 8138.285666000011,
       "passes": 1
     },
     {
@@ -2851,7 +2838,7 @@
         "wic": false,
         "school_meals": false,
         "csfp": false,
-        "liheap": true,
+        "liheap": false,
         "head_start": false,
         "medicare_savings": false,
         "extra_help": false,
@@ -2936,13 +2923,15 @@
         "wap": 0
       },
       "questionsAsked": [
-        "lifeline.one_per_household"
+        "lifeline.tribal_lands",
+        "lifeline.one_per_household",
+        "va_pension.wartime_veteran"
       ],
-      "firstQuestion": "lifeline.one_per_household",
+      "firstQuestion": "lifeline.tribal_lands",
       "criteriaEvaluated": 53,
-      "wallClockMs": 1972.2667089999995,
-      "engineMs": 1297.472083999999,
-      "passes": 2
+      "wallClockMs": 48508.146916,
+      "engineMs": 48447.14199999999,
+      "passes": 4
     },
     {
       "id": "gh-066",
@@ -3041,13 +3030,14 @@
       },
       "questionsAsked": [
         "va_pension.wartime_veteran",
+        "lifeline.tribal_lands",
         "lifeline.one_per_household"
       ],
       "firstQuestion": "va_pension.wartime_veteran",
       "criteriaEvaluated": 53,
-      "wallClockMs": 1784.1255419999998,
-      "engineMs": 1753.4619579999999,
-      "passes": 3
+      "wallClockMs": 34060.36800000002,
+      "engineMs": 34004.39458299999,
+      "passes": 4
     },
     {
       "id": "gh-069",
@@ -3145,13 +3135,13 @@
         "wap": 0
       },
       "questionsAsked": [
-        "va_pension.wartime_veteran",
+        "lifeline.tribal_lands",
         "lifeline.one_per_household"
       ],
-      "firstQuestion": "va_pension.wartime_veteran",
+      "firstQuestion": "lifeline.tribal_lands",
       "criteriaEvaluated": 53,
-      "wallClockMs": 2275.782332999999,
-      "engineMs": 2249.009459,
+      "wallClockMs": 25936.991624999995,
+      "engineMs": 25878.681375999935,
       "passes": 3
     },
     {
@@ -3165,7 +3155,7 @@
         "wic": false,
         "school_meals": false,
         "csfp": false,
-        "liheap": true,
+        "liheap": false,
         "head_start": false,
         "medicare_savings": false,
         "extra_help": false,
@@ -3250,13 +3240,14 @@
         "wap": 0
       },
       "questionsAsked": [
+        "lifeline.tribal_lands",
         "lifeline.one_per_household"
       ],
-      "firstQuestion": "lifeline.one_per_household",
+      "firstQuestion": "lifeline.tribal_lands",
       "criteriaEvaluated": 53,
-      "wallClockMs": 2107.3112500000007,
-      "engineMs": 1425.5790000000006,
-      "passes": 2
+      "wallClockMs": 29114.63191700002,
+      "engineMs": 29045.263833000005,
+      "passes": 3
     },
     {
       "id": "gh-075",
@@ -3354,13 +3345,14 @@
         "wap": 0
       },
       "questionsAsked": [
-        "va_pension.wartime_veteran"
+        "lifeline.tribal_lands",
+        "lifeline.one_per_household"
       ],
-      "firstQuestion": "va_pension.wartime_veteran",
+      "firstQuestion": "lifeline.tribal_lands",
       "criteriaEvaluated": 53,
-      "wallClockMs": 1508.3094169999995,
-      "engineMs": 1488.8713740000003,
-      "passes": 2
+      "wallClockMs": 29391.743958999985,
+      "engineMs": 29345.317708000017,
+      "passes": 3
     },
     {
       "id": "gh-078",
@@ -3458,12 +3450,12 @@
         "wap": 0
       },
       "questionsAsked": [
-        "lifeline.one_per_household"
+        "lifeline.tribal_lands"
       ],
-      "firstQuestion": "lifeline.one_per_household",
+      "firstQuestion": "lifeline.tribal_lands",
       "criteriaEvaluated": 53,
-      "wallClockMs": 2124.0294170000006,
-      "engineMs": 1532.9280420000014,
+      "wallClockMs": 25710.703666999994,
+      "engineMs": 25669.292373999982,
       "passes": 2
     },
     {
@@ -3562,13 +3554,14 @@
         "wap": 0
       },
       "questionsAsked": [
+        "lifeline.tribal_lands",
         "lifeline.one_per_household"
       ],
-      "firstQuestion": "lifeline.one_per_household",
+      "firstQuestion": "lifeline.tribal_lands",
       "criteriaEvaluated": 53,
-      "wallClockMs": 2348.297957999999,
-      "engineMs": 1584.0764589999999,
-      "passes": 2
+      "wallClockMs": 40650.03020800001,
+      "engineMs": 40597.05783199999,
+      "passes": 3
     },
     {
       "id": "gh-084",
@@ -3666,13 +3659,14 @@
         "wap": 0
       },
       "questionsAsked": [
+        "lifeline.tribal_lands",
         "lifeline.one_per_household"
       ],
-      "firstQuestion": "lifeline.one_per_household",
+      "firstQuestion": "lifeline.tribal_lands",
       "criteriaEvaluated": 53,
-      "wallClockMs": 1843.4973330000012,
-      "engineMs": 1318.0316249999996,
-      "passes": 2
+      "wallClockMs": 32008.643458000006,
+      "engineMs": 31954.704875999974,
+      "passes": 3
     },
     {
       "id": "gh-087",
@@ -3770,13 +3764,14 @@
         "wap": 0
       },
       "questionsAsked": [
+        "lifeline.tribal_lands",
         "lifeline.one_per_household"
       ],
-      "firstQuestion": "lifeline.one_per_household",
+      "firstQuestion": "lifeline.tribal_lands",
       "criteriaEvaluated": 53,
-      "wallClockMs": 1585.9193749999995,
-      "engineMs": 1566.9189999999999,
-      "passes": 2
+      "wallClockMs": 27492.763624999992,
+      "engineMs": 27434.316165999975,
+      "passes": 3
     },
     {
       "id": "gh-090",
@@ -3874,13 +3869,13 @@
         "wap": 0
       },
       "questionsAsked": [
-        "va_pension.wartime_veteran",
+        "lifeline.tribal_lands",
         "lifeline.one_per_household"
       ],
-      "firstQuestion": "va_pension.wartime_veteran",
+      "firstQuestion": "lifeline.tribal_lands",
       "criteriaEvaluated": 53,
-      "wallClockMs": 2408.599292000001,
-      "engineMs": 1836.581333000001,
+      "wallClockMs": 32005.872833,
+      "engineMs": 31949.68854100001,
       "passes": 3
     },
     {
@@ -3979,14 +3974,15 @@
         "wap": 0
       },
       "questionsAsked": [
+        "lifeline.tribal_lands",
         "va_pension.wartime_veteran",
         "lifeline.one_per_household"
       ],
-      "firstQuestion": "va_pension.wartime_veteran",
+      "firstQuestion": "lifeline.tribal_lands",
       "criteriaEvaluated": 53,
-      "wallClockMs": 2112.139792,
-      "engineMs": 2088.517750000001,
-      "passes": 3
+      "wallClockMs": 45356.56333299997,
+      "engineMs": 45307.345040999964,
+      "passes": 4
     },
     {
       "id": "gh-096",
@@ -3999,7 +3995,7 @@
         "wic": false,
         "school_meals": false,
         "csfp": false,
-        "liheap": true,
+        "liheap": false,
         "head_start": false,
         "medicare_savings": false,
         "extra_help": false,
@@ -4084,13 +4080,14 @@
         "wap": 0
       },
       "questionsAsked": [
+        "lifeline.tribal_lands",
         "lifeline.one_per_household"
       ],
-      "firstQuestion": "lifeline.one_per_household",
+      "firstQuestion": "lifeline.tribal_lands",
       "criteriaEvaluated": 53,
-      "wallClockMs": 1736.2071670000005,
-      "engineMs": 1074.2993749999987,
-      "passes": 2
+      "wallClockMs": 42712.515208000026,
+      "engineMs": 42648.07420999996,
+      "passes": 3
     },
     {
       "id": "gh-099",
@@ -4188,20 +4185,22 @@
         "wap": 0
       },
       "questionsAsked": [
-        "lifeline.one_per_household"
+        "lifeline.one_per_household",
+        "va_pension.wartime_veteran",
+        "lifeline.tribal_lands"
       ],
       "firstQuestion": "lifeline.one_per_household",
       "criteriaEvaluated": 53,
-      "wallClockMs": 2331.2288750000007,
-      "engineMs": 1367.0577080000003,
-      "passes": 2
+      "wallClockMs": 47213.46666600002,
+      "engineMs": 47127.661334000004,
+      "passes": 4
     },
     {
       "id": "gh-103",
       "slice": "underspecified",
       "predicted": {
         "snap": true,
-        "eitc": false,
+        "eitc": true,
         "ctc": false,
         "lifeline": true,
         "wic": false,
@@ -4210,10 +4209,10 @@
         "liheap": true,
         "head_start": false,
         "medicare_savings": false,
-        "extra_help": true,
+        "extra_help": false,
         "medicaid": true,
         "chip": false,
-        "state_eitc": false,
+        "state_eitc": true,
         "cdctc": false,
         "va_pension": false,
         "summer_ebt": false,
@@ -4246,8 +4245,8 @@
         "wap": true
       },
       "predictedValues": {
-        "snap": 2136,
-        "eitc": 0,
+        "snap": 3240,
+        "eitc": 553.84,
         "ctc": 0,
         "lifeline": 111,
         "wic": 0,
@@ -4259,7 +4258,7 @@
         "extra_help": 0,
         "medicaid": 0,
         "chip": 0,
-        "state_eitc": 0,
+        "state_eitc": 166.15,
         "cdctc": 0,
         "va_pension": 0,
         "summer_ebt": 0,
@@ -4293,14 +4292,15 @@
       },
       "questionsAsked": [
         "va_pension.wartime_veteran",
-        "lifeline.one_per_household"
+        "snap.income_source",
+        "eitc.investment_income_over_limit"
       ],
       "firstQuestion": "va_pension.wartime_veteran",
       "loadBearingGap": "snap.income_source",
       "criteriaEvaluated": 53,
-      "wallClockMs": 2301.560375000001,
-      "engineMs": 1586.9925839999996,
-      "passes": 3
+      "wallClockMs": 41746.26133300003,
+      "engineMs": 41662.269457999995,
+      "passes": 4
     },
     {
       "id": "gh-106",
@@ -4398,15 +4398,15 @@
         "wap": 0
       },
       "questionsAsked": [
-        "snap.income_source",
         "va_pension.wartime_veteran",
-        "eitc.child_claimed_elsewhere#1"
+        "snap.income_source",
+        "lifeline.tribal_lands"
       ],
-      "firstQuestion": "snap.income_source",
+      "firstQuestion": "va_pension.wartime_veteran",
       "loadBearingGap": "snap.income_source",
       "criteriaEvaluated": 66,
-      "wallClockMs": 3752.724166,
-      "engineMs": 2864.898791999998,
+      "wallClockMs": 47441.50874999998,
+      "engineMs": 47346.288541000045,
       "passes": 4
     },
     {
@@ -4506,14 +4506,14 @@
       },
       "questionsAsked": [
         "snap.income_source",
-        "eitc.valid_ssn",
-        "eitc.child_residency#1"
+        "va_pension.wartime_veteran",
+        "lifeline.tribal_lands"
       ],
       "firstQuestion": "snap.income_source",
       "loadBearingGap": "snap.income_source",
       "criteriaEvaluated": 79,
-      "wallClockMs": 3297.847667,
-      "engineMs": 3235.5908340000005,
+      "wallClockMs": 34058.816584000015,
+      "engineMs": 33972.18108199997,
       "passes": 4
     },
     {
@@ -4534,7 +4534,7 @@
         "medicaid": true,
         "chip": true,
         "state_eitc": false,
-        "cdctc": true,
+        "cdctc": false,
         "va_pension": false,
         "summer_ebt": true,
         "sfmnp": false,
@@ -4580,7 +4580,7 @@
         "medicaid": 0,
         "chip": 0,
         "state_eitc": 0,
-        "cdctc": 1050,
+        "cdctc": 0,
         "va_pension": 0,
         "summer_ebt": 120,
         "sfmnp": 0,
@@ -4612,15 +4612,15 @@
         "wap": 0
       },
       "questionsAsked": [
-        "snap.income_source",
         "va_pension.wartime_veteran",
-        "cdctc.care_to_work"
+        "snap.income_source",
+        "snap.dependent_care_paid"
       ],
-      "firstQuestion": "snap.income_source",
+      "firstQuestion": "va_pension.wartime_veteran",
       "loadBearingGap": "snap.income_source",
       "criteriaEvaluated": 92,
-      "wallClockMs": 4474.573124999999,
-      "engineMs": 4403.288333,
+      "wallClockMs": 32746.012791000016,
+      "engineMs": 32638.405791000056,
       "passes": 4
     },
     {
@@ -4628,7 +4628,7 @@
       "slice": "underspecified",
       "predicted": {
         "snap": true,
-        "eitc": false,
+        "eitc": true,
         "ctc": false,
         "lifeline": true,
         "wic": false,
@@ -4637,10 +4637,10 @@
         "liheap": true,
         "head_start": false,
         "medicare_savings": false,
-        "extra_help": true,
+        "extra_help": false,
         "medicaid": true,
         "chip": false,
-        "state_eitc": false,
+        "state_eitc": true,
         "cdctc": false,
         "va_pension": true,
         "summer_ebt": false,
@@ -4673,8 +4673,8 @@
         "wap": true
       },
       "predictedValues": {
-        "snap": 468,
-        "eitc": 0,
+        "snap": 1872,
+        "eitc": 301.4,
         "ctc": 0,
         "lifeline": 111,
         "wic": 0,
@@ -4686,7 +4686,7 @@
         "extra_help": 0,
         "medicaid": 0,
         "chip": 0,
-        "state_eitc": 0,
+        "state_eitc": 90.42,
         "cdctc": 0,
         "va_pension": 1841,
         "summer_ebt": 0,
@@ -4720,14 +4720,15 @@
       },
       "questionsAsked": [
         "va_pension.wartime_veteran",
-        "lifeline.one_per_household"
+        "va_pension.care_level",
+        "snap.income_source"
       ],
       "firstQuestion": "va_pension.wartime_veteran",
       "loadBearingGap": "snap.income_source",
       "criteriaEvaluated": 53,
-      "wallClockMs": 3121.0121660000004,
-      "engineMs": 2428.792375000001,
-      "passes": 3
+      "wallClockMs": 40534.03791699995,
+      "engineMs": 40452.82175,
+      "passes": 4
     },
     {
       "id": "gh-118",
@@ -4825,22 +4826,23 @@
         "wap": 0
       },
       "questionsAsked": [
+        "va_pension.care_level",
         "va_pension.wartime_veteran",
-        "lifeline.one_per_household"
+        "lifeline.tribal_lands"
       ],
-      "firstQuestion": "va_pension.wartime_veteran",
+      "firstQuestion": "va_pension.care_level",
       "loadBearingGap": "snap.income_source",
       "criteriaEvaluated": 53,
-      "wallClockMs": 2433.897583,
-      "engineMs": 2402.356501,
-      "passes": 3
+      "wallClockMs": 41147.25275000004,
+      "engineMs": 41104.713624000025,
+      "passes": 4
     },
     {
       "id": "gh-121",
       "slice": "underspecified",
       "predicted": {
         "snap": true,
-        "eitc": false,
+        "eitc": true,
         "ctc": false,
         "lifeline": true,
         "wic": false,
@@ -4849,7 +4851,7 @@
         "liheap": true,
         "head_start": false,
         "medicare_savings": false,
-        "extra_help": true,
+        "extra_help": false,
         "medicaid": true,
         "chip": false,
         "state_eitc": false,
@@ -4885,8 +4887,8 @@
         "wap": true
       },
       "predictedValues": {
-        "snap": 3000,
-        "eitc": 0,
+        "snap": 3576,
+        "eitc": 553.84,
         "ctc": 0,
         "lifeline": 111,
         "wic": 0,
@@ -4932,14 +4934,15 @@
       },
       "questionsAsked": [
         "va_pension.wartime_veteran",
-        "lifeline.one_per_household"
+        "snap.income_source",
+        "eitc.investment_income_over_limit"
       ],
       "firstQuestion": "va_pension.wartime_veteran",
       "loadBearingGap": "snap.income_source",
       "criteriaEvaluated": 53,
-      "wallClockMs": 3068.070540999999,
-      "engineMs": 2214.064332,
-      "passes": 3
+      "wallClockMs": 41184.12941699999,
+      "engineMs": 41120.40720800002,
+      "passes": 4
     },
     {
       "id": "gh-124",
@@ -4950,7 +4953,7 @@
         "ctc": true,
         "lifeline": true,
         "wic": false,
-        "school_meals": false,
+        "school_meals": true,
         "csfp": false,
         "liheap": true,
         "head_start": false,
@@ -5038,14 +5041,14 @@
       },
       "questionsAsked": [
         "snap.income_source",
-        "va_pension.wartime_veteran",
-        "lifeline.one_per_household"
+        "lifeline.tribal_lands",
+        "va_pension.wartime_veteran"
       ],
       "firstQuestion": "snap.income_source",
       "loadBearingGap": "snap.income_source",
       "criteriaEvaluated": 66,
-      "wallClockMs": 3711.227917,
-      "engineMs": 2842.1350839999977,
+      "wallClockMs": 60000.74033300002,
+      "engineMs": 59887.5735,
       "passes": 4
     },
     {
@@ -5145,14 +5148,15 @@
       },
       "questionsAsked": [
         "va_pension.wartime_veteran",
+        "lifeline.tribal_lands",
         "lifeline.one_per_household"
       ],
       "firstQuestion": "va_pension.wartime_veteran",
       "loadBearingGap": "snap.income_source",
       "criteriaEvaluated": 53,
-      "wallClockMs": 2224.329291,
-      "engineMs": 2195.109625000003,
-      "passes": 3
+      "wallClockMs": 39845.40445899998,
+      "engineMs": 39802.4060410001,
+      "passes": 4
     },
     {
       "id": "gh-130",
@@ -5250,14 +5254,16 @@
         "wap": 0
       },
       "questionsAsked": [
-        "va_pension.wartime_veteran"
+        "va_pension.wartime_veteran",
+        "lifeline.tribal_lands",
+        "lifeline.one_per_household"
       ],
       "firstQuestion": "va_pension.wartime_veteran",
       "loadBearingGap": "snap.income_source",
       "criteriaEvaluated": 53,
-      "wallClockMs": 1207.5280829999992,
-      "engineMs": 1193.0857910000013,
-      "passes": 2
+      "wallClockMs": 37527.32491600001,
+      "engineMs": 37478.68450000003,
+      "passes": 4
     },
     {
       "id": "gh-133",
@@ -5356,13 +5362,13 @@
       },
       "questionsAsked": [
         "eitc.valid_ssn",
-        "eitc.child_relationship#1",
-        "eitc.child_residency#2"
+        "eitc.child_claimed_elsewhere#1",
+        "lifeline.one_per_household"
       ],
       "firstQuestion": "eitc.valid_ssn",
       "criteriaEvaluated": 79,
-      "wallClockMs": 3258.0104580000007,
-      "engineMs": 3189.982083000001,
+      "wallClockMs": 51670.64854199998,
+      "engineMs": 51552.93020999996,
       "passes": 4
     },
     {
@@ -5373,7 +5379,7 @@
         "eitc": true,
         "ctc": true,
         "lifeline": true,
-        "wic": false,
+        "wic": true,
         "school_meals": true,
         "csfp": false,
         "liheap": true,
@@ -5417,7 +5423,7 @@
       "predictedValues": {
         "snap": 8772,
         "eitc": 5762,
-        "ctc": 4400,
+        "ctc": 2200,
         "lifeline": 111,
         "wic": 0,
         "school_meals": 0,
@@ -5462,13 +5468,13 @@
       },
       "questionsAsked": [
         "eitc.valid_ssn",
-        "eitc.child_relationship#1",
-        "eitc.child_residency#2"
+        "va_pension.wartime_veteran",
+        "eitc.investment_income_over_limit"
       ],
       "firstQuestion": "eitc.valid_ssn",
       "criteriaEvaluated": 79,
-      "wallClockMs": 3370.9506249999995,
-      "engineMs": 3309.3151240000007,
+      "wallClockMs": 43574.453209,
+      "engineMs": 43483.03891799995,
       "passes": 4
     },
     {
@@ -5477,7 +5483,7 @@
       "predicted": {
         "snap": true,
         "eitc": true,
-        "ctc": false,
+        "ctc": true,
         "lifeline": true,
         "wic": true,
         "school_meals": false,
@@ -5523,7 +5529,7 @@
       "predictedValues": {
         "snap": 4380,
         "eitc": 4427,
-        "ctc": 0,
+        "ctc": 2200,
         "lifeline": 111,
         "wic": 0,
         "school_meals": 0,
@@ -5567,14 +5573,15 @@
         "wap": 0
       },
       "questionsAsked": [
-        "eitc.child_relationship#1",
-        "eitc.valid_ssn"
+        "eitc.investment_income_over_limit",
+        "eitc.claimed_as_dependent",
+        "lifeline.one_per_household"
       ],
-      "firstQuestion": "eitc.child_relationship#1",
+      "firstQuestion": "eitc.investment_income_over_limit",
       "criteriaEvaluated": 66,
-      "wallClockMs": 2249.825833000001,
-      "engineMs": 2212.7565010000017,
-      "passes": 3
+      "wallClockMs": 27007.97641599999,
+      "engineMs": 26910.30858499999,
+      "passes": 4
     },
     {
       "id": "gh-142",
@@ -5672,13 +5679,15 @@
         "wap": 0
       },
       "questionsAsked": [
-        "va_pension.wartime_veteran"
+        "va_pension.wartime_veteran",
+        "lifeline.tribal_lands",
+        "lifeline.one_per_household"
       ],
       "firstQuestion": "va_pension.wartime_veteran",
       "criteriaEvaluated": 53,
-      "wallClockMs": 1462.3547499999986,
-      "engineMs": 1445.2082499999997,
-      "passes": 2
+      "wallClockMs": 36179.119458,
+      "engineMs": 36129.30987499998,
+      "passes": 4
     },
     {
       "id": "gh-145",
@@ -5694,7 +5703,7 @@
         "liheap": true,
         "head_start": false,
         "medicare_savings": false,
-        "extra_help": true,
+        "extra_help": false,
         "medicaid": false,
         "chip": false,
         "state_eitc": false,
@@ -5776,13 +5785,15 @@
         "wap": 0
       },
       "questionsAsked": [
-        "va_pension.wartime_veteran"
+        "va_pension.wartime_veteran",
+        "lifeline.tribal_lands",
+        "lifeline.one_per_household"
       ],
       "firstQuestion": "va_pension.wartime_veteran",
       "criteriaEvaluated": 53,
-      "wallClockMs": 2075.75525,
-      "engineMs": 1337.9660010000007,
-      "passes": 2
+      "wallClockMs": 35323.59820800001,
+      "engineMs": 35265.78675000003,
+      "passes": 4
     },
     {
       "id": "gh-148",
@@ -5881,15 +5892,16 @@
       },
       "questionsAsked": [
         "va_pension.wartime_veteran",
-        "lifeline.one_per_household"
+        "va_pension.care_level",
+        "lifeline.tribal_lands"
       ],
       "firstQuestion": "va_pension.wartime_veteran",
       "criteriaEvaluated": 53,
-      "wallClockMs": 2150.05875,
-      "engineMs": 2121.5619180000012,
-      "passes": 3
+      "wallClockMs": 58209.37137499999,
+      "engineMs": 58161.95199900004,
+      "passes": 4
     }
   ],
-  "billedUSD": 0.0277,
-  "billedNote": "Input tokens at 0.042 USD per million (docs.typesafe.ai/models, read 2026-09-21); output tokens are not charged."
+  "billedUSD": 9.5557,
+  "billedNote": "OpenRouter key usage before and after the run (1.8252 to 11.3809 USD), read 2026-09-21."
 }

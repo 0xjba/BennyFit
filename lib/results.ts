@@ -98,6 +98,12 @@ export interface RunSummary {
   usage: { calls: number; inputTokens: number; outputTokens: number };
   generationFaults: Record<string, number> | null;
   tau: number;
+  /** What the run was actually charged, in dollars, and how that was established. */
+  billedUSD: number | null;
+  billedNote: string | null;
+  /** Of households missing a deciding fact: asked for it first, and asked for it at all. */
+  questionRelevance: number;
+  questionAskedAtAllRate: number;
 }
 
 function summaryOf(parsed: Record<string, unknown>): RunSummary {
@@ -115,6 +121,10 @@ function summaryOf(parsed: Record<string, unknown>): RunSummary {
     usage: (parsed.usage as RunSummary['usage']) ?? { calls: 0, inputTokens: 0, outputTokens: 0 },
     generationFaults: (parsed.generationFaults as Record<string, number> | null) ?? null,
     tau: Number(parsed.tau ?? 0),
+    billedUSD: typeof parsed.billedUSD === 'number' ? parsed.billedUSD : null,
+    billedNote: typeof parsed.billedNote === 'string' ? parsed.billedNote : null,
+    questionRelevance: Number(parsed.questionRelevance ?? 0),
+    questionAskedAtAllRate: Number(parsed.questionAskedAtAllRate ?? 0),
   };
 }
 
