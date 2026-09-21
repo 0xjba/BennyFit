@@ -153,7 +153,7 @@ function ChecksList({
   );
 }
 
-export function Screener({ asOf }: { asOf: string }) {
+export function Screener({ asOf, programCount }: { asOf: string; programCount: number }) {
   const [paragraph, setParagraph] = useState('');
   const [phase, setPhase] = useState<Phase>('empty');
   const [data, setData] = useState<ScreenResponse | null>(null);
@@ -252,7 +252,7 @@ export function Screener({ asOf }: { asOf: string }) {
           </p>
           <div className="row">
             <button className="btn" onClick={() => start(paragraph)} disabled={paragraph.trim().length === 0}>
-              Check all thirteen programs
+              Check all {programCount} programs
             </button>
           </div>
           <div className="samples">

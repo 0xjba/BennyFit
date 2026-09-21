@@ -247,7 +247,7 @@ export default function Landing() {
               <div className="num">2</div>
               <h3>Benny checks every rule at once</h3>
               <p>
-                Every eligibility rule across all thirteen programs is checked against that one
+                Every eligibility rule across all twenty-one programs is checked against that one
                 description together, not program by program. Income, deductions and thresholds
                 are calculated from the official tables, never estimated.
               </p>
@@ -410,7 +410,7 @@ export default function Landing() {
           <div className="cta-panel">
             <h2>See it on a real household.</h2>
             <p>
-              Type a situation in your own words and watch every rule across thirteen programs get
+              Type a situation in your own words and watch every rule across twenty-one programs get
               checked at once, under your state&rsquo;s own limits. It takes about thirty seconds.
             </p>
             <Link href="/demo" className="btn lg">

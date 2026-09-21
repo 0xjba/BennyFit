@@ -101,7 +101,7 @@ export function TypedIntake() {
       </div>
 
       <figcaption>
-        <strong>One paragraph.</strong> Every rule in all thirteen programs checked against
+        <strong>One paragraph.</strong> Every rule in all twenty-one programs checked against
         it at once, under Michigan&rsquo;s own limits, and one question asked because it was
         worth asking.
       </figcaption>
