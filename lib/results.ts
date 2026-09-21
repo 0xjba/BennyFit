@@ -139,12 +139,50 @@ export function readEngineRun(): RunSummary | null {
   }
 }
 
+/**
+ * The typed engine's run that the general-purpose model was compared against: same
+ * households, same rules, same version of the system. Kept apart from the latest run
+ * so the comparison stays like for like after the system moves on.
+ */
+export function readComparedEngineRun(): RunSummary | null {
+  try {
+    const parsed = JSON.parse(
+      readFileSync(join(process.cwd(), 'eval', 'runs', '2026-09-21-jev-holdout-compared.json'), 'utf8')
+    );
+    return summaryOf(parsed);
+  } catch {
+    return null;
+  }
+}
+
 /** The general-purpose model's run over the same held-out households, if one exists. */
 export function readBaselineRun(): RunSummary | null {
   try {
     const parsed = JSON.parse(readFileSync(join(process.cwd(), 'eval', 'baseline-results.json'), 'utf8'));
     if (!parsed?.endToEnd?.measured) return null;
     return summaryOf(parsed);
+  } catch {
+    return null;
+  }
+}
+
+/** The one scoring of the current held-out reading set by both readers. */
+export interface ReadingHoldout {
+  edition: number;
+  written: string;
+  codeParser: { correct: number; total: number; rate: number; byField: Record<string, { correct: number; total: number }> };
+  withEngine: {
+    correct: number;
+    total: number;
+    rate: number;
+    byField: Record<string, { correct: number; total: number }>;
+    misses: { id: string; field: string; expected: unknown; got: unknown }[];
+  };
+}
+
+export function readReadingHoldout(): ReadingHoldout | null {
+  try {
+    return JSON.parse(readFileSync(join(process.cwd(), 'eval', 'reading-holdout.json'), 'utf8')) as ReadingHoldout;
   } catch {
     return null;
   }

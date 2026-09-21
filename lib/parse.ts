@@ -11,7 +11,7 @@
  * field, not for a decision model.
  */
 
-export type Period = 'weekly' | 'biweekly' | 'monthly' | 'annual';
+export type Period = 'weekly' | 'biweekly' | 'semimonthly' | 'monthly' | 'annual';
 
 export interface ParsedFacts {
   /** The state whose rules apply, when the description names one. */
@@ -146,7 +146,9 @@ function periodNear(context: string): Period | null {
   if (/every\s*(two|2)\s*weeks|\bbi-?weekly\b|every other (week|mon|tue|wed|thu|fri|sat|sun)|fortnight/.test(context)) return 'biweekly';
   if (/\b(a|per|each|every)\s*week\b|\bweekly\b|\/\s*(?:wk|week)\b/.test(context)) return 'weekly';
   if (/every\s*(two|2)\s*weeks|\bbi-?weekly\b|every other (week|mon|tue|wed|thu|fri|sat|sun)|fortnight/.test(context)) return 'biweekly';
-  if (/twice a month|twice monthly|semi-?monthly|1st and (the )?15th/.test(context)) return 'monthly';
+  // Twice a month is 24 paychecks a year, not 12. Reading "$1,350 on the 1st and the
+  // 15th" as $1,350 a month halved the income.
+  if (/twice a month|twice monthly|semi-?monthly|1st and (the )?15th|15th and (the )?(last|30th|end)/.test(context)) return 'semimonthly';
   if (/\b(a|per|each|every)\s*month\b|\bmonthly\b|\/\s*mo(?:nth)?\b|a month/.test(context)) return 'monthly';
   if (/\b(a|per|each)\s*year\b|\bannually\b|\bannual\b|\/\s*(?:yr|year)\b|a year/.test(context)) return 'annual';
   return null;
@@ -159,6 +161,8 @@ export function toMonthly(amount: number, period: Period): number {
       return (amount * 52) / 12;
     case 'biweekly':
       return (amount * 26) / 12;
+    case 'semimonthly':
+      return amount * 2;
     case 'monthly':
       return amount;
     case 'annual':

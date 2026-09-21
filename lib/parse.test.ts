@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { parseHousehold } from './parse';
+import { parseHousehold, toMonthly } from './parse';
 
 const facts = (text: string) => parseHousehold(text).facts;
 
@@ -188,5 +188,16 @@ describe('shapes from the fourth held-out set', () => {
     expect(f.incomeAmount).toBe(2450);
     expect(f.rentMonthly).toBe(1050);
     expect(f.householdSize).toBe(5);
+  });
+});
+
+describe('pay twice a month', () => {
+  it('is 24 paychecks a year, not 12', () => {
+    // "$1,350 on the 1st and the 15th" was read as $1,350 a month, half the income.
+    const f = facts('Single mom of one in Florida. I get paid $1,350 on the 1st and the 15th.');
+    expect(f.incomeAmount).toBe(1350);
+    expect(f.incomePeriod).toBe('semimonthly');
+    expect(toMonthly(1350, 'semimonthly')).toBe(2700);
+    expect(facts('My paycheck is $1,600 twice a month.').incomePeriod).toBe('semimonthly');
   });
 });

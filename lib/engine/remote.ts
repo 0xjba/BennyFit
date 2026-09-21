@@ -93,6 +93,8 @@ const RETRY_STATUSES = new Set([429, 502, 503, 504, 529]);
 
 export class RemoteEngine implements EngineClient {
   readonly isFixture = false;
+  /** Returns distributions over the options asked, so it can read a paragraph too. */
+  readonly typedReadout = true;
 
   constructor(private readonly config: RemoteEngineConfig) {}
 

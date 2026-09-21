@@ -17,7 +17,7 @@
  * reported figure comes from `extraction-holdout.ts`, which may not be tuned against.
  */
 
-import { parseHousehold } from '@/lib/parse';
+import { ParseResult, parseHousehold, toMonthly } from '@/lib/parse';
 
 export interface ExtractionCase {
   id: string;
@@ -25,7 +25,7 @@ export interface ExtractionCase {
   expected: {
     householdSize?: number;
     incomeAmount?: number;
-    incomePeriod?: 'weekly' | 'biweekly' | 'monthly' | 'annual';
+    incomePeriod?: 'weekly' | 'biweekly' | 'semimonthly' | 'monthly' | 'annual';
     rentMonthly?: number;
     state?: string;
     childrenCount?: number;
@@ -333,7 +333,7 @@ export const EXTRACTION_CASES: ExtractionCase[] = [
   {
     id: 'k19',
     paragraph: 'Single mom of one in Florida. I get paid $1,350 on the 1st and the 15th. Rent is $1,500.',
-    expected: { householdSize: 2, incomeAmount: 1350, rentMonthly: 1500, state: 'Florida', childrenCount: 1 },
+    expected: { householdSize: 2, incomeAmount: 1350, incomePeriod: 'semimonthly', rentMonthly: 1500, state: 'Florida', childrenCount: 1 },
   },
   {
     id: 'k20',
@@ -376,7 +376,7 @@ export const EXTRACTION_CASES: ExtractionCase[] = [
   {
     id: 'm07',
     paragraph: 'We are a family of 5 in North Carolina. My paycheck is $1,600 twice a month. Rent is $1,350.',
-    expected: { householdSize: 5, incomeAmount: 1600, incomePeriod: 'monthly', rentMonthly: 1350, state: 'North Carolina' },
+    expected: { householdSize: 5, incomeAmount: 1600, incomePeriod: 'semimonthly', rentMonthly: 1350, state: 'North Carolina' },
   },
   {
     id: 'm08',
@@ -509,7 +509,7 @@ export const EXTRACTION_CASES: ExtractionCase[] = [
   {
     id: 'n13',
     paragraph: 'I get $2,100 on the 15th and the last day of each month. Living in Florida with my two sons. Rent is $1,650.',
-    expected: { householdSize: 3, incomeAmount: 2100, incomePeriod: 'monthly', rentMonthly: 1650, state: 'Florida', childrenCount: 2 },
+    expected: { householdSize: 3, incomeAmount: 2100, incomePeriod: 'semimonthly', rentMonthly: 1650, state: 'Florida', childrenCount: 2 },
   },
   {
     id: 'n14',
@@ -539,12 +539,114 @@ export const EXTRACTION_CASES: ExtractionCase[] = [
   {
     id: 'n19',
     paragraph: 'Semi-monthly paychecks of $1,400. Me, my husband, and 2 kids in Wyoming. Rent $1,000.',
-    expected: { householdSize: 4, incomeAmount: 1400, incomePeriod: 'monthly', rentMonthly: 1000, state: 'Wyoming', childrenCount: 2 },
+    expected: { householdSize: 4, incomeAmount: 1400, incomePeriod: 'semimonthly', rentMonthly: 1000, state: 'Wyoming', childrenCount: 2 },
   },
   {
     id: 'n20',
     paragraph: 'In Alaska with my wife and our twin girls. I earn $72,000 a year on the slope. Our rent is $1,900.',
     expected: { householdSize: 4, incomeAmount: 72000, incomePeriod: 'annual', rentMonthly: 1900, state: 'Alaska', childrenCount: 2 },
+  },
+  // The fifth held-out set, retired to development on 2026-09-21 once its misses had
+  // been read and discussed. It was scored once, by the code parser, at 89.7%.
+  {
+    id: 'p01',
+    paragraph: 'We live in St. Louis, MO. I make $2,700 a month and my rent is $1,000. I have 2 kids.',
+    expected: { householdSize: 3, incomeAmount: 2700, incomePeriod: 'monthly', rentMonthly: 1000, state: 'Missouri', childrenCount: 2 },
+  },
+  {
+    id: 'p02',
+    paragraph: "rent's $900 and i get about $1,300 a month from ssdi. just me in texas",
+    expected: { householdSize: 1, incomeAmount: 1300, incomePeriod: 'monthly', rentMonthly: 900, state: 'Texas' },
+  },
+  {
+    id: 'p03',
+    paragraph: 'Every Friday I get paid $480. I have a son and a daughter and we live in Maine. Rent runs $1,100.',
+    expected: { householdSize: 3, incomeAmount: 480, incomePeriod: 'weekly', rentMonthly: 1100, state: 'Maine', childrenCount: 2 },
+  },
+  {
+    id: 'p04',
+    paragraph: 'Husband, me and our boys (7 and 10) in Colorado. He makes $1.2k a week. Rent is $2,000.',
+    expected: { householdSize: 4, incomeAmount: 1200, incomePeriod: 'weekly', rentMonthly: 2000, state: 'Colorado', childrenCount: 2 },
+  },
+  {
+    id: 'p05',
+    paragraph: 'My wife and I foster two kids in Oregon. I earn $4,500 a month. Our mortgage payment is $1,650.',
+    expected: { householdSize: 4, incomeAmount: 4500, incomePeriod: 'monthly', rentMonthly: 1650, state: 'Oregon', childrenCount: 2 },
+  },
+  {
+    id: 'p06',
+    paragraph: 'I have a 17 year old in high school. We live in Iowa. I make $2,300 a month and pay $800 in rent.',
+    expected: { householdSize: 2, incomeAmount: 2300, incomePeriod: 'monthly', rentMonthly: 800, state: 'Iowa', childrenCount: 1 },
+  },
+  {
+    id: 'p07',
+    paragraph: 'I live with a roomate in Pennsylvania, we split everything. My income is $2,000 a month. My share of rent is $700.',
+    expected: { incomeAmount: 2000, incomePeriod: 'monthly', rentMonthly: 700, state: 'Pennsylvania' },
+  },
+  {
+    id: 'p08',
+    paragraph: 'Family of 6 in utah. My husband works and brings home $5,100 a month. Rent $1,750.',
+    expected: { householdSize: 6, incomeAmount: 5100, incomePeriod: 'monthly', rentMonthly: 1750, state: 'Utah' },
+  },
+  {
+    id: 'p09',
+    paragraph: 'I am a single father in Illinois. My three children are 3, 8 and 13. I earn $48,000 a year. Rent is $1,400 a month.',
+    expected: { householdSize: 4, incomeAmount: 48000, incomePeriod: 'annual', rentMonthly: 1400, state: 'Illinois', childrenCount: 3 },
+  },
+  {
+    id: 'p10',
+    paragraph: 'Retired, 75, widowed, in Florida. My Social Security check is $1,850 a month. I own my condo.',
+    expected: { householdSize: 1, incomeAmount: 1850, incomePeriod: 'monthly', state: 'Florida' },
+  },
+  {
+    id: 'p11',
+    paragraph: 'My partner and I both work in Virginia. He makes $2,600 a month and I make $1,900 a month. No kids. Rent is $1,500.',
+    expected: { householdSize: 2, rentMonthly: 1500, state: 'Virginia', childrenCount: 0 },
+  },
+  {
+    id: 'p12',
+    paragraph: 'I am 8 months pregnant and live with my mom in Mississippi. I make $1,100 a month. Rent is $600.',
+    expected: { householdSize: 2, incomeAmount: 1100, incomePeriod: 'monthly', rentMonthly: 600, state: 'Mississippi' },
+  },
+  {
+    id: 'p13',
+    paragraph: 'Our household: me, my wife, 3 kids, and my father-in-law. We are in Texas. I earn $4,200 a month. Mortgage $1,300.',
+    expected: { householdSize: 6, incomeAmount: 4200, incomePeriod: 'monthly', rentMonthly: 1300, state: 'Texas', childrenCount: 3 },
+  },
+  {
+    id: 'p14',
+    paragraph: 'Income $1,650 per month. Rent $1,025 per month. Household of two, my daughter and me, in Georgia.',
+    expected: { householdSize: 2, incomeAmount: 1650, incomePeriod: 'monthly', rentMonthly: 1025, state: 'Georgia' },
+  },
+  {
+    id: 'p15',
+    paragraph: 'I drive for a delivery app in Nevada, roughly $700 a week before gas. Me and my son. Rent is $1,300.',
+    expected: { householdSize: 2, incomeAmount: 700, incomePeriod: 'weekly', rentMonthly: 1300, state: 'Nevada', childrenCount: 1 },
+  },
+  {
+    id: 'p16',
+    paragraph: 'There are 3 adults in our house in Ohio: me, my brother and my aunt. Together we make $3,900 a month. Rent $1,200.',
+    expected: { householdSize: 3, incomeAmount: 3900, incomePeriod: 'monthly', rentMonthly: 1200, state: 'Ohio' },
+  },
+  {
+    id: 'p17',
+    paragraph: 'We are in South Carolina with our 4 month old. My husband makes $1,500 biweekly. Rent is $1,150.',
+    expected: { householdSize: 3, incomeAmount: 1500, incomePeriod: 'biweekly', rentMonthly: 1150, state: 'South Carolina', childrenCount: 1 },
+  },
+  {
+    id: 'p18',
+    paragraph: 'I make $31,000 a year in Kentucky. I live alone in a trailer and lot rent is $400.',
+    expected: { householdSize: 1, incomeAmount: 31000, incomePeriod: 'annual', rentMonthly: 400, state: 'Kentucky' },
+  },
+  {
+    id: 'p19',
+    paragraph: 'Me, my wife, and our five kids in Indiana. I make $920 a week. Rent is $1,300.',
+    expected: { householdSize: 7, incomeAmount: 920, incomePeriod: 'weekly', rentMonthly: 1300, state: 'Indiana', childrenCount: 5 },
+  },
+  {
+    id: 'p20',
+    paragraph: 'I earn $2,450 a month in Michigan and support my 2 younger siblings who live with me. Rent is $950.',
+    expected: { householdSize: 3, incomeAmount: 2450, incomePeriod: 'monthly', rentMonthly: 950, state: 'Michigan' },
   },
 ];
 
@@ -561,16 +663,41 @@ export interface ExtractionResult {
   fields: FieldResult[];
 }
 
-export function runExtraction(cases: ExtractionCase[] = EXTRACTION_CASES): {
+export function runExtraction(cases: ExtractionCase[] = EXTRACTION_CASES): ExtractionScore {
+  return scoreExtraction(cases, cases.map((c) => parseHousehold(c.paragraph).facts));
+}
+
+/** The same scoring, for a reader that needs the engine (see lib/read.ts). */
+export async function runExtractionWith(
+  cases: ExtractionCase[],
+  read: (paragraph: string) => Promise<ParseResult>,
+  concurrency = 8
+): Promise<ExtractionScore> {
+  const facts: ParseResult['facts'][] = new Array(cases.length);
+  let next = 0;
+  await Promise.all(
+    Array.from({ length: Math.min(concurrency, cases.length) }, async () => {
+      while (next < cases.length) {
+        const i = next++;
+        facts[i] = (await read(cases[i].paragraph)).facts;
+      }
+    })
+  );
+  return scoreExtraction(cases, facts);
+}
+
+export interface ExtractionScore {
   results: ExtractionResult[];
   byField: Record<string, { correct: number; total: number }>;
   overall: { correct: number; total: number };
-} {
+}
+
+function scoreExtraction(cases: ExtractionCase[], factsList: ParseResult['facts'][]): ExtractionScore {
   const results: ExtractionResult[] = [];
   const byField: Record<string, { correct: number; total: number }> = {};
 
-  for (const c of cases) {
-    const facts = parseHousehold(c.paragraph).facts;
+  cases.forEach((c, index) => {
+    const facts = factsList[index];
     const fields: FieldResult[] = [];
 
     for (const [field, expected] of Object.entries(c.expected)) {
@@ -585,8 +712,25 @@ export function runExtraction(cases: ExtractionCase[] = EXTRACTION_CASES): {
       if (correct) byField[field].correct += 1;
     }
 
+    // The monthly income both figures come to: what eligibility actually uses. "$740 a
+    // week" and "$3,206.67 a month" are the same income, and a reader that adds two
+    // weekly amounts into a month should not be marked wrong for choosing a different
+    // unit. Scored alongside the amount and period, not instead of them.
+    if (c.expected.incomeAmount !== undefined && c.expected.incomePeriod !== undefined) {
+      const expected = toMonthly(c.expected.incomeAmount, c.expected.incomePeriod);
+      const got =
+        facts.incomeAmount !== null && facts.incomePeriod !== null
+          ? toMonthly(facts.incomeAmount, facts.incomePeriod)
+          : null;
+      const correct = got !== null && Math.abs(got - expected) < 1;
+      fields.push({ field: 'incomeMonthly', expected: Math.round(expected * 100) / 100, got: got === null ? null : Math.round(got * 100) / 100, correct });
+      byField.incomeMonthly = byField.incomeMonthly ?? { correct: 0, total: 0 };
+      byField.incomeMonthly.total += 1;
+      if (correct) byField.incomeMonthly.correct += 1;
+    }
+
     results.push({ id: c.id, paragraph: c.paragraph, fields });
-  }
+  });
 
   const overall = Object.values(byField).reduce(
     (acc, f) => ({ correct: acc.correct + f.correct, total: acc.total + f.total }),

@@ -1,0 +1,109 @@
+{
+  "scoredAt": "2026-09-21T14:29:29.337Z",
+  "edition": 6,
+  "written": "2026-09-21",
+  "engine": "jev-1.13.0",
+  "note": "Scored once, by each reader, from the run logged in the commit that added this file.",
+  "codeParser": {
+    "correct": 104,
+    "total": 125,
+    "rate": 0.832,
+    "byField": {
+      "householdSize": {
+        "correct": 17,
+        "total": 19
+      },
+      "incomeAmount": {
+        "correct": 11,
+        "total": 17
+      },
+      "incomePeriod": {
+        "correct": 16,
+        "total": 19
+      },
+      "rentMonthly": {
+        "correct": 19,
+        "total": 19
+      },
+      "state": {
+        "correct": 20,
+        "total": 20
+      },
+      "childrenCount": {
+        "correct": 11,
+        "total": 14
+      },
+      "incomeMonthly": {
+        "correct": 10,
+        "total": 17
+      }
+    }
+  },
+  "withEngine": {
+    "correct": 120,
+    "total": 125,
+    "rate": 0.96,
+    "byField": {
+      "householdSize": {
+        "correct": 17,
+        "total": 19
+      },
+      "incomeAmount": {
+        "correct": 16,
+        "total": 17
+      },
+      "incomePeriod": {
+        "correct": 18,
+        "total": 19
+      },
+      "rentMonthly": {
+        "correct": 19,
+        "total": 19
+      },
+      "state": {
+        "correct": 20,
+        "total": 20
+      },
+      "childrenCount": {
+        "correct": 13,
+        "total": 14
+      },
+      "incomeMonthly": {
+        "correct": 17,
+        "total": 17
+      }
+    },
+    "misses": [
+      {
+        "id": "q04",
+        "field": "householdSize",
+        "expected": 5,
+        "got": null
+      },
+      {
+        "id": "q10",
+        "field": "childrenCount",
+        "expected": 0,
+        "got": "not logged (both readers wrong; the run printed only differences)"
+      },
+      {
+        "id": "q11",
+        "field": "incomeAmount",
+        "expected": 740,
+        "got": "not logged (both readers wrong; the run printed only differences)"
+      },
+      {
+        "id": "q11",
+        "field": "incomePeriod",
+        "expected": "weekly",
+        "got": "monthly"
+      },
+      {
+        "id": "q16",
+        "field": "householdSize",
+        "expected": 3,
+        "got": "not logged (both readers wrong; the run printed only differences)"
+      }
+    ]
+  }
+}

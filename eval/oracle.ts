@@ -195,6 +195,9 @@ export function oracleReply(instanceId: string, f: GoldFacts): string | null {
     case 'lifeline.one_per_household':
       return 'No, nobody here has that already.';
 
+    case 'household.size':
+      return `${f.householdSize} of us, counting me.`;
+
     case 'va_pension.wartime_veteran':
       return f.wartimeVeteran
         ? 'Yes, I served during wartime.'

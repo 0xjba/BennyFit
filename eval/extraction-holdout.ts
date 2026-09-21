@@ -1,124 +1,123 @@
 /**
- * The held-out extraction set, fifth edition.
+ * The held-out extraction set, sixth edition.
  *
- * Each earlier held-out set was scored once, exposed misses, was fixed against, and so
- * stopped being a measurement. All four now sit in the development set. These twenty
- * were written after the fourth round of fixes, without running them through the
- * parser first, and are scored once.
+ * Written on 2026-09-21 after the engine-assisted reader (lib/read.ts) was built and
+ * before either reader had seen any of it. It is scored once by each: the code parser
+ * on its own, and code with the engine choosing among candidates. That makes it the
+ * like-for-like comparison of the two on text neither was shaped by.
  *
- * The rule has not changed: the parser is not adjusted in response to these results.
- * The moment it is, this set joins the development set and a sixth has to be written.
+ * The rule has not changed: nothing is adjusted in response to these results. The
+ * moment anything is, this set joins the development set and a seventh is written.
  *
- * They use shapes absent from all hundred development cases: "St." inside a place
- * name, "rent's" and "rent runs", "every Friday", "$1.2k", foster children, a child
- * described only by age, children listed in brackets, a misspelled "roomate", lowercase
- * state names, and a partner described in the third person.
+ * Shapes absent from the 120 development cases: a range of pay, "every other week",
+ * tips on top of a wage, overtime, a pet in the list of who lives here, "a little over
+ * 2k", joint custody, a deployed spouse, child support received, "before taxes".
  */
 
 import type { ExtractionCase } from './extraction';
 
 export const HOLDOUT_WRITTEN = '2026-09-21';
-export const HOLDOUT_EDITION = 5;
+export const HOLDOUT_EDITION = 6;
 
 export const HOLDOUT_CASES: ExtractionCase[] = [
   {
-    id: 'p01',
-    paragraph: 'We live in St. Louis, MO. I make $2,700 a month and my rent is $1,000. I have 2 kids.',
-    expected: { householdSize: 3, incomeAmount: 2700, incomePeriod: 'monthly', rentMonthly: 1000, state: 'Missouri', childrenCount: 2 },
+    id: 'q01',
+    paragraph: 'Me, my son, and our dog in a small apartment in Ohio. I make $2,050 a month and rent is $795.',
+    expected: { householdSize: 2, incomeAmount: 2050, incomePeriod: 'monthly', rentMonthly: 795, state: 'Ohio', childrenCount: 1 },
   },
   {
-    id: 'p02',
-    paragraph: "rent's $900 and i get about $1,300 a month from ssdi. just me in texas",
-    expected: { householdSize: 1, incomeAmount: 1300, incomePeriod: 'monthly', rentMonthly: 900, state: 'Texas' },
+    id: 'q02',
+    paragraph: 'I get paid every other week, about $1,150 after taxes. It is just me and my daughter in Georgia. Our rent is $1,020.',
+    expected: { householdSize: 2, incomeAmount: 1150, incomePeriod: 'biweekly', rentMonthly: 1020, state: 'Georgia', childrenCount: 1 },
   },
   {
-    id: 'p03',
-    paragraph: 'Every Friday I get paid $480. I have a son and a daughter and we live in Maine. Rent runs $1,100.',
-    expected: { householdSize: 3, incomeAmount: 480, incomePeriod: 'weekly', rentMonthly: 1100, state: 'Maine', childrenCount: 2 },
+    id: 'q03',
+    paragraph: 'Waitress in Nevada. Base pay is about $900 a month and tips add around $1,100 a month. Two kids. Rent $1,450.',
+    expected: { householdSize: 3, incomeAmount: 2000, incomePeriod: 'monthly', rentMonthly: 1450, state: 'Nevada', childrenCount: 2 },
   },
   {
-    id: 'p04',
-    paragraph: 'Husband, me and our boys (7 and 10) in Colorado. He makes $1.2k a week. Rent is $2,000.',
-    expected: { householdSize: 4, incomeAmount: 1200, incomePeriod: 'weekly', rentMonthly: 2000, state: 'Colorado', childrenCount: 2 },
+    id: 'q04',
+    paragraph: 'My husband is deployed right now and I am home with our three kids in North Carolina. His pay comes to $3,400 a month. Rent is $1,275.',
+    expected: { householdSize: 5, incomeAmount: 3400, incomePeriod: 'monthly', rentMonthly: 1275, state: 'North Carolina', childrenCount: 3 },
   },
   {
-    id: 'p05',
-    paragraph: 'My wife and I foster two kids in Oregon. I earn $4,500 a month. Our mortgage payment is $1,650.',
-    expected: { householdSize: 4, incomeAmount: 4500, incomePeriod: 'monthly', rentMonthly: 1650, state: 'Oregon', childrenCount: 2 },
+    id: 'q05',
+    paragraph: 'I make somewhere between $1,600 and $1,900 a month depending on hours. Living alone in Missouri, rent is $650.',
+    expected: { householdSize: 1, incomePeriod: 'monthly', rentMonthly: 650, state: 'Missouri' },
   },
   {
-    id: 'p06',
-    paragraph: 'I have a 17 year old in high school. We live in Iowa. I make $2,300 a month and pay $800 in rent.',
-    expected: { householdSize: 2, incomeAmount: 2300, incomePeriod: 'monthly', rentMonthly: 800, state: 'Iowa', childrenCount: 1 },
+    id: 'q06',
+    paragraph: 'Retired couple in Arizona living on a little over 2k a month from Social Security. We rent a mobile home lot for $450.',
+    expected: { householdSize: 2, incomePeriod: 'monthly', rentMonthly: 450, state: 'Arizona' },
   },
   {
-    id: 'p07',
-    paragraph: 'I live with a roomate in Pennsylvania, we split everything. My income is $2,000 a month. My share of rent is $700.',
-    expected: { incomeAmount: 2000, incomePeriod: 'monthly', rentMonthly: 700, state: 'Pennsylvania' },
+    id: 'q07',
+    paragraph: 'I earn $52,000 a year before taxes as a medical assistant in Minnesota. I have my two boys. Our rent is $1,600 a month.',
+    expected: { householdSize: 3, incomeAmount: 52000, incomePeriod: 'annual', rentMonthly: 1600, state: 'Minnesota', childrenCount: 2 },
   },
   {
-    id: 'p08',
-    paragraph: 'Family of 6 in utah. My husband works and brings home $5,100 a month. Rent $1,750.',
-    expected: { householdSize: 6, incomeAmount: 5100, incomePeriod: 'monthly', rentMonthly: 1750, state: 'Utah' },
+    id: 'q08',
+    paragraph: 'Single dad in Kansas. I get $1,300 every two weeks and $400 a month in child support for my daughter. Rent is $875.',
+    expected: { householdSize: 2, rentMonthly: 875, state: 'Kansas', childrenCount: 1 },
   },
   {
-    id: 'p09',
-    paragraph: 'I am a single father in Illinois. My three children are 3, 8 and 13. I earn $48,000 a year. Rent is $1,400 a month.',
-    expected: { householdSize: 4, incomeAmount: 48000, incomePeriod: 'annual', rentMonthly: 1400, state: 'Illinois', childrenCount: 3 },
+    id: 'q09',
+    paragraph: 'We have joint custody so my two kids are with me half the week. I live in Oregon, make $2,900 a month, rent is $1,350.',
+    expected: { incomeAmount: 2900, incomePeriod: 'monthly', rentMonthly: 1350, state: 'Oregon' },
   },
   {
-    id: 'p10',
-    paragraph: 'Retired, 75, widowed, in Florida. My Social Security check is $1,850 a month. I own my condo.',
-    expected: { householdSize: 1, incomeAmount: 1850, incomePeriod: 'monthly', state: 'Florida' },
+    id: 'q10',
+    paragraph: 'I am 80 and my granddaughter, who is 19, lives with me in Pennsylvania. My Social Security is $1,480 a month. I own the house.',
+    expected: { householdSize: 2, incomeAmount: 1480, incomePeriod: 'monthly', state: 'Pennsylvania', childrenCount: 0 },
   },
   {
-    id: 'p11',
-    paragraph: 'My partner and I both work in Virginia. He makes $2,600 a month and I make $1,900 a month. No kids. Rent is $1,500.',
-    expected: { householdSize: 2, rentMonthly: 1500, state: 'Virginia', childrenCount: 0 },
+    id: 'q11',
+    paragraph: 'My regular pay is $640 a week and I usually get another $100 a week in overtime. Me and my wife in Texas. Rent $1,050.',
+    expected: { householdSize: 2, incomeAmount: 740, incomePeriod: 'weekly', rentMonthly: 1050, state: 'Texas' },
   },
   {
-    id: 'p12',
-    paragraph: 'I am 8 months pregnant and live with my mom in Mississippi. I make $1,100 a month. Rent is $600.',
-    expected: { householdSize: 2, incomeAmount: 1100, incomePeriod: 'monthly', rentMonthly: 600, state: 'Mississippi' },
+    id: 'q12',
+    paragraph: 'Household of six in Louisiana: my wife, our four children and me. Monthly income is $3,750. Rent $1,125.',
+    expected: { householdSize: 6, incomeAmount: 3750, incomePeriod: 'monthly', rentMonthly: 1125, state: 'Louisiana', childrenCount: 4 },
   },
   {
-    id: 'p13',
-    paragraph: 'Our household: me, my wife, 3 kids, and my father-in-law. We are in Texas. I earn $4,200 a month. Mortgage $1,300.',
-    expected: { householdSize: 6, incomeAmount: 4200, incomePeriod: 'monthly', rentMonthly: 1300, state: 'Texas', childrenCount: 3 },
+    id: 'q13',
+    paragraph: 'Rent is $980 and I pay my own electric, about $140 a month. I make $1,700 a month at a call center in Kentucky. I live alone.',
+    expected: { householdSize: 1, incomeAmount: 1700, incomePeriod: 'monthly', rentMonthly: 980, state: 'Kentucky' },
   },
   {
-    id: 'p14',
-    paragraph: 'Income $1,650 per month. Rent $1,025 per month. Household of two, my daughter and me, in Georgia.',
-    expected: { householdSize: 2, incomeAmount: 1650, incomePeriod: 'monthly', rentMonthly: 1025, state: 'Georgia' },
+    id: 'q14',
+    paragraph: 'Twins, both 3, and me in Maryland. I get paid $1,250 twice a month. Daycare is $900 a month for both. Rent $1,500.',
+    expected: { householdSize: 3, incomeAmount: 1250, incomePeriod: 'semimonthly', rentMonthly: 1500, state: 'Maryland', childrenCount: 2 },
   },
   {
-    id: 'p15',
-    paragraph: 'I drive for a delivery app in Nevada, roughly $700 a week before gas. Me and my son. Rent is $1,300.',
-    expected: { householdSize: 2, incomeAmount: 700, incomePeriod: 'weekly', rentMonthly: 1300, state: 'Nevada', childrenCount: 1 },
+    id: 'q15',
+    paragraph: 'I live with my girlfriend and her two kids in Indiana. I bring home $750 a week, she does not work. Our rent is $1,100.',
+    expected: { householdSize: 4, incomeAmount: 750, incomePeriod: 'weekly', rentMonthly: 1100, state: 'Indiana', childrenCount: 2 },
   },
   {
-    id: 'p16',
-    paragraph: 'There are 3 adults in our house in Ohio: me, my brother and my aunt. Together we make $3,900 a month. Rent $1,200.',
-    expected: { householdSize: 3, incomeAmount: 3900, incomePeriod: 'monthly', rentMonthly: 1200, state: 'Ohio' },
+    id: 'q16',
+    paragraph: 'Unemployment gives me $1,560 every two weeks in New Jersey. My husband and I have a 5 year old. Rent is $1,850.',
+    expected: { householdSize: 3, incomeAmount: 1560, incomePeriod: 'biweekly', rentMonthly: 1850, state: 'New Jersey', childrenCount: 1 },
   },
   {
-    id: 'p17',
-    paragraph: 'We are in South Carolina with our 4 month old. My husband makes $1,500 biweekly. Rent is $1,150.',
-    expected: { householdSize: 3, incomeAmount: 1500, incomePeriod: 'biweekly', rentMonthly: 1150, state: 'South Carolina', childrenCount: 1 },
+    id: 'q17',
+    paragraph: 'Seattle, WA. Just me. Salary is $61,000. Rent is $1,950 a month.',
+    expected: { householdSize: 1, incomeAmount: 61000, incomePeriod: 'annual', rentMonthly: 1950, state: 'Washington' },
   },
   {
-    id: 'p18',
-    paragraph: 'I make $31,000 a year in Kentucky. I live alone in a trailer and lot rent is $400.',
-    expected: { householdSize: 1, incomeAmount: 31000, incomePeriod: 'annual', rentMonthly: 400, state: 'Kentucky' },
+    id: 'q18',
+    paragraph: 'Me and my three nephews that I have guardianship of, in Alabama. I make about $2,200 a month. Rent runs $700.',
+    expected: { householdSize: 4, incomeAmount: 2200, incomePeriod: 'monthly', rentMonthly: 700, state: 'Alabama', childrenCount: 3 },
   },
   {
-    id: 'p19',
-    paragraph: 'Me, my wife, and our five kids in Indiana. I make $920 a week. Rent is $1,300.',
-    expected: { householdSize: 7, incomeAmount: 920, incomePeriod: 'weekly', rentMonthly: 1300, state: 'Indiana', childrenCount: 5 },
+    id: 'q19',
+    paragraph: 'I do rideshare in Colorado and clear roughly $1,000 every week after gas. Rent is $1,700. My partner and I have a baby.',
+    expected: { householdSize: 3, incomeAmount: 1000, incomePeriod: 'weekly', rentMonthly: 1700, state: 'Colorado', childrenCount: 1 },
   },
   {
-    id: 'p20',
-    paragraph: 'I earn $2,450 a month in Michigan and support my 2 younger siblings who live with me. Rent is $950.',
-    expected: { householdSize: 3, incomeAmount: 2450, incomePeriod: 'monthly', rentMonthly: 950, state: 'Michigan' },
+    id: 'q20',
+    paragraph: 'My income is SSI, $967 a month, plus I babysit for about $200 a month. I live in Mississippi with my adult son. Rent $500.',
+    expected: { householdSize: 2, incomeAmount: 1167, incomePeriod: 'monthly', rentMonthly: 500, state: 'Mississippi', childrenCount: 0 },
   },
 ];

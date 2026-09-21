@@ -1,7 +1,7 @@
 import Link from 'next/link';
 
 import { Masthead, SiteFooter } from '@/app/components/SiteChrome';
-import { readBaselineRun, readEngineRun, readResults } from '@/lib/results';
+import { readBaselineRun, readEngineRun, readReadingHoldout, readResults } from '@/lib/results';
 import { runConformance } from '@/eval/conformance';
 import { HOLDOUT_EDITION } from '@/eval/extraction-holdout';
 import { readFileSync } from 'node:fs';
@@ -64,12 +64,14 @@ const FIELD_LABELS: Record<string, string> = {
   rentMonthly: 'Housing cost',
   state: 'State',
   childrenCount: 'Number of children',
+  incomeMonthly: 'Income as a monthly figure',
 };
 
 export default function Results() {
   const results = readResults();
   const engineRun = readEngineRun();
   const baselineRun = readBaselineRun();
+  const reading = readReadingHoldout();
   const conformance = results?.conformance ?? null;
   const extraction = results?.extraction ?? null;
   // The case list is run live, so it always reflects the rules as they stand.
@@ -147,47 +149,56 @@ export default function Results() {
           <h3 style={{ marginTop: 48, fontSize: '1.15rem' }}>
             2. Can it read the facts out of real descriptions?
           </h3>
-          {extraction && (
-            <p className="big-figure">
-              {(extraction.holdout.rate * 100).toFixed(1)}%
-              <span> of facts read correctly</span>
-            </p>
-          )}
-          <p style={{ color: 'var(--ink-2)', marginTop: 8 }}>
-            Twenty descriptions written the way people actually write — &ldquo;me + 2 kids&rdquo;,
-            &ldquo;45k a year&rdquo;, &ldquo;rent&rsquo;s $900&rdquo;, a household size you have to count —
-            with the facts labelled by hand. They were written after the reading code was last
-            changed and scored once. The code is not adjusted in response to them. When it is,
-            the set moves into the development set and a new one is written: this is the
-            {' '}{ORDINALS[HOLDOUT_EDITION] ?? `${HOLDOUT_EDITION}th`} such set.
-          </p>
-          {extraction && (
+          {reading && reading.edition === HOLDOUT_EDITION ? (
             <>
+              <p className="big-figure">
+                {percent(reading.withEngine.rate)}
+                <span> of facts read correctly</span>
+              </p>
+              <p style={{ color: 'var(--ink-2)', marginTop: 8 }}>
+                Twenty descriptions written the way people actually write — &ldquo;base pay is
+                about $900 and tips add around $1,100&rdquo;, &ldquo;every other week, about $1,150
+                after taxes&rdquo;, &ldquo;me, my son, and our dog&rdquo; — with the facts labelled by
+                hand before anything read them, and scored once. This is the{' '}
+                {ORDINALS[HOLDOUT_EDITION] ?? `${HOLDOUT_EDITION}th`} such set: each earlier one
+                moved into the development set once it had been fixed against.
+              </p>
               <p style={{ color: 'var(--ink-2)', marginTop: 12 }}>
-                A separate development set, which the code <em>was</em> tuned against, scores{' '}
-                {(extraction.development.rate * 100).toFixed(1)}%. The gap between the two is the
-                point: it is exactly how much a number measured on the cases you tuned against
-                overstates how the system does on cases it has not seen.
+                Code finds every amount that could be money. The decision model says what each
+                one is — pay, rent, a utility bill, child care — and how often it is paid, as a
+                choice among fixed options, so it never writes a number and cannot garble one.
+                Code copies the amount and does every sum. Counting people stays in code; where
+                the model counts the household differently, the screener asks rather than
+                guesses. Pattern-matching code alone scores {percent(reading.codeParser.rate)} on
+                the same set.
               </p>
               <ul className="steps" style={{ marginTop: 18 }}>
-                {Object.entries(extraction.holdout.byField).map(([field, v]) => (
-                  <li key={field}>
-                    <span>{FIELD_LABELS[field] ?? field}</span>
-                    <span className="amt">
-                      {v.correct}/{v.total} ({((100 * v.correct) / v.total).toFixed(0)}%)
-                    </span>
-                  </li>
-                ))}
+                <li>
+                  <span><strong>Fact</strong></span>
+                  <span className="amt"><strong>With the model</strong> · code alone</span>
+                </li>
+                {Object.entries(reading.withEngine.byField).map(([field, v]) => {
+                  const c = reading.codeParser.byField[field];
+                  return (
+                    <li key={field}>
+                      <span>{FIELD_LABELS[field] ?? field}</span>
+                      <span className="amt">
+                        {v.correct}/{v.total} · {c ? `${c.correct}/${c.total}` : '—'}
+                      </span>
+                    </li>
+                  );
+                })}
               </ul>
               <p style={{ color: 'var(--ink-2)', marginTop: 14 }}>
-                Most misses leave a fact blank, and the screener then asks for it. A miss that
-                reads a fact wrongly is worse, because nothing prompts anyone to check it. Every
-                miss on the current set is listed below rather than quietly fixed.
+                A miss that leaves a fact blank makes the screener ask for it. A miss that reads
+                a fact wrongly is worse, because nothing prompts anyone to check it: code alone
+                read a $140 electric bill as one household&rsquo;s whole income. Every remaining
+                miss is listed rather than quietly fixed.
               </p>
               <details className="disclosure">
-                <summary>The {extraction.holdout.misses.length} facts it got wrong or missed</summary>
+                <summary>The {reading.withEngine.misses.length} facts it got wrong or missed</summary>
                 <ul className="steps">
-                  {extraction.holdout.misses.map((m) => (
+                  {reading.withEngine.misses.map((m) => (
                     <li key={`${m.id}-${m.field}`}>
                       <span>
                         {FIELD_LABELS[m.field] ?? m.field}
@@ -195,13 +206,20 @@ export default function Results() {
                         <span className="cite">case {m.id}</span>
                       </span>
                       <span className="amt">
-                        {m.got === null ? 'not read' : `read ${String(m.got)}`}, is {String(m.expected)}
+                        {m.got === null ? 'asked instead' : `read ${String(m.got)}`}, is {String(m.expected)}
                       </span>
                     </li>
                   ))}
                 </ul>
               </details>
             </>
+          ) : (
+            extraction && (
+              <p className="big-figure">
+                {(extraction.holdout.rate * 100).toFixed(1)}%
+                <span> of facts read correctly</span>
+              </p>
+            )
           )}
 
           {/* ---- 3. end to end ---- */}

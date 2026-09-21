@@ -1,0 +1,41 @@
+HELD-OUT set
+
+code parser: 104/125 (83.2%)
+  householdSize   17/19
+  incomeAmount    11/17
+  incomePeriod    16/19
+  rentMonthly     19/19
+  state           20/20
+  childrenCount   11/14
+  incomeMonthly   10/17
+
+code + jev: 120/125 (96.0%)
+  householdSize   17/19
+  incomeAmount    16/17
+  incomePeriod    18/19
+  rentMonthly     19/19
+  state           20/20
+  childrenCount   13/14
+  incomeMonthly   17/17
+
+where they differ:
+  q03 incomeAmount: expected 2000; code 900; reader 2000 ✓
+  q03 incomeMonthly: expected 2000; code 900; reader 2000 ✓
+  q04 householdSize: expected 5; code 5 ✓; reader null
+  q07 incomeAmount: expected 52000; code null; reader 52000 ✓
+  q07 incomePeriod: expected annual; code null; reader annual ✓
+  q07 incomeMonthly: expected 4333.33; code null; reader 4333.33 ✓
+  q11 incomePeriod: expected weekly; code weekly ✓; reader monthly
+  q11 incomeMonthly: expected 3206.67; code 2773.33; reader 3206.67 ✓
+  q13 incomeAmount: expected 1700; code 140; reader 1700 ✓
+  q13 incomeMonthly: expected 1700; code 140; reader 1700 ✓
+  q16 childrenCount: expected 1; code null; reader 1 ✓
+  q17 incomePeriod: expected annual; code null; reader annual ✓
+  q17 incomeMonthly: expected 5083.33; code null; reader 5083.33 ✓
+  q18 householdSize: expected 4; code null; reader 4 ✓
+  q18 childrenCount: expected 3; code null; reader 3 ✓
+  q19 incomeAmount: expected 1000; code null; reader 1000 ✓
+  q19 incomePeriod: expected weekly; code null; reader weekly ✓
+  q19 incomeMonthly: expected 4333.33; code null; reader 4333.33 ✓
+  q20 incomeAmount: expected 1167; code 967; reader 1167 ✓
+  q20 incomeMonthly: expected 1167; code 967; reader 1167 ✓

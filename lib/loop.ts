@@ -24,6 +24,27 @@ import {
 import { EngineClient, EngineQuestion, EngineRequest } from './engine/types';
 import { Answers, ScreeningState, Verdicts, evaluate, totalAnnualValue } from './evaluate';
 import { ParseResult, parseHousehold } from './parse';
+import { readHousehold, readsWithEngine } from './read';
+
+/**
+ * A paragraph is read once, not once per pass. The loop re-evaluates every criterion
+ * after each reply, but the paragraph itself has not changed, and reading it again
+ * would cost a request and could come back slightly different.
+ */
+const readings = new Map<string, Promise<ParseResult>>();
+function readOnce(paragraph: string, engine: EngineClient): Promise<ParseResult> {
+  const key = `${engine.name}\u0000${paragraph}`;
+  let reading = readings.get(key);
+  if (!reading) {
+    reading = readHousehold(paragraph, engine).catch((error) => {
+      readings.delete(key);
+      throw error;
+    });
+    readings.set(key, reading);
+    if (readings.size > 500) readings.delete(readings.keys().next().value!);
+  }
+  return reading;
+}
 import { screeningDate } from './today';
 import { Candidate, nextQuestion, reasonFor } from './voi';
 
@@ -187,6 +208,40 @@ export interface StepOptions {
   skipped?: string[];
 }
 
+export const HOUSEHOLD_SIZE_QUESTION = 'household.size';
+
+const SIZE_WORDS: Record<string, number> = {
+  one: 1, two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7, eight: 8, nine: 9, ten: 10,
+  eleven: 11, twelve: 12, 'just me': 1, 'only me': 1, alone: 1,
+};
+
+/** The number in a reply to "how many people live in your household?". */
+export function sizeFromReply(reply: string): number | null {
+  const digits = reply.match(/\b(\d{1,2})\b/);
+  if (digits) {
+    const n = Number(digits[1]);
+    return n >= 1 && n <= 20 ? n : null;
+  }
+  const lower = reply.toLowerCase();
+  for (const [word, n] of Object.entries(SIZE_WORDS)) if (new RegExp(`\\b${word}\\b`).test(lower)) return n;
+  return null;
+}
+
+function householdSizeCandidate(): Candidate {
+  return {
+    criterion: {
+      id: HOUSEHOLD_SIZE_QUESTION,
+      instanceId: HOUSEHOLD_SIZE_QUESTION,
+      subjectIndex: null,
+      subjectLabel: null,
+      askIfUnsure: 'How many people live in your household and share food, counting you?',
+    } as unknown as InstantiatedCriterion,
+    confidence: 0,
+    voi: { spreadCents: 0, expectedCents: 0, programsAffected: 0, byOption: {} },
+    presumed: false,
+  };
+}
+
 /**
  * One pass of the loop: read the state, evaluate every criterion, decide what to ask.
  *
@@ -203,7 +258,22 @@ export async function screenStep(
   const maxQuestions = options.maxQuestions ?? DEFAULT_MAX_QUESTIONS;
   const asOf = options.asOf ?? screeningDate();
 
-  const parse = parseHousehold(paragraph);
+  let parse = readsWithEngine(options.engine)
+    ? await readOnce(paragraph, options.engine)
+    : parseHousehold(paragraph);
+
+  // A household size nobody could read is asked for, and the number is taken from the
+  // reply in code. It used to fall back silently to one person, which sets every
+  // income limit for the wrong household.
+  const sizeReply = replies.find((r) => r.instanceId === HOUSEHOLD_SIZE_QUESTION);
+  const stated = sizeReply ? sizeFromReply(sizeReply.reply) : null;
+  if (parse.facts.householdSize === null && stated !== null) {
+    parse = {
+      ...parse,
+      facts: { ...parse.facts, householdSize: stated },
+      missing: parse.missing.filter((m) => m !== 'householdSize'),
+    };
+  }
   const shape = shapeOf(parse);
   const programs = loadPrograms();
   const criteria = instantiate(programs, shape);
@@ -219,10 +289,13 @@ export async function screenStep(
   // Both answered and declined questions are out: offering a skipped one again would
   // stall the loop on the first thing the household did not want to answer.
   const asked = new Set([...replies.map((r) => r.instanceId), ...(options.skipped ?? [])]);
+  const sizeUnknown = parse.facts.householdSize === null && !asked.has(HOUSEHOLD_SIZE_QUESTION);
   const next =
     replies.length >= maxQuestions
       ? null
-      : nextQuestion(state, answers, criteria, { tau, asked });
+      : sizeUnknown
+        ? householdSizeCandidate()
+        : nextQuestion(state, answers, criteria, { tau, asked });
 
   return {
     state,
@@ -231,7 +304,11 @@ export async function screenStep(
     answers,
     verdicts,
     next,
-    nextReason: next ? reasonFor(next, programNames) : null,
+    nextReason: next
+      ? next.criterion.instanceId === HOUSEHOLD_SIZE_QUESTION
+        ? 'the household size sets every income limit'
+        : reasonFor(next, programNames)
+      : null,
     engine: options.engine.name,
     isFixture: options.engine.isFixture,
     engineElapsedMs: response.elapsedMs,

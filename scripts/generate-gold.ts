@@ -138,6 +138,8 @@ function monthlyFromPeriod(monthly: number, period: Period): number {
       return (monthly * 12) / 26;
     case 'annual':
       return monthly * 12;
+    case 'semimonthly':
+      return monthly / 2;
     default:
       return monthly;
   }
@@ -396,7 +398,7 @@ function renderParagraph(f: GoldFacts, o: RenderOptions = {}): string {
   const total = f.earnedMonthly + f.unearnedMonthly;
   const period = o.statePeriod ?? 'monthly';
   const shown = monthlyFromPeriod(total, period);
-  const periodWord = { weekly: 'a week', biweekly: 'every two weeks', monthly: 'a month', annual: 'a year' }[period];
+  const periodWord = { weekly: 'a week', biweekly: 'every two weeks', semimonthly: 'twice a month', monthly: 'a month', annual: 'a year' }[period];
 
   // Opening: who is here
   if (f.householdSize === 1) {
