@@ -94,9 +94,9 @@ export function TypedIntake() {
       </div>
 
       <figcaption>
-        <strong>One paragraph.</strong> Every rule in all twenty-one programs checked against
+        <strong>A few sentences.</strong> Every rule in all twenty-one programs checked against
         it at once, under Michigan&rsquo;s own limits. A follow-up is asked only where the
-        answer could change what they get.
+        answer could change what the household gets.
       </figcaption>
     </figure>
   );

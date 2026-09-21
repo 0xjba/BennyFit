@@ -74,7 +74,7 @@ export default function Landing() {
             <div className="hero-grid">
               <div>
                 <span className="eyebrow">Benefits eligibility screening</span>
-                <h1>Every benefit they qualify for, from one paragraph.</h1>
+                <h1>Every benefit a household qualifies for, from a few sentences.</h1>
               </div>
               <div>
                 <p className="sub">
@@ -110,7 +110,7 @@ export default function Landing() {
       <section className="band tight">
         <div className="shell">
           <div className="band-head center">
-            <span className="eyebrow">What one paragraph is worth</span>
+            <span className="eyebrow">What a few sentences are worth</span>
             <h2>The money people are already entitled to.</h2>
           </div>
           <div className="statrow">
