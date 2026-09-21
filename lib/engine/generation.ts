@@ -70,6 +70,13 @@ export interface GenerationConfig {
    * and cost.
    */
   structured?: boolean;
+  /**
+   * Under a schema, how many criteria go in one call. Anthropic refuses a schema whose
+   * compiled grammar is too large, and a full screening of about 80 criteria, each
+   * with its own enum, is over that line. Batches run in parallel, and each carries the
+   * whole household description, so no batch answers with less to go on.
+   */
+  batchSize?: number;
 }
 
 /**
@@ -268,7 +275,35 @@ export class GenerationBaseline {
     return Boolean(this.config.apiKey);
   }
 
-  async run(
+  async run(state: string, questions: Record<string, EngineQuestion>): Promise<GenerationResult> {
+    const structured = this.config.structured ?? true;
+    const size = this.config.batchSize ?? 15;
+    const ids = Object.keys(questions);
+    if (!structured || ids.length <= size) return this.runOne(state, questions);
+
+    const batches: Record<string, EngineQuestion>[] = [];
+    for (let i = 0; i < ids.length; i += size) {
+      batches.push(Object.fromEntries(ids.slice(i, i + size).map((id) => [id, questions[id]])));
+    }
+    const started = performance.now();
+    const results = await Promise.all(batches.map((b) => this.runOne(state, b)));
+    const faults: Record<GenerationFault, number> = { unparseable: 0, missing: 0, crossWired: 0, invented: 0 };
+    for (const r of results) for (const k of Object.keys(faults) as GenerationFault[]) faults[k] += r.faults[k];
+    return {
+      model: this.config.model,
+      answers: Object.assign({}, ...results.map((r) => r.answers)),
+      elapsedMs: performance.now() - started,
+      usage: {
+        inputTokens: results.reduce((n, r) => n + r.usage.inputTokens, 0),
+        outputTokens: results.reduce((n, r) => n + r.usage.outputTokens, 0),
+      },
+      faults,
+      parsed: results.every((r) => r.parsed),
+      structured,
+    };
+  }
+
+  private async runOne(
     state: string,
     questions: Record<string, EngineQuestion>
   ): Promise<GenerationResult> {
@@ -297,7 +332,10 @@ export class GenerationBaseline {
         body: JSON.stringify({
           model: this.config.model,
           messages: [{ role: 'user', content: prompt }],
-          temperature: 0,
+          // No temperature: Claude Sonnet 5 does not accept one, and with
+          // require_parameters on, OpenRouter refuses a request carrying a parameter the
+          // model does not support rather than dropping it. Runs are therefore not
+          // guaranteed to repeat exactly, which the comparison reports.
           max_tokens: 8000,
           ...(structured
             ? {
@@ -315,8 +353,11 @@ export class GenerationBaseline {
       });
 
       if (!response.ok) {
+        // The body says why (an unknown model, no provider for the parameters asked
+        // for); a bare status code leaves that to guesswork.
+        const detail = (await response.text().catch(() => '')).slice(0, 2000);
         throw new EngineUnavailable(
-          `${this.config.name} returned ${response.status}.`,
+          `${this.config.name} returned ${response.status}.${detail ? ` ${detail}` : ''}`,
           response.status,
           response.status >= 500 || response.status === 429
         );
@@ -409,6 +450,7 @@ export function generationLanes(env: NodeJS.ProcessEnv = process.env): {
       model: env.OPENROUTER_MODEL || 'anthropic/claude-sonnet-5',
       apiKey: env.OPENROUTER_API_KEY,
       structured: env.OPENROUTER_STRUCTURED !== '0',
+      batchSize: Number(env.OPENROUTER_BATCH_SIZE) || undefined,
     }),
   };
 }
