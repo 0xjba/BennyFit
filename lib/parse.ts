@@ -14,6 +14,8 @@
 export type Period = 'weekly' | 'biweekly' | 'monthly' | 'annual';
 
 export interface ParsedFacts {
+  /** The state whose rules apply, when the description names one. */
+  state: string | null;
   householdSize: number | null;
   /** As written, before any period conversion. */
   incomeAmount: number | null;
@@ -111,6 +113,43 @@ export function toMonthly(amount: number, period: Period): number {
     case 'annual':
       return amount / 12;
   }
+}
+
+const STATES: Record<string, string> = {
+  al: 'Alabama', ak: 'Alaska', az: 'Arizona', ar: 'Arkansas', ca: 'California',
+  co: 'Colorado', ct: 'Connecticut', de: 'Delaware', dc: 'District of Columbia',
+  fl: 'Florida', ga: 'Georgia', hi: 'Hawaii', id: 'Idaho', il: 'Illinois',
+  ind: 'Indiana', ia: 'Iowa', ks: 'Kansas', ky: 'Kentucky', la: 'Louisiana',
+  me: 'Maine', md: 'Maryland', ma: 'Massachusetts', mi: 'Michigan', mn: 'Minnesota',
+  ms: 'Mississippi', mo: 'Missouri', mt: 'Montana', ne: 'Nebraska', nv: 'Nevada',
+  nh: 'New Hampshire', nj: 'New Jersey', nm: 'New Mexico', ny: 'New York',
+  nc: 'North Carolina', nd: 'North Dakota', oh: 'Ohio', ok: 'Oklahoma', or: 'Oregon',
+  pa: 'Pennsylvania', ri: 'Rhode Island', sc: 'South Carolina', sd: 'South Dakota',
+  tn: 'Tennessee', tx: 'Texas', ut: 'Utah', vt: 'Vermont', va: 'Virginia',
+  wa: 'Washington', wv: 'West Virginia', wi: 'Wisconsin', wy: 'Wyoming',
+};
+
+const STATE_NAMES = [...new Set(Object.values(STATES))];
+
+/**
+ * The state the household lives in, which decides several of the rules.
+ *
+ * Full names are matched first, because "Washington" is a state and "DC" is not part
+ * of it, and because an abbreviation like "in" or "or" would otherwise match ordinary
+ * words. Abbreviations are only accepted in the shapes people actually write them:
+ * after a comma, or in capitals.
+ */
+export function detectState(text: string): string | null {
+  // Longest first, so "West Virginia" is not read as "Virginia".
+  for (const name of [...STATE_NAMES].sort((a, b) => b.length - a.length)) {
+    if (new RegExp(`\\b${name}\\b`, 'i').test(text)) return name;
+  }
+  const abbreviation = text.match(/,\s*([A-Z]{2})\b|\bin\s+([A-Z]{2})\b/);
+  if (abbreviation) {
+    const code = (abbreviation[1] ?? abbreviation[2]).toLowerCase();
+    if (STATES[code]) return STATES[code];
+  }
+  return null;
 }
 
 const PROGRAM_PATTERNS: [string, RegExp][] = [
@@ -242,6 +281,7 @@ export function parseHousehold(paragraph: string): ParseResult {
 
   return {
     facts: {
+      state: detectState(text),
       householdSize,
       incomeAmount,
       incomePeriod,

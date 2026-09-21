@@ -1,0 +1,31 @@
+{
+  "id": "state_eitc",
+  "name": "State earned income credit",
+  "shortName": "State EITC",
+  "administeredBy": "State revenue departments",
+  "applyUrl": "https://www.irs.gov/credits-deductions/individuals/earned-income-tax-credit",
+  "ruleType": "stateEitc",
+  "thresholdFamily": "states",
+  "valueBasis": "A percentage of the federal Earned Income Tax Credit, set by the state.",
+  "criteria": [
+    {
+      "id": "state_eitc.files_state_return",
+      "scope": "household",
+      "type": "noul",
+      "instructions": "Would this household file a state income tax return? A state credit is claimed on the state return.",
+      "askIfUnsure": "Do you file a state tax return?",
+      "criteria": {
+        "true": "yes",
+        "false": "no"
+      },
+      "presumption": "true",
+      "assumption": "you file a state tax return",
+      "assumptionStrength": "routine",
+      "note": "A state credit has to be claimed on a state return, which most working households file."
+    }
+  ],
+  "computed": [
+    "state_eitc.has_state_credit"
+  ],
+  "verdict": "has_state_credit"
+}

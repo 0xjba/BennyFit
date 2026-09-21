@@ -197,7 +197,31 @@ export interface SnapResult {
   benefitUnavailableReason?: string;
 }
 
-export function snapEligibility(f: SnapFacts, t: SnapThresholds): SnapResult {
+/**
+ * What a state changes about SNAP.
+ *
+ * 44 of the 51 jurisdictions raise the gross income limit above the federal 130% of
+ * poverty through broad-based categorical eligibility, and most of those drop the
+ * asset test entirely. Screening everyone on the federal floor tells a household in
+ * Michigan they do not qualify when they do.
+ */
+export interface SnapStateRules {
+  name: string;
+  /** Gross income limit as a percentage of the poverty guideline. */
+  grossLimitPct: number;
+  /** The state's asset limit, or null where the state applies none. */
+  assetLimit: number | null;
+  assetTestApplies: boolean;
+  usesFederalRules: boolean;
+  /** Annual poverty guideline for this household size, for computing the limit. */
+  annualGuideline: number;
+}
+
+export function snapEligibility(
+  f: SnapFacts,
+  t: SnapThresholds,
+  state?: SnapStateRules
+): SnapResult {
   // A partial set is missing figures that the arithmetic needs, and which ones are
   // missing varies by household size. Rather than fail part-way through for some
   // households and succeed for others, refuse the whole set and point at the fallback.
@@ -221,9 +245,17 @@ export function snapEligibility(f: SnapFacts, t: SnapThresholds): SnapResult {
     });
     decidedBy = 'categorical eligibility';
   } else {
-    const limit = f.hasElderlyOrDisabledMember
+    // Most states with broad-based categorical eligibility drop the asset test.
+    if (state && !state.assetTestApplies) {
+      tests.push({
+        name: 'Resource test',
+        passed: true,
+        detail: `not applied: ${state.name} does not impose an asset limit for SNAP`,
+      });
+    } else {
+    const limit = state?.assetLimit ?? (f.hasElderlyOrDisabledMember
       ? t.resourceLimitElderlyDisabled
-      : t.resourceLimit;
+      : t.resourceLimit);
     if (limit !== null) {
       const passed = f.countableResourcesCents <= dollars(limit);
       tests.push({
@@ -235,15 +267,24 @@ export function snapEligibility(f: SnapFacts, t: SnapThresholds): SnapResult {
       });
       if (!passed) decidedBy = 'the resource test';
     }
+    }
 
     // A household with an elderly or disabled member is tested on net income only.
     if (!f.hasElderlyOrDisabledMember) {
-      const grossLimit = dollars(bySize(t.grossLimitBySize, f.householdSize));
+      // The state's limit where it publishes one, the federal table otherwise.
+      const grossLimit =
+        state && !state.usesFederalRules
+          ? dollars(Math.ceil((state.annualGuideline * state.grossLimitPct) / 100 / 12))
+          : dollars(bySize(t.grossLimitBySize, f.householdSize));
       const passed = income.grossCents <= grossLimit;
       tests.push({
         name: 'Gross income test',
         passed,
-        detail: `${formatDollars(income.grossCents)} against a ${formatDollars(grossLimit)} limit (130% of poverty)`,
+        detail:
+          `${formatDollars(income.grossCents)} against a ${formatDollars(grossLimit)} limit ` +
+          (state && !state.usesFederalRules
+            ? `(${state.grossLimitPct}% of poverty, the limit ${state.name} sets)`
+            : '(130% of poverty, the federal limit)'),
       });
       if (!passed) decidedBy = 'the gross income test';
     } else {

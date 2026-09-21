@@ -44,6 +44,8 @@ export interface ScreenResponse {
   asOf: string;
   thresholdLabel: string;
   thresholdNotice?: string;
+  /** The state whose rules were applied, or null when none was named. */
+  state: string | null;
   parse: {
     householdSize: number | null;
     incomeAmount: number | null;
@@ -156,6 +158,7 @@ export async function POST(request: NextRequest) {
       isFixture: step.isFixture,
       tau: step.tau,
       asOf,
+      state: step.parse.facts.state,
       thresholdLabel: active.set.label,
       thresholdNotice: active.notice,
       parse: {

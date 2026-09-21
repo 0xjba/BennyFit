@@ -1,0 +1,28 @@
+{
+  "id": "medicaid",
+  "name": "Medicaid health coverage",
+  "shortName": "Medicaid",
+  "administeredBy": "State Medicaid agencies, with federal funding",
+  "applyUrl": "https://www.healthcare.gov/lower-costs/",
+  "ruleType": "medicaid",
+  "thresholdFamily": "states",
+  "valueBasis": "Comprehensive health coverage. Not a payment, so no dollar figure is estimated.",
+  "criteria": [
+    {
+      "id": "medicaid.already_enrolled",
+      "scope": "household",
+      "type": "noul",
+      "instructions": "Does anyone in the household already have Medicaid?",
+      "askIfUnsure": "Does anyone here already have Medicaid?",
+      "criteria": {
+        "true": "yes, already covered",
+        "false": "no"
+      }
+    }
+  ],
+  "computed": [
+    "medicaid.covered_in_state",
+    "medicaid.income_test"
+  ],
+  "verdict": "covered_in_state AND income_test"
+}

@@ -1,0 +1,971 @@
+{
+  "id": "states-2026",
+  "label": "State variation, 2026",
+  "effectiveFrom": "2026-01-01",
+  "effectiveTo": "2026-12-31",
+  "readOn": "2026-09-21",
+  "sources": {
+    "snapBbce": "https://www.fna.usda.gov/snap/broad-based-categorical-eligibility",
+    "medicaidExpansion": "https://www.kff.org/status-of-state-medicaid-expansion-decisions/",
+    "stateEitc": "https://itep.org/state-earned-income-tax-credits-2027/"
+  },
+  "notes": {
+    "snapBbce": "Read from USDA's own chart of states operating broad-based categorical eligibility, which lists each state's TANF/MOE gross income limit and asset limit. A state absent from that chart applies the federal rules: 130% of poverty and the federal asset test.",
+    "medicaidExpansion": "Expansion states cover adults to 138% of poverty. Georgia and Wisconsin are not expansion states but cover adults to 100% through their own programmes, and Georgia attaches a work requirement.",
+    "stateEitc": "Percentages from ITEP. Where a state publishes more than one rate, the lowest is used so the estimate is never higher than what a household actually receives, and the full range is shown."
+  },
+  "states": {
+    "Alabama": {
+      "snap": {
+        "grossLimitPct": 130,
+        "assetLimit": null,
+        "usesFederalRules": false,
+        "assetTestApplies": false,
+        "variants": null
+      },
+      "medicaid": {
+        "covered": false,
+        "limitPct": null,
+        "note": "This state has not expanded Medicaid, so most adults without children do not qualify at any income."
+      },
+      "eitc": null
+    },
+    "Alaska": {
+      "snap": {
+        "grossLimitPct": 200,
+        "assetLimit": null,
+        "usesFederalRules": false,
+        "assetTestApplies": false,
+        "variants": null
+      },
+      "medicaid": {
+        "covered": true,
+        "limitPct": 138,
+        "note": null
+      },
+      "eitc": null
+    },
+    "Arizona": {
+      "snap": {
+        "grossLimitPct": 200,
+        "assetLimit": null,
+        "usesFederalRules": false,
+        "assetTestApplies": false,
+        "variants": null
+      },
+      "medicaid": {
+        "covered": true,
+        "limitPct": 138,
+        "note": null
+      },
+      "eitc": null
+    },
+    "Arkansas": {
+      "snap": {
+        "grossLimitPct": 165,
+        "assetLimit": 55002,
+        "usesFederalRules": false,
+        "assetTestApplies": true,
+        "variants": [
+          {
+            "applies": "All elderly or disabled households are eligible (brochure)",
+            "grossLimitPct": 165,
+            "assetLimit": 55002
+          },
+          {
+            "applies": "All non-elderly or disabled households are eligible (brochure)",
+            "grossLimitPct": 130,
+            "assetLimit": 55002
+          }
+        ]
+      },
+      "medicaid": {
+        "covered": true,
+        "limitPct": 138,
+        "note": null
+      },
+      "eitc": null
+    },
+    "California": {
+      "snap": {
+        "grossLimitPct": 200,
+        "assetLimit": null,
+        "usesFederalRules": false,
+        "assetTestApplies": false,
+        "variants": null
+      },
+      "medicaid": {
+        "covered": true,
+        "limitPct": 138,
+        "note": null
+      },
+      "eitc": {
+        "rate": 0.85,
+        "rateNote": null,
+        "refundable": true,
+        "refundabilityNote": "Yes"
+      }
+    },
+    "Colorado": {
+      "snap": {
+        "grossLimitPct": 200,
+        "assetLimit": null,
+        "usesFederalRules": false,
+        "assetTestApplies": false,
+        "variants": null
+      },
+      "medicaid": {
+        "covered": true,
+        "limitPct": 138,
+        "note": null
+      },
+      "eitc": {
+        "rate": 0.25,
+        "rateNote": null,
+        "refundable": true,
+        "refundabilityNote": "Yes"
+      }
+    },
+    "Connecticut": {
+      "snap": {
+        "grossLimitPct": 200,
+        "assetLimit": null,
+        "usesFederalRules": false,
+        "assetTestApplies": false,
+        "variants": null
+      },
+      "medicaid": {
+        "covered": true,
+        "limitPct": 138,
+        "note": null
+      },
+      "eitc": {
+        "rate": 0.4,
+        "rateNote": null,
+        "refundable": true,
+        "refundabilityNote": "Yes"
+      }
+    },
+    "Delaware": {
+      "snap": {
+        "grossLimitPct": 200,
+        "assetLimit": null,
+        "usesFederalRules": false,
+        "assetTestApplies": false,
+        "variants": null
+      },
+      "medicaid": {
+        "covered": true,
+        "limitPct": 138,
+        "note": null
+      },
+      "eitc": {
+        "rate": 0.045,
+        "rateNote": "4.5%; 20%",
+        "refundable": false,
+        "refundabilityNote": "Partially refundable"
+      }
+    },
+    "District of Columbia": {
+      "snap": {
+        "grossLimitPct": 200,
+        "assetLimit": null,
+        "usesFederalRules": false,
+        "assetTestApplies": false,
+        "variants": null
+      },
+      "medicaid": {
+        "covered": true,
+        "limitPct": 138,
+        "note": null
+      },
+      "eitc": {
+        "rate": 0.85,
+        "rateNote": "85%; 100%",
+        "refundable": true,
+        "refundabilityNote": "Yes"
+      }
+    },
+    "Florida": {
+      "snap": {
+        "grossLimitPct": 200,
+        "assetLimit": null,
+        "usesFederalRules": false,
+        "assetTestApplies": false,
+        "variants": null
+      },
+      "medicaid": {
+        "covered": false,
+        "limitPct": null,
+        "note": "This state has not expanded Medicaid, so most adults without children do not qualify at any income."
+      },
+      "eitc": null
+    },
+    "Georgia": {
+      "snap": {
+        "grossLimitPct": 130,
+        "assetLimit": null,
+        "usesFederalRules": false,
+        "assetTestApplies": false,
+        "variants": null
+      },
+      "medicaid": {
+        "covered": true,
+        "limitPct": 100,
+        "note": "Not an expansion state, but covers adults to 100% of poverty through its own programme."
+      },
+      "eitc": null
+    },
+    "Hawaii": {
+      "snap": {
+        "grossLimitPct": 200,
+        "assetLimit": null,
+        "usesFederalRules": false,
+        "assetTestApplies": false,
+        "variants": null
+      },
+      "medicaid": {
+        "covered": true,
+        "limitPct": 138,
+        "note": null
+      },
+      "eitc": {
+        "rate": 0.4,
+        "rateNote": null,
+        "refundable": true,
+        "refundabilityNote": "Yes"
+      }
+    },
+    "Idaho": {
+      "snap": {
+        "grossLimitPct": 130,
+        "assetLimit": 5000,
+        "usesFederalRules": false,
+        "assetTestApplies": true,
+        "variants": null
+      },
+      "medicaid": {
+        "covered": true,
+        "limitPct": 138,
+        "note": null
+      },
+      "eitc": null
+    },
+    "Illinois": {
+      "snap": {
+        "grossLimitPct": 165,
+        "assetLimit": null,
+        "usesFederalRules": false,
+        "assetTestApplies": false,
+        "variants": null
+      },
+      "medicaid": {
+        "covered": true,
+        "limitPct": 138,
+        "note": null
+      },
+      "eitc": {
+        "rate": 0.2,
+        "rateNote": "20%; 28%",
+        "refundable": true,
+        "refundabilityNote": "Yes"
+      }
+    },
+    "Indiana": {
+      "snap": {
+        "grossLimitPct": 130,
+        "assetLimit": 5000,
+        "usesFederalRules": false,
+        "assetTestApplies": true,
+        "variants": null
+      },
+      "medicaid": {
+        "covered": true,
+        "limitPct": 138,
+        "note": null
+      },
+      "eitc": {
+        "rate": 0.1,
+        "rateNote": null,
+        "refundable": true,
+        "refundabilityNote": "Yes"
+      }
+    },
+    "Iowa": {
+      "snap": {
+        "grossLimitPct": 160,
+        "assetLimit": null,
+        "usesFederalRules": false,
+        "assetTestApplies": false,
+        "variants": null
+      },
+      "medicaid": {
+        "covered": true,
+        "limitPct": 138,
+        "note": null
+      },
+      "eitc": {
+        "rate": 0.15,
+        "rateNote": null,
+        "refundable": true,
+        "refundabilityNote": "Yes"
+      }
+    },
+    "Kansas": {
+      "snap": {
+        "grossLimitPct": 130,
+        "assetLimit": null,
+        "usesFederalRules": true,
+        "assetTestApplies": true,
+        "variants": null
+      },
+      "medicaid": {
+        "covered": false,
+        "limitPct": null,
+        "note": "This state has not expanded Medicaid, so most adults without children do not qualify at any income."
+      },
+      "eitc": {
+        "rate": 0.17,
+        "rateNote": null,
+        "refundable": true,
+        "refundabilityNote": "Yes"
+      }
+    },
+    "Kentucky": {
+      "snap": {
+        "grossLimitPct": 200,
+        "assetLimit": null,
+        "usesFederalRules": false,
+        "assetTestApplies": false,
+        "variants": null
+      },
+      "medicaid": {
+        "covered": true,
+        "limitPct": 138,
+        "note": null
+      },
+      "eitc": null
+    },
+    "Louisiana": {
+      "snap": {
+        "grossLimitPct": 200,
+        "assetLimit": null,
+        "usesFederalRules": false,
+        "assetTestApplies": false,
+        "variants": null
+      },
+      "medicaid": {
+        "covered": true,
+        "limitPct": 138,
+        "note": null
+      },
+      "eitc": {
+        "rate": 0.05,
+        "rateNote": null,
+        "refundable": true,
+        "refundabilityNote": "Yes"
+      }
+    },
+    "Maine": {
+      "snap": {
+        "grossLimitPct": 200,
+        "assetLimit": null,
+        "usesFederalRules": false,
+        "assetTestApplies": false,
+        "variants": null
+      },
+      "medicaid": {
+        "covered": true,
+        "limitPct": 138,
+        "note": null
+      },
+      "eitc": {
+        "rate": 0.25,
+        "rateNote": "25%; 50%",
+        "refundable": true,
+        "refundabilityNote": "Yes"
+      }
+    },
+    "Maryland": {
+      "snap": {
+        "grossLimitPct": 200,
+        "assetLimit": null,
+        "usesFederalRules": false,
+        "assetTestApplies": false,
+        "variants": null
+      },
+      "medicaid": {
+        "covered": true,
+        "limitPct": 138,
+        "note": null
+      },
+      "eitc": {
+        "rate": 0.45,
+        "rateNote": "45%; 50%; 100%",
+        "refundable": true,
+        "refundabilityNote": "Yes"
+      }
+    },
+    "Massachusetts": {
+      "snap": {
+        "grossLimitPct": 200,
+        "assetLimit": null,
+        "usesFederalRules": false,
+        "assetTestApplies": false,
+        "variants": null
+      },
+      "medicaid": {
+        "covered": true,
+        "limitPct": 138,
+        "note": null
+      },
+      "eitc": {
+        "rate": 0.4,
+        "rateNote": null,
+        "refundable": true,
+        "refundabilityNote": "Yes"
+      }
+    },
+    "Michigan": {
+      "snap": {
+        "grossLimitPct": 200,
+        "assetLimit": null,
+        "usesFederalRules": false,
+        "assetTestApplies": false,
+        "variants": null
+      },
+      "medicaid": {
+        "covered": true,
+        "limitPct": 138,
+        "note": null
+      },
+      "eitc": {
+        "rate": 0.3,
+        "rateNote": null,
+        "refundable": true,
+        "refundabilityNote": "Yes"
+      }
+    },
+    "Minnesota": {
+      "snap": {
+        "grossLimitPct": 200,
+        "assetLimit": null,
+        "usesFederalRules": false,
+        "assetTestApplies": false,
+        "variants": null
+      },
+      "medicaid": {
+        "covered": true,
+        "limitPct": 138,
+        "note": null
+      },
+      "eitc": {
+        "rate": null,
+        "rateNote": "See Note",
+        "refundable": true,
+        "refundabilityNote": "Yes"
+      }
+    },
+    "Mississippi": {
+      "snap": {
+        "grossLimitPct": 130,
+        "assetLimit": null,
+        "usesFederalRules": true,
+        "assetTestApplies": true,
+        "variants": null
+      },
+      "medicaid": {
+        "covered": false,
+        "limitPct": null,
+        "note": "This state has not expanded Medicaid, so most adults without children do not qualify at any income."
+      },
+      "eitc": null
+    },
+    "Missouri": {
+      "snap": {
+        "grossLimitPct": 130,
+        "assetLimit": null,
+        "usesFederalRules": true,
+        "assetTestApplies": true,
+        "variants": null
+      },
+      "medicaid": {
+        "covered": true,
+        "limitPct": 138,
+        "note": null
+      },
+      "eitc": {
+        "rate": 0.2,
+        "rateNote": null,
+        "refundable": false,
+        "refundabilityNote": "Nonrefundable"
+      }
+    },
+    "Montana": {
+      "snap": {
+        "grossLimitPct": 200,
+        "assetLimit": null,
+        "usesFederalRules": false,
+        "assetTestApplies": false,
+        "variants": null
+      },
+      "medicaid": {
+        "covered": true,
+        "limitPct": 138,
+        "note": null
+      },
+      "eitc": {
+        "rate": 0.2,
+        "rateNote": null,
+        "refundable": true,
+        "refundabilityNote": "Yes"
+      }
+    },
+    "Nebraska": {
+      "snap": {
+        "grossLimitPct": 165,
+        "assetLimit": 25000,
+        "usesFederalRules": false,
+        "assetTestApplies": true,
+        "variants": null
+      },
+      "medicaid": {
+        "covered": true,
+        "limitPct": 138,
+        "note": null
+      },
+      "eitc": {
+        "rate": 0.1,
+        "rateNote": null,
+        "refundable": true,
+        "refundabilityNote": "Yes"
+      }
+    },
+    "Nevada": {
+      "snap": {
+        "grossLimitPct": 200,
+        "assetLimit": null,
+        "usesFederalRules": false,
+        "assetTestApplies": false,
+        "variants": null
+      },
+      "medicaid": {
+        "covered": true,
+        "limitPct": 138,
+        "note": null
+      },
+      "eitc": null
+    },
+    "New Hampshire": {
+      "snap": {
+        "grossLimitPct": 200,
+        "assetLimit": null,
+        "usesFederalRules": false,
+        "assetTestApplies": false,
+        "variants": null
+      },
+      "medicaid": {
+        "covered": true,
+        "limitPct": 138,
+        "note": null
+      },
+      "eitc": null
+    },
+    "New Jersey": {
+      "snap": {
+        "grossLimitPct": 185,
+        "assetLimit": null,
+        "usesFederalRules": false,
+        "assetTestApplies": false,
+        "variants": null
+      },
+      "medicaid": {
+        "covered": true,
+        "limitPct": 138,
+        "note": null
+      },
+      "eitc": {
+        "rate": 0.4,
+        "rateNote": null,
+        "refundable": true,
+        "refundabilityNote": "Yes"
+      }
+    },
+    "New Mexico": {
+      "snap": {
+        "grossLimitPct": 200,
+        "assetLimit": null,
+        "usesFederalRules": false,
+        "assetTestApplies": false,
+        "variants": null
+      },
+      "medicaid": {
+        "covered": true,
+        "limitPct": 138,
+        "note": null
+      },
+      "eitc": {
+        "rate": 0.25,
+        "rateNote": null,
+        "refundable": true,
+        "refundabilityNote": "Yes"
+      }
+    },
+    "New York": {
+      "snap": {
+        "grossLimitPct": 200,
+        "assetLimit": null,
+        "usesFederalRules": false,
+        "assetTestApplies": false,
+        "variants": [
+          {
+            "applies": "Households with dependent care expenses are eligible (\u201cHelping Hands\u201d brochure mailed yearly)",
+            "grossLimitPct": 200,
+            "assetLimit": null
+          },
+          {
+            "applies": "Households with earned income are eligible (\u201cHelping Hands\u201d brochure mailed yearly)",
+            "grossLimitPct": 150,
+            "assetLimit": null
+          }
+        ]
+      },
+      "medicaid": {
+        "covered": true,
+        "limitPct": 138,
+        "note": null
+      },
+      "eitc": {
+        "rate": 0.3,
+        "rateNote": null,
+        "refundable": true,
+        "refundabilityNote": "Yes"
+      }
+    },
+    "North Carolina": {
+      "snap": {
+        "grossLimitPct": 200,
+        "assetLimit": null,
+        "usesFederalRules": false,
+        "assetTestApplies": false,
+        "variants": null
+      },
+      "medicaid": {
+        "covered": true,
+        "limitPct": 138,
+        "note": null
+      },
+      "eitc": null
+    },
+    "North Dakota": {
+      "snap": {
+        "grossLimitPct": 200,
+        "assetLimit": null,
+        "usesFederalRules": false,
+        "assetTestApplies": false,
+        "variants": null
+      },
+      "medicaid": {
+        "covered": true,
+        "limitPct": 138,
+        "note": null
+      },
+      "eitc": null
+    },
+    "Ohio": {
+      "snap": {
+        "grossLimitPct": 130,
+        "assetLimit": null,
+        "usesFederalRules": false,
+        "assetTestApplies": false,
+        "variants": null
+      },
+      "medicaid": {
+        "covered": true,
+        "limitPct": 138,
+        "note": null
+      },
+      "eitc": {
+        "rate": 0.3,
+        "rateNote": null,
+        "refundable": false,
+        "refundabilityNote": "Nonrefundable"
+      }
+    },
+    "Oklahoma": {
+      "snap": {
+        "grossLimitPct": 130,
+        "assetLimit": null,
+        "usesFederalRules": false,
+        "assetTestApplies": false,
+        "variants": null
+      },
+      "medicaid": {
+        "covered": true,
+        "limitPct": 138,
+        "note": null
+      },
+      "eitc": {
+        "rate": 0.05,
+        "rateNote": null,
+        "refundable": true,
+        "refundabilityNote": "Yes"
+      }
+    },
+    "Oregon": {
+      "snap": {
+        "grossLimitPct": 200,
+        "assetLimit": null,
+        "usesFederalRules": false,
+        "assetTestApplies": false,
+        "variants": null
+      },
+      "medicaid": {
+        "covered": true,
+        "limitPct": 138,
+        "note": null
+      },
+      "eitc": {
+        "rate": 0.14,
+        "rateNote": "14%; 17%",
+        "refundable": true,
+        "refundabilityNote": "Yes"
+      }
+    },
+    "Pennsylvania": {
+      "snap": {
+        "grossLimitPct": 200,
+        "assetLimit": null,
+        "usesFederalRules": false,
+        "assetTestApplies": false,
+        "variants": null
+      },
+      "medicaid": {
+        "covered": true,
+        "limitPct": 138,
+        "note": null
+      },
+      "eitc": {
+        "rate": 0.1,
+        "rateNote": null,
+        "refundable": true,
+        "refundabilityNote": "Yes"
+      }
+    },
+    "Rhode Island": {
+      "snap": {
+        "grossLimitPct": 185,
+        "assetLimit": null,
+        "usesFederalRules": false,
+        "assetTestApplies": false,
+        "variants": null
+      },
+      "medicaid": {
+        "covered": true,
+        "limitPct": 138,
+        "note": null
+      },
+      "eitc": {
+        "rate": 0.16,
+        "rateNote": null,
+        "refundable": true,
+        "refundabilityNote": "Yes"
+      }
+    },
+    "South Carolina": {
+      "snap": {
+        "grossLimitPct": 130,
+        "assetLimit": null,
+        "usesFederalRules": false,
+        "assetTestApplies": false,
+        "variants": null
+      },
+      "medicaid": {
+        "covered": false,
+        "limitPct": null,
+        "note": "This state has not expanded Medicaid, so most adults without children do not qualify at any income."
+      },
+      "eitc": {
+        "rate": 1.25,
+        "rateNote": null,
+        "refundable": false,
+        "refundabilityNote": "Nonrefundable"
+      }
+    },
+    "South Dakota": {
+      "snap": {
+        "grossLimitPct": 130,
+        "assetLimit": null,
+        "usesFederalRules": true,
+        "assetTestApplies": true,
+        "variants": null
+      },
+      "medicaid": {
+        "covered": true,
+        "limitPct": 138,
+        "note": null
+      },
+      "eitc": null
+    },
+    "Tennessee": {
+      "snap": {
+        "grossLimitPct": 130,
+        "assetLimit": null,
+        "usesFederalRules": true,
+        "assetTestApplies": true,
+        "variants": null
+      },
+      "medicaid": {
+        "covered": false,
+        "limitPct": null,
+        "note": "This state has not expanded Medicaid, so most adults without children do not qualify at any income."
+      },
+      "eitc": null
+    },
+    "Texas": {
+      "snap": {
+        "grossLimitPct": 165,
+        "assetLimit": 5000,
+        "usesFederalRules": false,
+        "assetTestApplies": true,
+        "variants": null
+      },
+      "medicaid": {
+        "covered": false,
+        "limitPct": null,
+        "note": "This state has not expanded Medicaid, so most adults without children do not qualify at any income."
+      },
+      "eitc": null
+    },
+    "Utah": {
+      "snap": {
+        "grossLimitPct": 130,
+        "assetLimit": null,
+        "usesFederalRules": true,
+        "assetTestApplies": true,
+        "variants": null
+      },
+      "medicaid": {
+        "covered": true,
+        "limitPct": 138,
+        "note": null
+      },
+      "eitc": {
+        "rate": 0.2,
+        "rateNote": null,
+        "refundable": false,
+        "refundabilityNote": "Nonrefundable"
+      }
+    },
+    "Vermont": {
+      "snap": {
+        "grossLimitPct": 185,
+        "assetLimit": null,
+        "usesFederalRules": false,
+        "assetTestApplies": false,
+        "variants": null
+      },
+      "medicaid": {
+        "covered": true,
+        "limitPct": 138,
+        "note": null
+      },
+      "eitc": {
+        "rate": 0.38,
+        "rateNote": "38%; 100%",
+        "refundable": true,
+        "refundabilityNote": "Yes"
+      }
+    },
+    "Virginia": {
+      "snap": {
+        "grossLimitPct": 200,
+        "assetLimit": null,
+        "usesFederalRules": false,
+        "assetTestApplies": false,
+        "variants": null
+      },
+      "medicaid": {
+        "covered": true,
+        "limitPct": 138,
+        "note": null
+      },
+      "eitc": {
+        "rate": 0.2,
+        "rateNote": null,
+        "refundable": true,
+        "refundabilityNote": "Yes, until 2030"
+      }
+    },
+    "Washington": {
+      "snap": {
+        "grossLimitPct": 200,
+        "assetLimit": null,
+        "usesFederalRules": false,
+        "assetTestApplies": false,
+        "variants": null
+      },
+      "medicaid": {
+        "covered": true,
+        "limitPct": 138,
+        "note": null
+      },
+      "eitc": {
+        "rate": null,
+        "rateNote": "See Note",
+        "refundable": true,
+        "refundabilityNote": "Yes"
+      }
+    },
+    "West Virginia": {
+      "snap": {
+        "grossLimitPct": 200,
+        "assetLimit": null,
+        "usesFederalRules": false,
+        "assetTestApplies": false,
+        "variants": null
+      },
+      "medicaid": {
+        "covered": true,
+        "limitPct": 138,
+        "note": null
+      },
+      "eitc": null
+    },
+    "Wisconsin": {
+      "snap": {
+        "grossLimitPct": 200,
+        "assetLimit": null,
+        "usesFederalRules": false,
+        "assetTestApplies": false,
+        "variants": null
+      },
+      "medicaid": {
+        "covered": true,
+        "limitPct": 100,
+        "note": "Not an expansion state, but covers adults to 100% of poverty through its own programme."
+      },
+      "eitc": {
+        "rate": 0.04,
+        "rateNote": "34%; 11%; 4%",
+        "refundable": true,
+        "refundabilityNote": "Yes"
+      }
+    },
+    "Wyoming": {
+      "snap": {
+        "grossLimitPct": 130,
+        "assetLimit": null,
+        "usesFederalRules": true,
+        "assetTestApplies": true,
+        "variants": null
+      },
+      "medicaid": {
+        "covered": false,
+        "limitPct": null,
+        "note": "This state has not expanded Medicaid, so most adults without children do not qualify at any income."
+      },
+      "eitc": null
+    }
+  }
+}

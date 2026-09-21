@@ -207,13 +207,8 @@
         "true": "yes, over the limit",
         "false": "no, under the limit"
       },
-      "effect": {
-        "onTrue": [
-          "fail:snap"
-        ]
-      },
       "skipIf": "snap.categorical",
-      "note": "7 CFR 273.8(b). Most states have raised or removed this limit through broad-based categorical eligibility; this screening uses the federal floor.",
+      "note": "7 CFR 273.8(b). Whether an asset test applies at all is a state decision, so this feeds the resource test rather than disqualifying on its own: most states operating broad-based categorical eligibility impose no asset limit.",
       "presumption": "false",
       "assumption": "your savings are under the limit",
       "assumptionStrength": "material"

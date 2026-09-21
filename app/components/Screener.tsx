@@ -8,15 +8,15 @@ import { BennyAvatar } from './Logo';
 const SAMPLES: { tag: string; text: string }[] = [
   {
     tag: 'Retired, living alone — Benny asks one question here',
-    text: "I'm 62, live alone in Ohio, and get about $1,150 a month. Rent is $700 and I pay my own gas and electric.",
+    text: "I'm 71, live alone in Ohio, get about $1,150 a month from Social Security, and I'm on Medicare. Rent is $700 and I pay my own gas and electric.",
   },
   {
     tag: 'Working parent, paid weekly',
-    text: 'I work part time and make $430 a week. I have two kids, rent is $1,200 a month, and daycare costs $300.',
+    text: 'I work part time and make $430 a week. I have two kids aged 4 and 8, we live in Michigan, rent is $1,200 a month, and daycare costs $300.',
   },
   {
-    tag: 'Two earners, no children',
-    text: 'My husband and I both work, we bring in about $3,400 a month together, and we pay $1,500 rent.',
+    tag: 'The same household in Ohio — a different answer',
+    text: 'I work and make $3,200 a month. I have two kids aged 4 and 8, we live in Ohio, and rent is $1,400 a month. I have $6,000 saved.',
   },
 ];
 
@@ -287,6 +287,18 @@ export function Screener({ asOf }: { asOf: string }) {
             </div>
           )}
           {data.thresholdNotice && <div className="notice">{data.thresholdNotice}</div>}
+          {!data.state && (
+            <div className="notice">
+              No state was named, so federal minimum rules were used. 44 of the 51
+              jurisdictions are more generous than that — mention where you live and the
+              answer may change.
+            </div>
+          )}
+          {data.state && (
+            <p className="state-line">
+              Using <strong>{data.state}</strong> rules.
+            </p>
+          )}
 
           {phase !== 'results' && (
             <div className="counter">

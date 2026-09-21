@@ -33,6 +33,8 @@ const PROGRAMS = [
   'head_start',
   'medicare_savings',
   'extra_help',
+  'medicaid',
+  'state_eitc',
 ] as const;
 
 function loadGold(): GoldHousehold[] {

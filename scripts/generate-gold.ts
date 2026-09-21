@@ -38,6 +38,7 @@ import { Period } from '@/lib/parse';
 import {
   childTaxCredit,
   extraHelpEligibility,
+  fpgAnnual,
   fpgThresholdEligibility,
   medicareSavingsEligibility,
 } from '@/lib/compute-programs';
@@ -46,6 +47,7 @@ import {
   fpgProgramConfig,
   medicareThresholdsFor,
   povertyGuidelines,
+  stateRulesFor,
 } from '@/lib/thresholds';
 
 const AS_OF = '2026-09-21';
@@ -151,7 +153,21 @@ function truthFor(f: GoldFacts): {
     countableResourcesCents: dollars(f.savings),
     categoricallyEligible: f.categorical !== 'none',
   };
-  const snap = snapEligibility(snapFacts, snapSet);
+  const st = stateRulesFor(f.state, AS_OF);
+  const snap = snapEligibility(
+    snapFacts,
+    snapSet,
+    st
+      ? {
+          name: f.state,
+          grossLimitPct: st.snap.grossLimitPct,
+          assetLimit: st.snap.assetLimit,
+          assetTestApplies: st.snap.assetTestApplies,
+          usesFederalRules: st.snap.usesFederalRules,
+          annualGuideline: fpgAnnual(povertyGuidelines(), f.householdSize),
+        }
+      : undefined
+  );
 
   const eitcFacts: EitcFacts = {
     earnedAnnualCents: dollars(f.earnedMonthly * 12),
@@ -230,6 +246,26 @@ function truthFor(f: GoldFacts): {
     ctcThresholdsFor(AS_OF)
   );
 
+  const medicaidCovered = st?.medicaid.covered ?? false;
+  const medicaidLimit =
+    st?.medicaid.limitPct == null
+      ? null
+      : dollars(Math.round((fpgAnnual(fpgTable, f.householdSize) * st.medicaid.limitPct) / 100));
+  const medicaid = {
+    eligible: medicaidCovered && medicaidLimit !== null && annualIncome <= medicaidLimit,
+    annualValueCents: null,
+  };
+
+  const stateRate = st?.eitc?.rate ?? null;
+  const stateCredit =
+    stateRate !== null && eitc.eligible && eitc.annualValueCents
+      ? Math.round(eitc.annualValueCents * stateRate)
+      : 0;
+  const stateEitc = {
+    eligible: stateCredit > 0,
+    annualValueCents: stateCredit > 0 ? stateCredit : null,
+  };
+
   const extra: Record<string, { eligible: boolean; annualValueCents: number | null }> = {
     ctc,
     wic,
@@ -239,6 +275,8 @@ function truthFor(f: GoldFacts): {
     head_start: headStart,
     medicare_savings: msp,
     extra_help: extraHelp,
+    medicaid,
+    state_eitc: stateEitc,
   };
 
   const truth: GoldHousehold['truth'] = {

@@ -59,11 +59,11 @@ export const COMPARE_ROWS: CompareRow[] = [
       singlestop: { text: '20+', tone: 'good' },
       findhelp: { text: '10 core federal and state programs', tone: 'good' },
       mrelief: { text: 'SNAP only', tone: 'plain' },
-      bennyfit: { text: '11, each against its federal rule set', tone: 'good' },
+      bennyfit: { text: '13, each against its full rule set', tone: 'good' },
     },
     footnote:
-      'More than findhelp and mRelief, fewer than Single Stop. The difference is what a ' +
-      'program being "covered" means: these eleven are implemented against the ' +
+      'More than findhelp and mRelief, and closing on Single Stop. The difference is what ' +
+      'a program being "covered" means: these thirteen are implemented against the ' +
       'regulations, with the deductions, the thresholds and the arithmetic behind every ' +
       'figure, rather than screened at a yes-or-no level.',
   },
@@ -134,12 +134,18 @@ export const COMPARE_ROWS: CompareRow[] = [
       singlestop: { text: 'Not stated on the screener page', tone: 'plain' },
       findhelp: { text: 'All 50 states and DC', tone: 'good' },
       mrelief: { text: 'All 53 states and territories', tone: 'good' },
-      bennyfit: { text: 'Federal floor rules; state variation not yet modelled', tone: 'weak' },
+      bennyfit: {
+        text: 'All 50 states and DC, each with its own SNAP limits, Medicaid status and state credit',
+        tone: 'good',
+      },
     },
     footnote:
-      'The row where we are behind today, and the one to fix next. BennyFit applies ' +
-      'federal minimum rules, and 42 states and DC raise the SNAP income limit above that ' +
-      'floor. Every result says so on screen rather than quietly under-screening.',
+      'Covering every state and applying the same rules in each are different things. ' +
+      '44 of the 51 jurisdictions set a SNAP income limit above the federal 130%, and ' +
+      'most impose no asset test at all; 8 have not expanded Medicaid; 33 run their own ' +
+      'earned income credit. Those differences are read from USDA\u2019s own chart, from KFF ' +
+      'and from ITEP, so the same household gets a different and correct answer in ' +
+      'Michigan than in Ohio.',
   },
 ];
 

@@ -22,6 +22,8 @@ import liheap from '@/data/programs/liheap.json';
 import headStart from '@/data/programs/head_start.json';
 import medicareSavings from '@/data/programs/medicare_savings.json';
 import extraHelp from '@/data/programs/extra_help.json';
+import medicaid from '@/data/programs/medicaid.json';
+import stateEitc from '@/data/programs/state_eitc.json';
 
 export type CriterionType = 'noul' | 'choice' | 'score';
 export type Scope = 'household' | 'member' | 'child';
@@ -89,7 +91,16 @@ export interface Program {
    * guidelines, so `fpgThreshold` covers several of them from one implementation and
    * adding another of that shape is a data change rather than a code change.
    */
-  ruleType?: 'snap' | 'eitc' | 'lifeline' | 'ctc' | 'fpgThreshold' | 'medicareSavings' | 'extraHelp';
+  ruleType?:
+    | 'snap'
+    | 'eitc'
+    | 'lifeline'
+    | 'ctc'
+    | 'fpgThreshold'
+    | 'medicareSavings'
+    | 'extraHelp'
+    | 'medicaid'
+    | 'stateEitc';
   valueBasis: string;
   criteria: Criterion[];
   computed: string[];
@@ -116,6 +127,8 @@ const PROGRAMS = [
   headStart,
   medicareSavings,
   extraHelp,
+  medicaid,
+  stateEitc,
 ] as unknown as Program[];
 
 // ---------------------------------------------------------------------------

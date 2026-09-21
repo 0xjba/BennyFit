@@ -523,3 +523,5 @@ figcaption strong { color: var(--ink); font-weight: 700; }
 .conditions .cond-who { color: var(--ink-3); }
 .conditions-foot { display: block; margin-top: 9px; color: var(--ink-3); font-size: 0.83rem; }
 .tag-4 { right: -2px; top: 216px; background: var(--mint); color: var(--ink); animation-delay: 1060ms; }
+.state-line { font-size: 0.85rem; color: var(--ink-3); margin: 0 0 18px; }
+.state-line strong { color: var(--ink); font-weight: 600; }

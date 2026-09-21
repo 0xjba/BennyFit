@@ -16,12 +16,12 @@ export type Claim =
 export const CLAIMS: Record<string, Claim> = {
   programs: {
     status: 'measured',
-    value: '11',
+    value: '13',
     caption: 'benefit programs checked at once',
     source:
-      'SNAP, the Earned Income Tax Credit, the Child Tax Credit, Lifeline, WIC, school ' +
-      'meals, CSFP, LIHEAP, Head Start, Medicare Savings Programs and Extra Help, each ' +
-      'against its federal rule set.',
+      'SNAP, Medicaid, the Earned Income Tax Credit and its state equivalent, the Child ' +
+      'Tax Credit, Lifeline, WIC, school meals, CSFP, LIHEAP, Head Start, Medicare ' +
+      'Savings Programs and Extra Help.',
   },
 
   checks: {
@@ -35,27 +35,37 @@ export const CLAIMS: Record<string, Claim> = {
 
   averageValue: {
     status: 'measured',
-    value: '$10,418',
+    value: '$10,161',
     caption: 'average a qualifying household is entitled to, per year',
     source:
-      'Computed from the federal rules applied to the 150 validation households, not ' +
-      'from any model: 120 of them qualify for something, and the average of those is ' +
-      '$10,418 a year. The median is $5,912 and the largest is $26,186. These describe ' +
-      'the validation set, which is synthetic, rather than the population.',
+      'Computed from the rules applied to the 150 validation households, not from any ' +
+      'model: 120 of them qualify for something, and the average of those is ' +
+      '$10,161 a year. The median is $4,910 and the largest is $27,824. ' +
+      'These describe the validation set, which is synthetic, rather than the population.',
   },
 
   programsPerHousehold: {
     status: 'measured',
-    value: '4.3',
+    value: '4.9',
     caption: 'programs the average household qualifies for',
     source:
       'Across the 150 validation households. 120 of the 150 qualify for three or more.',
   },
 
+  coverage: {
+    status: 'measured',
+    value: '50 states + DC',
+    caption: 'with each state\u2019s own rules, not the federal minimum',
+    source:
+      'SNAP income and asset limits from USDA\u2019s own chart of states operating ' +
+      'broad-based categorical eligibility, Medicaid expansion status from KFF, and ' +
+      'state earned income credits from ITEP.',
+  },
+
   intake: {
     status: 'measured',
     value: '1',
-    caption: 'paragraph instead of eleven applications',
+    caption: 'paragraph instead of thirteen applications',
     source: 'The separate application paths cover dozens of questions between them.',
   },
 

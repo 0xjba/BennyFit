@@ -20,6 +20,7 @@ import fpgPrograms2026 from '@/data/thresholds/fpg-programs-2026.json';
 import medicare2026 from '@/data/thresholds/medicare-2026.json';
 import ctcTy2025 from '@/data/thresholds/ctc-ty2025.json';
 import ctcTy2026 from '@/data/thresholds/ctc-ty2026.json';
+import states2026 from '@/data/thresholds/states-2026.json';
 
 export type SetStatus = 'complete' | 'partial';
 
@@ -240,4 +241,48 @@ export function medicareThresholdsFor(isoDate: string): MedicareThresholds {
 
 export function ctcThresholdsFor(isoDate: string): CtcThresholds {
   return pick(CTC_SETS, isoDate, 'Child Tax Credit');
+}
+
+
+// ---------------------------------------------------------------------------
+// State variation
+// ---------------------------------------------------------------------------
+
+export interface StateRules {
+  snap: {
+    grossLimitPct: number;
+    assetLimit: number | null;
+    usesFederalRules: boolean;
+    assetTestApplies: boolean;
+    variants: { applies: string; grossLimitPct: number; assetLimit: number | null }[] | null;
+  };
+  medicaid: { covered: boolean; limitPct: number | null; note: string | null };
+  eitc: {
+    rate: number | null;
+    rateNote: string | null;
+    refundable: boolean;
+    refundabilityNote: string;
+  } | null;
+}
+
+const STATE_SETS = [states2026] as unknown as (Dated & {
+  id: string;
+  states: Record<string, StateRules>;
+  sources: Record<string, string>;
+})[];
+
+/**
+ * The rules for a named state, or null when the description did not name one.
+ *
+ * A screening with no state falls back to the federal floor, which under-screens in
+ * most of the country. The interface says so rather than letting it pass silently.
+ */
+export function stateRulesFor(state: string | null, isoDate: string): StateRules | null {
+  if (!state) return null;
+  const set = pick(STATE_SETS, isoDate, 'state');
+  return set.states[state] ?? null;
+}
+
+export function stateSources(isoDate: string): Record<string, string> {
+  return pick(STATE_SETS, isoDate, 'state').sources;
 }

@@ -7,7 +7,7 @@
  * value-of-information rule ask what a different answer would be worth.
  */
 
-import { Cents, dollars } from './money';
+import { Cents, dollars, formatDollars as formatCents } from './money';
 import {
   EitcFacts,
   FilingStatus,
@@ -38,10 +38,12 @@ import {
   lifelineThresholdsFor,
   medicareThresholdsFor,
   povertyGuidelines,
+  stateRulesFor,
 } from './thresholds';
 import {
   childTaxCredit,
   extraHelpEligibility,
+  fpgAnnual,
   fpgThresholdEligibility,
   medicareSavingsEligibility,
 } from './compute-programs';
@@ -410,6 +412,9 @@ const EVALUATION_ORDER = [
   'head_start',
   'medicare_savings',
   'extra_help',
+  'medicaid',
+  // Follows the federal credit it is a percentage of, so it is evaluated last.
+  'state_eitc',
 ];
 
 /** How many children satisfy every one of the named per-child criteria. */
@@ -478,6 +483,7 @@ function receivedPrograms(
 }
 
 export function evaluate(state: ScreeningState, answers: Answers): Verdicts {
+  const stateRules = stateRulesFor(state.facts.state, state.asOf);
   const programs = [...loadPrograms()].sort((a, b) => {
     const ai = EVALUATION_ORDER.indexOf(a.id);
     const bi = EVALUATION_ORDER.indexOf(b.id);
@@ -530,7 +536,37 @@ export function evaluate(state: ScreeningState, answers: Answers): Verdicts {
         categoricallyEligible: d.categoricallyEligible,
       };
 
-      const result = snapEligibility(facts, active.set);
+      const result = snapEligibility(
+        facts,
+        active.set,
+        stateRules
+          ? {
+              name: state.facts.state!,
+              grossLimitPct: stateRules.snap.grossLimitPct,
+              assetLimit: stateRules.snap.assetLimit,
+              assetTestApplies: stateRules.snap.assetTestApplies,
+              usesFederalRules: stateRules.snap.usesFederalRules,
+              annualGuideline: fpgAnnual(povertyGuidelines(), size),
+            }
+          : undefined
+      );
+      if (!stateRules) {
+        notes.push(
+          'No state was named, so federal minimum rules were used. Most states set a ' +
+            'higher income limit than this, so naming your state may change the answer.'
+        );
+      } else if (!stateRules.snap.usesFederalRules) {
+        const raised = stateRules.snap.grossLimitPct > 130;
+        const noAssets = !stateRules.snap.assetTestApplies;
+        notes.push(
+          raised
+            ? `${state.facts.state} raises the SNAP income limit to ${stateRules.snap.grossLimitPct}% of the ` +
+              `poverty guideline` + (noAssets ? ' and applies no asset limit.' : '.')
+            : noAssets
+              ? `${state.facts.state} keeps the federal income limit but applies no asset limit.`
+              : `${state.facts.state} applies the federal income limit.`
+        );
+      }
       steps = result.steps;
       tests = result.tests;
       annualValueCents = result.annualValueCents;
@@ -610,6 +646,86 @@ export function evaluate(state: ScreeningState, answers: Answers): Verdicts {
       if (result.valueNote) notes.push(result.valueNote);
       computed['qualifying_children'] = qualifying > 0;
       computed['income_test'] = result.eligible;
+    } else if (program.ruleType === 'medicaid') {
+      const guideline = fpgAnnual(povertyGuidelines(), size);
+      const covered = stateRules?.medicaid.covered ?? false;
+      const limitPct = stateRules?.medicaid.limitPct ?? null;
+      const limit = limitPct === null ? null : dollars(Math.round((guideline * limitPct) / 100));
+      const annualIncome = income.monthlyCents * 12;
+      const incomeOk = limit !== null && annualIncome <= limit;
+
+      tests = [
+        {
+          name: 'Coverage in this state',
+          passed: covered,
+          detail: stateRules
+            ? (stateRules.medicaid.note ??
+              `${state.facts.state} covers adults to ${limitPct}% of the poverty guideline`)
+            : 'no state was named, so this could not be decided',
+        },
+        {
+          name: 'Income test',
+          passed: incomeOk,
+          detail:
+            limit === null
+              ? 'no income limit applies because this state has not expanded coverage'
+              : `${formatCents(annualIncome)} a year against a ${formatCents(limit)} limit (${limitPct}% of poverty)`,
+        },
+      ];
+      decidedBy = !covered ? 'this state not having expanded coverage' : 'the income test';
+      computed['covered_in_state'] = covered;
+      computed['income_test'] = incomeOk;
+      if (covered && incomeOk) {
+        notes.push(
+          'Comprehensive health coverage rather than a payment, so no dollar figure is ' +
+            'estimated here.'
+        );
+      }
+      if (stateRules?.medicaid.note) notes.push(stateRules.medicaid.note);
+    } else if (program.ruleType === 'stateEitc') {
+      const rate = stateRules?.eitc?.rate ?? null;
+      const federal = verdicts['eitc'];
+      const federalValue = federal?.eligible ? (federal.annualValueCents ?? 0) : 0;
+      const credit = rate === null ? 0 : Math.round(federalValue * rate);
+
+      tests = [
+        {
+          name: 'State has its own credit',
+          passed: Boolean(stateRules?.eitc),
+          detail: stateRules?.eitc
+            ? `${state.facts.state} matches ${
+                stateRules.eitc.rateNote ?? `${Math.round((rate ?? 0) * 100)}%`
+              } of the federal credit`
+            : state.facts.state
+              ? `${state.facts.state} does not offer a state earned income credit`
+              : 'no state was named, so this could not be decided',
+        },
+        {
+          name: 'Qualifies for the federal credit',
+          passed: Boolean(federal?.eligible),
+          detail: federal?.eligible
+            ? 'the state credit is a percentage of the federal one'
+            : 'a state credit follows the federal credit, which this household does not qualify for',
+        },
+      ];
+      annualValueCents = credit > 0 ? credit : null;
+      monthlyValueCents = credit > 0 ? Math.round(credit / 12) : null;
+      decidedBy = !stateRules?.eitc ? 'this state not having its own credit' : 'the federal credit it follows';
+      computed['has_state_credit'] = Boolean(stateRules?.eitc) && credit > 0;
+      if (credit > 0 && stateRules?.eitc) {
+        if (stateRules.eitc.rateNote) {
+          notes.push(
+            `${state.facts.state} publishes more than one rate (${stateRules.eitc.rateNote}); the ` +
+              'lowest is used here, so the real credit may be larger.'
+          );
+        }
+        if (!stateRules.eitc.refundable) {
+          notes.push(
+            `This credit is ${stateRules.eitc.refundabilityNote.toLowerCase()}, so it reduces tax owed ` +
+              'rather than arriving as a refund.'
+          );
+        }
+      }
     } else if (program.ruleType === 'fpgThreshold') {
       const config = fpgProgramConfig(program.id, state.asOf);
       const result = fpgThresholdEligibility(

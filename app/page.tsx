@@ -81,8 +81,9 @@ export default function Landing() {
                   BennyFit screens a household against{' '}
                   <strong>{CLAIMS.programs.status === 'measured' ? CLAIMS.programs.value : ''} federal
                   benefit programs</strong>{' '}
-                  from a single plain-language description — no forms, no questionnaire. Benny,
-                  our agent, asks a follow-up only when the answer would change what they get.
+                  from a single plain-language description — with each state&rsquo;s own rules, not
+                  the federal minimum. Benny, our agent, asks a follow-up only when the answer
+                  would change what they get.
                 </p>
                 <div className="hero-cta">
                   <Link href="/demo" className="btn lg">
@@ -116,7 +117,7 @@ export default function Landing() {
             <Stat claim={CLAIMS.averageValue} />
             <Stat claim={CLAIMS.programs} />
             <Stat claim={CLAIMS.programsPerHousehold} />
-            <Stat claim={CLAIMS.questions} />
+            <Stat claim={CLAIMS.coverage} />
           </div>
           <p className="disclaimer" style={{ marginTop: 30, textAlign: 'center' }}>
             The dollar figure is computed from the federal rules applied to our 150
