@@ -99,7 +99,7 @@ const html = `<!doctype html><html lang="en"><head><meta charset="utf-8"><title>
 @page { size: Letter; margin: 0.85in 0.9in 0.9in; @bottom-center { content: counter(page); font: 9pt 'STIX Two Text', serif; } }
 html { font-family: 'STIX Two Text', 'Times New Roman', serif; font-size: 10.4pt; line-height: 1.38; color: #111; }
 body { margin: 0; }
-h1 { font-size: 16.5pt; line-height: 1.22; text-align: center; margin: 0 0 10pt; font-weight: 600; }
+h1 { font-size: 16.5pt; line-height: 1.22; text-align: center; margin: 0 0 10pt; font-weight: 600; text-wrap: balance; }
 .authors { text-align: center; font-size: 10.5pt; margin-bottom: 2pt; }
 .meta { text-align: center; font-size: 9pt; color: #444; margin-bottom: 16pt; }
 .abstract { margin: 0 0.35in 16pt; font-size: 9.6pt; }
@@ -130,7 +130,7 @@ code { font-family: 'SFMono-Regular', Menlo, monospace; font-size: 8.6pt; }
 .small { font-size: 9pt; }
 </style></head><body>
 
-<h1>Screening Households for U.S. Benefit Programs from a Short Description:<br>A Typed-Readout Decision Model Compared with Schema-Constrained Generation</h1>
+<h1>Screening Households for U.S. Benefit Programs from a Short Description:<br>A Typed&#8209;Readout Decision Model Compared with Schema&#8209;Constrained Generation</h1>
 <div class="authors">Jobin Ayathil</div>
 <div class="meta">Independent &middot; jobinb6444@gmail.com &middot; Technical report, September 2026 &middot; Code and data: github.com/0xjba/BennyFit</div>
 

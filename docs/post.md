@@ -1,6 +1,6 @@
 # Same verdicts, 15.7× faster and 345× cheaper: screening 21 benefit programs with a typed-readout model
 
-*Every measured number in this post is generated from the evaluation files in the repository (`research/data.json`, commit 67a0009). The technical report has the method, the confidence intervals and every limitation: https://bennyfit.vercel.app/research*
+*Every measured number in this post is generated from the evaluation files in the repository (`research/data.json`, commit 31e4f33). The technical report has the method, the confidence intervals and every limitation: https://bennyfit.vercel.app/research*
 
 ---
 
