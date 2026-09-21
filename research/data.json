@@ -1,0 +1,736 @@
+{
+  "generatedAt": "2026-09-21T15:31:22.009Z",
+  "commit": "67a0009",
+  "setup": {
+    "programs": 21,
+    "programNames": [
+      "SNAP",
+      "EITC",
+      "Child Tax Credit",
+      "Lifeline",
+      "WIC",
+      "School meals",
+      "CSFP",
+      "LIHEAP",
+      "Head Start",
+      "Medicare Savings",
+      "Extra Help",
+      "Medicaid",
+      "CHIP",
+      "State EITC",
+      "Dependent Care Credit",
+      "Veterans Pension",
+      "Summer EBT",
+      "Senior Farmers' Market",
+      "CACFP",
+      "FDPIR",
+      "Weatherization"
+    ],
+    "jurisdictions": 51,
+    "rulesCheckedExample": 80,
+    "conformance": {
+      "passed": 34,
+      "total": 34
+    },
+    "gold": {
+      "total": 150,
+      "dev": 101,
+      "holdout": 49,
+      "slices": {
+        "clear_eligible": {
+          "dev": 20,
+          "holdout": 10
+        },
+        "clear_ineligible": {
+          "dev": 20,
+          "holdout": 10
+        },
+        "mixed": {
+          "dev": 27,
+          "holdout": 13
+        },
+        "underspecified": {
+          "dev": 20,
+          "holdout": 10
+        },
+        "adversarial": {
+          "dev": 14,
+          "holdout": 6
+        }
+      }
+    },
+    "readingDevCases": 120,
+    "readingHoldoutCases": 20,
+    "tauChosen": 0.3,
+    "tauRule": "highest mean balanced accuracy; ties to fewer questions, then lower tau",
+    "jevModel": "jev-1.13.0",
+    "jevPricePerMTok": 0.042,
+    "baselineModel": "anthropic/claude-sonnet-5",
+    "baselineBatchSize": 15
+  },
+  "sweep": [
+    {
+      "tau": 0.2,
+      "meanBalancedAccuracy": 0.9881057299535561,
+      "questionRelevance": 0.45,
+      "medianQuestions": 1
+    },
+    {
+      "tau": 0.3,
+      "meanBalancedAccuracy": 0.9979995523473785,
+      "questionRelevance": 0.5,
+      "medianQuestions": 2
+    },
+    {
+      "tau": 0.4,
+      "meanBalancedAccuracy": 0.9979995523473785,
+      "questionRelevance": 0.5,
+      "medianQuestions": 2
+    },
+    {
+      "tau": 0.5,
+      "meanBalancedAccuracy": 0.9976733944869741,
+      "questionRelevance": 0.4,
+      "medianQuestions": 2
+    },
+    {
+      "tau": 0.6,
+      "meanBalancedAccuracy": 0.9979995523473785,
+      "questionRelevance": 0.35,
+      "medianQuestions": 3
+    },
+    {
+      "tau": 0.7,
+      "meanBalancedAccuracy": 0.9979995523473785,
+      "questionRelevance": 0.3,
+      "medianQuestions": 3
+    },
+    {
+      "tau": 0.8,
+      "meanBalancedAccuracy": 0.9976778020256283,
+      "questionRelevance": 0.35,
+      "medianQuestions": 3
+    }
+  ],
+  "reading": {
+    "editions": [
+      {
+        "edition": 1,
+        "reader": "code",
+        "correct": 91,
+        "total": 102,
+        "rate": 0.8921568627450981,
+        "ci": [
+          0.8171406779024611,
+          0.9387068027669795
+        ]
+      },
+      {
+        "edition": 2,
+        "reader": "code",
+        "correct": 88,
+        "total": 102,
+        "rate": 0.8627450980392157,
+        "ci": [
+          0.7827125858265774,
+          0.9164463337926553
+        ]
+      },
+      {
+        "edition": 3,
+        "reader": "code",
+        "correct": 96,
+        "total": 105,
+        "rate": 0.9142857142857143,
+        "ci": [
+          0.8450772435843179,
+          0.9542505212458481
+        ]
+      },
+      {
+        "edition": 4,
+        "reader": "code",
+        "correct": 93,
+        "total": 106,
+        "rate": 0.8773584905660378,
+        "ci": [
+          0.8014136606026787,
+          0.9269087857569649
+        ]
+      },
+      {
+        "edition": 5,
+        "reader": "code",
+        "correct": 96,
+        "total": 107,
+        "rate": 0.897196261682243,
+        "ci": [
+          0.825240244677948,
+          0.9416208279239807
+        ]
+      },
+      {
+        "edition": 6,
+        "reader": "code",
+        "correct": 104,
+        "total": 125,
+        "rate": 0.832,
+        "ci": [
+          0.7567907928528235,
+          0.8874117857248478
+        ]
+      },
+      {
+        "edition": 6,
+        "reader": "code+jev",
+        "correct": 120,
+        "total": 125,
+        "rate": 0.96,
+        "ci": [
+          0.9097744468602555,
+          0.9827953909280842
+        ]
+      }
+    ],
+    "sixByField": {
+      "code": {
+        "householdSize": {
+          "correct": 17,
+          "total": 19
+        },
+        "incomeAmount": {
+          "correct": 11,
+          "total": 17
+        },
+        "incomePeriod": {
+          "correct": 16,
+          "total": 19
+        },
+        "rentMonthly": {
+          "correct": 19,
+          "total": 19
+        },
+        "state": {
+          "correct": 20,
+          "total": 20
+        },
+        "childrenCount": {
+          "correct": 11,
+          "total": 14
+        },
+        "incomeMonthly": {
+          "correct": 10,
+          "total": 17
+        }
+      },
+      "withEngine": {
+        "householdSize": {
+          "correct": 17,
+          "total": 19
+        },
+        "incomeAmount": {
+          "correct": 16,
+          "total": 17
+        },
+        "incomePeriod": {
+          "correct": 18,
+          "total": 19
+        },
+        "rentMonthly": {
+          "correct": 19,
+          "total": 19
+        },
+        "state": {
+          "correct": 20,
+          "total": 20
+        },
+        "childrenCount": {
+          "correct": 13,
+          "total": 14
+        },
+        "incomeMonthly": {
+          "correct": 17,
+          "total": 17
+        }
+      }
+    },
+    "sixMisses": [
+      {
+        "id": "q04",
+        "field": "householdSize",
+        "expected": 5,
+        "got": null
+      },
+      {
+        "id": "q10",
+        "field": "childrenCount",
+        "expected": 0,
+        "got": "not logged (both readers wrong; the run printed only differences)"
+      },
+      {
+        "id": "q11",
+        "field": "incomeAmount",
+        "expected": 740,
+        "got": "not logged (both readers wrong; the run printed only differences)"
+      },
+      {
+        "id": "q11",
+        "field": "incomePeriod",
+        "expected": "weekly",
+        "got": "monthly"
+      },
+      {
+        "id": "q16",
+        "field": "householdSize",
+        "expected": 3,
+        "got": "not logged (both readers wrong; the run printed only differences)"
+      }
+    ]
+  },
+  "endToEnd": {
+    "jevCompared": {
+      "households": 49,
+      "specifiedHouseholds": 39,
+      "underspecifiedHouseholds": 10,
+      "programs": 21,
+      "meanBalancedAccuracy": 0.9956934956934957,
+      "balancedAccuracyByProgram": {
+        "snap": 1,
+        "eitc": 1,
+        "ctc": 0.9230769230769231,
+        "lifeline": 1,
+        "wic": 1,
+        "school_meals": 1,
+        "csfp": 1,
+        "liheap": 1,
+        "head_start": 1,
+        "medicare_savings": 1,
+        "extra_help": 0.9864864864864865,
+        "medicaid": 1,
+        "chip": 1,
+        "state_eitc": 1,
+        "cdctc": 1,
+        "va_pension": 1,
+        "summer_ebt": 1,
+        "sfmnp": 1,
+        "cacfp": 1,
+        "fdpir": 1,
+        "wap": 1
+      },
+      "specified": {
+        "right": 816,
+        "total": 819,
+        "wrong": 3,
+        "falsePositive": 1,
+        "falseNegative": 2,
+        "ci": [
+          0.9892861828419817,
+          0.9987534829828311
+        ]
+      },
+      "underspecified": {
+        "right": 201,
+        "total": 210,
+        "wrong": 9,
+        "falsePositive": 3,
+        "falseNegative": 6,
+        "ci": [
+          0.9205699739545683,
+          0.9772914653512299
+        ]
+      },
+      "questionsTotal": 81,
+      "questionsMedian": 2,
+      "questionsHistogram": [
+        10,
+        12,
+        12,
+        15
+      ],
+      "usefulQuestions": null,
+      "questionRelevance": 0.4,
+      "askedAtAllRate": 0.4,
+      "medianSeconds": 2.249825833000001,
+      "medianCriteria": 53,
+      "usage": {
+        "calls": 145,
+        "inputTokens": 659023,
+        "outputTokens": 260674
+      },
+      "billedUSD": 0.0277,
+      "costPerHouseholdUSD": 0.0005653061224489796,
+      "tau": 0.3,
+      "errors": [
+        {
+          "id": "gh-006",
+          "program": "ctc",
+          "predicted": false
+        },
+        {
+          "id": "gh-139",
+          "program": "ctc",
+          "predicted": false
+        },
+        {
+          "id": "gh-145",
+          "program": "extra_help",
+          "predicted": true
+        }
+      ]
+    },
+    "sonnet": {
+      "households": 49,
+      "specifiedHouseholds": 39,
+      "underspecifiedHouseholds": 10,
+      "programs": 21,
+      "meanBalancedAccuracy": 0.9944519082450117,
+      "balancedAccuracyByProgram": {
+        "snap": 1,
+        "eitc": 1,
+        "ctc": 1,
+        "lifeline": 1,
+        "wic": 0.9848484848484849,
+        "school_meals": 1,
+        "csfp": 1,
+        "liheap": 0.9137931034482758,
+        "head_start": 1,
+        "medicare_savings": 1,
+        "extra_help": 1,
+        "medicaid": 1,
+        "chip": 1,
+        "state_eitc": 1,
+        "cdctc": 1,
+        "va_pension": 1,
+        "summer_ebt": 1,
+        "sfmnp": 1,
+        "cacfp": 0.9848484848484849,
+        "fdpir": 1,
+        "wap": 1
+      },
+      "specified": {
+        "right": 812,
+        "total": 819,
+        "wrong": 7,
+        "falsePositive": 2,
+        "falseNegative": 5,
+        "ci": [
+          0.9824634809565627,
+          0.9958537773324587
+        ]
+      },
+      "underspecified": {
+        "right": 209,
+        "total": 210,
+        "wrong": 1,
+        "falsePositive": 0,
+        "falseNegative": 1,
+        "ci": [
+          0.9735243141882093,
+          0.9991589117264055
+        ]
+      },
+      "questionsTotal": 124,
+      "questionsMedian": 3,
+      "questionsHistogram": [
+        3,
+        1,
+        12,
+        33
+      ],
+      "usefulQuestions": null,
+      "questionRelevance": 0.2,
+      "askedAtAllRate": 0.7,
+      "medianSeconds": 35.32359820800001,
+      "medianCriteria": 53,
+      "usage": {
+        "calls": 201,
+        "inputTokens": 3262482,
+        "outputTokens": 515279
+      },
+      "billedUSD": 9.5557,
+      "costPerHouseholdUSD": 0.19501428571428572,
+      "tau": 0.3,
+      "errors": [
+        {
+          "id": "gh-018",
+          "program": "liheap",
+          "predicted": false
+        },
+        {
+          "id": "gh-018",
+          "program": "cacfp",
+          "predicted": true
+        },
+        {
+          "id": "gh-024",
+          "program": "liheap",
+          "predicted": false
+        },
+        {
+          "id": "gh-063",
+          "program": "liheap",
+          "predicted": false
+        },
+        {
+          "id": "gh-072",
+          "program": "liheap",
+          "predicted": false
+        },
+        {
+          "id": "gh-096",
+          "program": "liheap",
+          "predicted": false
+        },
+        {
+          "id": "gh-136",
+          "program": "wic",
+          "predicted": true
+        }
+      ]
+    },
+    "jevFinal": {
+      "households": 49,
+      "specifiedHouseholds": 39,
+      "underspecifiedHouseholds": 10,
+      "programs": 21,
+      "meanBalancedAccuracy": 0.9938619938619938,
+      "balancedAccuracyByProgram": {
+        "snap": 1,
+        "eitc": 1,
+        "ctc": 0.8846153846153846,
+        "lifeline": 1,
+        "wic": 1,
+        "school_meals": 1,
+        "csfp": 1,
+        "liheap": 1,
+        "head_start": 1,
+        "medicare_savings": 1,
+        "extra_help": 0.9864864864864865,
+        "medicaid": 1,
+        "chip": 1,
+        "state_eitc": 1,
+        "cdctc": 1,
+        "va_pension": 1,
+        "summer_ebt": 1,
+        "sfmnp": 1,
+        "cacfp": 1,
+        "fdpir": 1,
+        "wap": 1
+      },
+      "specified": {
+        "right": 815,
+        "total": 819,
+        "wrong": 4,
+        "falsePositive": 1,
+        "falseNegative": 3,
+        "ci": [
+          0.9875099482077573,
+          0.9980991157331075
+        ]
+      },
+      "underspecified": {
+        "right": 201,
+        "total": 210,
+        "wrong": 9,
+        "falsePositive": 3,
+        "falseNegative": 6,
+        "ci": [
+          0.9205699739545683,
+          0.9772914653512299
+        ]
+      },
+      "questionsTotal": 51,
+      "questionsMedian": 0,
+      "questionsHistogram": [
+        28,
+        4,
+        4,
+        13
+      ],
+      "usefulQuestions": {
+        "moved": 19,
+        "answered": 51,
+        "rate": 0.37254901960784315
+      },
+      "questionRelevance": 0.3,
+      "askedAtAllRate": 0.3,
+      "medianSeconds": 3.6498110419999974,
+      "medianCriteria": 54,
+      "usage": {
+        "calls": 117,
+        "inputTokens": 565750,
+        "outputTokens": 222942
+      },
+      "billedUSD": null,
+      "costPerHouseholdUSD": null,
+      "tau": 0.3,
+      "errors": [
+        {
+          "id": "gh-006",
+          "program": "ctc",
+          "predicted": false
+        },
+        {
+          "id": "gh-027",
+          "program": "ctc",
+          "predicted": false
+        },
+        {
+          "id": "gh-139",
+          "program": "ctc",
+          "predicted": false
+        },
+        {
+          "id": "gh-145",
+          "program": "extra_help",
+          "predicted": true
+        }
+      ]
+    },
+    "firstRunWrong": 3,
+    "paired": {
+      "bothRight": 809,
+      "onlyJev": 7,
+      "onlySonnet": 3,
+      "bothWrong": 0,
+      "mcnemarP": 0.3437500000000002
+    },
+    "pairedUnderspecified": {
+      "bothRight": 200,
+      "onlyJev": 1,
+      "onlySonnet": 9,
+      "bothWrong": 0,
+      "mcnemarP": 0.021484375000000003
+    },
+    "ratios": {
+      "speed": 15.700592325806046,
+      "cost": 344.97111913357406,
+      "inputTokens": 4.950482760085763
+    },
+    "generationFaults": {
+      "unparseable": 0,
+      "missing": 0,
+      "crossWired": 0,
+      "invented": 0
+    }
+  },
+  "development": {
+    "floors": [
+      {
+        "floorUSD": 0,
+        "questions": 167,
+        "useful": {
+          "moved": 36,
+          "answered": 167,
+          "rate": 0.2155688622754491
+        },
+        "meanBalancedAccuracy": 0.9970343013821276,
+        "specifiedWrong": 7,
+        "underspecifiedAccuracy": 0.9952380952380953,
+        "questionRelevance": 0.35
+      },
+      {
+        "floorUSD": 25,
+        "questions": 112,
+        "useful": {
+          "moved": 30,
+          "answered": 112,
+          "rate": 0.26785714285714285
+        },
+        "meanBalancedAccuracy": 0.9966857385335647,
+        "specifiedWrong": 6,
+        "underspecifiedAccuracy": 0.9928571428571429,
+        "questionRelevance": 0.4
+      },
+      {
+        "floorUSD": 50,
+        "questions": 115,
+        "useful": {
+          "moved": 27,
+          "answered": 115,
+          "rate": 0.23478260869565218
+        },
+        "meanBalancedAccuracy": 0.9963639882118143,
+        "specifiedWrong": 7,
+        "underspecifiedAccuracy": 0.9952380952380953,
+        "questionRelevance": 0.45
+      },
+      {
+        "floorUSD": 100,
+        "questions": 113,
+        "useful": {
+          "moved": 33,
+          "answered": 113,
+          "rate": 0.2920353982300885
+        },
+        "meanBalancedAccuracy": 0.9950501743980005,
+        "specifiedWrong": 9,
+        "underspecifiedAccuracy": 0.9952380952380953,
+        "questionRelevance": 0.35
+      },
+      {
+        "floorUSD": 250,
+        "questions": 111,
+        "useful": {
+          "moved": 32,
+          "answered": 111,
+          "rate": 0.2882882882882883
+        },
+        "meanBalancedAccuracy": 0.9953719247197507,
+        "specifiedWrong": 8,
+        "underspecifiedAccuracy": 0.9928571428571429,
+        "questionRelevance": 0.45
+      }
+    ],
+    "stages": [
+      {
+        "stage": "Expected value, no floor",
+        "questions": 167,
+        "useful": {
+          "moved": 36,
+          "answered": 167,
+          "rate": 0.2155688622754491
+        },
+        "questionRelevance": 0.35,
+        "specifiedWrong": 7,
+        "meanBalancedAccuracy": 0.9970343013821276
+      },
+      {
+        "stage": "+ $25 floor",
+        "questions": 112,
+        "useful": {
+          "moved": 30,
+          "answered": 112,
+          "rate": 0.26785714285714285
+        },
+        "questionRelevance": 0.4,
+        "specifiedWrong": 6,
+        "meanBalancedAccuracy": 0.9966857385335647
+      },
+      {
+        "stage": "+ candidate reading",
+        "questions": 114,
+        "useful": {
+          "moved": 34,
+          "answered": 114,
+          "rate": 0.2982456140350877
+        },
+        "questionRelevance": 0.4,
+        "specifiedWrong": 6,
+        "meanBalancedAccuracy": 0.9966857385335647
+      },
+      {
+        "stage": "+ not-stated option, Medicare gate",
+        "questions": 123,
+        "useful": {
+          "moved": 42,
+          "answered": 123,
+          "rate": 0.34146341463414637
+        },
+        "questionRelevance": 0.6,
+        "specifiedWrong": 3,
+        "meanBalancedAccuracy": 0.9969806763285024
+      }
+    ]
+  }
+}

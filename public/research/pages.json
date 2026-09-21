@@ -1,0 +1,18 @@
+{
+  "pages": [
+    "/research/pages/page-01.webp",
+    "/research/pages/page-02.webp",
+    "/research/pages/page-03.webp",
+    "/research/pages/page-04.webp",
+    "/research/pages/page-05.webp",
+    "/research/pages/page-06.webp",
+    "/research/pages/page-07.webp",
+    "/research/pages/page-08.webp",
+    "/research/pages/page-09.webp",
+    "/research/pages/page-10.webp",
+    "/research/pages/page-11.webp",
+    "/research/pages/page-12.webp"
+  ],
+  "pdf": "/research/bennyfit-technical-report.pdf",
+  "commit": "67a0009"
+}
