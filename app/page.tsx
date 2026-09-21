@@ -71,15 +71,18 @@ export default function Landing() {
       <section className="hero">
         <div className="shell">
           <div className="hero-stage">
+            <p className="hook">
+              <strong>{CITED.unclaimedFederal.value}</strong> in federal benefits goes unclaimed
+              every year, and the effort of finding out what you qualify for is a key{' '}
+              <span className="nowrap">
+                reason.{' '}
+                <a href={CITED.unclaimedFederal.href} target="_blank" rel="noreferrer">
+                  GAO
+                </a>
+              </span>
+            </p>
             <div className="hero-grid">
               <div>
-                <p className="hook">
-                  <strong>{CITED.unclaimedFederal.value}</strong> in federal benefits goes unclaimed
-                  every year.{' '}
-                  <a href={CITED.unclaimedFederal.href} target="_blank" rel="noreferrer">
-                    GAO
-                  </a>
-                </p>
                 <h1>Every benefit a household qualifies for, from a few sentences.</h1>
               </div>
               <div>
