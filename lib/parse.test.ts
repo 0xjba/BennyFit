@@ -149,3 +149,44 @@ describe('shapes from the third held-out set', () => {
     expect(facts('We have 4 kids and both work in South Dakota.').householdSize).toBe(6);
   });
 });
+
+describe('shapes from the fourth held-out set', () => {
+  it('reads a decimal point as a decimal point', () => {
+    // The "." in "2.5k" was taken for a sentence end, which left "5k" and read $5,000.
+    expect(facts('I bring in about 2.5k a month.').incomeAmount).toBe(2500);
+  });
+
+  it('tells the District from the state', () => {
+    expect(facts('Washington, DC. Single, no kids.').state).toBe('District of Columbia');
+    expect(facts('We live in Washington state near Seattle.').state).toBe('Washington');
+  });
+
+  it('counts kiddos and a child from an earlier relationship', () => {
+    expect(facts('Me and my 4 kiddos in Portland, OR.').householdSize).toBe(5);
+    const f = facts('My husband and I have 2 kids together and he has a daughter from before who lives with us.');
+    expect(f.childrenCount).toBe(3);
+    expect(f.householdSize).toBe(5);
+  });
+
+  it('reads fiancé with its accent', () => {
+    expect(facts('My fiancé and I live in Nashville, TN with our daughter.').householdSize).toBe(3);
+  });
+
+  it('reads label-and-colon forms', () => {
+    const f = facts('Rent: $1,100. Income: $2,800/month. Household: 3 people. State: Virginia.');
+    expect(f.householdSize).toBe(3);
+    expect(f.incomePeriod).toBe('monthly');
+    expect(f.rentMonthly).toBe(1100);
+  });
+
+  it('reads housing described without the word rent', () => {
+    expect(facts('My mom, my son and I share a two bedroom for $2,200 a month.').rentMonthly).toBe(2200);
+  });
+
+  it('splits two amounts joined by "and" even after a dollar sign', () => {
+    const f = facts('Our monthly income is $2,450 and our rent is $1,050. We live in Georgia with our three children.');
+    expect(f.incomeAmount).toBe(2450);
+    expect(f.rentMonthly).toBe(1050);
+    expect(f.householdSize).toBe(5);
+  });
+});

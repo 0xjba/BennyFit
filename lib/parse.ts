@@ -74,7 +74,7 @@ function moneyMentions(
   // break: splitting there strands "I rent an apartment in Chicago" from its amount.
   const statesAhead = `(?!\\s*(?:${STATE_NAMES.join('|')}|[A-Z]{2}\\b))`;
   const boundary = new RegExp(
-    `[.;]|(?<![0-9]),(?![0-9])${statesAhead}|\\s+\\band\\b\\s+(?=(?:i|we|my|the|rent|it)\\b)`,
+    `(?<![0-9])\\.|\\.(?![0-9])|;|(?<![0-9]),(?![0-9])${statesAhead}|\\s+\\band\\b\\s+(?=(?:i|we|my|the|rent|it)\\b)`,
     'gi'
   );
   let cursor = 0;
@@ -118,16 +118,17 @@ function moneyMentions(
       // amount and "earn" the second.
       const split = (left: number, right: number) => {
         const gap = clause.text.slice(left, right);
-        const conj = [...gap.matchAll(/\s(?:and|but|while|plus)\s/gi)].pop();
+        const conj = [...gap.matchAll(/(?:^|\s)(?:and|but|while|plus)\s/gi)].pop();
         return conj ? { end: left + conj.index!, start: left + conj.index! } : { end: right, start: left };
       };
       const from = k === 0 ? 0 : split(hits[k - 1].index + hits[k - 1][0].length, hit.index).start;
       const to = k === hits.length - 1 ? clause.text.length : split(hit.index + hit[0].length, hits[k + 1].index).end;
       const local = clause.text.slice(from, to);
       const at = clause.start + hit.index;
-      const sentenceStart = Math.max(text.lastIndexOf('.', at - 1), text.lastIndexOf('!', at - 1), text.lastIndexOf('?', at - 1)) + 1;
-      const endCandidates = ['.', '!', '?'].map((c) => text.indexOf(c, at)).filter((i) => i !== -1);
-      const sentenceEnd = endCandidates.length > 0 ? Math.min(...endCandidates) : text.length;
+      // A full stop between two digits is a decimal point ("2.5k"), not a sentence end.
+      const ends = [...text.matchAll(/[!?]|\.(?![0-9])|(?<![0-9])\./g)].map((e) => e.index!);
+      const sentenceStart = Math.max(-1, ...ends.filter((i) => i < at)) + 1;
+      const sentenceEnd = ends.find((i) => i >= at + hit[0].length) ?? text.length;
       out.push({
         amount,
         context: local.toLowerCase(),
@@ -143,11 +144,11 @@ function periodNear(context: string): Period | null {
   // Biweekly before weekly: "every other week" contains "every week" once "other" is
   // skipped, and a pay period of every two weeks read as weekly overstates income by half.
   if (/every\s*(two|2)\s*weeks|\bbi-?weekly\b|every other (week|mon|tue|wed|thu|fri|sat|sun)|fortnight/.test(context)) return 'biweekly';
-  if (/\b(a|per|each|every)\s*week\b|\bweekly\b/.test(context)) return 'weekly';
+  if (/\b(a|per|each|every)\s*week\b|\bweekly\b|\/\s*(?:wk|week)\b/.test(context)) return 'weekly';
   if (/every\s*(two|2)\s*weeks|\bbi-?weekly\b|every other (week|mon|tue|wed|thu|fri|sat|sun)|fortnight/.test(context)) return 'biweekly';
   if (/twice a month|twice monthly|semi-?monthly|1st and (the )?15th/.test(context)) return 'monthly';
-  if (/\b(a|per|each|every)\s*month\b|\bmonthly\b|\/mo\b|a month/.test(context)) return 'monthly';
-  if (/\b(a|per|each)\s*year\b|\bannually\b|\bannual\b|\/yr\b|a year/.test(context)) return 'annual';
+  if (/\b(a|per|each|every)\s*month\b|\bmonthly\b|\/\s*mo(?:nth)?\b|a month/.test(context)) return 'monthly';
+  if (/\b(a|per|each)\s*year\b|\bannually\b|\bannual\b|\/\s*(?:yr|year)\b|a year/.test(context)) return 'annual';
   return null;
 }
 
@@ -190,6 +191,10 @@ const STATE_NAMES = [...new Set(Object.values(STATES))];
  * after a comma, or in capitals.
  */
 export function detectState(text: string): string | null {
+  // "Washington, DC" names the District, not the state, and the rules differ.
+  if (/\bdistrict of columbia\b|\bwashington,?\s*d\.?\s?c\b|\bD\.C\.|\bDC\b/i.test(text) && !/\bwashington state\b/i.test(text)) {
+    return 'District of Columbia';
+  }
   // Longest first, so "West Virginia" is not read as "Virginia".
   for (const name of [...STATE_NAMES].sort((a, b) => b.length - a.length)) {
     if (new RegExp(`\\b${name}\\b`, 'i').test(text)) return name;
@@ -240,7 +245,7 @@ export function parseHousehold(paragraph: string): ParseResult {
   // --- children ---------------------------------------------------------
   let childrenCount: number | null = null;
   const CHILD_NOUN =
-    '(?:kids?|children|child|sons?|daughters?|boys?|girls?|babies|baby|newborns?|infants?|toddlers?|grand(?:kids?|children|sons?|daughters?)|little ones)';
+    '(?:kids?|kiddos?|step-?(?:kids?|children|child|sons?|daughters?)|children|child|sons?|daughters?|boys?|girls?|babies|baby|newborns?|infants?|toddlers?|grand(?:kids?|children|sons?|daughters?)|little ones)';
   const counted = text.match(
     new RegExp(`\\b(\\d+|one|two|three|four|five|six|seven|eight|nine|ten)\\s+(?:younger\\s+|little\\s+|small\\s+)?${CHILD_NOUN}\\b`, 'i')
   );
@@ -257,13 +262,22 @@ export function parseHousehold(paragraph: string): ParseResult {
   if (counted) {
     const token = counted[1].toLowerCase();
     childrenCount = /^\d+$/.test(token) ? parseInt(token, 10) : NUMBER_WORDS[token];
+    // "We have 2 kids together and he has a daughter from before": a child from an
+    // earlier relationship is in addition to the count, not part of it.
+    for (const m of singles) {
+      const after = text.slice(m.index! + m[0].length, m.index! + m[0].length + 40);
+      const earlier = /^\s+from\s+(?:before|a\s+(?:previous|prior|past)|his|her|my)\b/i.test(after);
+      if (!m[1] && (earlier || /^step/i.test(m[2])) && !/^step/i.test(counted[0].split(/\s+/).pop() ?? '')) {
+        childrenCount += 1;
+      }
+    }
   } else if (singles.length > 0) {
     const minors = new Set<string>();
     const adults = new Set<string>();
     let plural = false;
     for (const m of singles) {
       const noun = m[2].toLowerCase();
-      if (/^(?:kids|children|sons|daughters|boys|girls|babies|newborns|infants|toddlers|grand(?:kids|children|sons|daughters)|little ones)$/.test(noun)) {
+      if (/^(?:kids|kiddos|step-?(?:kids|children|sons|daughters)|children|sons|daughters|boys|girls|babies|newborns|infants|toddlers|grand(?:kids|children|sons|daughters)|little ones)$/.test(noun)) {
         // "My kids" says there are children without saying how many; one is the floor.
         if (!m[1]) plural = true;
         continue;
@@ -302,14 +316,20 @@ export function parseHousehold(paragraph: string): ParseResult {
     new RegExp(`\\b${NUM}\\s+(?:people|persons)\\s+(?:total|altogether|live|living|in\\s+(?:our|my|the|this))\\b`, 'i'),
     new RegExp(`\\bwe(?:'re|\\s+are)\\s+(?:a\\s+family\\s+of\\s+)?${NUM}\\b(?!\\s*(?:years?|months?|kids?|children|adults?))`, 'i'),
     new RegExp(`\\b${NUM}\\s+of\\s+us\\b`, 'i'),
+    new RegExp(`\\b(?:household|hh)(?:\\s+size)?\\s*:\\s*${NUM}\\b`, 'i'),
     new RegExp(`\\b(?:household|hh)\\s+size\\s*(?:is\\s+|of\\s+|:\\s*)?${NUM}\\b`, 'i'),
   ];
   const explicit = EXPLICIT.map((re) => text.match(re)).find((m) => m !== null);
 
   const hasPartner =
-    /\bmy\s+(wife|husband|partner|spouse|girlfriend|boyfriend|fianc[eé]e?)\b|\bwe\s+are\s+married\b|\bwe\s+both\b|\bboth\s+of\s+us\b|\bwe\b[^.]*\bboth\s+(?:work|working|retired|employed|earn|make)\b/i.test(
+    /\bmy\s+(wife|husband|partner|spouse|girlfriend|boyfriend|fianc[eé]e?)(?![a-z])|\bwe\s+are\s+married\b|\bwe\s+both\b|\bboth\s+of\s+us\b|\bwe\b[^.]*\bboth\s+(?:work|working|retired|employed|earn|make)\b/i.test(
       text
-    );
+    ) ||
+    // Written entirely as "we" and "our", with "our children", and never "I" or "me":
+    // two parents speaking together. A single parent writes "me and my kids".
+    (/\bwe\b/i.test(text) &&
+      new RegExp(`\\bour\\s+(?:\\w+\\s+)?${CHILD_NOUN}`, 'i').test(text) &&
+      !/\b(?:i|me|my|i'm|i've|myself)\b|\bsingle\b/i.test(text));
 
   // Adults other than a partner who are named as part of the household: "me, my
   // mother, and my three kids" is five people, not four. Each relation counts once;
@@ -386,7 +406,7 @@ export function parseHousehold(paragraph: string): ParseResult {
     const period = periodNear(c) ?? periodNear(mention.sentence);
     const monthly = period ? toMonthly(mention.amount, period) : mention.amount;
 
-    if (/rent|mortgage|housing/.test(c)) {
+    if (/rent|mortgage|housing|\blease\b|\b(?:bedroom|apartment|studio|room|trailer|place)\s+for\b/.test(c)) {
       rentMonthly = monthly;
     } else if (/utilit|electric|gas|heating|heat and/.test(c)) {
       utilitiesMonthly = monthly;
