@@ -92,6 +92,11 @@ export interface GoldFacts {
 export interface GoldHousehold {
   id: string;
   slice: Slice;
+  /**
+   * Which half of the set this household is in. End-to-end accuracy is reported on the
+   * held-out half only, and nothing may be tuned while looking at it.
+   */
+  split: 'dev' | 'holdout';
   paragraph: string;
   facts: GoldFacts;
   truth: Record<string, 'eligible' | 'ineligible'>;
@@ -685,6 +690,8 @@ function build(): GoldHousehold[] {
       out.push({
         id: `gh-${String(out.length + 1).padStart(3, '0')}`,
         slice: target.slice,
+        // Every third household is held out, so each slice is represented in both halves.
+        split: made % 3 === 2 ? 'holdout' : 'dev',
         paragraph,
         facts: f,
         truth,

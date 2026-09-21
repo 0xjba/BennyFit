@@ -61,8 +61,10 @@ function money(text: string): number | null {
  * on clause boundaries first keeps each amount with the words that actually describe
  * it.
  */
-function moneyMentions(text: string): { amount: number; context: string; index: number }[] {
-  const out: { amount: number; context: string; index: number }[] = [];
+function moneyMentions(
+  text: string
+): { amount: number; context: string; sentence: string; index: number }[] {
+  const out: { amount: number; context: string; sentence: string; index: number }[] = [];
 
   // Clause boundaries: sentence punctuation, semicolons, a comma that is not a
   // thousands separator, and a conjunction joining two independent statements.
@@ -83,10 +85,15 @@ function moneyMentions(text: string): { amount: number; context: string; index: 
     while ((hit = re.exec(clause.text)) !== null) {
       const amount = money(hit[0]);
       if (amount === null) continue;
+      const at = clause.start + hit.index;
+      const sentenceStart = Math.max(text.lastIndexOf('.', at - 1), text.lastIndexOf('!', at - 1), text.lastIndexOf('?', at - 1)) + 1;
+      const endCandidates = ['.', '!', '?'].map((c) => text.indexOf(c, at)).filter((i) => i !== -1);
+      const sentenceEnd = endCandidates.length > 0 ? Math.min(...endCandidates) : text.length;
       out.push({
         amount,
         context: clause.text.toLowerCase(),
-        index: clause.start + hit.index,
+        sentence: text.slice(sentenceStart, sentenceEnd).toLowerCase(),
+        index: at,
       });
     }
   }
@@ -94,8 +101,12 @@ function moneyMentions(text: string): { amount: number; context: string; index: 
 }
 
 function periodNear(context: string): Period | null {
+  // Biweekly before weekly: "every other week" contains "every week" once "other" is
+  // skipped, and a pay period of every two weeks read as weekly overstates income by half.
+  if (/every\s*(two|2)\s*weeks|\bbi-?weekly\b|every other (week|mon|tue|wed|thu|fri|sat|sun)|fortnight/.test(context)) return 'biweekly';
   if (/\b(a|per|each|every)\s*week\b|\bweekly\b/.test(context)) return 'weekly';
-  if (/every\s*(two|2)\s*weeks|\bbi-?weekly\b|every other week/.test(context)) return 'biweekly';
+  if (/every\s*(two|2)\s*weeks|\bbi-?weekly\b|every other (week|mon|tue|wed|thu|fri|sat|sun)|fortnight/.test(context)) return 'biweekly';
+  if (/twice a month|twice monthly|semi-?monthly|1st and (the )?15th/.test(context)) return 'monthly';
   if (/\b(a|per|each|every)\s*month\b|\bmonthly\b|\/mo\b|a month/.test(context)) return 'monthly';
   if (/\b(a|per|each)\s*year\b|\bannually\b|\bannual\b|\/yr\b|a year/.test(context)) return 'annual';
   return null;
@@ -189,9 +200,11 @@ export function parseHousehold(paragraph: string): ParseResult {
 
   // --- children ---------------------------------------------------------
   let childrenCount: number | null = null;
+  const CHILD_NOUN =
+    '(?:kids?|children|child|sons?|daughters?|boys?|girls?|babies|baby|toddlers?|grand(?:kids?|children|sons?|daughters?)|little ones)';
   const childMatch =
-    text.match(/\b(\d+|one|two|three|four|five|six|seven|eight|nine|ten)\s+(?:kids?|children|sons?|daughters?)\b/i) ??
-    text.match(/\b(?:my|a)\s+(kid|child|son|daughter)\b/i);
+    text.match(new RegExp(`\\b(\\d+|one|two|three|four|five|six|seven|eight|nine|ten)\\s+(?:younger\\s+|little\\s+|small\\s+)?${CHILD_NOUN}\\b`, 'i')) ??
+    text.match(new RegExp(`\\b(?:my|our|a)\\s+(${CHILD_NOUN})\\b`, 'i'));
   if (childMatch) {
     const token = childMatch[1].toLowerCase();
     childrenCount = /^\d+$/.test(token) ? parseInt(token, 10) : (NUMBER_WORDS[token] ?? 1);
@@ -208,8 +221,14 @@ export function parseHousehold(paragraph: string): ParseResult {
     householdSize = /^\d+$/.test(token) ? parseInt(token, 10) : NUMBER_WORDS[token];
   } else if (/\blive alone\b|\bby myself\b|\bjust me\b|\bon my own\b/i.test(text)) {
     householdSize = 1;
-  } else if (/\bthere are (\d+) of us\b/i.test(text)) {
-    householdSize = parseInt(text.match(/\bthere are (\d+) of us\b/i)![1], 10);
+  } else if (/\b(\d+|two|three|four|five|six|seven|eight)\s+of us\b/i.test(text)) {
+    const token = text.match(/\b(\d+|two|three|four|five|six|seven|eight)\s+of us\b/i)![1].toLowerCase();
+    householdSize = /^\d+$/.test(token) ? parseInt(token, 10) : NUMBER_WORDS[token];
+  } else if (/\b(\d+|one|two|three|four)\s+adults?\b/i.test(text)) {
+    // "Two adults, one kid" — count the adults, and add any children found.
+    const token = text.match(/\b(\d+|one|two|three|four)\s+adults?\b/i)![1].toLowerCase();
+    const adults = /^\d+$/.test(token) ? parseInt(token, 10) : NUMBER_WORDS[token];
+    householdSize = adults + (childrenCount ?? 0);
   } else {
     // One adult, plus a partner if one appears, plus any children mentioned.
     const hasPartner = /\bmy (wife|husband|partner|spouse)\b|\bwe are married\b|\bwe both\b/i.test(text);
@@ -239,7 +258,11 @@ export function parseHousehold(paragraph: string): ParseResult {
 
   for (const mention of mentions) {
     const c = mention.context;
-    const period = periodNear(c);
+    // "I get paid every other Friday, usually around $780" states the period in one
+    // clause and the amount in the next. The clause decides when it can; the sentence
+    // is the fallback, so a period two clauses away is not borrowed from an unrelated
+    // statement.
+    const period = periodNear(c) ?? periodNear(mention.sentence);
     const monthly = period ? toMonthly(mention.amount, period) : mention.amount;
 
     if (/rent|mortgage|housing/.test(c)) {

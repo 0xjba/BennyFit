@@ -14,6 +14,22 @@ import { join } from 'node:path';
 
 export interface ResultsSummary {
   runAt: string | null;
+  /** Hand-computed cases from primary sources, run against the arithmetic. */
+  conformance: { passed: number; total: number; rate: number } | null;
+  /** How well facts are read from prose written independently of the parser. */
+  extraction: {
+    development: { correct: number; total: number; rate: number };
+    holdout: {
+      correct: number;
+      total: number;
+      rate: number;
+      written: string;
+      byField: Record<string, { correct: number; total: number }>;
+      misses: { id: string; field: string; expected: unknown; got: unknown }[];
+    };
+  } | null;
+  /** Whether a real engine produced the end-to-end figures. */
+  endToEndMeasured: boolean;
   /** True when the run scored so well it is measuring itself rather than a model. */
   circular: boolean;
   circularNote: string | null;
@@ -42,6 +58,11 @@ export function readResults(): ResultsSummary | null {
 
     return {
       runAt: parsed.runAt,
+      conformance: parsed.conformance
+        ? { passed: parsed.conformance.passed, total: parsed.conformance.total, rate: parsed.conformance.rate }
+        : null,
+      extraction: parsed.extraction ?? null,
+      endToEndMeasured: Boolean(parsed.endToEnd?.measured),
       circular: Boolean(parsed.circular),
       circularNote: parsed.circularNote ?? null,
       engine: parsed.engine ?? 'unknown',

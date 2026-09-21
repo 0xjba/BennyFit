@@ -2,6 +2,9 @@ import Link from 'next/link';
 
 import { Masthead, SiteFooter } from '@/app/components/SiteChrome';
 import { readResults } from '@/lib/results';
+import { runConformance } from '@/eval/conformance';
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
 
 export const dynamic = 'force-dynamic';
 
@@ -39,8 +42,24 @@ function percent(value: number): string {
   return `${(value * 100).toFixed(1)}%`;
 }
 
+const FIELD_LABELS: Record<string, string> = {
+  householdSize: 'Household size',
+  incomeAmount: 'Income amount',
+  incomePeriod: 'Income period (weekly, monthly…)',
+  rentMonthly: 'Housing cost',
+  state: 'State',
+  childrenCount: 'Number of children',
+};
+
 export default function Results() {
   const results = readResults();
+  const conformance = results?.conformance ?? null;
+  const extraction = results?.extraction ?? null;
+  // The case list is run live, so it always reflects the rules as they stand.
+  const liveCases = runConformance();
+  const holdoutCount = readFileSync(join(process.cwd(), 'data', 'gold', 'households.jsonl'), 'utf8')
+    .split('\n')
+    .filter((l) => l.includes('"split":"holdout"')).length;
 
   return (
     <>
@@ -61,92 +80,127 @@ export default function Results() {
         </div>
       </section>
 
-      {results?.circular ? (
-        <section className="shell-narrow" style={{ marginBottom: 20 }}>
-          <div className="notice">
-            <strong>This run scored itself, so there is no accuracy figure yet.</strong>{' '}
-            Every program came out at or near 100%, which is not a good result — it is a
-            broken test. The preview build answers from the same stored household facts
-            that the scoring compares against, so the two halves of the test agree with
-            each other and measure nothing about a decision model. The harness detects
-            this and refuses to publish the numbers. Real figures follow the first run
-            against the live service.
-          </div>
-        </section>
-      ) : results?.isFixture ? (
-        <section className="shell-narrow" style={{ marginBottom: 20 }}>
-          <div className="notice">
-            <strong>These figures are from a preview build.</strong> They were produced by
-            a local test harness rather than the live service. They show the measurement
-            process works. They are not yet a measurement of the product.
-          </div>
-        </section>
-      ) : null}
-
-      <section className="band" style={{ paddingTop: 48 }}>
+      <section className="band" style={{ paddingTop: 20 }}>
         <div className="shell-narrow">
-          <h2>The validation set</h2>
+          <h2>Three things, measured separately</h2>
           <p style={{ color: 'var(--ink-2)', marginTop: 14 }}>
-            150 households, all synthetic, written as a person would actually describe
-            themselves. The correct answer for each one is worked out from the federal
-            rules applied to its known facts — independently of the system being tested, so
-            the system is checked against the law rather than against itself. The set is
-            split five ways: households that qualify broadly, households that qualify for
-            nothing, households that qualify for some, households deliberately missing one
-            fact that decides the outcome, and households phrased awkwardly on purpose.
+            &ldquo;Accuracy&rdquo; hides three different questions. Is the arithmetic right? Can the
+            system read the facts out of how people actually write? And, given both, does it
+            reach the right answer? They fail in different ways and are measured in different
+            ways, so they are reported apart rather than blended into one flattering number.
           </p>
 
-          {results && !results.circular && (
-            <ul className="steps" style={{ marginTop: 26 }}>
+          {/* ---- 1. rules ---- */}
+          <h3 style={{ marginTop: 40, fontSize: '1.15rem' }}>1. Do the rules match the federal sources?</h3>
+          {conformance && (
+            <p className="big-figure">
+              {conformance.passed} <span>of {conformance.total}</span>
+            </p>
+          )}
+          <p style={{ color: 'var(--ink-2)', marginTop: 8 }}>
+            Hand-computed cases, each with its expected figure worked out from a primary source
+            and written down as a number — USDA&rsquo;s own worked SNAP example, the IRS revenue
+            procedure tables, the medicare.gov limits, VA&rsquo;s pension rates. None of the expected
+            figures is produced by the code being tested, so a disagreement is a disagreement
+            with an agency.
+          </p>
+          <p style={{ color: 'var(--ink-2)', marginTop: 12 }}>
+            On its first run this found a real error: at the plateau of the Earned Income Tax
+            Credit, a filer with three children was being shown $8,230.50 against a published
+            maximum of $8,231, because the rate times the earned income amount lands just under
+            the rounded figure the IRS publishes. It is fixed.
+          </p>
+          <details className="disclosure">
+            <summary>All {liveCases.length} cases and their sources</summary>
+            <ul className="steps">
+              {liveCases.map((c) => (
+                <li key={c.id}>
+                  <span>
+                    {c.what}
+                    <br />
+                    <span className="cite">{c.source}</span>
+                  </span>
+                  <span className="amt">{c.passed ? 'agrees' : 'DISAGREES'}</span>
+                </li>
+              ))}
+            </ul>
+          </details>
+
+          {/* ---- 2. reading ---- */}
+          <h3 style={{ marginTop: 48, fontSize: '1.15rem' }}>
+            2. Can it read the facts out of real descriptions?
+          </h3>
+          {extraction && (
+            <p className="big-figure">
+              {(extraction.holdout.rate * 100).toFixed(1)}%
+              <span> of facts read correctly</span>
+            </p>
+          )}
+          <p style={{ color: 'var(--ink-2)', marginTop: 8 }}>
+            Twenty descriptions written the way people actually write — &ldquo;our family is five
+            people&rdquo;, &ldquo;paycheck is $1,040 every two weeks&rdquo;, &ldquo;me and my girlfriend plus her
+            son&rdquo;, a household size you have to count — with the facts labelled by hand. They were written after the reading code was last
+            changed and scored once. The code is not adjusted in response to them; if it ever
+            is, they stop being a measurement and a new set has to be written.
+          </p>
+          {extraction && (
+            <>
+              <p style={{ color: 'var(--ink-2)', marginTop: 12 }}>
+                A separate development set, which the code <em>was</em> tuned against, scores{' '}
+                {(extraction.development.rate * 100).toFixed(1)}%. The gap between the two is the
+                point: it is exactly how much a number measured on the cases you tuned against
+                overstates how the system does on cases it has not seen.
+              </p>
+              <ul className="steps" style={{ marginTop: 18 }}>
+                {Object.entries(extraction.holdout.byField).map(([field, v]) => (
+                  <li key={field}>
+                    <span>{FIELD_LABELS[field] ?? field}</span>
+                    <span className="amt">
+                      {v.correct}/{v.total} ({((100 * v.correct) / v.total).toFixed(0)}%)
+                    </span>
+                  </li>
+                ))}
+              </ul>
+              <p style={{ color: 'var(--ink-2)', marginTop: 14 }}>
+                Household size is the weakest. &ldquo;Our household is 7 people&rdquo; followed by
+                &ldquo;my husband earns&rdquo; comes back as two, because the rule that counts a partner
+                overrides the stated number. That is a wrong answer rather than a missing one,
+                which is worse, and it is listed here rather than quietly fixed against the cases
+                that exposed it.
+              </p>
+            </>
+          )}
+
+          {/* ---- 3. end to end ---- */}
+          <h3 style={{ marginTop: 48, fontSize: '1.15rem' }}>3. Does it reach the right answer?</h3>
+          {results?.endToEndMeasured ? (
+            <ul className="steps" style={{ marginTop: 18 }}>
               {Object.entries(results.balancedAccuracyByProgram).map(([program, value]) => (
                 <li key={program}>
                   <span>
                     {LABELS[program] ?? program}
                     <br />
-                    <span className="cite">
-                      across {results.specifiedCount} fully specified households
-                    </span>
+                    <span className="cite">balanced accuracy, held-out households</span>
                   </span>
                   <span className="amt">{percent(value)}</span>
                 </li>
               ))}
-              <li>
-                <span>
-                  Asked the right question first
-                  <br />
-                  <span className="cite">
-                    on the {results.underspecifiedCount} households that deliberately left
-                    out a fact that decides the outcome
-                  </span>
-                </span>
-                <span className="amt">{percent(results.questionRelevance)}</span>
-              </li>
-              <li>
-                <span>
-                  Checks run per household
-                  <br />
-                  <span className="cite">all at once, in a single round</span>
-                </span>
-                <span className="amt">{results.medianCriteriaPerHousehold}</span>
-              </li>
-              <li>
-                <span>
-                  Questions asked
-                  <br />
-                  <span className="cite">median, capped at {results.maxQuestions}</span>
-                </span>
-                <span className="amt">{results.medianQuestionsAsked}</span>
-              </li>
             </ul>
+          ) : (
+            <p className="big-figure pending-figure">Pending the live service</p>
           )}
-
-          {(!results || results.circular) && (
-            <p style={{ color: 'var(--ink-2)', marginTop: 20 }}>
-              {results?.circular
-                ? 'Per-program figures are withheld until a run against the live service produces them.'
-                : 'No validation run has been recorded yet.'}
-            </p>
-          )}
+          <p style={{ color: 'var(--ink-2)', marginTop: 8 }}>
+            This is the figure that matters most, and the one that cannot be measured yet. The
+            preview build answers from the same stored household facts that the scoring
+            compares against, so it came out at 100% on every program — which is not a result,
+            it is the test agreeing with itself. The harness detects that and refuses to
+            publish it.
+          </p>
+          <p style={{ color: 'var(--ink-2)', marginTop: 12 }}>
+            When the live service runs, it will be scored on the {holdoutCount} households held
+            back for this purpose: a third of the set, spread across every kind of household,
+            that nothing is tuned against.
+          </p>
         </div>
       </section>
 

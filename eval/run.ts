@@ -19,6 +19,9 @@ import { EngineClient } from '@/lib/engine/types';
 import { DEFAULT_MAX_QUESTIONS, DEFAULT_TAU, screen } from '@/lib/loop';
 import type { GoldHousehold } from '@/scripts/generate-gold';
 import { oracleReply } from './oracle';
+import { runConformance } from './conformance';
+import { runExtraction } from './extraction';
+import { HOLDOUT_CASES, HOLDOUT_WRITTEN } from './extraction-holdout';
 
 const AS_OF = '2026-09-21';
 const PROGRAMS = [
@@ -218,10 +221,35 @@ async function main() {
   const households = loadGold();
   const engine = engineFromEnv();
 
+  // --- 1. Rules conformance: independent of the gold set and of any model ----
+  const conformance = runConformance();
+  const conformancePassed = conformance.filter((c) => c.passed).length;
+  console.log(`\nrules conformance: ${conformancePassed} of ${conformance.length} hand-computed cases agree with the published sources`);
+  for (const c of conformance.filter((x) => !x.passed)) {
+    console.log(`  DISAGREES ${c.id}: got ${c.got}, source says ${c.expected}`);
+  }
+
+  // --- 2. Extraction: prose written independently of the parser --------------
+  const dev = runExtraction();
+  const held = runExtraction(HOLDOUT_CASES);
+  console.log(
+    `extraction, development set: ${dev.overall.correct}/${dev.overall.total} fields ` +
+      `(${((100 * dev.overall.correct) / dev.overall.total).toFixed(1)}%)`
+  );
+  console.log(
+    `extraction, held out:        ${held.overall.correct}/${held.overall.total} fields ` +
+      `(${((100 * held.overall.correct) / held.overall.total).toFixed(1)}%)  <- the reported figure`
+  );
+
+  // --- 3. End-to-end: needs a real engine, and is scored on the held-out half --
+  const holdout = households.filter((h) => h.split === 'holdout');
+
   console.log(`engine: ${engine.name}${engine.isFixture ? ' (local fixture, not a model)' : ''}`);
   console.log(`households: ${households.length}`);
 
-  const rows = await runOnce(households, engine, tau, maxQuestions);
+  // With the local fixture this still runs, to prove the loop works end to end, but its
+  // accuracy is not reported: the fixture answers from the same facts the scoring uses.
+  const rows = await runOnce(engine.isFixture ? households : holdout, engine, tau, maxQuestions);
   const summary = summarise(rows);
 
   const tauSweep: { tau: number; questionRelevance: number; meanBalancedAccuracy: number; medianQuestions: number }[] = [];
@@ -253,8 +281,32 @@ async function main() {
   const circular =
     engine.isFixture && perfect.length >= Object.keys(summary.balancedAccuracyByProgram).length - 1;
 
+  const pct = (a: number, b: number) => (b === 0 ? 0 : a / b);
   const results = {
     runAt: new Date().toISOString(),
+    conformance: {
+      passed: conformancePassed,
+      total: conformance.length,
+      rate: pct(conformancePassed, conformance.length),
+      cases: conformance,
+    },
+    extraction: {
+      development: { ...dev.overall, rate: pct(dev.overall.correct, dev.overall.total), byField: dev.byField },
+      holdout: {
+        ...held.overall,
+        rate: pct(held.overall.correct, held.overall.total),
+        byField: held.byField,
+        written: HOLDOUT_WRITTEN,
+        misses: held.results.flatMap((r) =>
+          r.fields.filter((f) => !f.correct).map((f) => ({ id: r.id, ...f }))
+        ),
+      },
+    },
+    endToEnd: {
+      measured: !engine.isFixture,
+      scoredOn: engine.isFixture ? 'not scored' : 'held-out half',
+      households: engine.isFixture ? 0 : holdout.length,
+    },
     circular,
     circularNote: circular
       ? 'Every program scored at or near 100% against the local fixture. The fixture and ' +

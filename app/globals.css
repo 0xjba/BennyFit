@@ -525,3 +525,7 @@ figcaption strong { color: var(--ink); font-weight: 700; }
 .tag-4 { right: -2px; top: 216px; background: var(--mint); color: var(--ink); animation-delay: 1060ms; }
 .state-line { font-size: 0.85rem; color: var(--ink-3); margin: 0 0 18px; }
 .state-line strong { color: var(--ink); font-weight: 600; }
+
+.big-figure { font-size: 2.6rem; font-weight: 800; letter-spacing: -0.04em; line-height: 1; margin: 14px 0 6px; }
+.big-figure span { font-size: 1rem; font-weight: 500; color: var(--ink-3); letter-spacing: -0.01em; }
+.big-figure.pending-figure { font-size: 1.5rem; color: var(--ink-3); font-weight: 600; }

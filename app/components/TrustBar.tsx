@@ -16,16 +16,30 @@ const LABELS: Record<string, string> = {
  * anything, so the second figure is never a click away from the first.
  */
 export function TrustBar({ results }: { results: ResultsSummary | null }) {
-  if (results?.circular) {
+  // Two things can be measured honestly without the live service, and are shown.
+  // Screening accuracy end to end cannot, and says so rather than borrowing a figure
+  // from a run that scored itself.
+  if (results && !results.endToEndMeasured) {
+    const c = results.conformance;
+    const x = results.extraction?.holdout;
     return (
       <footer className="trustbar">
         <div className="trustbar-inner">
-          <span className="preview-flag">PREVIEW</span>
-          <span>
-            Accuracy not yet measurable — the preview build scores itself. Real figures
-            follow the first run against the live service.
-          </span>
-          <Link href="/results">Why</Link>
+          {c && (
+            <span>
+              Rules match the federal sources{' '}
+              <strong>
+                {c.passed} of {c.total}
+              </strong>
+            </span>
+          )}
+          {x && (
+            <span>
+              Reads real-world descriptions <strong>{(x.rate * 100).toFixed(1)}%</strong>
+            </span>
+          )}
+          <span>Screening accuracy: pending the live service</span>
+          <Link href="/results">How this is measured</Link>
         </div>
       </footer>
     );

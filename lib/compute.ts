@@ -16,6 +16,7 @@ import {
   dollars,
   formatDollars,
   percentOf,
+  roundHalfUpToDollar,
 } from './money';
 import {
   EitcBracket,
@@ -463,10 +464,21 @@ export function eitcCredit(f: EitcFacts, t: EitcThresholds): EitcResult {
     return { eligible: false, annualValueCents: null, steps, tests, decidedBy };
   }
 
-  const phaseIn = Math.min(
-    percentOf(f.earnedAnnualCents, bracket.phaseInRate),
-    dollars(bracket.maxCredit)
-  );
+  // On the plateau the credit is the published maximum, exactly. Below it the credit
+  // is the phase-in rate times earnings, in whole dollars.
+  //
+  // Taking min(rate x earnings, maximum) instead looks equivalent and is not: the
+  // maximum is itself the rate times the earned income amount, rounded, and where that
+  // rounding went up the product lands just under the published figure. At the earned
+  // income amount a three-child filer in tax year 2026 is owed $8,231 and that version
+  // paid $8,230.50.
+  const phaseIn =
+    f.earnedAnnualCents >= dollars(bracket.earnedIncomeAmount)
+      ? dollars(bracket.maxCredit)
+      : Math.min(
+          roundHalfUpToDollar(percentOf(f.earnedAnnualCents, bracket.phaseInRate)),
+          dollars(bracket.maxCredit)
+        );
   const phaseOutRate = eitcPhaseOutRate(bracket, f.filingStatus);
   steps.push({
     label: 'Phase-in',

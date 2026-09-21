@@ -47,7 +47,7 @@ const FAQS: { q: string; a: string }[] = [
   },
   {
     q: 'How do you measure accuracy?',
-    a: 'Against 150 households whose correct answers are worked out from the federal rules independently of the system being tested. The headline figure is balanced accuracy, which cannot be inflated by the mix of the set — a system that simply answered “eligible” to everything would score 50%, not 80%. The full method is published.',
+    a: 'As three separate things, because they fail in different ways. Whether the rules match the federal sources, checked against figures worked out by hand from USDA, IRS, Medicare and VA publications. Whether the system reads facts correctly from descriptions written the way people actually write, on a set held back from development. And whether it reaches the right answer overall, which needs the live service and is reported as pending until it has run. The full method is published, including where the system is weakest.',
   },
   {
     q: 'Which programs are covered?',
