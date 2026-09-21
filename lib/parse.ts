@@ -80,18 +80,29 @@ function moneyMentions(
 
   const re = /\$\s*[0-9][0-9,]*(?:\.[0-9]{1,2})?\s*(?:k\b)?/gi;
   for (const clause of clauses) {
-    let hit: RegExpExecArray | null;
+    // Where a clause holds more than one amount, each is described by the words between
+    // it and its neighbours rather than by the whole clause. In "I make $1,750 monthly
+    // in Idaho and pay $900 in rent" the word "rent" belongs to the second amount only;
+    // reading it against the whole clause filed both as rent and lost the income.
+    const hits: RegExpExecArray[] = [];
     re.lastIndex = 0;
-    while ((hit = re.exec(clause.text)) !== null) {
+    let h: RegExpExecArray | null;
+    while ((h = re.exec(clause.text)) !== null) hits.push(h);
+
+    for (let k = 0; k < hits.length; k++) {
+      const hit = hits[k];
       const amount = money(hit[0]);
       if (amount === null) continue;
+      const from = k === 0 ? 0 : hits[k - 1].index + hits[k - 1][0].length;
+      const to = k === hits.length - 1 ? clause.text.length : hits[k + 1].index;
+      const local = clause.text.slice(from, to);
       const at = clause.start + hit.index;
       const sentenceStart = Math.max(text.lastIndexOf('.', at - 1), text.lastIndexOf('!', at - 1), text.lastIndexOf('?', at - 1)) + 1;
       const endCandidates = ['.', '!', '?'].map((c) => text.indexOf(c, at)).filter((i) => i !== -1);
       const sentenceEnd = endCandidates.length > 0 ? Math.min(...endCandidates) : text.length;
       out.push({
         amount,
-        context: clause.text.toLowerCase(),
+        context: local.toLowerCase(),
         sentence: text.slice(sentenceStart, sentenceEnd).toLowerCase(),
         index: at,
       });
@@ -204,45 +215,67 @@ export function parseHousehold(paragraph: string): ParseResult {
     '(?:kids?|children|child|sons?|daughters?|boys?|girls?|babies|baby|toddlers?|grand(?:kids?|children|sons?|daughters?)|little ones)';
   const childMatch =
     text.match(new RegExp(`\\b(\\d+|one|two|three|four|five|six|seven|eight|nine|ten)\\s+(?:younger\\s+|little\\s+|small\\s+)?${CHILD_NOUN}\\b`, 'i')) ??
-    text.match(new RegExp(`\\b(?:my|our|a)\\s+(${CHILD_NOUN})\\b`, 'i'));
+    text.match(new RegExp(`\\b(?:my|our|a|her|his|their)\\s+(${CHILD_NOUN})\\b`, 'i'));
   if (childMatch) {
     const token = childMatch[1].toLowerCase();
     childrenCount = /^\d+$/.test(token) ? parseInt(token, 10) : (NUMBER_WORDS[token] ?? 1);
   }
+  // Twins are two children and triplets three, however they are described.
+  if (/\btwins\b|\btwin\s+(?:boys|girls|sons|daughters|babies)\b/i.test(text)) childrenCount = 2;
+  if (/\btriplets\b/i.test(text)) childrenCount = 3;
   if (/\bno (kids|children)\b|\bchildless\b/i.test(text)) childrenCount = 0;
 
   // --- household size ---------------------------------------------------
+  //
+  // In order of how directly the description says it. An explicit count always wins:
+  // the inference at the bottom exists for descriptions that never state a size, and
+  // it must never overrule one that does. "Our household is 7 people ... my husband
+  // earns" used to come back as two, because only "household of N" was recognised and
+  // everything else fell through to counting a partner.
   let householdSize: number | null = null;
-  const sizeMatch = text.match(
-    /\b(?:household|family)\s+of\s+(\d+|one|two|three|four|five|six|seven|eight)\b/i
-  );
-  if (sizeMatch) {
-    const token = sizeMatch[1].toLowerCase();
-    householdSize = /^\d+$/.test(token) ? parseInt(token, 10) : NUMBER_WORDS[token];
-  } else if (/\blive alone\b|\bby myself\b|\bjust me\b|\bon my own\b/i.test(text)) {
+  const NUM = '(\\d+|one|two|three|four|five|six|seven|eight|nine|ten)';
+  const toNumber = (token: string) =>
+    /^\d+$/.test(token) ? parseInt(token, 10) : NUMBER_WORDS[token.toLowerCase()];
+
+  const EXPLICIT = [
+    new RegExp(`\\b(?:household|family|home)\\s+(?:of|is|has)\\s+${NUM}(?:\\s+(?:people|persons|members))?\\b`, 'i'),
+    new RegExp(`\\b${NUM}\\s+(?:people|persons)\\s+(?:live|living|in\\s+(?:our|my|the|this))\\b`, 'i'),
+    new RegExp(`\\b${NUM}\\s+of\\s+us\\b`, 'i'),
+    new RegExp(`\\bhousehold\\s+size\\s+(?:is\\s+|of\\s+)?${NUM}\\b`, 'i'),
+  ];
+  const explicit = EXPLICIT.map((re) => text.match(re)).find((m) => m !== null);
+
+  const hasPartner =
+    /\bmy\s+(wife|husband|partner|spouse|girlfriend|boyfriend|fianc[eé]e?)\b|\bwe\s+are\s+married\b|\bwe\s+both\b|\bboth\s+of\s+us\b/i.test(
+      text
+    );
+
+  if (explicit) {
+    householdSize = toNumber(explicit[1]);
+  } else if (
+    /\b(?:live|living|lives)\s+(?:alone|by\s+myself|on\s+my\s+own)\b|\bjust\s+(?:me|myself)\b|\bit'?s\s+only\s+me\b/i.test(
+      text
+    ) &&
+    !childrenCount
+  ) {
     householdSize = 1;
-  } else if (/\b(\d+|two|three|four|five|six|seven|eight)\s+of us\b/i.test(text)) {
-    const token = text.match(/\b(\d+|two|three|four|five|six|seven|eight)\s+of us\b/i)![1].toLowerCase();
-    householdSize = /^\d+$/.test(token) ? parseInt(token, 10) : NUMBER_WORDS[token];
-  } else if (/\b(\d+|one|two|three|four)\s+adults?\b/i.test(text)) {
+  } else if (new RegExp(`\\b${NUM}\\s+adults?\\b`, 'i').test(text)) {
     // "Two adults, one kid" — count the adults, and add any children found.
-    const token = text.match(/\b(\d+|one|two|three|four)\s+adults?\b/i)![1].toLowerCase();
-    const adults = /^\d+$/.test(token) ? parseInt(token, 10) : NUMBER_WORDS[token];
+    const adults = toNumber(text.match(new RegExp(`\\b${NUM}\\s+adults?\\b`, 'i'))![1]);
     householdSize = adults + (childrenCount ?? 0);
-  } else {
-    // One adult, plus a partner if one appears, plus any children mentioned.
-    const hasPartner = /\bmy (wife|husband|partner|spouse)\b|\bwe are married\b|\bwe both\b/i.test(text);
-    if (hasPartner || childrenCount !== null) {
-      const children = childrenCount ?? 0;
-      householdSize = 1 + (hasPartner ? 1 : 0) + children;
-      const parts: string[] = [];
-      if (hasPartner) parts.push('a partner');
-      if (children > 0) parts.push(`${children} ${children === 1 ? 'child' : 'children'}`);
-      notes.push(
-        `Household size of ${householdSize} inferred from ${parts.join(' and ')} plus the ` +
-          'person describing the household.'
-      );
-    }
+  } else if (/\b(?:married|retired|elderly|older)\s+couple\b|\bcouple\b/i.test(text)) {
+    householdSize = 2 + (childrenCount ?? 0);
+  } else if (hasPartner || childrenCount !== null) {
+    // Nothing stated outright: one adult, a partner if one appears, and any children.
+    const children = childrenCount ?? 0;
+    householdSize = 1 + (hasPartner ? 1 : 0) + children;
+    const parts: string[] = [];
+    if (hasPartner) parts.push('a partner');
+    if (children > 0) parts.push(`${children} ${children === 1 ? 'child' : 'children'}`);
+    notes.push(
+      `Household size of ${householdSize} inferred from ${parts.join(' and ')} plus the ` +
+        'person describing the household, because the description did not state it.'
+    );
   }
 
   // --- money ------------------------------------------------------------
