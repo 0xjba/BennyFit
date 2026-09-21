@@ -1,7 +1,7 @@
 import Link from 'next/link';
 
 import { Masthead, SiteFooter } from '@/app/components/SiteChrome';
-import { readResults } from '@/lib/results';
+import { readBaselineRun, readEngineRun, readResults } from '@/lib/results';
 import { runConformance } from '@/eval/conformance';
 import { HOLDOUT_EDITION } from '@/eval/extraction-holdout';
 import { readFileSync } from 'node:fs';
@@ -58,6 +58,8 @@ const FIELD_LABELS: Record<string, string> = {
 
 export default function Results() {
   const results = readResults();
+  const engineRun = readEngineRun();
+  const baselineRun = readBaselineRun();
   const conformance = results?.conformance ?? null;
   const extraction = results?.extraction ?? null;
   // The case list is run live, so it always reflects the rules as they stand.
@@ -194,34 +196,73 @@ export default function Results() {
 
           {/* ---- 3. end to end ---- */}
           <h3 style={{ marginTop: 48, fontSize: '1.15rem' }}>3. Does it reach the right answer?</h3>
-          {results?.endToEndMeasured ? (
-            <ul className="steps" style={{ marginTop: 18 }}>
-              {Object.entries(results.balancedAccuracyByProgram).map(([program, value]) => (
-                <li key={program}>
-                  <span>
-                    {LABELS[program] ?? program}
-                    <br />
-                    <span className="cite">balanced accuracy, held-out households</span>
-                  </span>
-                  <span className="amt">{percent(value)}</span>
-                </li>
-              ))}
-            </ul>
+          {engineRun ? (
+            <>
+              <p className="big-figure">
+                {percent(engineRun.meanBalancedAccuracy)}
+                <span> mean balanced accuracy across {Object.keys(engineRun.balancedAccuracyByProgram).length} programs</span>
+              </p>
+              <p style={{ color: 'var(--ink-2)', marginTop: 8 }}>
+                The {engineRun.households} households held back for this, run through the
+                whole system: the paragraph read, every rule answered by the decision model,
+                follow-up questions asked and answered, and each program&rsquo;s verdict compared
+                with the answer key. Accuracy is scored on the {engineRun.specifiedCount} of them
+                that state every fact; the rest are missing one on purpose, to test the
+                follow-up questions. The confidence threshold ({engineRun.tau}) was chosen
+                beforehand on the development households by a rule fixed in advance.
+              </p>
+              {baselineRun && (
+                <ul className="steps" style={{ marginTop: 18 }}>
+                  <li>
+                    <span><strong>Held-out households</strong></span>
+                    <span className="amt"><strong>BennyFit</strong> · {baselineRun.engine.replace(' (generating JSON)', '')}</span>
+                  </li>
+                  <li>
+                    <span>Mean balanced accuracy</span>
+                    <span className="amt">{percent(engineRun.meanBalancedAccuracy)} · {percent(baselineRun.meanBalancedAccuracy)}</span>
+                  </li>
+                  <li>
+                    <span>Median time to a full result</span>
+                    <span className="amt">{(engineRun.medianWallClockMs / 1000).toFixed(1)}s · {(baselineRun.medianWallClockMs / 1000).toFixed(1)}s</span>
+                  </li>
+                  <li>
+                    <span>Median follow-up questions</span>
+                    <span className="amt">{engineRun.medianQuestionsAsked} · {baselineRun.medianQuestionsAsked}</span>
+                  </li>
+                </ul>
+              )}
+              <details className="disclosure">
+                <summary>Every program</summary>
+                <ul className="steps">
+                  {Object.entries(engineRun.balancedAccuracyByProgram).map(([program, value]) => (
+                    <li key={program}>
+                      <span>{LABELS[program] ?? program}</span>
+                      <span className="amt">
+                        {percent(value)}
+                        {baselineRun && ` · ${percent(baselineRun.balancedAccuracyByProgram[program] ?? 0)}`}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </details>
+              <p style={{ color: 'var(--ink-2)', marginTop: 14 }}>
+                The first run found a mistake in the rules rather than in the model: the
+                dependent care credit needs a child under 13, and both the answer key and the
+                screener counted every child. It is fixed, a conformance case now pins it, and
+                the held-out run was repeated on the corrected rules. Run to run, the model&rsquo;s
+                answers vary slightly: both runs got three verdicts wrong, not the same three.
+              </p>
+            </>
           ) : (
-            <p className="big-figure pending-figure">Pending the live service</p>
+            <>
+              <p className="big-figure pending-figure">Pending the live service</p>
+              <p style={{ color: 'var(--ink-2)', marginTop: 8 }}>
+                This is the figure that matters most. It will be scored on the {holdoutCount}{' '}
+                households held back for this purpose: a third of the set, spread across every
+                kind of household, that nothing is tuned against.
+              </p>
+            </>
           )}
-          <p style={{ color: 'var(--ink-2)', marginTop: 8 }}>
-            This is the figure that matters most, and the one that cannot be measured yet. The
-            preview build answers from the same stored household facts that the scoring
-            compares against, so it came out at 100% on every program — which is not a result,
-            it is the test agreeing with itself. The harness detects that and refuses to
-            publish it.
-          </p>
-          <p style={{ color: 'var(--ink-2)', marginTop: 12 }}>
-            When the live service runs, it will be scored on the {holdoutCount} households held
-            back for this purpose: a third of the set, spread across every kind of household,
-            that nothing is tuned against.
-          </p>
         </div>
       </section>
 

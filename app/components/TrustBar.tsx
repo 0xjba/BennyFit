@@ -2,12 +2,6 @@ import Link from 'next/link';
 
 import { ResultsSummary } from '@/lib/results';
 
-const LABELS: Record<string, string> = {
-  snap: 'SNAP',
-  eitc: 'EITC',
-  lifeline: 'Lifeline',
-};
-
 /**
  * The strip along the bottom of the product.
  *
@@ -61,21 +55,24 @@ export function TrustBar({ results }: { results: ResultsSummary | null }) {
       <div className="trustbar-inner">
         {results.isFixture && <span className="preview-flag">PREVIEW</span>}
         <span>
-          Agreement with the federal rules{' '}
-          {Object.entries(results.balancedAccuracyByProgram).map(([program, value], i) => (
-            <span key={program}>
-              {i > 0 && ' · '}
-              {LABELS[program] ?? program} <strong>{(value * 100).toFixed(1)}%</strong>
-            </span>
-          ))}
+          Right verdict on held-out households{' '}
+          <strong>
+            {(
+              (100 * Object.values(results.balancedAccuracyByProgram).reduce((a, b) => a + b, 0)) /
+              Math.max(1, Object.keys(results.balancedAccuracyByProgram).length)
+            ).toFixed(1)}
+            %
+          </strong>{' '}
+          across {Object.keys(results.balancedAccuracyByProgram).length} programs
         </span>
-        <span>
-          across <strong>{results.specifiedCount}</strong> validation households
-        </span>
-        <span>
-          right question first <strong>{(results.questionRelevance * 100).toFixed(0)}%</strong> of
-          the time
-        </span>
+        {results.conformance && (
+          <span>
+            Rules match the sources{' '}
+            <strong>
+              {results.conformance.passed} of {results.conformance.total}
+            </strong>
+          </span>
+        )}
         <Link href="/results">How this is measured</Link>
       </div>
     </footer>
