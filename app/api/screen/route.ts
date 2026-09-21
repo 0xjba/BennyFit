@@ -3,12 +3,14 @@
  *
  * The engine key lives here and never reaches the browser. The route is stateless:
  * the browser holds the replies given so far and sends them back, so there is no
- * session, no store, and nothing typed into the box is written anywhere.
+ * session and no store: BennyFit writes nothing typed into the box anywhere. The text
+ * is sent to the decision engine's provider to be read, which the pages say.
  */
 
 import { NextRequest, NextResponse } from 'next/server';
 
 import { engineFromEnv } from '@/lib/engine';
+import { limitMessage, screeningLimiter, visitorOf } from '@/lib/rate-limit';
 import { EngineUnavailable } from '@/lib/engine/types';
 import { conditionsByProgram } from '@/lib/conditions';
 import { effectiveChoice } from '@/lib/evaluate';
@@ -91,6 +93,14 @@ export interface ScreenResponse {
 }
 
 export async function POST(request: NextRequest) {
+  const limit = screeningLimiter.check(visitorOf(request.headers));
+  if (!limit.allowed) {
+    return NextResponse.json(
+      { error: limitMessage(limit), rateLimited: true },
+      { status: 429, headers: { 'Retry-After': String(limit.retryAfterSeconds) } }
+    );
+  }
+
   let body: { paragraph?: unknown; replies?: unknown; asOf?: unknown };
   try {
     body = await request.json();
@@ -120,6 +130,7 @@ export async function POST(request: NextRequest) {
             typeof (r as Reply).reply === 'string'
         )
         .slice(0, 10)
+        .map((r) => ({ ...r, question: r.question.slice(0, 300), reply: r.reply.slice(0, 500) }))
     : [];
 
   const asOf =

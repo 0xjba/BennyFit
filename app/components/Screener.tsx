@@ -246,9 +246,10 @@ export function Screener({ asOf, programCount }: { asOf: string; programCount: n
             aria-label="Describe your household"
           />
           <p className="disclaimer">
-            This is a screening estimate from federal rules, not an eligibility
-            determination. Your state&rsquo;s rules may differ. Apply through the official link
-            to find out. Nothing you type is stored.
+            This is a screening estimate from published federal and state rules, not an
+            eligibility determination. Apply through the official link to find out. BennyFit
+            keeps nothing you type, but it is sent to our AI provider to be read, so please
+            describe a made-up household rather than your own.
           </p>
           <div className="row">
             <button className="btn" onClick={() => start(paragraph)} disabled={paragraph.trim().length === 0}>

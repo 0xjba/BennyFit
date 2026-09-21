@@ -25,6 +25,7 @@ import { EngineClient, EngineQuestion, EngineRequest } from './engine/types';
 import { Answers, ScreeningState, Verdicts, evaluate, totalAnnualValue } from './evaluate';
 import { ParseResult, parseHousehold } from './parse';
 import { readHousehold, readsWithEngine } from './read';
+import { foldAll } from './not-stated';
 
 /**
  * A paragraph is read once, not once per pass. The loop re-evaluates every criterion
@@ -283,7 +284,7 @@ export async function screenStep(
   const stateText = renderState(paragraph, parse, replies);
 
   const response = await options.engine.ask(buildRequest(stateText, criteria));
-  const answers = response.answers;
+  const answers = foldAll(response.answers);
   const verdicts = evaluate(state, answers);
 
   // Both answered and declined questions are out: offering a skipped one again would

@@ -58,13 +58,14 @@
       "id": "snap.income_source",
       "scope": "household",
       "type": "choice",
-      "instructions": "Is the household's income from work, from benefits and other unearned sources, or both? Wages, salary, tips and self-employment are earned. Social Security, SSI, unemployment, pensions, child support received and disability payments are unearned.",
+      "instructions": "Does the description say whether the household's income is from work, from benefits and other unearned sources, or both? Wages, salary, tips and self-employment are earned. Social Security, SSI, unemployment, pensions, child support received and disability payments are unearned. If it gives an amount without saying where it comes from, it is not stated.",
       "askIfUnsure": "Is that money from a job, or from benefits like Social Security?",
       "criteria": {
         "earned": "all of it is earned",
         "unearned": "all of it is unearned",
         "mixed": "some of each",
-        "none": "no income at all"
+        "none": "no income at all",
+        "not_stated": "the description does not say where the money comes from"
       },
       "effect": {
         "onOption": {
@@ -201,7 +202,7 @@
       "id": "snap.resources_over_limit",
       "scope": "household",
       "type": "noul",
-      "instructions": "Does the household hold countable resources \u2014 cash, bank accounts, stocks \u2014 above the limit? Retirement accounts and the home do not count.",
+      "instructions": "Does the household hold countable resources — cash, bank accounts, stocks — above the limit? Retirement accounts and the home do not count.",
       "askIfUnsure": "Do you have more than a few thousand dollars in savings or a bank account?",
       "criteria": {
         "true": "yes, over the limit",

@@ -53,8 +53,10 @@ export default function Compare() {
         </div>
 
         <p className="disclaimer" style={{ marginTop: 36 }}>
-          Screening estimates from federal rules, not eligibility determinations. Nothing
-          typed here is stored. <Link href="/demo">Use the full demo</Link> ·{' '}
+          Screening estimates from published federal and state rules, not eligibility
+          determinations. BennyFit keeps nothing typed here, but it is sent to our AI provider
+          to be read, so please describe a made-up household.{' '}
+          <Link href="/demo">Use the full demo</Link> ·{' '}
           <Link href="/results">How accuracy is measured</Link>
         </p>
       </main>

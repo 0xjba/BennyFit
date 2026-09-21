@@ -51,6 +51,7 @@ import {
   dependentCareCredit,
   cdctcQualifyingChildren,
   vaPensionAgeOrDisability,
+  medicarePossible,
   veteransPension,
 } from './compute-programs';
 
@@ -831,6 +832,11 @@ export function evaluate(state: ScreeningState, answers: Answers): Verdicts {
       decidedBy = result.decidedBy;
       if (result.valueNote) notes.push(result.valueNote);
       computed['limits_test'] = result.eligible;
+      computed['medicare_possible'] = medicarePossible(
+        state.facts.ages.length > 0 ? Math.max(...state.facts.ages) : null,
+        /\bmedicare\b|\bssdi\b|disab|dialysis|kidney failure|\bals\b/i.test(state.paragraph) ||
+          state.facts.mentionsPrograms.includes('ssdi')
+      );
     }
 
     const truth = (name: string): boolean =>

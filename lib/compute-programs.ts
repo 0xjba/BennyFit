@@ -506,6 +506,16 @@ export function cdctcQualifyingChildren(childCount: number, agesMentioned: numbe
  * home care because of a disability, or receiving SSDI or SSI. Age is compared here;
  * the rest arrives as one yes or no.
  */
+/**
+ * Whether Medicare enrolment is possible at all, compared in code rather than left to
+ * a reading: Medicare starts at 65, and before that only with a disability (after 24
+ * months of SSDI) or kidney failure. A stated age under 65 with no sign of either rules
+ * it out, however a sentence like "I'm 64 and on a fixed income" reads.
+ */
+export function medicarePossible(age: number | null, disabilitySignal: boolean): boolean {
+  return age === null || age >= 65 || disabilitySignal;
+}
+
 export function vaPensionAgeOrDisability(age: number | null, disabledOrOnBenefits: boolean): boolean {
   return (age !== null && age >= 65) || disabledOrOnBenefits;
 }

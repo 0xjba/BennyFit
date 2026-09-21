@@ -14,6 +14,9 @@ import { NextRequest, NextResponse } from 'next/server';
 
 import { instantiate, loadPrograms } from '@/lib/criteria';
 import { generationLanes } from '@/lib/engine/generation';
+import { RateLimiter, limitMessage, visitorOf } from '@/lib/rate-limit';
+
+const baselineLimiter = new RateLimiter({ perVisitor: 10, windowMs: 10 * 60_000, perDay: 200 });
 import { EngineUnavailable } from '@/lib/engine/types';
 import { buildRequest, renderState, shapeOf } from '@/lib/loop';
 import { parseHousehold } from '@/lib/parse';
@@ -37,7 +40,23 @@ export interface LaneResult {
   outputTokens?: number;
 }
 
+/**
+ * The live comparison lanes are paused unless BASELINE_LANES=on. A general-purpose
+ * model costs about $0.20 a screening to run through the loop, against a fraction of a
+ * cent for the typed engine, so on a public demo it would be the whole bill. The
+ * measured comparison, on the held-out households, is on the Results page.
+ */
+const LANES_ON = process.env.BASELINE_LANES === 'on';
+
 export async function POST(request: NextRequest) {
+  const limit = baselineLimiter.check(visitorOf(request.headers));
+  if (!limit.allowed) {
+    return NextResponse.json(
+      { error: limitMessage(limit), rateLimited: true },
+      { status: 429, headers: { 'Retry-After': String(limit.retryAfterSeconds) } }
+    );
+  }
+
   let body: { paragraph?: unknown };
   try {
     body = await request.json();
@@ -69,6 +88,16 @@ export async function POST(request: NextRequest) {
       configured: baseline.configured,
       ran: false,
     };
+
+    if (!LANES_ON) {
+      results.push({
+        ...base,
+        reason:
+          'Paused on the live demo. This lane is measured on the held-out households ' +
+          'instead; the side-by-side results are on the Results page.',
+      });
+      continue;
+    }
 
     if (!baseline.configured) {
       results.push({

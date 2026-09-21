@@ -93,7 +93,7 @@ export default function Landing() {
                     See the comparison
                   </Link>
                 </div>
-                <p className="hero-note">No sign-up. Nothing typed into the demo is stored.</p>
+                <p className="hero-note">No sign-up. Try it with a made-up household: BennyFit keeps nothing you type, but it is sent to our AI provider to be read.</p>
               </div>
             </div>
 

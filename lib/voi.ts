@@ -18,6 +18,7 @@ import { Cents } from './money';
 import { InstantiatedCriterion } from './criteria';
 import { EngineAnswer } from './engine/types';
 import { Answers, ScreeningState, evaluate, totalAnnualValue } from './evaluate';
+import { NOT_STATED } from './not-stated';
 
 export interface VoiResult {
   /** Spread in total annual dollars between the best and worst option. */
@@ -48,7 +49,8 @@ export function voi(
   answers: Answers,
   currentTotalCents?: Cents
 ): VoiResult {
-  const options = Object.keys(criterion.criteria);
+  // "Not stated" is not an answer a household can give, so it is never pinned.
+  const options = Object.keys(criterion.criteria).filter((o) => o !== NOT_STATED);
   const byOption: VoiResult['byOption'] = {};
   const eligibilitySets: string[][] = [];
 

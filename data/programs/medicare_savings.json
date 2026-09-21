@@ -21,7 +21,8 @@
     }
   ],
   "computed": [
+    "medicare_savings.medicare_possible",
     "medicare_savings.limits_test"
   ],
-  "verdict": "on_medicare AND limits_test"
+  "verdict": "on_medicare AND medicare_possible AND limits_test"
 }

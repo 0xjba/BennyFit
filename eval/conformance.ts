@@ -32,6 +32,7 @@ import {
   dependentCareCredit,
   cdctcQualifyingChildren,
   vaPensionAgeOrDisability,
+  medicarePossible,
   extraHelpEligibility,
   fpgThresholdEligibility,
   medicareSavingsEligibility,
@@ -384,6 +385,36 @@ export const CASES: ConformanceCase[] = [
   },
 
   // ---------------- Veterans Pension ----------------
+  {
+    id: 'medicare.gate-64',
+    program: 'extra_help',
+    what: 'Aged 64, no disability mentioned: cannot be on Medicare',
+    source:
+      'medicare.gov (Who can get Medicare): people 65 or older, and certain younger people ' +
+      'with disabilities or End-Stage Renal Disease. Found by the held-out run, where ' +
+      'people aged 62 to 64 were read as on Medicare and shown Extra Help.',
+    run: () => ({ got: medicarePossible(64, false), expected: false }),
+  },
+  {
+    id: 'medicare.gate-50-ssdi',
+    program: 'extra_help',
+    what: 'Aged 50 on SSDI: can be',
+    source:
+      'medicare.gov (Who can get Medicare): people 65 or older, and certain younger people ' +
+      'with disabilities or End-Stage Renal Disease. Found by the held-out run, where ' +
+      'people aged 62 to 64 were read as on Medicare and shown Extra Help.',
+    run: () => ({ got: medicarePossible(50, true), expected: true }),
+  },
+  {
+    id: 'medicare.gate-age-unknown',
+    program: 'extra_help',
+    what: 'Age not stated: left to the description',
+    source:
+      'medicare.gov (Who can get Medicare): people 65 or older, and certain younger people ' +
+      'with disabilities or End-Stage Renal Disease. Found by the held-out run, where ' +
+      'people aged 62 to 64 were read as on Medicare and shown Extra Help.',
+    run: () => ({ got: medicarePossible(null, false), expected: true }),
+  },
   {
     id: 'va.gate-young-not-disabled',
     program: 'va_pension',
