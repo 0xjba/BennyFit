@@ -113,3 +113,39 @@ describe('shapes from the second held-out set', () => {
     expect(f.rentMonthly).toBe(1200);
   });
 });
+
+describe('shapes from the third held-out set', () => {
+  it('reads "45k a year" with no dollar sign', () => {
+    const f = facts('Me + 2 kids in Wisconsin. I make 45k a year as a CNA.');
+    expect(f.incomeAmount).toBe(45000);
+    expect(f.incomePeriod).toBe('annual');
+  });
+
+  it('keeps "City, State" in one clause', () => {
+    const f = facts('I rent an apartment in Chicago, Illinois for $1,275 and make $2,900 a month.');
+    expect(f.rentMonthly).toBe(1275);
+    expect(f.incomeAmount).toBe(2900);
+  });
+
+  it('reads "hh" as household', () => {
+    expect(facts('hh of 4 in Kansas, income $3,100/mo').householdSize).toBe(4);
+    expect(facts('HH size: 3').householdSize).toBe(3);
+  });
+
+  it('counts a child described by age, and each child named singly', () => {
+    const f = facts('I have a 2 year old son. My rent is $650.');
+    expect(f.childrenCount).toBe(1);
+    expect(f.householdSize).toBe(2);
+    expect(facts('I live with my son and my daughter.').childrenCount).toBe(2);
+  });
+
+  it('counts an adult child in the household but not as a child', () => {
+    const f = facts('I live with my husband, our adult son, and our daughter who is 12.');
+    expect(f.householdSize).toBe(4);
+    expect(f.childrenCount).toBe(1);
+  });
+
+  it('reads "we both work" as a partner', () => {
+    expect(facts('We have 4 kids and both work in South Dakota.').householdSize).toBe(6);
+  });
+});

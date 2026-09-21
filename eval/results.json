@@ -1,5 +1,5 @@
 {
-  "runAt": "2026-09-21T09:24:36.283Z",
+  "runAt": "2026-09-21T09:27:38.570Z",
   "conformance": {
     "passed": 27,
     "total": 27,
@@ -252,129 +252,157 @@
   },
   "extraction": {
     "development": {
-      "correct": 290,
-      "total": 291,
-      "rate": 0.9965635738831615,
+      "correct": 395,
+      "total": 396,
+      "rate": 0.9974747474747475,
       "byField": {
         "householdSize": {
-          "correct": 50,
-          "total": 51
+          "correct": 70,
+          "total": 71
         },
         "incomeAmount": {
-          "correct": 52,
-          "total": 52
+          "correct": 70,
+          "total": 70
         },
         "incomePeriod": {
-          "correct": 52,
-          "total": 52
+          "correct": 70,
+          "total": 70
         },
         "rentMonthly": {
-          "correct": 52,
-          "total": 52
+          "correct": 71,
+          "total": 71
         },
         "state": {
-          "correct": 60,
-          "total": 60
+          "correct": 80,
+          "total": 80
         },
         "childrenCount": {
-          "correct": 24,
-          "total": 24
+          "correct": 34,
+          "total": 34
         }
       }
     },
     "holdout": {
-      "correct": 96,
-      "total": 105,
-      "rate": 0.9142857142857143,
+      "correct": 93,
+      "total": 106,
+      "rate": 0.8773584905660378,
       "byField": {
         "householdSize": {
-          "correct": 16,
-          "total": 20
+          "correct": 14,
+          "total": 19
         },
         "incomeAmount": {
-          "correct": 16,
-          "total": 18
+          "correct": 15,
+          "total": 17
         },
         "incomePeriod": {
-          "correct": 17,
-          "total": 18
+          "correct": 15,
+          "total": 17
         },
         "rentMonthly": {
           "correct": 18,
           "total": 19
         },
         "state": {
-          "correct": 20,
+          "correct": 19,
           "total": 20
         },
         "childrenCount": {
-          "correct": 9,
-          "total": 10
+          "correct": 12,
+          "total": 14
         }
       },
       "written": "2026-09-21",
       "misses": [
         {
-          "id": "m01",
+          "id": "n01",
+          "field": "householdSize",
+          "expected": 5,
+          "got": null,
+          "correct": false
+        },
+        {
+          "id": "n01",
           "field": "incomeAmount",
-          "expected": 45000,
-          "got": null,
+          "expected": 2500,
+          "got": 5000,
           "correct": false
         },
         {
-          "id": "m01",
-          "field": "incomePeriod",
-          "expected": "annual",
-          "got": null,
-          "correct": false
-        },
-        {
-          "id": "m05",
-          "field": "householdSize",
-          "expected": 4,
-          "got": 3,
-          "correct": false
-        },
-        {
-          "id": "m08",
-          "field": "householdSize",
-          "expected": 4,
-          "got": null,
-          "correct": false
-        },
-        {
-          "id": "m09",
-          "field": "householdSize",
-          "expected": 2,
-          "got": null,
-          "correct": false
-        },
-        {
-          "id": "m09",
+          "id": "n01",
           "field": "childrenCount",
-          "expected": 1,
+          "expected": 4,
           "got": null,
           "correct": false
         },
         {
-          "id": "m12",
-          "field": "incomeAmount",
-          "expected": 2900,
-          "got": 1275,
-          "correct": false
-        },
-        {
-          "id": "m12",
-          "field": "rentMonthly",
-          "expected": 1275,
-          "got": null,
-          "correct": false
-        },
-        {
-          "id": "m19",
+          "id": "n03",
           "field": "householdSize",
-          "expected": 6,
-          "got": 5,
+          "expected": 5,
+          "got": 4,
+          "correct": false
+        },
+        {
+          "id": "n03",
+          "field": "childrenCount",
+          "expected": 3,
+          "got": 2,
+          "correct": false
+        },
+        {
+          "id": "n04",
+          "field": "state",
+          "expected": "District of Columbia",
+          "got": "Washington",
+          "correct": false
+        },
+        {
+          "id": "n06",
+          "field": "householdSize",
+          "expected": 5,
+          "got": 4,
+          "correct": false
+        },
+        {
+          "id": "n06",
+          "field": "incomeAmount",
+          "expected": 2450,
+          "got": null,
+          "correct": false
+        },
+        {
+          "id": "n06",
+          "field": "incomePeriod",
+          "expected": "monthly",
+          "got": null,
+          "correct": false
+        },
+        {
+          "id": "n08",
+          "field": "householdSize",
+          "expected": 3,
+          "got": 2,
+          "correct": false
+        },
+        {
+          "id": "n09",
+          "field": "householdSize",
+          "expected": 3,
+          "got": null,
+          "correct": false
+        },
+        {
+          "id": "n09",
+          "field": "incomePeriod",
+          "expected": "monthly",
+          "got": null,
+          "correct": false
+        },
+        {
+          "id": "n16",
+          "field": "rentMonthly",
+          "expected": 2200,
+          "got": null,
           "correct": false
         }
       ]
@@ -681,8 +709,8 @@
   "underspecifiedCount": 30,
   "specifiedCount": 120,
   "medianCriteriaPerHousehold": 53,
-  "medianWallClockMs": 42.411978999999974,
-  "medianEngineMs": 1.3891464999994696,
+  "medianWallClockMs": 39.19831200000044,
+  "medianEngineMs": 1.3089795000000777,
   "medianQuestionsAsked": 3,
   "medianPasses": 4,
   "totalAnnualValueSurfaced": 1297069,
@@ -791,8 +819,8 @@
       ],
       "firstQuestion": "va_pension.wartime_veteran",
       "criteriaEvaluated": 79,
-      "wallClockMs": 104.86645800000002,
-      "engineMs": 3.0339570000000435,
+      "wallClockMs": 109.43195800000001,
+      "engineMs": 2.9901669999999854,
       "passes": 4
     },
     {
@@ -897,8 +925,8 @@
       ],
       "firstQuestion": "va_pension.wartime_veteran",
       "criteriaEvaluated": 66,
-      "wallClockMs": 68.371375,
-      "engineMs": 1.555625999999961,
+      "wallClockMs": 67.93975,
+      "engineMs": 1.5314999999999657,
       "passes": 4
     },
     {
@@ -1003,8 +1031,8 @@
       ],
       "firstQuestion": "va_pension.wartime_veteran",
       "criteriaEvaluated": 79,
-      "wallClockMs": 83.30924999999996,
-      "engineMs": 2.3780419999999935,
+      "wallClockMs": 81.23766599999999,
+      "engineMs": 2.268457999999953,
       "passes": 4
     },
     {
@@ -1109,8 +1137,8 @@
       ],
       "firstQuestion": "va_pension.wartime_veteran",
       "criteriaEvaluated": 92,
-      "wallClockMs": 105.00566700000007,
-      "engineMs": 2.6108749999999645,
+      "wallClockMs": 102.94737500000002,
+      "engineMs": 2.8463330000000155,
       "passes": 4
     },
     {
@@ -1215,8 +1243,8 @@
       ],
       "firstQuestion": "va_pension.wartime_veteran",
       "criteriaEvaluated": 79,
-      "wallClockMs": 78.20220800000004,
-      "engineMs": 2.2892499999999245,
+      "wallClockMs": 76.94545799999997,
+      "engineMs": 2.275540999999862,
       "passes": 4
     },
     {
@@ -1321,8 +1349,8 @@
       ],
       "firstQuestion": "va_pension.wartime_veteran",
       "criteriaEvaluated": 66,
-      "wallClockMs": 59.616540999999984,
-      "engineMs": 1.801040999999941,
+      "wallClockMs": 58.508707999999956,
+      "engineMs": 1.7754580000001852,
       "passes": 4
     },
     {
@@ -1427,8 +1455,8 @@
       ],
       "firstQuestion": "snap.income_source",
       "criteriaEvaluated": 92,
-      "wallClockMs": 98.594334,
-      "engineMs": 2.513665999999944,
+      "wallClockMs": 97.18516699999998,
+      "engineMs": 2.5956270000001496,
       "passes": 4
     },
     {
@@ -1533,8 +1561,8 @@
       ],
       "firstQuestion": "va_pension.wartime_veteran",
       "criteriaEvaluated": 92,
-      "wallClockMs": 99.00720799999999,
-      "engineMs": 2.48174999999992,
+      "wallClockMs": 97.09916599999997,
+      "engineMs": 2.5487920000000486,
       "passes": 4
     },
     {
@@ -1639,8 +1667,8 @@
       ],
       "firstQuestion": "snap.income_source",
       "criteriaEvaluated": 79,
-      "wallClockMs": 75.15525000000002,
-      "engineMs": 2.1163759999999456,
+      "wallClockMs": 72.93483300000003,
+      "engineMs": 2.1664989999999307,
       "passes": 4
     },
     {
@@ -1745,8 +1773,8 @@
       ],
       "firstQuestion": "va_pension.wartime_veteran",
       "criteriaEvaluated": 92,
-      "wallClockMs": 94.13629200000003,
-      "engineMs": 2.496667000000002,
+      "wallClockMs": 90.72583399999996,
+      "engineMs": 2.453081999999995,
       "passes": 4
     },
     {
@@ -1851,8 +1879,8 @@
       ],
       "firstQuestion": "snap.income_source",
       "criteriaEvaluated": 92,
-      "wallClockMs": 94.35795799999983,
-      "engineMs": 2.473083000000088,
+      "wallClockMs": 91.36795899999993,
+      "engineMs": 2.420374999999808,
       "passes": 4
     },
     {
@@ -1957,8 +1985,8 @@
       ],
       "firstQuestion": "snap.income_source",
       "criteriaEvaluated": 79,
-      "wallClockMs": 79.45875000000001,
-      "engineMs": 1.9574999999999818,
+      "wallClockMs": 81.81812500000001,
+      "engineMs": 1.9143340000000535,
       "passes": 4
     },
     {
@@ -2063,8 +2091,8 @@
       ],
       "firstQuestion": "va_pension.wartime_veteran",
       "criteriaEvaluated": 79,
-      "wallClockMs": 79.68533400000001,
-      "engineMs": 1.9894580000002406,
+      "wallClockMs": 77.25762499999996,
+      "engineMs": 1.9201249999998709,
       "passes": 4
     },
     {
@@ -2169,8 +2197,8 @@
       ],
       "firstQuestion": "va_pension.wartime_veteran",
       "criteriaEvaluated": 92,
-      "wallClockMs": 100.31045800000015,
-      "engineMs": 2.212373999999727,
+      "wallClockMs": 98.82733299999995,
+      "engineMs": 2.134291999999732,
       "passes": 4
     },
     {
@@ -2275,8 +2303,8 @@
       ],
       "firstQuestion": "va_pension.wartime_veteran",
       "criteriaEvaluated": 79,
-      "wallClockMs": 76.08508299999994,
-      "engineMs": 2.0343319999999494,
+      "wallClockMs": 73.54858300000001,
+      "engineMs": 1.936001000000033,
       "passes": 4
     },
     {
@@ -2381,8 +2409,8 @@
       ],
       "firstQuestion": "va_pension.wartime_veteran",
       "criteriaEvaluated": 79,
-      "wallClockMs": 77.30120800000009,
-      "engineMs": 2.0017089999998916,
+      "wallClockMs": 84.7210419999999,
+      "engineMs": 2.1182070000002113,
       "passes": 4
     },
     {
@@ -2487,8 +2515,8 @@
       ],
       "firstQuestion": "va_pension.wartime_veteran",
       "criteriaEvaluated": 66,
-      "wallClockMs": 58.530917000000045,
-      "engineMs": 1.6638749999999618,
+      "wallClockMs": 60.787665999999945,
+      "engineMs": 1.662000000000262,
       "passes": 4
     },
     {
@@ -2593,8 +2621,8 @@
       ],
       "firstQuestion": "snap.income_source",
       "criteriaEvaluated": 92,
-      "wallClockMs": 99.66858400000001,
-      "engineMs": 1.9576269999997749,
+      "wallClockMs": 97.575875,
+      "engineMs": 2.009376000000202,
       "passes": 4
     },
     {
@@ -2699,8 +2727,8 @@
       ],
       "firstQuestion": "va_pension.wartime_veteran",
       "criteriaEvaluated": 66,
-      "wallClockMs": 53.72283300000004,
-      "engineMs": 1.4632500000000164,
+      "wallClockMs": 52.673917000000074,
+      "engineMs": 1.496541999999863,
       "passes": 4
     },
     {
@@ -2805,8 +2833,8 @@
       ],
       "firstQuestion": "va_pension.wartime_veteran",
       "criteriaEvaluated": 79,
-      "wallClockMs": 77.26929199999995,
-      "engineMs": 1.992207999999664,
+      "wallClockMs": 76.12954100000002,
+      "engineMs": 1.9358320000001186,
       "passes": 4
     },
     {
@@ -2911,8 +2939,8 @@
       ],
       "firstQuestion": "va_pension.wartime_veteran",
       "criteriaEvaluated": 92,
-      "wallClockMs": 97.99429200000009,
-      "engineMs": 2.3981240000000525,
+      "wallClockMs": 94.63520900000003,
+      "engineMs": 2.336543000000347,
       "passes": 4
     },
     {
@@ -3017,8 +3045,8 @@
       ],
       "firstQuestion": "va_pension.wartime_veteran",
       "criteriaEvaluated": 79,
-      "wallClockMs": 77.28362500000003,
-      "engineMs": 2.0026249999998527,
+      "wallClockMs": 74.31833299999994,
+      "engineMs": 1.9171669999998358,
       "passes": 4
     },
     {
@@ -3123,8 +3151,8 @@
       ],
       "firstQuestion": "va_pension.wartime_veteran",
       "criteriaEvaluated": 79,
-      "wallClockMs": 74.77929199999971,
-      "engineMs": 2.0636259999998856,
+      "wallClockMs": 72.131709,
+      "engineMs": 2.0158749999998236,
       "passes": 4
     },
     {
@@ -3229,8 +3257,8 @@
       ],
       "firstQuestion": "va_pension.wartime_veteran",
       "criteriaEvaluated": 66,
-      "wallClockMs": 57.58549999999968,
-      "engineMs": 1.5937079999998787,
+      "wallClockMs": 55.316499999999905,
+      "engineMs": 1.5609570000003714,
       "passes": 4
     },
     {
@@ -3335,8 +3363,8 @@
       ],
       "firstQuestion": "va_pension.wartime_veteran",
       "criteriaEvaluated": 79,
-      "wallClockMs": 76.06812499999978,
-      "engineMs": 2.0284569999994346,
+      "wallClockMs": 74.0129579999998,
+      "engineMs": 1.9403350000006867,
       "passes": 4
     },
     {
@@ -3441,8 +3469,8 @@
       ],
       "firstQuestion": "va_pension.wartime_veteran",
       "criteriaEvaluated": 79,
-      "wallClockMs": 76.62483400000019,
-      "engineMs": 2.0317089999998643,
+      "wallClockMs": 73.86354200000005,
+      "engineMs": 2.1108329999992748,
       "passes": 4
     },
     {
@@ -3547,8 +3575,8 @@
       ],
       "firstQuestion": "snap.income_source",
       "criteriaEvaluated": 66,
-      "wallClockMs": 59.018375000000106,
-      "engineMs": 1.6158319999990454,
+      "wallClockMs": 58.072541999999885,
+      "engineMs": 1.575459000000592,
       "passes": 4
     },
     {
@@ -3653,8 +3681,8 @@
       ],
       "firstQuestion": "va_pension.wartime_veteran",
       "criteriaEvaluated": 92,
-      "wallClockMs": 98.7604580000002,
-      "engineMs": 2.4260829999993803,
+      "wallClockMs": 96.60283300000037,
+      "engineMs": 2.5404170000001614,
       "passes": 4
     },
     {
@@ -3759,8 +3787,8 @@
       ],
       "firstQuestion": "snap.income_source",
       "criteriaEvaluated": 92,
-      "wallClockMs": 95.22504099999969,
-      "engineMs": 2.3638740000001235,
+      "wallClockMs": 93.50608299999976,
+      "engineMs": 2.5972909999991316,
       "passes": 4
     },
     {
@@ -3865,8 +3893,8 @@
       ],
       "firstQuestion": "va_pension.wartime_veteran",
       "criteriaEvaluated": 66,
-      "wallClockMs": 57.5464579999998,
-      "engineMs": 1.7628340000001117,
+      "wallClockMs": 55.833042000000205,
+      "engineMs": 2.459375999999793,
       "passes": 4
     },
     {
@@ -3971,8 +3999,8 @@
       ],
       "firstQuestion": "snap.categorical",
       "criteriaEvaluated": 53,
-      "wallClockMs": 42.45629199999985,
-      "engineMs": 1.1362079999998969,
+      "wallClockMs": 40.869500000000244,
+      "engineMs": 1.083332000000155,
       "passes": 4
     },
     {
@@ -4077,8 +4105,8 @@
       ],
       "firstQuestion": "snap.categorical",
       "criteriaEvaluated": 59,
-      "wallClockMs": 48.49779200000012,
-      "engineMs": 1.2893749999998363,
+      "wallClockMs": 79.13445899999988,
+      "engineMs": 1.5280409999995754,
       "passes": 4
     },
     {
@@ -4183,8 +4211,8 @@
       ],
       "firstQuestion": "snap.categorical",
       "criteriaEvaluated": 59,
-      "wallClockMs": 48.103665999999976,
-      "engineMs": 1.4922079999992093,
+      "wallClockMs": 53.38062500000024,
+      "engineMs": 1.8420010000004368,
       "passes": 4
     },
     {
@@ -4289,8 +4317,8 @@
       ],
       "firstQuestion": "snap.categorical",
       "criteriaEvaluated": 53,
-      "wallClockMs": 39.82999999999993,
-      "engineMs": 1.3077929999994922,
+      "wallClockMs": 38.96445799999992,
+      "engineMs": 1.335374999999658,
       "passes": 4
     },
     {
@@ -4395,8 +4423,8 @@
       ],
       "firstQuestion": "snap.categorical",
       "criteriaEvaluated": 53,
-      "wallClockMs": 40.262208999999984,
-      "engineMs": 1.3420839999998861,
+      "wallClockMs": 38.29895799999986,
+      "engineMs": 1.3097920000000158,
       "passes": 4
     },
     {
@@ -4501,8 +4529,8 @@
       ],
       "firstQuestion": "snap.categorical",
       "criteriaEvaluated": 59,
-      "wallClockMs": 46.06566699999985,
-      "engineMs": 1.4268730000003416,
+      "wallClockMs": 44.242041999999856,
+      "engineMs": 1.4202500000001237,
       "passes": 4
     },
     {
@@ -4607,8 +4635,8 @@
       ],
       "firstQuestion": "snap.categorical",
       "criteriaEvaluated": 59,
-      "wallClockMs": 45.928583000000344,
-      "engineMs": 1.4315000000001419,
+      "wallClockMs": 44.43691600000011,
+      "engineMs": 1.4622069999995801,
       "passes": 4
     },
     {
@@ -4713,8 +4741,8 @@
       ],
       "firstQuestion": "snap.categorical",
       "criteriaEvaluated": 53,
-      "wallClockMs": 39.39924999999994,
-      "engineMs": 1.2963750000003529,
+      "wallClockMs": 38.19662500000004,
+      "engineMs": 1.4364989999999125,
       "passes": 4
     },
     {
@@ -4819,8 +4847,8 @@
       ],
       "firstQuestion": "snap.categorical",
       "criteriaEvaluated": 59,
-      "wallClockMs": 46.199540999999954,
-      "engineMs": 1.493583999999828,
+      "wallClockMs": 44.51141699999971,
+      "engineMs": 1.372208000000228,
       "passes": 4
     },
     {
@@ -4925,8 +4953,8 @@
       ],
       "firstQuestion": "snap.categorical",
       "criteriaEvaluated": 59,
-      "wallClockMs": 45.69645899999978,
-      "engineMs": 1.5030820000006315,
+      "wallClockMs": 43.80208399999992,
+      "engineMs": 1.3451249999998254,
       "passes": 4
     },
     {
@@ -5031,8 +5059,8 @@
       ],
       "firstQuestion": "snap.categorical",
       "criteriaEvaluated": 59,
-      "wallClockMs": 45.79062500000009,
-      "engineMs": 1.4454170000003614,
+      "wallClockMs": 44.02654200000006,
+      "engineMs": 1.4958350000001701,
       "passes": 4
     },
     {
@@ -5137,8 +5165,8 @@
       ],
       "firstQuestion": "snap.categorical",
       "criteriaEvaluated": 59,
-      "wallClockMs": 46.07933300000013,
-      "engineMs": 1.4182909999999538,
+      "wallClockMs": 44.217833000000155,
+      "engineMs": 1.3718320000002677,
       "passes": 4
     },
     {
@@ -5243,8 +5271,8 @@
       ],
       "firstQuestion": "snap.categorical",
       "criteriaEvaluated": 53,
-      "wallClockMs": 39.22762499999999,
-      "engineMs": 1.269832999999835,
+      "wallClockMs": 38.86349999999993,
+      "engineMs": 1.3100850000000719,
       "passes": 4
     },
     {
@@ -5349,8 +5377,8 @@
       ],
       "firstQuestion": "snap.categorical",
       "criteriaEvaluated": 59,
-      "wallClockMs": 45.7027079999998,
-      "engineMs": 1.4170420000004924,
+      "wallClockMs": 44.46537499999977,
+      "engineMs": 1.5001659999998083,
       "passes": 4
     },
     {
@@ -5455,8 +5483,8 @@
       ],
       "firstQuestion": "snap.categorical",
       "criteriaEvaluated": 53,
-      "wallClockMs": 39.221750000000156,
-      "engineMs": 1.2585430000003726,
+      "wallClockMs": 38.73845900000015,
+      "engineMs": 1.2905419999992773,
       "passes": 4
     },
     {
@@ -5561,8 +5589,8 @@
       ],
       "firstQuestion": "snap.categorical",
       "criteriaEvaluated": 59,
-      "wallClockMs": 47.65020800000002,
-      "engineMs": 1.4831659999999829,
+      "wallClockMs": 43.97395900000038,
+      "engineMs": 1.3927510000003167,
       "passes": 4
     },
     {
@@ -5667,8 +5695,8 @@
       ],
       "firstQuestion": "snap.categorical",
       "criteriaEvaluated": 59,
-      "wallClockMs": 47.592833000000155,
-      "engineMs": 1.541041999999834,
+      "wallClockMs": 45.23908300000039,
+      "engineMs": 1.5375009999997928,
       "passes": 4
     },
     {
@@ -5773,8 +5801,8 @@
       ],
       "firstQuestion": "snap.categorical",
       "criteriaEvaluated": 53,
-      "wallClockMs": 41.43537500000002,
-      "engineMs": 1.3978339999998752,
+      "wallClockMs": 38.11899999999969,
+      "engineMs": 1.2696239999995669,
       "passes": 4
     },
     {
@@ -5879,8 +5907,8 @@
       ],
       "firstQuestion": "snap.categorical",
       "criteriaEvaluated": 59,
-      "wallClockMs": 47.96024999999963,
-      "engineMs": 1.5387510000000475,
+      "wallClockMs": 44.28887500000019,
+      "engineMs": 1.3589999999999236,
       "passes": 4
     },
     {
@@ -5985,8 +6013,8 @@
       ],
       "firstQuestion": "snap.categorical",
       "criteriaEvaluated": 53,
-      "wallClockMs": 41.329665999999634,
-      "engineMs": 1.4095400000005611,
+      "wallClockMs": 37.61354200000005,
+      "engineMs": 1.3049160000000484,
       "passes": 4
     },
     {
@@ -6091,8 +6119,8 @@
       ],
       "firstQuestion": "snap.categorical",
       "criteriaEvaluated": 53,
-      "wallClockMs": 40.751250000000255,
-      "engineMs": 1.3585409999991498,
+      "wallClockMs": 38.17591700000003,
+      "engineMs": 1.2646669999999176,
       "passes": 4
     },
     {
@@ -6197,8 +6225,8 @@
       ],
       "firstQuestion": "snap.categorical",
       "criteriaEvaluated": 59,
-      "wallClockMs": 47.454291999999896,
-      "engineMs": 1.4950410000001284,
+      "wallClockMs": 44.00858299999982,
+      "engineMs": 1.3514150000000882,
       "passes": 4
     },
     {
@@ -6303,8 +6331,8 @@
       ],
       "firstQuestion": "snap.categorical",
       "criteriaEvaluated": 53,
-      "wallClockMs": 40.34554199999957,
-      "engineMs": 1.3368329999998423,
+      "wallClockMs": 38.36075000000028,
+      "engineMs": 1.2612509999994472,
       "passes": 4
     },
     {
@@ -6409,8 +6437,8 @@
       ],
       "firstQuestion": "snap.categorical",
       "criteriaEvaluated": 53,
-      "wallClockMs": 41.687790999999834,
-      "engineMs": 1.1972090000003845,
+      "wallClockMs": 38.67191599999978,
+      "engineMs": 1.117624999999407,
       "passes": 4
     },
     {
@@ -6515,8 +6543,8 @@
       ],
       "firstQuestion": "snap.categorical",
       "criteriaEvaluated": 53,
-      "wallClockMs": 41.01333399999976,
-      "engineMs": 1.074250999999549,
+      "wallClockMs": 38.73624999999993,
+      "engineMs": 1.0585010000004331,
       "passes": 4
     },
     {
@@ -6621,8 +6649,8 @@
       ],
       "firstQuestion": "snap.categorical",
       "criteriaEvaluated": 53,
-      "wallClockMs": 40.967083,
-      "engineMs": 1.2256250000000364,
+      "wallClockMs": 38.87850000000026,
+      "engineMs": 1.0670000000000073,
       "passes": 4
     },
     {
@@ -6727,8 +6755,8 @@
       ],
       "firstQuestion": "snap.categorical",
       "criteriaEvaluated": 59,
-      "wallClockMs": 47.85908299999983,
-      "engineMs": 1.1211669999997866,
+      "wallClockMs": 44.34979199999998,
+      "engineMs": 1.0473750000005566,
       "passes": 4
     },
     {
@@ -6833,8 +6861,8 @@
       ],
       "firstQuestion": "snap.categorical",
       "criteriaEvaluated": 53,
-      "wallClockMs": 41.63754199999994,
-      "engineMs": 1.0554169999995793,
+      "wallClockMs": 37.588624999999865,
+      "engineMs": 0.9383759999996073,
       "passes": 4
     },
     {
@@ -6939,8 +6967,8 @@
       ],
       "firstQuestion": "snap.categorical",
       "criteriaEvaluated": 53,
-      "wallClockMs": 41.82529199999999,
-      "engineMs": 1.0513749999995525,
+      "wallClockMs": 37.3080829999999,
+      "engineMs": 0.9285419999991973,
       "passes": 4
     },
     {
@@ -7045,8 +7073,8 @@
       ],
       "firstQuestion": "snap.categorical",
       "criteriaEvaluated": 53,
-      "wallClockMs": 41.94104100000004,
-      "engineMs": 1.0801239999991594,
+      "wallClockMs": 37.77420799999982,
+      "engineMs": 0.8721669999999904,
       "passes": 4
     },
     {
@@ -7151,8 +7179,8 @@
       ],
       "firstQuestion": "va_pension.wartime_veteran",
       "criteriaEvaluated": 53,
-      "wallClockMs": 40.65870799999993,
-      "engineMs": 0.9843750000004547,
+      "wallClockMs": 37.179957999999715,
+      "engineMs": 0.8741260000001603,
       "passes": 4
     },
     {
@@ -7257,8 +7285,8 @@
       ],
       "firstQuestion": "va_pension.wartime_veteran",
       "criteriaEvaluated": 53,
-      "wallClockMs": 42.540250000000015,
-      "engineMs": 1.1012509999995928,
+      "wallClockMs": 38.86429099999987,
+      "engineMs": 0.9390000000003056,
       "passes": 4
     },
     {
@@ -7363,8 +7391,8 @@
       ],
       "firstQuestion": "va_pension.wartime_veteran",
       "criteriaEvaluated": 53,
-      "wallClockMs": 40.46716699999979,
-      "engineMs": 0.9934580000003734,
+      "wallClockMs": 37.64762500000006,
+      "engineMs": 0.9188329999997222,
       "passes": 4
     },
     {
@@ -7469,8 +7497,8 @@
       ],
       "firstQuestion": "va_pension.wartime_veteran",
       "criteriaEvaluated": 53,
-      "wallClockMs": 40.61108299999978,
-      "engineMs": 1.0621659999997064,
+      "wallClockMs": 36.585875000000215,
+      "engineMs": 0.8333759999995891,
       "passes": 4
     },
     {
@@ -7575,8 +7603,8 @@
       ],
       "firstQuestion": "va_pension.wartime_veteran",
       "criteriaEvaluated": 53,
-      "wallClockMs": 39.9684170000005,
-      "engineMs": 1.0065829999994094,
+      "wallClockMs": 36.7062920000003,
+      "engineMs": 0.8448760000005677,
       "passes": 4
     },
     {
@@ -7681,8 +7709,8 @@
       ],
       "firstQuestion": "va_pension.wartime_veteran",
       "criteriaEvaluated": 53,
-      "wallClockMs": 43.216583000000355,
-      "engineMs": 1.0987489999997706,
+      "wallClockMs": 38.20270900000014,
+      "engineMs": 0.8297499999998763,
       "passes": 4
     },
     {
@@ -7787,8 +7815,8 @@
       ],
       "firstQuestion": "va_pension.wartime_veteran",
       "criteriaEvaluated": 53,
-      "wallClockMs": 53.64945799999987,
-      "engineMs": 1.0748330000014903,
+      "wallClockMs": 36.75233299999991,
+      "engineMs": 0.868916000000354,
       "passes": 4
     },
     {
@@ -7893,8 +7921,8 @@
       ],
       "firstQuestion": "va_pension.wartime_veteran",
       "criteriaEvaluated": 53,
-      "wallClockMs": 41.98616700000002,
-      "engineMs": 1.0426669999997102,
+      "wallClockMs": 36.50258299999996,
+      "engineMs": 0.8946670000000267,
       "passes": 4
     },
     {
@@ -7999,8 +8027,8 @@
       ],
       "firstQuestion": "va_pension.wartime_veteran",
       "criteriaEvaluated": 53,
-      "wallClockMs": 42.454791000000114,
-      "engineMs": 0.9984169999997903,
+      "wallClockMs": 39.32941700000083,
+      "engineMs": 0.8839170000001104,
       "passes": 4
     },
     {
@@ -8105,8 +8133,8 @@
       ],
       "firstQuestion": "va_pension.wartime_veteran",
       "criteriaEvaluated": 53,
-      "wallClockMs": 41.83091700000023,
-      "engineMs": 1.0250409999998737,
+      "wallClockMs": 38.555584000000636,
+      "engineMs": 0.9261670000005324,
       "passes": 4
     },
     {
@@ -8211,8 +8239,8 @@
       ],
       "firstQuestion": "va_pension.wartime_veteran",
       "criteriaEvaluated": 53,
-      "wallClockMs": 38.75916700000016,
-      "engineMs": 1.011833999999908,
+      "wallClockMs": 35.796957999999904,
+      "engineMs": 1.0107490000000325,
       "passes": 4
     },
     {
@@ -8317,8 +8345,8 @@
       ],
       "firstQuestion": "va_pension.wartime_veteran",
       "criteriaEvaluated": 53,
-      "wallClockMs": 40.5112909999998,
-      "engineMs": 1.1067919999995866,
+      "wallClockMs": 38.033417000000554,
+      "engineMs": 0.8669179999997141,
       "passes": 4
     },
     {
@@ -8423,8 +8451,8 @@
       ],
       "firstQuestion": "va_pension.wartime_veteran",
       "criteriaEvaluated": 53,
-      "wallClockMs": 39.18025000000034,
-      "engineMs": 0.9702089999991586,
+      "wallClockMs": 36.26445800000056,
+      "engineMs": 0.8823329999995622,
       "passes": 4
     },
     {
@@ -8529,8 +8557,8 @@
       ],
       "firstQuestion": "va_pension.wartime_veteran",
       "criteriaEvaluated": 53,
-      "wallClockMs": 41.289333000000624,
-      "engineMs": 1.0096260000000257,
+      "wallClockMs": 38.66387500000019,
+      "engineMs": 0.9362500000006548,
       "passes": 4
     },
     {
@@ -8635,8 +8663,8 @@
       ],
       "firstQuestion": "va_pension.wartime_veteran",
       "criteriaEvaluated": 53,
-      "wallClockMs": 41.58125000000018,
-      "engineMs": 0.9695419999998194,
+      "wallClockMs": 38.739832999999635,
+      "engineMs": 0.8697079999992638,
       "passes": 4
     },
     {
@@ -8741,8 +8769,8 @@
       ],
       "firstQuestion": "va_pension.wartime_veteran",
       "criteriaEvaluated": 53,
-      "wallClockMs": 41.66200000000026,
-      "engineMs": 1.0195829999993293,
+      "wallClockMs": 38.46050000000014,
+      "engineMs": 0.9642080000003261,
       "passes": 4
     },
     {
@@ -8847,8 +8875,8 @@
       ],
       "firstQuestion": "va_pension.wartime_veteran",
       "criteriaEvaluated": 53,
-      "wallClockMs": 42.073708999999326,
-      "engineMs": 0.9897499999988213,
+      "wallClockMs": 38.55195899999944,
+      "engineMs": 0.8957500000005894,
       "passes": 4
     },
     {
@@ -8953,8 +8981,8 @@
       ],
       "firstQuestion": "va_pension.wartime_veteran",
       "criteriaEvaluated": 53,
-      "wallClockMs": 39.926000000000386,
-      "engineMs": 0.9651659999999538,
+      "wallClockMs": 36.8022919999994,
+      "engineMs": 0.8614989999987301,
       "passes": 4
     },
     {
@@ -9059,8 +9087,8 @@
       ],
       "firstQuestion": "va_pension.wartime_veteran",
       "criteriaEvaluated": 53,
-      "wallClockMs": 40.21404199999961,
-      "engineMs": 0.9422500000000582,
+      "wallClockMs": 38.204375000000255,
+      "engineMs": 0.8597099999988131,
       "passes": 4
     },
     {
@@ -9165,8 +9193,8 @@
       ],
       "firstQuestion": "va_pension.wartime_veteran",
       "criteriaEvaluated": 53,
-      "wallClockMs": 41.327166000000034,
-      "engineMs": 0.9944989999994505,
+      "wallClockMs": 35.69449999999961,
+      "engineMs": 0.9086650000008376,
       "passes": 4
     },
     {
@@ -9271,8 +9299,8 @@
       ],
       "firstQuestion": "va_pension.wartime_veteran",
       "criteriaEvaluated": 53,
-      "wallClockMs": 40.292709000000286,
-      "engineMs": 1.003417000000809,
+      "wallClockMs": 36.720792000000074,
+      "engineMs": 0.861084000000119,
       "passes": 4
     },
     {
@@ -9377,8 +9405,8 @@
       ],
       "firstQuestion": "va_pension.wartime_veteran",
       "criteriaEvaluated": 53,
-      "wallClockMs": 39.3037919999997,
-      "engineMs": 1.0465000000003783,
+      "wallClockMs": 35.72375000000011,
+      "engineMs": 0.9572920000009617,
       "passes": 4
     },
     {
@@ -9483,8 +9511,8 @@
       ],
       "firstQuestion": "va_pension.wartime_veteran",
       "criteriaEvaluated": 53,
-      "wallClockMs": 38.73974999999973,
-      "engineMs": 1.0391260000005786,
+      "wallClockMs": 35.559541999999965,
+      "engineMs": 0.9644590000007156,
       "passes": 4
     },
     {
@@ -9589,8 +9617,8 @@
       ],
       "firstQuestion": "va_pension.wartime_veteran",
       "criteriaEvaluated": 53,
-      "wallClockMs": 40.451500000000124,
-      "engineMs": 0.9582069999996747,
+      "wallClockMs": 37.54529199999979,
+      "engineMs": 0.8406239999994796,
       "passes": 4
     },
     {
@@ -9695,8 +9723,8 @@
       ],
       "firstQuestion": "va_pension.wartime_veteran",
       "criteriaEvaluated": 53,
-      "wallClockMs": 38.41479199999958,
-      "engineMs": 0.9325420000013764,
+      "wallClockMs": 36.040374999999585,
+      "engineMs": 0.857042000000547,
       "passes": 4
     },
     {
@@ -9801,8 +9829,8 @@
       ],
       "firstQuestion": "va_pension.wartime_veteran",
       "criteriaEvaluated": 53,
-      "wallClockMs": 40.42475000000013,
-      "engineMs": 1.189791000000696,
+      "wallClockMs": 36.7920409999997,
+      "engineMs": 0.8655399999997826,
       "passes": 4
     },
     {
@@ -9907,8 +9935,8 @@
       ],
       "firstQuestion": "va_pension.wartime_veteran",
       "criteriaEvaluated": 53,
-      "wallClockMs": 41.26108299999942,
-      "engineMs": 0.9804989999993268,
+      "wallClockMs": 38.54662499999995,
+      "engineMs": 0.9802089999993768,
       "passes": 4
     },
     {
@@ -10013,8 +10041,8 @@
       ],
       "firstQuestion": "va_pension.wartime_veteran",
       "criteriaEvaluated": 53,
-      "wallClockMs": 38.49950000000081,
-      "engineMs": 0.9496659999995245,
+      "wallClockMs": 35.94408300000032,
+      "engineMs": 0.8441670000020167,
       "passes": 4
     },
     {
@@ -10119,8 +10147,8 @@
       ],
       "firstQuestion": "va_pension.wartime_veteran",
       "criteriaEvaluated": 53,
-      "wallClockMs": 39.497957999999926,
-      "engineMs": 0.9958759999999529,
+      "wallClockMs": 36.677458000000115,
+      "engineMs": 0.8421239999997852,
       "passes": 4
     },
     {
@@ -10225,8 +10253,8 @@
       ],
       "firstQuestion": "va_pension.wartime_veteran",
       "criteriaEvaluated": 53,
-      "wallClockMs": 38.30224999999973,
-      "engineMs": 0.9817500000008295,
+      "wallClockMs": 35.714082999999846,
+      "engineMs": 0.9469159999989643,
       "passes": 4
     },
     {
@@ -10331,8 +10359,8 @@
       ],
       "firstQuestion": "va_pension.wartime_veteran",
       "criteriaEvaluated": 53,
-      "wallClockMs": 38.57679100000041,
-      "engineMs": 0.925334000001385,
+      "wallClockMs": 36.20625000000018,
+      "engineMs": 0.8765009999988251,
       "passes": 4
     },
     {
@@ -10437,8 +10465,8 @@
       ],
       "firstQuestion": "va_pension.wartime_veteran",
       "criteriaEvaluated": 53,
-      "wallClockMs": 40.685833999999886,
-      "engineMs": 0.9441239999996469,
+      "wallClockMs": 38.24391700000069,
+      "engineMs": 0.9686250000004293,
       "passes": 4
     },
     {
@@ -10543,8 +10571,8 @@
       ],
       "firstQuestion": "va_pension.wartime_veteran",
       "criteriaEvaluated": 53,
-      "wallClockMs": 39.03120800000033,
-      "engineMs": 0.9672920000002705,
+      "wallClockMs": 35.803084000000126,
+      "engineMs": 0.9816669999991063,
       "passes": 4
     },
     {
@@ -10649,8 +10677,8 @@
       ],
       "firstQuestion": "va_pension.wartime_veteran",
       "criteriaEvaluated": 53,
-      "wallClockMs": 38.77287500000057,
-      "engineMs": 1.0122079999982816,
+      "wallClockMs": 36.16054200000053,
+      "engineMs": 0.8845849999997881,
       "passes": 4
     },
     {
@@ -10755,8 +10783,8 @@
       ],
       "firstQuestion": "va_pension.wartime_veteran",
       "criteriaEvaluated": 53,
-      "wallClockMs": 39.52300000000014,
-      "engineMs": 0.9417910000001939,
+      "wallClockMs": 37.21820800000023,
+      "engineMs": 0.9372909999992771,
       "passes": 4
     },
     {
@@ -10861,8 +10889,8 @@
       ],
       "firstQuestion": "va_pension.wartime_veteran",
       "criteriaEvaluated": 53,
-      "wallClockMs": 39.65637500000048,
-      "engineMs": 1.056498999998439,
+      "wallClockMs": 36.7718330000007,
+      "engineMs": 0.842583000000559,
       "passes": 4
     },
     {
@@ -10967,8 +10995,8 @@
       ],
       "firstQuestion": "va_pension.wartime_veteran",
       "criteriaEvaluated": 53,
-      "wallClockMs": 38.405792000000474,
-      "engineMs": 0.9596250000004147,
+      "wallClockMs": 36.19470799999999,
+      "engineMs": 0.8887089999998352,
       "passes": 4
     },
     {
@@ -11073,8 +11101,8 @@
       ],
       "firstQuestion": "va_pension.wartime_veteran",
       "criteriaEvaluated": 53,
-      "wallClockMs": 38.50891700000011,
-      "engineMs": 0.9469170000002123,
+      "wallClockMs": 35.75737500000014,
+      "engineMs": 0.9761659999994663,
       "passes": 4
     },
     {
@@ -11179,8 +11207,8 @@
       ],
       "firstQuestion": "va_pension.wartime_veteran",
       "criteriaEvaluated": 53,
-      "wallClockMs": 38.472459000000526,
-      "engineMs": 0.9425839999994423,
+      "wallClockMs": 35.776708999999755,
+      "engineMs": 0.9289170000001832,
       "passes": 4
     },
     {
@@ -11285,8 +11313,8 @@
       ],
       "firstQuestion": "va_pension.wartime_veteran",
       "criteriaEvaluated": 53,
-      "wallClockMs": 38.9740840000004,
-      "engineMs": 0.9316649999991569,
+      "wallClockMs": 35.7158330000002,
+      "engineMs": 0.8772489999992104,
       "passes": 4
     },
     {
@@ -11392,8 +11420,8 @@
       "firstQuestion": "va_pension.wartime_veteran",
       "loadBearingGap": "snap.income_source",
       "criteriaEvaluated": 92,
-      "wallClockMs": 100.46312500000022,
-      "engineMs": 1.784458999999515,
+      "wallClockMs": 94.24516600000061,
+      "engineMs": 1.74254000000019,
       "passes": 4
     },
     {
@@ -11499,8 +11527,8 @@
       "firstQuestion": "va_pension.wartime_veteran",
       "loadBearingGap": "snap.income_source",
       "criteriaEvaluated": 79,
-      "wallClockMs": 76.48999999999978,
-      "engineMs": 1.585415999998986,
+      "wallClockMs": 70.64287500000046,
+      "engineMs": 1.4772510000002512,
       "passes": 4
     },
     {
@@ -11606,8 +11634,8 @@
       "firstQuestion": "va_pension.wartime_veteran",
       "loadBearingGap": "snap.income_source",
       "criteriaEvaluated": 53,
-      "wallClockMs": 42.369166999999834,
-      "engineMs": 1.0586659999999029,
+      "wallClockMs": 39.177458000000115,
+      "engineMs": 0.9690839999993841,
       "passes": 4
     },
     {
@@ -11713,8 +11741,8 @@
       "firstQuestion": "va_pension.wartime_veteran",
       "loadBearingGap": "snap.income_source",
       "criteriaEvaluated": 53,
-      "wallClockMs": 43.692542000000685,
-      "engineMs": 1.4061670000000959,
+      "wallClockMs": 40.571084000000155,
+      "engineMs": 1.2865000000010696,
       "passes": 4
     },
     {
@@ -11820,8 +11848,8 @@
       "firstQuestion": "va_pension.wartime_veteran",
       "loadBearingGap": "snap.income_source",
       "criteriaEvaluated": 79,
-      "wallClockMs": 79.06637500000033,
-      "engineMs": 2.178834000000279,
+      "wallClockMs": 73.49316699999963,
+      "engineMs": 2.1651249999995343,
       "passes": 4
     },
     {
@@ -11927,8 +11955,8 @@
       "firstQuestion": "va_pension.wartime_veteran",
       "loadBearingGap": "snap.income_source",
       "criteriaEvaluated": 66,
-      "wallClockMs": 58.66424999999981,
-      "engineMs": 1.7627510000002076,
+      "wallClockMs": 55.85529099999985,
+      "engineMs": 1.6648339999992459,
       "passes": 4
     },
     {
@@ -12034,8 +12062,8 @@
       "firstQuestion": "va_pension.care_level",
       "loadBearingGap": "snap.income_source",
       "criteriaEvaluated": 53,
-      "wallClockMs": 40.93787500000053,
-      "engineMs": 1.2497909999992771,
+      "wallClockMs": 38.88862499999959,
+      "engineMs": 1.2736660000009579,
       "passes": 4
     },
     {
@@ -12141,8 +12169,8 @@
       "firstQuestion": "snap.income_source",
       "loadBearingGap": "snap.income_source",
       "criteriaEvaluated": 53,
-      "wallClockMs": 42.49016699999993,
-      "engineMs": 1.2620000000006257,
+      "wallClockMs": 39.514916999999514,
+      "engineMs": 1.1712089999991804,
       "passes": 4
     },
     {
@@ -12248,8 +12276,8 @@
       "firstQuestion": "va_pension.wartime_veteran",
       "loadBearingGap": "snap.income_source",
       "criteriaEvaluated": 79,
-      "wallClockMs": 81.43533399999978,
-      "engineMs": 1.9913759999999456,
+      "wallClockMs": 75.58245799999986,
+      "engineMs": 1.829832999998871,
       "passes": 4
     },
     {
@@ -12355,8 +12383,8 @@
       "firstQuestion": "va_pension.wartime_veteran",
       "loadBearingGap": "snap.income_source",
       "criteriaEvaluated": 53,
-      "wallClockMs": 39.253083999999944,
-      "engineMs": 1.4694579999995767,
+      "wallClockMs": 36.354457999999795,
+      "engineMs": 1.3780419999993683,
       "passes": 4
     },
     {
@@ -12462,8 +12490,8 @@
       "firstQuestion": "va_pension.wartime_veteran",
       "loadBearingGap": "snap.income_source",
       "criteriaEvaluated": 53,
-      "wallClockMs": 39.761625000000095,
-      "engineMs": 1.4187500000007276,
+      "wallClockMs": 36.90608299999985,
+      "engineMs": 1.3081670000001395,
       "passes": 4
     },
     {
@@ -12569,8 +12597,8 @@
       "firstQuestion": "va_pension.wartime_veteran",
       "loadBearingGap": "snap.income_source",
       "criteriaEvaluated": 92,
-      "wallClockMs": 101.64529099999982,
-      "engineMs": 2.467082999998638,
+      "wallClockMs": 95.67066599999998,
+      "engineMs": 2.198792000001049,
       "passes": 4
     },
     {
@@ -12676,8 +12704,8 @@
       "firstQuestion": "va_pension.wartime_veteran",
       "loadBearingGap": "snap.income_source",
       "criteriaEvaluated": 92,
-      "wallClockMs": 99.00691599999936,
-      "engineMs": 2.437501000001248,
+      "wallClockMs": 93.33241700000053,
+      "engineMs": 2.2906660000007832,
       "passes": 4
     },
     {
@@ -12783,8 +12811,8 @@
       "firstQuestion": "va_pension.wartime_veteran",
       "loadBearingGap": "snap.income_source",
       "criteriaEvaluated": 79,
-      "wallClockMs": 78.50250000000051,
-      "engineMs": 2.003375000000233,
+      "wallClockMs": 73.26379199999974,
+      "engineMs": 1.9367909999991753,
       "passes": 4
     },
     {
@@ -12890,8 +12918,8 @@
       "firstQuestion": "va_pension.care_level",
       "loadBearingGap": "snap.income_source",
       "criteriaEvaluated": 53,
-      "wallClockMs": 41.5751250000003,
-      "engineMs": 1.3082489999997051,
+      "wallClockMs": 38.29454199999964,
+      "engineMs": 1.151292000000467,
       "passes": 4
     },
     {
@@ -12997,8 +13025,8 @@
       "firstQuestion": "va_pension.care_level",
       "loadBearingGap": "snap.income_source",
       "criteriaEvaluated": 53,
-      "wallClockMs": 39.080291000000216,
-      "engineMs": 1.4244159999998374,
+      "wallClockMs": 36.34358299999985,
+      "engineMs": 1.3997920000001614,
       "passes": 4
     },
     {
@@ -13104,8 +13132,8 @@
       "firstQuestion": "va_pension.wartime_veteran",
       "loadBearingGap": "snap.income_source",
       "criteriaEvaluated": 79,
-      "wallClockMs": 79.64858400000048,
-      "engineMs": 1.9630409999990661,
+      "wallClockMs": 73.27829199999996,
+      "engineMs": 1.7802099999998973,
       "passes": 4
     },
     {
@@ -13211,8 +13239,8 @@
       "firstQuestion": "va_pension.care_level",
       "loadBearingGap": "snap.income_source",
       "criteriaEvaluated": 53,
-      "wallClockMs": 41.28366600000027,
-      "engineMs": 1.3508329999995112,
+      "wallClockMs": 38.56891599999926,
+      "engineMs": 1.2384579999989,
       "passes": 4
     },
     {
@@ -13318,8 +13346,8 @@
       "firstQuestion": "va_pension.wartime_veteran",
       "loadBearingGap": "snap.income_source",
       "criteriaEvaluated": 53,
-      "wallClockMs": 40.4878749999998,
-      "engineMs": 1.364289999999528,
+      "wallClockMs": 37.54529099999945,
+      "engineMs": 1.2269169999990481,
       "passes": 4
     },
     {
@@ -13425,8 +13453,8 @@
       "firstQuestion": "va_pension.wartime_veteran",
       "loadBearingGap": "snap.income_source",
       "criteriaEvaluated": 79,
-      "wallClockMs": 79.11000000000058,
-      "engineMs": 1.9572920000000522,
+      "wallClockMs": 74.42779200000041,
+      "engineMs": 1.8471670000017184,
       "passes": 4
     },
     {
@@ -13532,8 +13560,8 @@
       "firstQuestion": "va_pension.wartime_veteran",
       "loadBearingGap": "snap.income_source",
       "criteriaEvaluated": 53,
-      "wallClockMs": 40.5747080000001,
-      "engineMs": 1.380458999999064,
+      "wallClockMs": 37.80454100000043,
+      "engineMs": 1.2466249999988577,
       "passes": 4
     },
     {
@@ -13639,8 +13667,8 @@
       "firstQuestion": "va_pension.wartime_veteran",
       "loadBearingGap": "snap.income_source",
       "criteriaEvaluated": 53,
-      "wallClockMs": 42.073459000000184,
-      "engineMs": 1.1658749999996871,
+      "wallClockMs": 38.79449999999997,
+      "engineMs": 0.9980410000007396,
       "passes": 4
     },
     {
@@ -13746,8 +13774,8 @@
       "firstQuestion": "va_pension.wartime_veteran",
       "loadBearingGap": "snap.income_source",
       "criteriaEvaluated": 79,
-      "wallClockMs": 78.48604100000011,
-      "engineMs": 1.72662500000024,
+      "wallClockMs": 73.67299999999977,
+      "engineMs": 1.544873999999254,
       "passes": 4
     },
     {
@@ -13853,8 +13881,8 @@
       "firstQuestion": "va_pension.wartime_veteran",
       "loadBearingGap": "snap.income_source",
       "criteriaEvaluated": 66,
-      "wallClockMs": 58.372958999999355,
-      "engineMs": 1.621832999999242,
+      "wallClockMs": 55.828125,
+      "engineMs": 1.5668750000004366,
       "passes": 4
     },
     {
@@ -13960,8 +13988,8 @@
       "firstQuestion": "va_pension.care_level",
       "loadBearingGap": "snap.income_source",
       "criteriaEvaluated": 53,
-      "wallClockMs": 40.907374999999774,
-      "engineMs": 1.5041650000002846,
+      "wallClockMs": 37.5194590000001,
+      "engineMs": 1.2030829999985144,
       "passes": 4
     },
     {
@@ -14067,8 +14095,8 @@
       "firstQuestion": "va_pension.wartime_veteran",
       "loadBearingGap": "snap.income_source",
       "criteriaEvaluated": 79,
-      "wallClockMs": 80.16387499999928,
-      "engineMs": 2.116248999999698,
+      "wallClockMs": 74.97299999999996,
+      "engineMs": 2.0524179999993066,
       "passes": 4
     },
     {
@@ -14174,8 +14202,8 @@
       "firstQuestion": "va_pension.wartime_veteran",
       "loadBearingGap": "snap.income_source",
       "criteriaEvaluated": 53,
-      "wallClockMs": 42.153707999999824,
-      "engineMs": 1.3447090000008757,
+      "wallClockMs": 39.171875,
+      "engineMs": 1.295376000000033,
       "passes": 4
     },
     {
@@ -14281,8 +14309,8 @@
       "firstQuestion": "va_pension.wartime_veteran",
       "loadBearingGap": "snap.income_source",
       "criteriaEvaluated": 92,
-      "wallClockMs": 101.36983299999974,
-      "engineMs": 2.456624999998894,
+      "wallClockMs": 96.74416699999983,
+      "engineMs": 2.3378329999995913,
       "passes": 4
     },
     {
@@ -14388,8 +14416,8 @@
       "firstQuestion": "va_pension.wartime_veteran",
       "loadBearingGap": "snap.income_source",
       "criteriaEvaluated": 79,
-      "wallClockMs": 76.47904199999994,
-      "engineMs": 2.3434159999997064,
+      "wallClockMs": 71.10058300000037,
+      "engineMs": 2.0147509999997055,
       "passes": 4
     },
     {
@@ -14495,8 +14523,8 @@
       "firstQuestion": "va_pension.wartime_veteran",
       "loadBearingGap": "snap.income_source",
       "criteriaEvaluated": 53,
-      "wallClockMs": 40.59058300000015,
-      "engineMs": 1.4948760000006587,
+      "wallClockMs": 37.90441600000031,
+      "engineMs": 1.2964990000000398,
       "passes": 4
     },
     {
@@ -14601,8 +14629,8 @@
       ],
       "firstQuestion": "va_pension.care_level",
       "criteriaEvaluated": 53,
-      "wallClockMs": 39.79541599999993,
-      "engineMs": 1.5321240000002945,
+      "wallClockMs": 36.99029200000041,
+      "engineMs": 1.3790399999998044,
       "passes": 4
     },
     {
@@ -14707,8 +14735,8 @@
       ],
       "firstQuestion": "va_pension.wartime_veteran",
       "criteriaEvaluated": 53,
-      "wallClockMs": 41.64854099999957,
-      "engineMs": 1.3421249999992142,
+      "wallClockMs": 39.257666999999856,
+      "engineMs": 1.3257090000006428,
       "passes": 4
     },
     {
@@ -14813,8 +14841,8 @@
       ],
       "firstQuestion": "va_pension.wartime_veteran",
       "criteriaEvaluated": 79,
-      "wallClockMs": 78.63324999999986,
-      "engineMs": 2.1977910000005068,
+      "wallClockMs": 74.2172500000006,
+      "engineMs": 2.0434590000013486,
       "passes": 4
     },
     {
@@ -14919,8 +14947,8 @@
       ],
       "firstQuestion": "va_pension.wartime_veteran",
       "criteriaEvaluated": 53,
-      "wallClockMs": 40.22937499999989,
-      "engineMs": 1.5060840000005555,
+      "wallClockMs": 37.51179200000024,
+      "engineMs": 1.3265419999988808,
       "passes": 4
     },
     {
@@ -15025,8 +15053,8 @@
       ],
       "firstQuestion": "va_pension.care_level",
       "criteriaEvaluated": 53,
-      "wallClockMs": 41.47862499999974,
-      "engineMs": 1.563415999999961,
+      "wallClockMs": 37.25712500000009,
+      "engineMs": 1.5337079999990237,
       "passes": 4
     },
     {
@@ -15131,8 +15159,8 @@
       ],
       "firstQuestion": "va_pension.wartime_veteran",
       "criteriaEvaluated": 79,
-      "wallClockMs": 80.66504199999963,
-      "engineMs": 2.0052910000003976,
+      "wallClockMs": 74.55854199999976,
+      "engineMs": 1.8189999999995052,
       "passes": 4
     },
     {
@@ -15237,8 +15265,8 @@
       ],
       "firstQuestion": "va_pension.wartime_veteran",
       "criteriaEvaluated": 92,
-      "wallClockMs": 100.85858299999927,
-      "engineMs": 2.63233400000081,
+      "wallClockMs": 94.87562500000058,
+      "engineMs": 2.4279579999993075,
       "passes": 4
     },
     {
@@ -15343,8 +15371,8 @@
       ],
       "firstQuestion": "va_pension.wartime_veteran",
       "criteriaEvaluated": 92,
-      "wallClockMs": 104.25708300000042,
-      "engineMs": 2.322040999998535,
+      "wallClockMs": 98.77154100000007,
+      "engineMs": 2.197457999999642,
       "passes": 4
     },
     {
@@ -15449,8 +15477,8 @@
       ],
       "firstQuestion": "snap.income_source",
       "criteriaEvaluated": 66,
-      "wallClockMs": 60.55641699999978,
-      "engineMs": 1.7359179999994012,
+      "wallClockMs": 57.629416000000674,
+      "engineMs": 1.58075000000008,
       "passes": 4
     },
     {
@@ -15555,8 +15583,8 @@
       ],
       "firstQuestion": "va_pension.wartime_veteran",
       "criteriaEvaluated": 92,
-      "wallClockMs": 106.28620799999953,
-      "engineMs": 2.72700100000111,
+      "wallClockMs": 98.93895799999973,
+      "engineMs": 2.2050020000006043,
       "passes": 4
     },
     {
@@ -15661,8 +15689,8 @@
       ],
       "firstQuestion": "snap.income_source",
       "criteriaEvaluated": 92,
-      "wallClockMs": 100.0966670000007,
-      "engineMs": 1.8945419999990918,
+      "wallClockMs": 93.94487500000014,
+      "engineMs": 1.7400819999993473,
       "passes": 4
     },
     {
@@ -15767,8 +15795,8 @@
       ],
       "firstQuestion": "va_pension.wartime_veteran",
       "criteriaEvaluated": 53,
-      "wallClockMs": 40.478917000000365,
-      "engineMs": 1.052667999998448,
+      "wallClockMs": 37.96991699999944,
+      "engineMs": 0.9915820000005624,
       "passes": 4
     },
     {
@@ -15873,8 +15901,8 @@
       ],
       "firstQuestion": "va_pension.wartime_veteran",
       "criteriaEvaluated": 53,
-      "wallClockMs": 41.22095799999988,
-      "engineMs": 1.0230420000007143,
+      "wallClockMs": 38.248625000000175,
+      "engineMs": 0.9354159999993499,
       "passes": 4
     },
     {
@@ -15979,8 +16007,8 @@
       ],
       "firstQuestion": "va_pension.care_level",
       "criteriaEvaluated": 53,
-      "wallClockMs": 42.793541000000914,
-      "engineMs": 1.030709000002389,
+      "wallClockMs": 39.260040999999546,
+      "engineMs": 1.0089159999997719,
       "passes": 4
     },
     {
@@ -16085,8 +16113,8 @@
       ],
       "firstQuestion": "va_pension.wartime_veteran",
       "criteriaEvaluated": 53,
-      "wallClockMs": 39.15833399999974,
-      "engineMs": 1.1205420000005688,
+      "wallClockMs": 36.35875000000033,
+      "engineMs": 0.9813340000000608,
       "passes": 4
     },
     {
@@ -16191,8 +16219,8 @@
       ],
       "firstQuestion": "va_pension.wartime_veteran",
       "criteriaEvaluated": 53,
-      "wallClockMs": 40.52954099999988,
-      "engineMs": 1.0692099999996572,
+      "wallClockMs": 37.53862500000014,
+      "engineMs": 0.9277499999998327,
       "passes": 4
     },
     {
@@ -16297,8 +16325,8 @@
       ],
       "firstQuestion": "va_pension.wartime_veteran",
       "criteriaEvaluated": 53,
-      "wallClockMs": 41.25691699999879,
-      "engineMs": 1.0388339999990421,
+      "wallClockMs": 38.06012499999997,
+      "engineMs": 1.0580819999995583,
       "passes": 4
     },
     {
@@ -16403,8 +16431,8 @@
       ],
       "firstQuestion": "va_pension.care_level",
       "criteriaEvaluated": 53,
-      "wallClockMs": 41.41704200000095,
-      "engineMs": 1.0555010000025504,
+      "wallClockMs": 39.21916600000077,
+      "engineMs": 0.9784989999989193,
       "passes": 4
     },
     {
@@ -16509,8 +16537,8 @@
       ],
       "firstQuestion": "va_pension.wartime_veteran",
       "criteriaEvaluated": 53,
-      "wallClockMs": 41.87620900000002,
-      "engineMs": 1.0058329999992566,
+      "wallClockMs": 41.603541999999834,
+      "engineMs": 1.0253320000001622,
       "passes": 4
     },
     {
@@ -16615,8 +16643,8 @@
       ],
       "firstQuestion": "va_pension.wartime_veteran",
       "criteriaEvaluated": 53,
-      "wallClockMs": 43.13687499999833,
-      "engineMs": 0.9512079999985872,
+      "wallClockMs": 40.85770800000046,
+      "engineMs": 0.9382910000003903,
       "passes": 4
     }
   ]
