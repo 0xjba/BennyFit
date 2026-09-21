@@ -485,6 +485,21 @@ export interface CdctcFacts {
   agiAnnualCents: Cents;
 }
 
+/**
+ * How many children count for the dependent care credit.
+ *
+ * A qualifying child must be under 13 when the care is provided (IRC 21(b)(1)(A)).
+ * Only the ages actually stated are compared, in code: a child whose age was not given
+ * still counts, because the description is silent rather than disqualifying, and the
+ * loop can ask. Ages under 18 are taken to be the children's; the parser does not say
+ * whose age is whose.
+ */
+export function cdctcQualifyingChildren(childCount: number, agesMentioned: number[]): number {
+  const childAges = agesMentioned.filter((a) => a < 18).sort((a, b) => a - b).slice(0, childCount);
+  const unknown = Math.max(0, childCount - childAges.length);
+  return childAges.filter((a) => a < 13).length + unknown;
+}
+
 export function dependentCareCredit(f: CdctcFacts, t: CdctcThresholds): ProgramResult {
   const cap = dollars(f.qualifyingPeople >= 2 ? t.expenseCapTwoOrMore : t.expenseCapOne);
   const expenses = Math.min(f.annualCareExpensesCents, cap);
@@ -493,7 +508,8 @@ export function dependentCareCredit(f: CdctcFacts, t: CdctcThresholds): ProgramR
   const over = Math.max(0, f.agiAnnualCents - dollars(t.rateFloorAgi));
   const steps1 = Math.ceil(over / dollars(t.rateStepAgi));
   const rate = Math.max(t.minRate, t.maxRate - steps1 * t.rateStep);
-  const credit = Math.round(expenses * rate);
+  // No qualifying person, no credit, whatever was spent on care.
+  const credit = f.qualifyingPeople > 0 ? Math.round(expenses * rate) : 0;
 
   const steps: Step[] = [
     {
@@ -520,6 +536,14 @@ export function dependentCareCredit(f: CdctcFacts, t: CdctcThresholds): ProgramR
     monthlyValueCents: credit > 0 ? Math.round(credit / 12) : null,
     steps,
     tests: [
+      {
+        name: 'A child under 13',
+        passed: f.qualifyingPeople > 0,
+        detail:
+          f.qualifyingPeople > 0
+            ? `${f.qualifyingPeople} ${f.qualifyingPeople === 1 ? 'child' : 'children'} under 13`
+            : 'no child under 13, so care costs do not count',
+      },
       {
         name: 'Care paid for work',
         passed: f.annualCareExpensesCents > 0,

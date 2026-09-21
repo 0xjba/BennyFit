@@ -30,6 +30,7 @@ import {
   VaPensionFacts,
   childTaxCredit,
   dependentCareCredit,
+  cdctcQualifyingChildren,
   extraHelpEligibility,
   fpgThresholdEligibility,
   medicareSavingsEligibility,
@@ -481,6 +482,29 @@ export const CASES: ConformanceCase[] = [
         ).annualValueCents
       ),
       expected: 600,
+    }),
+  },
+
+  {
+    id: 'cdctc.children-too-old',
+    program: 'cdctc',
+    what: 'Children aged 14 and 15 with $425 a month of daycare: no credit',
+    source:
+      'IRC 21(b)(1)(A): a qualifying person is a dependent under 13. Neither child is, so ' +
+      'no expense counts and the credit is $0, whatever was paid. Found by the first live ' +
+      'end-to-end run, where the answer key and the app both counted every child.',
+    run: () => ({
+      got: dollarsOut(
+        dependentCareCredit(
+          {
+            annualCareExpensesCents: dollars(425 * 12),
+            qualifyingPeople: cdctcQualifyingChildren(2, [14, 15, 26]),
+            agiAnnualCents: dollars(14690),
+          },
+          cdctcThresholdsFor(AS_OF)
+        ).annualValueCents
+      ) ?? 0,
+      expected: 0,
     }),
   },
 

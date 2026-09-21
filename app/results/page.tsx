@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { Masthead, SiteFooter } from '@/app/components/SiteChrome';
 import { readResults } from '@/lib/results';
 import { runConformance } from '@/eval/conformance';
+import { HOLDOUT_EDITION } from '@/eval/extraction-holdout';
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
@@ -36,6 +37,10 @@ const LABELS: Record<string, string> = {
   cacfp: 'CACFP',
   fdpir: 'FDPIR',
   wap: 'Weatherization',
+};
+
+const ORDINALS: Record<number, string> = {
+  1: 'first', 2: 'second', 3: 'third', 4: 'fourth', 5: 'fifth', 6: 'sixth', 7: 'seventh', 8: 'eighth',
 };
 
 function percent(value: number): string {
@@ -137,11 +142,12 @@ export default function Results() {
             </p>
           )}
           <p style={{ color: 'var(--ink-2)', marginTop: 8 }}>
-            Twenty descriptions written the way people actually write — &ldquo;our family is five
-            people&rdquo;, &ldquo;paycheck is $1,040 every two weeks&rdquo;, &ldquo;me and my girlfriend plus her
-            son&rdquo;, a household size you have to count — with the facts labelled by hand. They were written after the reading code was last
-            changed and scored once. The code is not adjusted in response to them; if it ever
-            is, they stop being a measurement and a new set has to be written.
+            Twenty descriptions written the way people actually write — &ldquo;me + 2 kids&rdquo;,
+            &ldquo;45k a year&rdquo;, &ldquo;rent&rsquo;s $900&rdquo;, a household size you have to count —
+            with the facts labelled by hand. They were written after the reading code was last
+            changed and scored once. The code is not adjusted in response to them. When it is,
+            the set moves into the development set and a new one is written: this is the
+            {' '}{ORDINALS[HOLDOUT_EDITION] ?? `${HOLDOUT_EDITION}th`} such set.
           </p>
           {extraction && (
             <>
@@ -162,12 +168,27 @@ export default function Results() {
                 ))}
               </ul>
               <p style={{ color: 'var(--ink-2)', marginTop: 14 }}>
-                Household size is the weakest. &ldquo;Our household is 7 people&rdquo; followed by
-                &ldquo;my husband earns&rdquo; comes back as two, because the rule that counts a partner
-                overrides the stated number. That is a wrong answer rather than a missing one,
-                which is worse, and it is listed here rather than quietly fixed against the cases
-                that exposed it.
+                Most misses leave a fact blank, and the screener then asks for it. A miss that
+                reads a fact wrongly is worse, because nothing prompts anyone to check it. Every
+                miss on the current set is listed below rather than quietly fixed.
               </p>
+              <details className="disclosure">
+                <summary>The {extraction.holdout.misses.length} facts it got wrong or missed</summary>
+                <ul className="steps">
+                  {extraction.holdout.misses.map((m) => (
+                    <li key={`${m.id}-${m.field}`}>
+                      <span>
+                        {FIELD_LABELS[m.field] ?? m.field}
+                        <br />
+                        <span className="cite">case {m.id}</span>
+                      </span>
+                      <span className="amt">
+                        {m.got === null ? 'not read' : `read ${String(m.got)}`}, is {String(m.expected)}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </details>
             </>
           )}
 

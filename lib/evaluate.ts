@@ -49,6 +49,7 @@ import {
   fpgThresholdEligibility,
   medicareSavingsEligibility,
   dependentCareCredit,
+  cdctcQualifyingChildren,
   veteransPension,
 } from './compute-programs';
 
@@ -688,7 +689,10 @@ export function evaluate(state: ScreeningState, answers: Answers): Verdicts {
       const result = dependentCareCredit(
         {
           annualCareExpensesCents: dollars((state.facts.dependentCareMonthly ?? 0) * 12),
-          qualifyingPeople: state.shape.members.filter((m) => m.isChild).length,
+          qualifyingPeople: cdctcQualifyingChildren(
+            state.shape.members.filter((m) => m.isChild).length,
+            state.facts.ages
+          ),
           agiAnnualCents: income.monthlyCents * 12,
         },
         t

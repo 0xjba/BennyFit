@@ -302,7 +302,7 @@ function truthFor(f: GoldFacts): {
   const cdctc = dependentCareCredit(
     {
       annualCareExpensesCents: dollars(f.dependentCareMonthly * 12),
-      qualifyingPeople: f.childAges.length,
+      qualifyingPeople: f.childAges.filter((a) => a < 13).length,
       agiAnnualCents: annualIncome,
     },
     cdctcThresholdsFor(AS_OF)

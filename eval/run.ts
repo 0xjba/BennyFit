@@ -419,7 +419,7 @@ async function main() {
       (results.generationFaults ? `\ngeneration faults: ${JSON.stringify(results.generationFaults)}` : '')
   );
 
-  console.log('\nbalanced accuracy by program (120 fully specified households):');
+  console.log(`\nbalanced accuracy by program (${summary.specifiedCount} fully specified households):`);
   for (const program of PROGRAMS) {
     const d = summary.accuracyDetail[program];
     console.log(

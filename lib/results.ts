@@ -85,3 +85,57 @@ export function readResults(): ResultsSummary | null {
     return null;
   }
 }
+
+/** What a run cost and how long it took, for one engine on the held-out households. */
+export interface RunSummary {
+  engine: string;
+  households: number;
+  specifiedCount: number;
+  balancedAccuracyByProgram: Record<string, number>;
+  meanBalancedAccuracy: number;
+  medianWallClockMs: number;
+  medianQuestionsAsked: number;
+  usage: { calls: number; inputTokens: number; outputTokens: number };
+  generationFaults: Record<string, number> | null;
+  tau: number;
+}
+
+function summaryOf(parsed: Record<string, unknown>): RunSummary {
+  const byProgram = (parsed.balancedAccuracyByProgram ?? {}) as Record<string, number>;
+  const values = Object.values(byProgram);
+  const endToEnd = (parsed.endToEnd ?? {}) as { households?: number };
+  return {
+    engine: String(parsed.engine ?? 'unknown'),
+    households: endToEnd.households ?? 0,
+    specifiedCount: Number(parsed.specifiedCount ?? 0),
+    balancedAccuracyByProgram: byProgram,
+    meanBalancedAccuracy: values.length ? values.reduce((a, b) => a + b, 0) / values.length : 0,
+    medianWallClockMs: Number(parsed.medianWallClockMs ?? 0),
+    medianQuestionsAsked: Number(parsed.medianQuestionsAsked ?? 0),
+    usage: (parsed.usage as RunSummary['usage']) ?? { calls: 0, inputTokens: 0, outputTokens: 0 },
+    generationFaults: (parsed.generationFaults as Record<string, number> | null) ?? null,
+    tau: Number(parsed.tau ?? 0),
+  };
+}
+
+/** The typed engine's held-out run, when a real engine produced it. */
+export function readEngineRun(): RunSummary | null {
+  try {
+    const parsed = JSON.parse(readFileSync(join(process.cwd(), 'eval', 'results.json'), 'utf8'));
+    if (parsed?.isFixture || !parsed?.endToEnd?.measured) return null;
+    return summaryOf(parsed);
+  } catch {
+    return null;
+  }
+}
+
+/** The general-purpose model's run over the same held-out households, if one exists. */
+export function readBaselineRun(): RunSummary | null {
+  try {
+    const parsed = JSON.parse(readFileSync(join(process.cwd(), 'eval', 'baseline-results.json'), 'utf8'));
+    if (!parsed?.endToEnd?.measured) return null;
+    return summaryOf(parsed);
+  } catch {
+    return null;
+  }
+}

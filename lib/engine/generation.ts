@@ -77,6 +77,8 @@ export interface GenerationConfig {
    * whole household description, so no batch answers with less to go on.
    */
   batchSize?: number;
+  /** Where the evaluation harness caches responses. Never set by the app. */
+  cacheDir?: string;
 }
 
 /**
@@ -303,7 +305,50 @@ export class GenerationBaseline {
     };
   }
 
-  private async runOne(
+  /**
+   * One call, retried, and cached when a cache directory is configured.
+   *
+   * A long evaluation makes thousands of calls, and a single dropped connection used
+   * to abort the whole run after it had already been paid for. Transient failures are
+   * retried with backoff. The cache is keyed by the exact request, so re-running after
+   * a failure pays only for the calls that never completed; it is only ever set by the
+   * evaluation harness, never by the app.
+   */
+  private async runOne(state: string, questions: Record<string, EngineQuestion>): Promise<GenerationResult> {
+    const dir = this.config.cacheDir;
+    let cachePath: string | null = null;
+    if (dir) {
+      const { createHash } = await import('node:crypto');
+      const key = createHash('sha256')
+        .update(JSON.stringify({ m: this.config.model, s: this.config.structured ?? true, state, questions }))
+        .digest('hex');
+      cachePath = `${dir}/${key}.json`;
+      const { existsSync, readFileSync } = await import('node:fs');
+      if (existsSync(cachePath)) return JSON.parse(readFileSync(cachePath, 'utf8')) as GenerationResult;
+    }
+
+    let lastError: unknown;
+    for (let attempt = 0; attempt < 5; attempt++) {
+      try {
+        const result = await this.attemptOne(state, questions);
+        if (cachePath) {
+          const { mkdirSync, writeFileSync } = await import('node:fs');
+          mkdirSync(dir!, { recursive: true });
+          writeFileSync(cachePath, JSON.stringify(result));
+        }
+        return result;
+      } catch (error) {
+        lastError = error;
+        const retryable =
+          error instanceof EngineUnavailable && (error.retryable || error.status === undefined);
+        if (!retryable) throw error;
+        await new Promise((r) => setTimeout(r, 1000 * 2 ** attempt));
+      }
+    }
+    throw lastError;
+  }
+
+  private async attemptOne(
     state: string,
     questions: Record<string, EngineQuestion>
   ): Promise<GenerationResult> {
@@ -451,6 +496,7 @@ export function generationLanes(env: NodeJS.ProcessEnv = process.env): {
       apiKey: env.OPENROUTER_API_KEY,
       structured: env.OPENROUTER_STRUCTURED !== '0',
       batchSize: Number(env.OPENROUTER_BATCH_SIZE) || undefined,
+      cacheDir: env.GENERATION_CACHE_DIR || undefined,
     }),
   };
 }

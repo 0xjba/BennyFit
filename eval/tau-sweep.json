@@ -1,0 +1,56 @@
+{
+  "runAt": "2026-09-21T13:31:23.533Z",
+  "engine": "jev",
+  "households": 101,
+  "chosen": 0.3,
+  "rule": "highest mean balanced accuracy; ties to fewer questions, then lower tau",
+  "sweep": [
+    {
+      "tau": 0.2,
+      "meanBalancedAccuracy": 0.9881057299535561,
+      "questionRelevance": 0.45,
+      "medianQuestions": 1
+    },
+    {
+      "tau": 0.3,
+      "meanBalancedAccuracy": 0.9979995523473785,
+      "questionRelevance": 0.5,
+      "medianQuestions": 2
+    },
+    {
+      "tau": 0.4,
+      "meanBalancedAccuracy": 0.9979995523473785,
+      "questionRelevance": 0.5,
+      "medianQuestions": 2
+    },
+    {
+      "tau": 0.5,
+      "meanBalancedAccuracy": 0.9976733944869741,
+      "questionRelevance": 0.4,
+      "medianQuestions": 2
+    },
+    {
+      "tau": 0.6,
+      "meanBalancedAccuracy": 0.9979995523473785,
+      "questionRelevance": 0.35,
+      "medianQuestions": 3
+    },
+    {
+      "tau": 0.7,
+      "meanBalancedAccuracy": 0.9979995523473785,
+      "questionRelevance": 0.3,
+      "medianQuestions": 3
+    },
+    {
+      "tau": 0.8,
+      "meanBalancedAccuracy": 0.9976778020256283,
+      "questionRelevance": 0.35,
+      "medianQuestions": 3
+    }
+  ],
+  "usage": {
+    "calls": 2653,
+    "inputTokens": 12297635,
+    "outputTokens": 4843262
+  }
+}
