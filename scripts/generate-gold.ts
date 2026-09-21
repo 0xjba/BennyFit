@@ -42,8 +42,10 @@ import {
   fpgThresholdEligibility,
   medicareSavingsEligibility,
   dependentCareCredit,
+  vaPensionAgeOrDisability,
   veteransPension,
 } from '@/lib/compute-programs';
+import { vaDisabledOrOnBenefits } from '@/eval/gold-rules';
 import {
   cdctcThresholdsFor,
   ctcThresholdsFor,
@@ -294,9 +296,11 @@ function truthFor(f: GoldFacts): {
     },
     vaPensionThresholdsFor(AS_OF)
   );
+  // Age 65 or over, or a disability or SSI; see eval/gold-rules.ts.
+  const vaGate = vaPensionAgeOrDisability(f.claimantAge, vaDisabledOrOnBenefits(f));
   const vaResult = {
-    eligible: f.wartimeVeteran && vaPension.eligible,
-    annualValueCents: f.wartimeVeteran ? vaPension.annualValueCents : null,
+    eligible: f.wartimeVeteran && vaGate && vaPension.eligible,
+    annualValueCents: f.wartimeVeteran && vaGate ? vaPension.annualValueCents : null,
   };
 
   const cdctc = dependentCareCredit(

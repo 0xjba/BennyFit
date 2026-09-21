@@ -14,6 +14,7 @@
 
 import { baseId } from '@/lib/criteria';
 import type { GoldFacts } from '@/scripts/generate-gold';
+import { vaDisabledOrOnBenefits } from './gold-rules';
 
 const CATEGORICAL_NAMES: Record<string, string> = {
   ssi: 'SSI',
@@ -198,6 +199,11 @@ export function oracleReply(instanceId: string, f: GoldFacts): string | null {
       return f.wartimeVeteran
         ? 'Yes, I served during wartime.'
         : 'No, nobody here served in the military.';
+
+    case 'va_pension.disability_or_benefits':
+      return vaDisabledOrOnBenefits(f)
+        ? 'Yes, I have a disability and get SSI or SSDI.'
+        : 'No, none of those apply to me.';
 
     case 'va_pension.care_level':
       return 'Neither of those applies to me.';

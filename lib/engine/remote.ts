@@ -213,6 +213,13 @@ export class RemoteEngine implements EngineClient {
       return await response.json();
     } catch (error) {
       if (error instanceof EngineUnavailable) throw error;
+      // A dropped connection or a timeout is retried like a busy response: over a run
+      // of thousands of requests one of them will happen, and it should not end the run.
+      if (attempt < 4) {
+        clearTimeout(timeout);
+        await new Promise((r) => setTimeout(r, 500 * 2 ** attempt));
+        return this.post(request, attempt + 1);
+      }
       if (error instanceof Error && error.name === 'AbortError') {
         throw new EngineUnavailable(`${this.config.name} did not respond in time.`, undefined, true);
       }

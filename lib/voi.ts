@@ -22,6 +22,12 @@ import { Answers, ScreeningState, evaluate, totalAnnualValue } from './evaluate'
 export interface VoiResult {
   /** Spread in total annual dollars between the best and worst option. */
   spreadCents: Cents;
+  /**
+   * Expected change in total annual dollars from learning the true answer: each
+   * option's change from the result as it stands, weighted by the engine's probability
+   * for that option. This is what ranks questions.
+   */
+  expectedCents: Cents;
   /** How many programs change verdict across the options. */
   programsAffected: number;
   byOption: Record<string, { totalCents: Cents; eligiblePrograms: string[] }>;
@@ -39,7 +45,8 @@ function pinned(option: string, options: string[]): EngineAnswer {
 export function voi(
   criterion: InstantiatedCriterion,
   state: ScreeningState,
-  answers: Answers
+  answers: Answers,
+  currentTotalCents?: Cents
 ): VoiResult {
   const options = Object.keys(criterion.criteria);
   const byOption: VoiResult['byOption'] = {};
@@ -63,6 +70,12 @@ export function voi(
   const totals = options.map((o) => byOption[o].totalCents);
   const spreadCents = Math.max(...totals) - Math.min(...totals);
 
+  const now = currentTotalCents ?? totalAnnualValue(evaluate(state, answers));
+  const probabilities = beliefFor(criterion, answers[criterion.instanceId]?.probabilities ?? {});
+  const expectedCents = Math.round(
+    options.reduce((sum, o) => sum + (probabilities[o] ?? 0) * Math.abs(byOption[o].totalCents - now), 0)
+  );
+
   // How many distinct programs flip verdict somewhere across the options. This is the
   // tie-break that makes a question settling two programs outrank one settling one.
   const everEligible = new Set(eligibilitySets.flat());
@@ -72,7 +85,37 @@ export function voi(
     if (appears > 0 && appears < eligibilitySets.length) programsAffected++;
   }
 
-  return { spreadCents, programsAffected, byOption };
+  return { spreadCents, expectedCents, programsAffected, byOption };
+}
+
+/**
+ * How likely each option is to be the truth, for weighing a question.
+ *
+ * Where the paragraph is silent and the rule declares a presumption, the engine's
+ * distribution measures whether the text says so, which for silence is close to even.
+ * It is not the chance that the presumption is wrong: most people asked whether they
+ * have a Social Security number do. So a presumed criterion is weighed by how often
+ * its kind of presumption fails, and every other criterion by the engine's own
+ * distribution, which is what a calibrated readout is for.
+ *
+ * The two rates are declared assumptions, not measured population figures, and they
+ * are deliberately not tuned on the validation households: in those synthetic
+ * households a presumption is never wrong, so tuning would drive both rates to zero and
+ * stop the questions that matter for, say, a grandparent raising grandchildren.
+ */
+export const PRESUMPTION_FAILURE_RATE = { routine: 0.05, material: 0.2 };
+
+function beliefFor(
+  criterion: InstantiatedCriterion,
+  engine: Record<string, number>
+): Record<string, number> {
+  if (criterion.presumption === undefined) return engine;
+  const options = Object.keys(criterion.criteria);
+  const others = options.filter((o) => o !== criterion.presumption);
+  const failure = PRESUMPTION_FAILURE_RATE[criterion.assumptionStrength ?? 'material'];
+  return Object.fromEntries(
+    options.map((o) => [o, o === criterion.presumption ? 1 - failure : failure / Math.max(1, others.length)])
+  );
 }
 
 export interface Candidate {
@@ -88,7 +131,19 @@ export interface SelectionOptions {
   tau: number;
   /** Instance ids already asked about, which are never asked again. */
   asked?: Set<string>;
+  /**
+   * A question whose expected dollar change is below this is not worth a person's
+   * time, and is not asked.
+   */
+  minExpectedCents?: Cents;
 }
+
+/**
+ * $25 a year. Chosen on the development households: any floor from $25 to $250 cut the
+ * questions asked by a third with no loss of accuracy, and $25 is the lowest of them,
+ * so a question is still asked whenever real money turns on it.
+ */
+export const DEFAULT_MIN_EXPECTED_CENTS = 2500;
 
 /**
  * The single question worth asking next, or null when there is none.
@@ -106,6 +161,8 @@ export function nextQuestion(
 ): Candidate | null {
   const asked = options.asked ?? new Set<string>();
   const candidates: Candidate[] = [];
+  const now = totalAnnualValue(evaluate(state, answers));
+  const floor = options.minExpectedCents ?? DEFAULT_MIN_EXPECTED_CENTS;
 
   for (const criterion of criteria) {
     if (asked.has(criterion.instanceId)) continue;
@@ -113,8 +170,9 @@ export function nextQuestion(
     if (!answer) continue;
     if (answer.confidence >= options.tau) continue;
 
-    const result = voi(criterion, state, answers);
+    const result = voi(criterion, state, answers, now);
     if (result.spreadCents <= 0) continue;
+    if (result.expectedCents < floor) continue;
     candidates.push({
       criterion,
       confidence: answer.confidence,
@@ -126,15 +184,12 @@ export function nextQuestion(
   if (candidates.length === 0) return null;
 
   candidates.sort((a, b) => {
-    // A criterion carrying a presumption ranks below every one that does not, however
-    // much money pinning its options apart appears to move. The presumption is a
-    // declaration that silence has a known meaning, so the spread is hypothetical: it
-    // measures what would happen if the household contradicted the assumption, not
-    // uncertainty about what they meant. Without this, three questions get spent
-    // asking whether someone has a Social Security number and what they have in
-    // savings, while the fact that actually decides the benefit goes unasked.
-    if (a.presumed !== b.presumed) return a.presumed ? 1 : -1;
-    if (b.voi.spreadCents !== a.voi.spreadCents) return b.voi.spreadCents - a.voi.spreadCents;
+    // Ranked by expected dollar change, not by the spread between best and worst case.
+    // The spread ignores how likely each option is: whether someone served in wartime
+    // swings a veterans pension of $17,000 a year, so it topped the list for everyone,
+    // however sure the engine was that they had not. Weighting by the engine's own
+    // probabilities is what a calibrated readout is for.
+    if (b.voi.expectedCents !== a.voi.expectedCents) return b.voi.expectedCents - a.voi.expectedCents;
     if (b.voi.programsAffected !== a.voi.programsAffected) {
       return b.voi.programsAffected - a.voi.programsAffected;
     }

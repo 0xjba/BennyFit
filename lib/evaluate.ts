@@ -50,6 +50,7 @@ import {
   medicareSavingsEligibility,
   dependentCareCredit,
   cdctcQualifyingChildren,
+  vaPensionAgeOrDisability,
   veteransPension,
 } from './compute-programs';
 
@@ -684,6 +685,12 @@ export function evaluate(state: ScreeningState, answers: Answers): Verdicts {
       decidedBy = result.decidedBy;
       computed['net_worth_test'] = tests.find((x) => x.name === 'Net worth test')?.passed ?? false;
       computed['income_test'] = tests.find((x) => x.name === 'Income test')?.passed ?? false;
+      const disability = criteria.find((c) => c.id === 'va_pension.disability_or_benefits');
+      const disabilityAnswer = disability ? answers[disability.instanceId] : undefined;
+      computed['age_or_disability'] = vaPensionAgeOrDisability(
+        state.facts.ages.length > 0 ? Math.max(...state.facts.ages) : null,
+        disability && disabilityAnswer ? effectiveChoice(disability, disabilityAnswer, tau).choice === 'true' : false
+      );
     } else if (program.ruleType === 'cdctc') {
       const t = cdctcThresholdsFor(state.asOf);
       const result = dependentCareCredit(

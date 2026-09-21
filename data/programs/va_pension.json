@@ -12,12 +12,25 @@
       "id": "va_pension.wartime_veteran",
       "scope": "household",
       "type": "noul",
-      "instructions": "Is anyone in the household a veteran who served during a wartime period, or the surviving spouse of one?",
+      "instructions": "Is anyone in the household a veteran who served on active duty during a wartime period?",
       "askIfUnsure": "Did you or your spouse serve in the military during wartime?",
       "criteria": {
         "true": "yes",
         "false": "no"
-      }
+      },
+      "note": "Survivors Pension, for the surviving spouse of a wartime veteran, has different rates and is not screened here."
+    },
+    {
+      "id": "va_pension.disability_or_benefits",
+      "scope": "household",
+      "type": "noul",
+      "instructions": "Is the veteran permanently and totally disabled, a patient in a nursing home for long-term care because of a disability, or receiving Social Security Disability Insurance (SSDI) or Supplemental Security Income (SSI)?",
+      "askIfUnsure": "Do you have a permanent disability, live in a nursing home because of one, or get SSDI or SSI?",
+      "criteria": {
+        "true": "yes, at least one of these",
+        "false": "no"
+      },
+      "note": "va.gov/pension/eligibility: at least one of age 65 or older, a permanent and total disability, long-term nursing home care because of a disability, or SSDI or SSI. Age is compared in code; this criterion covers the rest."
     },
     {
       "id": "va_pension.care_level",
@@ -33,8 +46,9 @@
     }
   ],
   "computed": [
+    "va_pension.age_or_disability",
     "va_pension.net_worth_test",
     "va_pension.income_test"
   ],
-  "verdict": "wartime_veteran AND net_worth_test AND income_test"
+  "verdict": "wartime_veteran AND age_or_disability AND net_worth_test AND income_test"
 }

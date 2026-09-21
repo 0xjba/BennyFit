@@ -500,6 +500,16 @@ export function cdctcQualifyingChildren(childCount: number, agesMentioned: numbe
   return childAges.filter((a) => a < 13).length + unknown;
 }
 
+/**
+ * The Veterans Pension's age-or-disability gate (va.gov/pension/eligibility): the
+ * veteran is at least 65, or permanently and totally disabled, in long-term nursing
+ * home care because of a disability, or receiving SSDI or SSI. Age is compared here;
+ * the rest arrives as one yes or no.
+ */
+export function vaPensionAgeOrDisability(age: number | null, disabledOrOnBenefits: boolean): boolean {
+  return (age !== null && age >= 65) || disabledOrOnBenefits;
+}
+
 export function dependentCareCredit(f: CdctcFacts, t: CdctcThresholds): ProgramResult {
   const cap = dollars(f.qualifyingPeople >= 2 ? t.expenseCapTwoOrMore : t.expenseCapOne);
   const expenses = Math.min(f.annualCareExpensesCents, cap);

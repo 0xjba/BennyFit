@@ -16,7 +16,7 @@
  */
 
 import { existsSync, readFileSync, writeFileSync } from 'node:fs';
-import { join } from 'node:path';
+import { join, resolve } from 'node:path';
 
 import { toDollars } from '@/lib/money';
 import { engineFromEnv } from '@/lib/engine';
@@ -76,6 +76,8 @@ interface PerHousehold {
   wallClockMs: number;
   engineMs: number;
   passes: number;
+  /** Total annual dollars after each pass: the first before any question, then one per answer. */
+  passTotals: number[];
 }
 
 /**
@@ -164,6 +166,7 @@ async function runOnce(
       wallClockMs: result.totalElapsedMs,
       engineMs: result.passes.reduce((sum, p) => sum + p.engineElapsedMs, 0),
       passes: result.passes.length,
+      passTotals: result.passes.map((p) => p.totalAnnualValueCents),
     };
   }
 }
@@ -189,6 +192,18 @@ function summarise(rows: PerHousehold[]) {
   const askedAtAll = withGap.filter((r) =>
     r.questionsAsked.some((q) => q.split('#')[0] === r.loadBearingGap)
   );
+
+  // A question whose answer moved no money spent the household's time for nothing.
+  // Counted without reference to any hand-labelled gap, so it cannot be gamed by
+  // learning which question the test set happens to want.
+  let questionsAnswered = 0;
+  let questionsThatMoved = 0;
+  for (const r of rows) {
+    for (let i = 1; i < (r.passTotals?.length ?? 0); i++) {
+      questionsAnswered++;
+      if (r.passTotals[i] !== r.passTotals[i - 1]) questionsThatMoved++;
+    }
+  }
 
   const accuracyBySlice: Record<string, number> = {};
   for (const slice of new Set(rows.map((r) => r.slice))) {
@@ -217,6 +232,8 @@ function summarise(rows: PerHousehold[]) {
     questionRelevance: withGap.length === 0 ? 0 : relevantFirst.length / withGap.length,
     questionAskedAtAllRate: withGap.length === 0 ? 0 : askedAtAll.length / withGap.length,
     underspecifiedCount: withGap.length,
+    questionsAnswered,
+    usefulQuestionRate: questionsAnswered === 0 ? 0 : questionsThatMoved / questionsAnswered,
     specifiedCount: specified.length,
     medianCriteriaPerHousehold: median(rows.map((r) => r.criteriaEvaluated)),
     medianWallClockMs: median(rows.map((r) => r.wallClockMs)),
@@ -236,6 +253,9 @@ async function main() {
   const pilot = args.includes('--pilot') ? Number(args[args.indexOf('--pilot') + 1]) : 0;
   const outArg = args.includes('--out') ? args[args.indexOf('--out') + 1] : null;
   const sweepOnly = args.includes('--sweep-only');
+  // --dev scores the development half instead of the held-out half: for changing the
+  // system and seeing the effect without spending the held-out households.
+  const devOnly = args.includes('--dev');
 
   const households = loadGold();
   const engine = engineFromEnv();
@@ -323,7 +343,7 @@ async function main() {
     return;
   }
 
-  const scoredSet = pilot > 0 ? pilotSet : engine.isFixture ? households : holdout;
+  const scoredSet = pilot > 0 ? pilotSet : devOnly ? development : engine.isFixture ? households : holdout;
   const rows = await runOnce(scoredSet, metered, tau, maxQuestions);
   const summary = summarise(rows);
 
@@ -387,8 +407,14 @@ async function main() {
       },
     },
     endToEnd: {
-      measured: !engine.isFixture && pilot === 0,
-      scoredOn: engine.isFixture ? 'not scored' : pilot > 0 ? `pilot of ${pilot} development households` : 'held-out half',
+      measured: !engine.isFixture && pilot === 0 && !devOnly,
+      scoredOn: engine.isFixture
+        ? 'not scored'
+        : pilot > 0
+          ? `pilot of ${pilot} development households`
+          : devOnly
+            ? 'development half'
+            : 'held-out half',
       households: engine.isFixture ? 0 : scoredSet.length,
     },
     usage,
@@ -411,7 +437,7 @@ async function main() {
   };
 
   // A pilot is a cost check, not a result: it writes only where it is told to.
-  const path = outArg ? join(process.cwd(), outArg) : pilot > 0 ? null : join(process.cwd(), 'eval', 'results.json');
+  const path = outArg ? resolve(process.cwd(), outArg) : pilot > 0 || devOnly ? null : join(process.cwd(), 'eval', 'results.json');
   if (path) writeFileSync(path, JSON.stringify(results, null, 2) + '\n');
   console.log(
     `\nusage: ${usage.calls} calls, ${usage.inputTokens.toLocaleString()} input tokens, ` +
@@ -429,6 +455,12 @@ async function main() {
   }
   console.log(`\nquestion relevance: ${(summary.questionRelevance * 100).toFixed(1)}% of ${summary.underspecifiedCount} underspecified households`);
   console.log(`  load-bearing fact asked at any point: ${(summary.questionAskedAtAllRate * 100).toFixed(1)}%`);
+  console.log(
+    `  underspecified households, balanced accuracy after follow-ups: ${((summary.accuracyBySlice.underspecified ?? 0) * 100).toFixed(1)}%`
+  );
+  console.log(
+    `  questions that changed the result: ${(summary.usefulQuestionRate * 100).toFixed(1)}% of ${summary.questionsAnswered}`
+  );
   console.log(`median criteria per household: ${summary.medianCriteriaPerHousehold}`);
   console.log(`median wall clock: ${summary.medianWallClockMs.toFixed(1)}ms  (engine ${summary.medianEngineMs.toFixed(1)}ms)`);
   console.log(`median questions asked: ${summary.medianQuestionsAsked}`);

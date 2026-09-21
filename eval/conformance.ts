@@ -31,6 +31,7 @@ import {
   childTaxCredit,
   dependentCareCredit,
   cdctcQualifyingChildren,
+  vaPensionAgeOrDisability,
   extraHelpEligibility,
   fpgThresholdEligibility,
   medicareSavingsEligibility,
@@ -383,6 +384,39 @@ export const CASES: ConformanceCase[] = [
   },
 
   // ---------------- Veterans Pension ----------------
+  {
+    id: 'va.gate-young-not-disabled',
+    program: 'va_pension',
+    what: 'A wartime veteran of 40, not disabled: fails the gate',
+    source:
+      'va.gov/pension/eligibility: at least one of age 65 or older, a permanent and total ' +
+      'disability, long-term nursing home care because of a disability, or SSDI or SSI. ' +
+      'Found while measuring follow-up questions: the rule lacked this test, so a wartime ' +
+      'veteran of any age looked eligible.',
+    run: () => ({ got: vaPensionAgeOrDisability(40, false), expected: false }),
+  },
+  {
+    id: 'va.gate-65',
+    program: 'va_pension',
+    what: 'A wartime veteran of 67, not disabled: passes on age',
+    source:
+      'va.gov/pension/eligibility: at least one of age 65 or older, a permanent and total ' +
+      'disability, long-term nursing home care because of a disability, or SSDI or SSI. ' +
+      'Found while measuring follow-up questions: the rule lacked this test, so a wartime ' +
+      'veteran of any age looked eligible.',
+    run: () => ({ got: vaPensionAgeOrDisability(67, false), expected: true }),
+  },
+  {
+    id: 'va.gate-ssi',
+    program: 'va_pension',
+    what: 'A wartime veteran of 50 on SSI: passes',
+    source:
+      'va.gov/pension/eligibility: at least one of age 65 or older, a permanent and total ' +
+      'disability, long-term nursing home care because of a disability, or SSDI or SSI. ' +
+      'Found while measuring follow-up questions: the rule lacked this test, so a wartime ' +
+      'veteran of any age looked eligible.',
+    run: () => ({ got: vaPensionAgeOrDisability(50, true), expected: true }),
+  },
   {
     id: 'va.basic-no-dependents',
     program: 'va_pension',
