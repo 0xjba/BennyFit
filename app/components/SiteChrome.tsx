@@ -19,6 +19,9 @@ export function Masthead({ cta = true }: { cta?: boolean }) {
           <Link href="/results" className="hide-sm">
             Results
           </Link>
+          <Link href="/research" className="hide-sm">
+            Research
+          </Link>
           <Link href="/#faq" className="hide-sm">
             FAQ
           </Link>
@@ -55,6 +58,7 @@ export function SiteFooter() {
               <Link href="/demo">Demo</Link>
               <Link href="/compare">Compare</Link>
               <Link href="/results">Results</Link>
+              <Link href="/research">Research</Link>
             </div>
             <div className="footer-col">
               <span className="h">Learn</span>
