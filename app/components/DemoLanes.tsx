@@ -177,8 +177,8 @@ export function DemoLanes() {
                           {e.selfReportedConfidence !== null && (
                             <span className="lane-sub">
                               {' '}
-                              — it reported {Math.round(e.selfReportedConfidence * 100)}%
-                              confidence in that answer
+                              (it reported {Math.round(e.selfReportedConfidence * 100)}%
+                              confidence in that answer)
                             </span>
                           )}
                         </li>

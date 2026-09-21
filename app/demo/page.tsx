@@ -10,7 +10,7 @@ import { loadPrograms } from '@/lib/criteria';
 export const dynamic = 'force-dynamic';
 
 export const metadata = {
-  title: 'Demo — BennyFit',
+  title: 'Demo | BennyFit',
   description:
     'Describe a household in plain language and watch every rule across twenty-one benefit programs get checked at once, under your state\u2019s own limits.',
 };

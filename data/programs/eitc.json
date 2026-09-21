@@ -11,7 +11,7 @@
       "id": "eitc.has_earned_income",
       "scope": "household",
       "type": "noul",
-      "instructions": "Does anyone in this household have earned income \u2014 wages, salary, tips or self-employment? Social Security, unemployment and other benefits are not earned income.",
+      "instructions": "Does anyone in this household have earned income, meaning wages, salary, tips or self-employment? Social Security, unemployment and other benefits are not earned income.",
       "askIfUnsure": "Did anyone in your household work for pay during the year?",
       "criteria": {
         "true": "yes, someone worked for pay",
@@ -85,7 +85,7 @@
       "id": "eitc.investment_income_over_limit",
       "scope": "household",
       "type": "noul",
-      "instructions": "Does this person have investment income \u2014 interest, dividends, capital gains, rental income \u2014 above the annual limit?",
+      "instructions": "Does this person have investment income (interest, dividends, capital gains, rental income) above the annual limit?",
       "askIfUnsure": "Did you earn more than about twelve thousand dollars from savings, investments or rent?",
       "criteria": {
         "true": "yes, above the limit",

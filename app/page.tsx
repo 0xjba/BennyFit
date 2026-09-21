@@ -8,7 +8,7 @@ import { BDT, COMPARE_ROWS, COMPETITORS } from '@/lib/competitors';
 import { conventionalForms, conventionalQuestionCount } from '@/lib/conventional';
 
 export const metadata = {
-  title: 'BennyFit — benefits screening in one conversation',
+  title: 'BennyFit: benefits screening in one conversation',
   description:
     'BennyFit checks a household against federal benefit programs from a single plain-language description, and asks a follow-up question only when the answer changes the outcome.',
 };
@@ -192,7 +192,7 @@ export default function Landing() {
               <p>
                 Not a chatbot walking someone through a form. Benny reads the whole situation,
                 works out which rules are already settled by it, and finds the single
-                unanswered fact that would move the outcome most — then says what it is worth.
+                unanswered fact that would move the outcome most, then says what it is worth.
               </p>
               <p>
                 For this household, thirty-one of the thirty-two rules were already decided by
@@ -206,7 +206,7 @@ export default function Landing() {
                 Is that money from a job, or from benefits like Social Security?
               </div>
               <div className="worth">
-                Worth about $1,248 a year — it changes the deduction, and the amount.
+                Worth about $1,248 a year, because it changes the deduction and the amount.
               </div>
               <div className="settled">
                 <div className="settled-row">
@@ -350,11 +350,11 @@ export default function Landing() {
                     </th>
                     {COMPETITORS.map((c) => (
                       <td key={c.id} className={row.cells[c.id]?.tone === 'good' ? 'strong' : 'muted'}>
-                        {row.cells[c.id]?.text ?? '—'}
+                        {row.cells[c.id]?.text ?? 'n/a'}
                       </td>
                     ))}
                     <td className={`ours${row.cells.bennyfit?.tone === 'weak' ? ' behind' : ''}`}>
-                      {row.cells.bennyfit?.text ?? '—'}
+                      {row.cells.bennyfit?.text ?? 'n/a'}
                     </td>
                   </tr>
                 ))}

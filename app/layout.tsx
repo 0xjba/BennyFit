@@ -18,7 +18,7 @@ const jakarta = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: 'BennyFit — benefits screening in one conversation',
+  title: 'BennyFit: benefits screening in one conversation',
   description:
     'BennyFit checks a household against federal benefit programs from a single plain-language description, and asks a follow-up question only when the answer changes the outcome.',
 };

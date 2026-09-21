@@ -135,12 +135,12 @@ function ChecksList({
               >
                 <div>
                   {c.label}
-                  {c.subjectLabel && <span className="criterion-subject"> — {c.subjectLabel}</span>}
+                  {c.subjectLabel && <span className="criterion-subject"> ({c.subjectLabel})</span>}
                 </div>
                 <div className="criterion-answer">
                   {pending ? '' : c.presumed ? 'not stated' : c.chosenLabel}
                   {!pending && c.presumed && (
-                    <span className="presumed"> — taken as {c.chosenLabel.toLowerCase()}</span>
+                    <span className="presumed">, taken as {c.chosenLabel.toLowerCase()}</span>
                   )}
                 </div>
                 <CheckBar confidence={c.confidence} unsettled={!c.settled} />
@@ -291,7 +291,7 @@ export function Screener({ asOf, programCount }: { asOf: string; programCount: n
           {!data.state && (
             <div className="notice">
               No state was named, so federal minimum rules were used. 44 of the 51
-              jurisdictions are more generous than that — mention where you live and the
+              jurisdictions are more generous than that. Mention where you live and the
               answer may change.
             </div>
           )}
@@ -335,7 +335,7 @@ export function Screener({ asOf, programCount }: { asOf: string; programCount: n
               <p className="q">{data.next.question}</p>
               <p className="why">
                 {data.next.reason}
-                {data.next.voiSpread > 0 && ` — worth about ${money(data.next.voiSpread)} a year.`}
+                {data.next.voiSpread > 0 && `, worth about ${money(data.next.voiSpread)} a year.`}
               </p>
               <form
                 onSubmit={(e) => {
@@ -412,8 +412,7 @@ export function Screener({ asOf, programCount }: { asOf: string; programCount: n
                             {c.subjectLabel && <span className="cond-who"> ({c.subjectLabel})</span>}
                             {c.effect === 'amount' && c.amountAtStake !== undefined && (
                               <span className="cond-who">
-                                {' '}
-                                — worth {money(c.amountAtStake)} a year
+                                , worth {money(c.amountAtStake)} a year
                               </span>
                             )}
                           </li>
@@ -515,7 +514,7 @@ export function Screener({ asOf, programCount }: { asOf: string; programCount: n
 
           <details className="disclosure" open={phase !== 'results'}>
             <summary>
-              Every check Benny ran{phase === 'asking' && ' — settled ones dimmed'}
+              Every check Benny ran{phase === 'asking' && ' (settled ones dimmed)'}
             </summary>
             <div style={{ marginTop: 16 }}>
               <ChecksList key={passCount} criteria={data.criteria} dimSettled={phase === 'asking'} />

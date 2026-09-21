@@ -10,7 +10,7 @@ import { join } from 'node:path';
 export const dynamic = 'force-dynamic';
 
 export const metadata = {
-  title: 'Results — BennyFit',
+  title: 'Results | BennyFit',
   description:
     'How BennyFit measures whether its screening results are right, and what the current figures do and do not show.',
 };
@@ -121,7 +121,7 @@ export default function Results() {
           )}
           <p style={{ color: 'var(--ink-2)', marginTop: 8 }}>
             Hand-computed cases, each with its expected figure worked out from a primary source
-            and written down as a number — USDA&rsquo;s own worked SNAP example, the IRS revenue
+            and written down as a number: USDA&rsquo;s own worked SNAP example, the IRS revenue
             procedure tables, the medicare.gov limits, VA&rsquo;s pension rates. None of the expected
             figures is produced by the code being tested, so a disagreement is a disagreement
             with an agency.
@@ -159,16 +159,16 @@ export default function Results() {
                 <span> of facts read correctly</span>
               </p>
               <p style={{ color: 'var(--ink-2)', marginTop: 8 }}>
-                Twenty descriptions written the way people actually write — &ldquo;base pay is
+                Twenty descriptions written the way people actually write (&ldquo;base pay is
                 about $900 and tips add around $1,100&rdquo;, &ldquo;every other week, about $1,150
-                after taxes&rdquo;, &ldquo;me, my son, and our dog&rdquo; — with the facts labelled by
+                after taxes&rdquo;, &ldquo;me, my son, and our dog&rdquo;), with the facts labelled by
                 hand before anything read them, and scored once. This is the{' '}
                 {ORDINALS[HOLDOUT_EDITION] ?? `${HOLDOUT_EDITION}th`} such set: each earlier one
                 moved into the development set once it had been fixed against.
               </p>
               <p style={{ color: 'var(--ink-2)', marginTop: 12 }}>
                 Code finds every amount that could be money. The decision model says what each
-                one is — pay, rent, a utility bill, child care — and how often it is paid, as a
+                one is (pay, rent, a utility bill, child care) and how often it is paid, as a
                 choice among fixed options, so it never writes a number and cannot garble one.
                 Code copies the amount and does every sum. Counting people stays in code; where
                 the model counts the household differently, the screener asks rather than
@@ -186,7 +186,7 @@ export default function Results() {
                     <li key={field}>
                       <span>{FIELD_LABELS[field] ?? field}</span>
                       <span className="amt">
-                        {v.correct}/{v.total} · {c ? `${c.correct}/${c.total}` : '—'}
+                        {v.correct}/{v.total} · {c ? `${c.correct}/${c.total}` : 'n/a'}
                       </span>
                     </li>
                   );
@@ -251,8 +251,8 @@ export default function Results() {
                 asked.{comparedRun && ` Before that change these households were asked ${comparedRun.totalQuestionsAsked} questions in all; they are now asked ${engineRun.totalQuestionsAsked}, with no loss of accuracy.`} The weak spot this run showed: where a description never says
                 whether the money comes from a job or from benefits, the model sometimes guessed
                 confidently instead of asking, and it read some people of 62 to 64 as already on
-                Medicare. Both are addressed since — an explicit &ldquo;not stated&rdquo; answer for
-                the first, an age check in code for the second — and on the development
+                Medicare. Both are addressed since, with an explicit &ldquo;not stated&rdquo; answer for
+                the first and an age check in code for the second, and on the development
                 households the missing fact is now asked first 60% of the time rather than 40%.
                 The figures above are from before those changes: the held-out households are not
                 re-scored after being fixed against.
@@ -368,7 +368,7 @@ export default function Results() {
           <p style={{ color: 'var(--ink-2)', marginTop: 14 }}>
             Telling someone they are likely eligible when they are not costs them a wasted
             application and their trust. Telling someone they are not eligible when they
-            are is the exact failure this product exists to fix, and it is silent — nobody
+            are is the exact failure this product exists to fix, and it is silent: nobody
             ever finds out. Both are tracked separately rather than averaged away, and
             every household is shown every program, including the ones judged unlikely, so
             a person who knows their own situation can disagree with us.
@@ -396,7 +396,7 @@ export default function Results() {
             Every dollar figure in the system records the official page it was read from
             and the date it was read, and copies of those documents are kept alongside the
             rules so any number can be traced back. When a new table has not been published
-            yet — as with the SNAP figures that take effect each October — the system says
+            yet, as with the SNAP figures that take effect each October, the system says
             so on screen rather than quietly carrying on with a stale number or inventing
             one.
           </p>

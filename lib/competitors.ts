@@ -70,8 +70,8 @@ export const COMPARE_ROWS: CompareRow[] = [
   {
     label: 'Estimated dollar value for this household',
     cells: {
-      singlestop: { text: 'Aggregate only — "$20K average annual support found"', tone: 'plain' },
-      findhelp: { text: 'Population average — "$2,800 annually"', tone: 'plain' },
+      singlestop: { text: 'Aggregate only: "$20K average annual support found"', tone: 'plain' },
+      findhelp: { text: 'Population average: "$2,800 annually"', tone: 'plain' },
       mrelief: {
         text: 'None. States that amounts would add too many screening questions',
         tone: 'plain',
@@ -106,7 +106,7 @@ export const COMPARE_ROWS: CompareRow[] = [
     },
     footnote:
       'mRelief says it "indexes towards being more inclusive on who may be eligible, so as ' +
-      'to generate as few false negatives as possible" — a deliberate, reasonable choice ' +
+      'to generate as few false negatives as possible", a deliberate, reasonable choice ' +
       'that accepts false positives in exchange. BennyFit reports both rates separately so ' +
       'you can see which way it errs rather than having to assume.',
   },
@@ -125,7 +125,7 @@ export const COMPARE_ROWS: CompareRow[] = [
       singlestop: { text: 'Not described', tone: 'plain' },
       findhelp: { text: 'Not described', tone: 'plain' },
       mrelief: { text: 'Single program', tone: 'plain' },
-      bennyfit: { text: 'Followed automatically — SNAP enrollment qualifies Lifeline', tone: 'good' },
+      bennyfit: { text: 'Followed automatically: SNAP enrollment qualifies Lifeline', tone: 'good' },
     },
   },
   {

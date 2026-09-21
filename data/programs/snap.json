@@ -202,7 +202,7 @@
       "id": "snap.resources_over_limit",
       "scope": "household",
       "type": "noul",
-      "instructions": "Does the household hold countable resources — cash, bank accounts, stocks — above the limit? Retirement accounts and the home do not count.",
+      "instructions": "Does the household hold countable resources (cash, bank accounts, stocks) above the limit? Retirement accounts and the home do not count.",
       "askIfUnsure": "Do you have more than a few thousand dollars in savings or a bank account?",
       "criteria": {
         "true": "yes, over the limit",
