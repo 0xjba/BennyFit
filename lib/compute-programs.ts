@@ -360,3 +360,179 @@ export function childTaxCredit(f: CtcFacts, t: CtcThresholds): ProgramResult {
         : undefined,
   };
 }
+
+// ---------------------------------------------------------------------------
+// Veterans Pension
+// ---------------------------------------------------------------------------
+
+export interface VaPensionThresholds {
+  netWorthLimit: number;
+  additionalDependent: number;
+  medicalExpenseThresholdRate: number;
+  mapr: Record<string, { basic: number; housebound: number; aidAndAttendance: number }>;
+}
+
+export type VaCareLevel = 'neither' | 'housebound' | 'aid_and_attendance';
+
+export interface VaPensionFacts {
+  dependents: number;
+  annualIncomeCents: Cents;
+  netWorthCents: Cents;
+  annualMedicalCents: Cents;
+  careLevel: VaCareLevel;
+}
+
+/**
+ * The pension is the gap between a rate Congress sets and what the household already
+ * has, so a lower income produces a larger payment. That is the opposite shape to
+ * every other program here, where income only ever takes benefit away.
+ */
+export function veteransPension(f: VaPensionFacts, t: VaPensionThresholds): ProgramResult {
+  const base = t.mapr[f.dependents >= 1 ? '1' : '0'];
+  const extra = f.dependents > 1 ? t.additionalDependent * (f.dependents - 1) : 0;
+  const rate =
+    f.careLevel === 'aid_and_attendance'
+      ? base.aidAndAttendance
+      : f.careLevel === 'housebound'
+        ? base.housebound
+        : base.basic;
+  const mapr = dollars(rate + extra);
+
+  const steps: Step[] = [
+    {
+      label: 'Maximum annual pension rate',
+      detail:
+        `${f.dependents} ${f.dependents === 1 ? 'dependent' : 'dependents'}` +
+        (f.careLevel === 'aid_and_attendance'
+          ? ', with aid and attendance'
+          : f.careLevel === 'housebound'
+            ? ', housebound'
+            : ''),
+      amountCents: mapr,
+      runningCents: mapr,
+      citation: 'va.gov, rates effective 1 December 2025',
+    },
+  ];
+
+  // Medical expenses above 5% of the rate come off countable income.
+  const threshold = Math.round(mapr * t.medicalExpenseThresholdRate);
+  const deductible = Math.max(0, f.annualMedicalCents - threshold);
+  const countable = Math.max(0, f.annualIncomeCents - deductible);
+
+  if (deductible > 0) {
+    steps.push({
+      label: 'Medical expenses deducted from income',
+      detail: `the part of ${formatDollars(f.annualMedicalCents)} above ${formatDollars(threshold)}, which is 5% of the rate`,
+      amountCents: -deductible,
+      runningCents: countable,
+      citation: '38 CFR 3.272(g)',
+    });
+  }
+
+  const pension = Math.max(0, mapr - countable);
+  steps.push({
+    label: 'Pension payable',
+    detail: `${formatDollars(mapr)} less ${formatDollars(countable)} of countable income`,
+    amountCents: pension,
+    runningCents: pension,
+  });
+
+  const netWorthLimit = dollars(t.netWorthLimit);
+  const netWorthOk = f.netWorthCents + f.annualIncomeCents <= netWorthLimit;
+
+  const tests: ProgramResult['tests'] = [
+    {
+      name: 'Net worth test',
+      passed: netWorthOk,
+      detail: `${formatDollars(f.netWorthCents + f.annualIncomeCents)} in assets and income against a ${formatDollars(netWorthLimit)} limit`,
+    },
+    {
+      name: 'Income test',
+      passed: pension > 0,
+      detail: `${formatDollars(countable)} of countable income against a ${formatDollars(mapr)} rate`,
+    },
+  ];
+
+  const eligible = netWorthOk && pension > 0;
+  return {
+    eligible,
+    annualValueCents: eligible ? pension : null,
+    monthlyValueCents: eligible ? Math.round(pension / 12) : null,
+    tests,
+    steps,
+    decidedBy: !netWorthOk ? 'the net worth limit' : 'the difference between the rate and your income',
+  };
+}
+
+// ---------------------------------------------------------------------------
+// Child and Dependent Care Credit
+// ---------------------------------------------------------------------------
+
+export interface CdctcThresholds {
+  expenseCapOne: number;
+  expenseCapTwoOrMore: number;
+  maxRate: number;
+  minRate: number;
+  rateFloorAgi: number;
+  rateStepAgi: number;
+  rateStep: number;
+  minRateAgi: number;
+}
+
+export interface CdctcFacts {
+  annualCareExpensesCents: Cents;
+  qualifyingPeople: number;
+  agiAnnualCents: Cents;
+}
+
+export function dependentCareCredit(f: CdctcFacts, t: CdctcThresholds): ProgramResult {
+  const cap = dollars(f.qualifyingPeople >= 2 ? t.expenseCapTwoOrMore : t.expenseCapOne);
+  const expenses = Math.min(f.annualCareExpensesCents, cap);
+
+  // 35% up to the floor, falling a point per step of income, never below 20%.
+  const over = Math.max(0, f.agiAnnualCents - dollars(t.rateFloorAgi));
+  const steps1 = Math.ceil(over / dollars(t.rateStepAgi));
+  const rate = Math.max(t.minRate, t.maxRate - steps1 * t.rateStep);
+  const credit = Math.round(expenses * rate);
+
+  const steps: Step[] = [
+    {
+      label: 'Care expenses that count',
+      detail: `${formatDollars(f.annualCareExpensesCents)} paid, capped at ${formatDollars(cap)} for ${
+        f.qualifyingPeople >= 2 ? 'two or more people' : 'one person'
+      }`,
+      amountCents: expenses,
+      runningCents: expenses,
+      citation: 'IRC 21(c)',
+    },
+    {
+      label: 'Credit rate',
+      detail: `${Math.round(rate * 100)}% at an income of ${formatDollars(f.agiAnnualCents)}`,
+      amountCents: credit,
+      runningCents: credit,
+      citation: 'IRC 21(a)(2)',
+    },
+  ];
+
+  return {
+    eligible: credit > 0,
+    annualValueCents: credit > 0 ? credit : null,
+    monthlyValueCents: credit > 0 ? Math.round(credit / 12) : null,
+    steps,
+    tests: [
+      {
+        name: 'Care paid for work',
+        passed: f.annualCareExpensesCents > 0,
+        detail:
+          f.annualCareExpensesCents > 0
+            ? `${formatDollars(f.annualCareExpensesCents)} a year in care costs`
+            : 'no care costs were mentioned',
+      },
+    ],
+    decidedBy: 'the care costs and the rate for this income',
+    valueNote:
+      credit > 0
+        ? 'This credit reduces tax owed rather than arriving as a refund, so a household with no tax liability may not receive all of it.'
+        : undefined,
+  };
+}

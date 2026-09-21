@@ -36,9 +36,11 @@ import {
   eitcThresholdsFor,
   fpgProgramConfig,
   lifelineThresholdsFor,
+  cdctcThresholdsFor,
   medicareThresholdsFor,
   povertyGuidelines,
   stateRulesFor,
+  vaPensionThresholdsFor,
 } from './thresholds';
 import {
   childTaxCredit,
@@ -46,6 +48,8 @@ import {
   fpgAnnual,
   fpgThresholdEligibility,
   medicareSavingsEligibility,
+  dependentCareCredit,
+  veteransPension,
 } from './compute-programs';
 
 export interface ScreeningState {
@@ -413,6 +417,14 @@ const EVALUATION_ORDER = [
   'medicare_savings',
   'extra_help',
   'medicaid',
+  'chip',
+  'cdctc',
+  'va_pension',
+  'summer_ebt',
+  'sfmnp',
+  'cacfp',
+  'fdpir',
+  'wap',
   // Follows the federal credit it is a percentage of, so it is evaluated last.
   'state_eitc',
 ];
@@ -646,6 +658,48 @@ export function evaluate(state: ScreeningState, answers: Answers): Verdicts {
       if (result.valueNote) notes.push(result.valueNote);
       computed['qualifying_children'] = qualifying > 0;
       computed['income_test'] = result.eligible;
+    } else if (program.ruleType === 'vaPension') {
+      const t = vaPensionThresholdsFor(state.asOf);
+      const care = criteria.find((c) => c.id === 'va_pension.care_level');
+      const careAnswer = care ? answers[care.instanceId] : undefined;
+      const careLevel = (care && careAnswer
+        ? effectiveChoice(care, careAnswer, tau).choice
+        : 'neither') as 'neither' | 'housebound' | 'aid_and_attendance';
+
+      const result = veteransPension(
+        {
+          dependents: Math.max(0, size - 1),
+          annualIncomeCents: income.monthlyCents * 12,
+          netWorthCents: dollars(state.facts.savings ?? 0),
+          annualMedicalCents: dollars((state.facts.medicalMonthly ?? 0) * 12),
+          careLevel,
+        },
+        t
+      );
+      steps = result.steps;
+      tests = result.tests;
+      annualValueCents = result.annualValueCents;
+      monthlyValueCents = result.monthlyValueCents;
+      decidedBy = result.decidedBy;
+      computed['net_worth_test'] = tests.find((x) => x.name === 'Net worth test')?.passed ?? false;
+      computed['income_test'] = tests.find((x) => x.name === 'Income test')?.passed ?? false;
+    } else if (program.ruleType === 'cdctc') {
+      const t = cdctcThresholdsFor(state.asOf);
+      const result = dependentCareCredit(
+        {
+          annualCareExpensesCents: dollars((state.facts.dependentCareMonthly ?? 0) * 12),
+          qualifyingPeople: state.shape.members.filter((m) => m.isChild).length,
+          agiAnnualCents: income.monthlyCents * 12,
+        },
+        t
+      );
+      steps = result.steps;
+      tests = result.tests;
+      annualValueCents = result.annualValueCents;
+      monthlyValueCents = result.monthlyValueCents;
+      decidedBy = result.decidedBy;
+      if (result.valueNote) notes.push(result.valueNote);
+      computed['credit_above_zero'] = result.eligible;
     } else if (program.ruleType === 'medicaid') {
       const guideline = fpgAnnual(povertyGuidelines(), size);
       const covered = stateRules?.medicaid.covered ?? false;

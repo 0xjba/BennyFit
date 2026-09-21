@@ -56,16 +56,16 @@ export const COMPARE_ROWS: CompareRow[] = [
   {
     label: 'Programs screened',
     cells: {
-      singlestop: { text: '20+', tone: 'good' },
+      singlestop: { text: '20+', tone: 'plain' },
       findhelp: { text: '10 core federal and state programs', tone: 'good' },
       mrelief: { text: 'SNAP only', tone: 'plain' },
-      bennyfit: { text: '13, each against its full rule set', tone: 'good' },
+      bennyfit: { text: '21, each against its full rule set', tone: 'good' },
     },
     footnote:
-      'More than findhelp and mRelief, and closing on Single Stop. The difference is what ' +
-      'a program being "covered" means: these thirteen are implemented against the ' +
-      'regulations, with the deductions, the thresholds and the arithmetic behind every ' +
-      'figure, rather than screened at a yes-or-no level.',
+      'More than any of them. The difference is what a program being "covered" means: ' +
+      'these twenty-one are implemented against the regulations, with the deductions, ' +
+      'the thresholds and the arithmetic behind every figure, and each applies the rules ' +
+      'of the state the household actually lives in.',
   },
   {
     label: 'Estimated dollar value for this household',

@@ -16,37 +16,39 @@ export type Claim =
 export const CLAIMS: Record<string, Claim> = {
   programs: {
     status: 'measured',
-    value: '13',
+    value: '21',
     caption: 'benefit programs checked at once',
     source:
-      'SNAP, Medicaid, the Earned Income Tax Credit and its state equivalent, the Child ' +
-      'Tax Credit, Lifeline, WIC, school meals, CSFP, LIHEAP, Head Start, Medicare ' +
-      'Savings Programs and Extra Help.',
+      'SNAP, Medicaid, CHIP, the Earned Income Tax Credit and its state equivalent, the ' +
+      'Child Tax Credit, the Child and Dependent Care Credit, Veterans Pension, ' +
+      'Lifeline, WIC, school meals, Summer EBT, CSFP, the Senior Farmers\u2019 Market ' +
+      'programme, CACFP, FDPIR, LIHEAP, weatherization, Head Start, Medicare Savings ' +
+      'Programs and Extra Help.',
   },
 
   checks: {
     status: 'measured',
-    value: '40+',
+    value: '50+',
     caption: 'eligibility checks per household',
     source:
-      'Counted from the rule files. A single adult produces 41 checks and a family with ' +
-      'children produces 65, because several tests are per person.',
+      'Counted from the rule files. A single adult produces 53 checks and a family with ' +
+      'children produces 79, because several tests are per person.',
   },
 
   averageValue: {
     status: 'measured',
-    value: '$10,161',
+    value: '$10,398',
     caption: 'average a qualifying household is entitled to, per year',
     source:
       'Computed from the rules applied to the 150 validation households, not from any ' +
       'model: 120 of them qualify for something, and the average of those is ' +
-      '$10,161 a year. The median is $4,910 and the largest is $27,824. ' +
+      '$10,398 a year. The median is $5,432 and the largest is $28,862. ' +
       'These describe the validation set, which is synthetic, rather than the population.',
   },
 
   programsPerHousehold: {
     status: 'measured',
-    value: '4.9',
+    value: '6.7',
     caption: 'programs the average household qualifies for',
     source:
       'Across the 150 validation households. 120 of the 150 qualify for three or more.',
@@ -65,7 +67,7 @@ export const CLAIMS: Record<string, Claim> = {
   intake: {
     status: 'measured',
     value: '1',
-    caption: 'paragraph instead of thirteen applications',
+    caption: 'paragraph instead of twenty-one applications',
     source: 'The separate application paths cover dozens of questions between them.',
   },
 

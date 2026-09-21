@@ -1,0 +1,27 @@
+{
+  "id": "fdpir",
+  "name": "Food Distribution Program on Indian Reservations",
+  "shortName": "FDPIR",
+  "administeredBy": "USDA, through tribal organisations and state agencies",
+  "applyUrl": "https://www.fna.usda.gov/fdpir",
+  "ruleType": "fpgThreshold",
+  "thresholdFamily": "fdpir",
+  "valueBasis": "A monthly food package, taken instead of SNAP rather than alongside it.",
+  "criteria": [
+    {
+      "id": "fdpir.near_reservation",
+      "scope": "household",
+      "type": "noul",
+      "instructions": "Does the household live on a reservation, or in an approved area near one?",
+      "askIfUnsure": "Do you live on or near a reservation?",
+      "criteria": {
+        "true": "yes",
+        "false": "no"
+      }
+    }
+  ],
+  "computed": [
+    "fdpir.income_test"
+  ],
+  "verdict": "near_reservation AND income_test"
+}

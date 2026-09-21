@@ -1,0 +1,1572 @@
+<?xml version="1.0"?>
+<DIV5 N="440" TYPE="PART" VOLUME="4" hierarchy_metadata="{&amp;quot;path&amp;quot;:&amp;quot;/on/_SUBSTITUTE_DATE_/title-10/part-440&amp;quot;,&amp;quot;citation&amp;quot;:&amp;quot;10 CFR Part 440&amp;quot;}">
+<HEAD>PART 440&#x2014;WEATHERIZATION ASSISTANCE FOR LOW-INCOME PERSONS
+</HEAD>
+<AUTH>
+<HED>Authority:</HED><PSPACE>42 U.S.C. 6861 <I>et seq.;</I> 42 U.S.C. 7101 <I>et seq.</I>
+</PSPACE></AUTH>
+<SOURCE>
+<HED>Source:</HED><PSPACE>49 FR 3629, Jan. 27, 1984, unless otherwise noted.
+</PSPACE></SOURCE>
+<DIV8 N="440.1" TYPE="SECTION" hierarchy_metadata="{&quot;path&quot;:&quot;/on/_SUBSTITUTE_DATE_/title-10/section-440.1&quot;,&quot;citation&quot;:&quot;10 CFR 440.1&quot;}">
+<HEAD>&#xA7; 440.1 Purpose and scope.</HEAD>
+<P>This part implements a weatherization assistance program to increase the energy efficiency of dwellings owned or occupied by low-income persons or to provide such persons renewable energy systems or technologies, reduce their total residential expenditures, and improve their health and safety, especially low-income persons who are particularly vulnerable such as the elderly, persons with disabilities, families with children, high residential energy users, and households with high energy burden.</P>
+<CITA TYPE="N">[65 FR 77217, Dec. 8, 2000, as amended at 71 FR 35778, June 22, 2006]
+</CITA>
+</DIV8>
+
+<DIV8 N="440.2" TYPE="SECTION" hierarchy_metadata="{&quot;path&quot;:&quot;/on/_SUBSTITUTE_DATE_/title-10/section-440.2&quot;,&quot;citation&quot;:&quot;10 CFR 440.2&quot;}">
+<HEAD>&#xA7; 440.2 Administration of grants.</HEAD>
+<P>Grant awards under this part shall comply with applicable law including, without limitation, the requirements of:</P>
+<P>(a) Executive Order 12372 entitled &#x201C;Intergovernmental Review of Federal Programs&#x201D;, 48 FR 3130, and the DOE Regulation implementing this Executive Order entitled &#x201C;Intergovernmental Review of Department of Energy Programs and Activities&#x201D; (10 CFR part 1005);</P>
+<P>(b) Office of Management and Budget Circular A-97, entitled &#x201C;Rules and Regulations Permitting Federal Agencies to Provide Specialized or Technical Services to State and Local Units of Government under Title III of the Inter-Governmental Coordination Act of 1968;&#x201D;</P>
+<P>(c) Unless in conflict with provisions of this part, the DOE Financial Assistance Rule (10 CFR part 600); and</P>
+<P>(d) Such other procedures applicable to this part as DOE may from time to time prescribe for the administration of financial assistance.</P>
+<P>(e)(1) States, Tribes and their subawardees, including, but not limited to subrecipients, subgrantees, contractors and subcontractors that participate in the program established under this Part are required to treat all requests for information concerning applicants and recipients of WAP funds in a manner consistent with the Federal Government's treatment of information requested under the Freedom of Information Act (FOIA), 5 U.S.C. 552, including the privacy protections contained in Exemption (b)(6) of the FOIA, 5 U.S.C. 552(b)(6). Under 5 U.S.C. 552(b)(6), information relating to an individual's eligibility application or the individual's participation in the program, such as name, address, or income information, are generally exempt from disclosure.</P>
+<P>(2) A balancing test must be used in applying Exemption (b)(6) in order to determine:</P>
+<P>(i) Whether a significant privacy interest would be invaded;</P>
+<P>(ii) Whether the release of the information would further the public interest by shedding light on the operations or activities of the Government; and</P>
+<P>(iii) Whether in balancing the privacy interests against the public interest, disclosure would constitute a clearly unwarranted invasion of privacy.</P>
+<P>(3) A request for personal information including but not limited to the names, addresses, or income information of WAP applicants or recipients would require the State or other service provider to balance a clearly defined public interest in obtaining this information against the individuals' legitimate expectation of privacy.</P>
+<P>(4) Given a legitimate, articulated public interest in the disclosure, States and other service providers may release information regarding recipients in the aggregate that does not identify specific individuals. However, a State or service provider must apply an FOIA Exemption (b)(6) balancing test to any request for information that can not be satisfied by such less-intrusive methods.</P>
+<CITA TYPE="N">[49 FR 3629, Jan. 27, 1984, as amended at 75 FR 11422, Mar. 11, 2010; 77 FR 11737, Feb. 28, 2012]
+</CITA>
+</DIV8>
+
+<DIV8 N="440.3" TYPE="SECTION" hierarchy_metadata="{&quot;path&quot;:&quot;/on/_SUBSTITUTE_DATE_/title-10/section-440.3&quot;,&quot;citation&quot;:&quot;10 CFR 440.3&quot;}">
+<HEAD>&#xA7; 440.3 Definitions.</HEAD>
+<P>As used in this part:</P>
+<P><I>Act</I> means the Energy Conservation in Existing Buildings Act of 1976, as amended, 42 U.S.C. 6851 <I>et seq.</I></P>
+<P><I>Assistant Secretary</I> means the Assistant Secretary for Conservation and Renewable Energy or official to whom the Assistant Secretary's functions may be redelegated by the Secretary.</P>
+<P><I>Base Allocation</I> means the fixed amount of funds for each State as set forth in &#xA7; 440.10(b)(1).</P>
+<P><I>Base temperature</I> means the temperature used to compute heating and cooling degree days. The average daily outdoor temperature is subtracted from the base temperature to compute heating degree days, and the base temperature is subtracted from the average daily outdoor temperature to compute cooling degree days.</P>
+<P><I>Biomass</I> means any organic matter that is available on a renewable or recurring basis, including agricultural crops and trees, wood and wood wastes and residues, plants (including aquatic plants), grasses, residues, fibers, and animal wastes, municipal wastes, and other waste materials.</P>
+<P><I>CAA</I> means a Community Action Agency.</P>
+<P><I>Capital-Intensive furnace or cooling efficiency modifications</I> means those major heating and cooling modifications which require a substantial amount of funds, including replacement and major repairs, but excluding such items as tune-ups, minor repairs, and filters.</P>
+<P><I>Children</I> means dependents not exceeding 19 years or a lesser age set forth in the State plan.</P>
+<P><I>Community Action Agency</I> means a private corporation or public agency established pursuant to the Economic Opportunity Act of 1964, Pub. L. 88-452, which is authorized to administer funds received from Federal, State, local, or private funding entities to assess, design, operate, finance, and oversee antipoverty programs.</P>
+<P><I>Cooling Degree Days</I> means a population-weighted annual average of the climatological cooling degree days for each weather station within a State, as determined by DOE.</P>
+<P><I>Deputy Assistant Secretary</I> means the Deputy Assistant Secretary for Technical and Financial Assistance or any official to whom the Deputy Assistant Secretary's functions may be redelegated by the Assistant Secretary.</P>
+<P><I>DOE</I> means the Department of Energy.</P>
+<P><I>Dwelling Unit</I> means a house, including a stationary mobile home, an apartment, a group of rooms, or a single room occupied as separate living quarters.</P>
+<P><I>Elderly Person</I> means a person who is 60 years of age or older.</P>
+<P><I>Electric base-load measures</I> means measures which address the energy efficiency and energy usage of lighting and appliances.</P>
+<P><I>Family Unit</I> means all persons living together in a dwelling unit.</P>
+<P><I>Formula Allocation</I> means the amount of funds for each State as calculated based on the formula in &#xA7; 440.10(b)(3).</P>
+<P><I>Formula Share</I> means the percentage of the total formula allocation provided to each State as calculated in &#xA7; 440.10 (b)(3).</P>
+<P><I>Governor</I> means the chief executive officer of a State, including the Mayor of the District of Columbia.</P>
+<P><I>Grantee</I> means the State or other entity named in the Notification of Grant Award as the recipient.</P>
+<P><I>Heating Degree Days</I> means a population-weighted seasonal average of the climatological heating degree days for each weather station within a State, as determined by DOE.</P>
+<P><I>High residential energy user</I> means a low-income household whose residential energy expenditures exceed the median level of residential expenditures for all low-income households in the State.</P>
+<P><I>Household with a high energy burden</I> means a low-income household whose residential energy burden (residential expenditures divided by the annual income of that household) exceeds the median level of energy burden for all low-income households in the State.</P>
+<P><I>Incidental Repairs</I> means those repairs necessary for the effective performance or preservation of weatherization materials. Such repairs include, but are not limited to, framing or repairing windows and doors which could not otherwise be caulked or weather-stripped and providing protective materials, such as paint, used to seal materials installed under this program.</P>
+<P><I>Indian Tribe</I> means any tribe, band, nation, or other organized group or community of Native Americans, including any Alaskan native village, or regional or village corporation as defined in or established pursuant to the Alaska Native Claims Settlement Act, Pub. L. 92-203, 85 Stat. 688, which (1) is recognized as eligible for the special programs and services provided by the United States to Native Americans because of their status as Native Americans, or (2) is located on, or in proximity to, a Federal or State reservation or rancheria.</P>
+<P><I>Local Applicant</I> means a CAA or other public or non profit entity unit of general purpose local government.</P>
+<P><I>Low income</I> means that income in relation to family size which:</P>
+<P>(1) At or below 200 percent of the poverty level determined in accordance with criteria established by the Director of the Office of Management and Budget, except that the Secretary may establish a higher level if the Secretary, after consulting with the Secretary of Agriculture and the Secretary of Health and Human Services, determines that such a higher level is necessary to carry out the purposes of this part and is consistent with the eligibility criteria established for the weatherization program under Section 222(a)(12) of the Economic Opportunity Act of 1964;</P>
+<P>(2) Is the basis on which cash assistance payments have been paid during the preceding twelve month-period under Titles IV and XVI of the Social Security Act or applicable State or local law; or</P>
+<P>(3) If a State elects, is the basis for eligibility for assistance under the Low Income Home Energy Assistance Act of 1981, provided that such basis is at least 200 percent of the poverty level determined in accordance with criteria established by the Director of the Office of Management and Budget.</P>
+<P><I>Native American</I> means a person who is a member of an Indian tribe.</P>
+<P><I>Non-Federal leveraged resources</I> means those benefits identified by State or local agencies to supplement the Federal grant activities and that are made available to or used in conjunction with the DOE Weatherization Assistance Program for the purposes of the Act for use in eligible low-income dwelling units.</P>
+<P><I>Persons with Disabilities</I> means any individual (1) who is a handicapped individual as defined in section 7(6) of the Rehabilitation Act of 1973, (2) who is under a disability as defined in section 1614(a)(3)(A) or 223(d)(1) of the Social Security Act or in section 102(7) of the Developmental Disabilities Services and Facilities Construction Act, or (3) who is receiving benefits under chapter 11 or 15 of title 38, U.S.C.</P>
+<P><I>Program Allocation</I> means the base allocation plus formula allocation for each State.</P>
+<P><I>Relevant Reporting Period</I> means the Federal fiscal year beginning on October 1 and running through September 30 of the following calendar year.</P>
+<P><I>Renewable energy system</I> means a system which when installed in connection with a dwelling&#x2014;</P>
+<P>(1) Transmits or uses solar energy, energy derived from geothermal deposits, energy derived from biomass (or any other form of renewable energy which DOE subsequently specifies through an amendment of this part) for the purpose of heating or cooling such dwelling or providing hot water or electricity for use within such dwelling; or wind energy for nonbusiness residential purposes; and</P>
+<P>(2) Which meets the performance and quality standards prescribed in &#xA7; 440.21 (c) of this part.</P>
+<P><I>Rental Dwelling Unit</I> means a dwelling unit occupied by a person who pays rent for the use of the dwelling unit.</P>
+<P><I>Residential Energy Expenditures</I> means the average annual cost of purchased residential energy, including the cost of renewable energy resources.</P>
+<P><I>Secretary</I> means the Secretary of the Department of Energy.</P>
+<P><I>Separate Living Quarters</I> means living quarters in which the occupants do not live and eat with any other persons in the structure and which have either direct access from the outside of the building or through a common hall or complete kitchen facilities for the exclusive use of the occupants. The occupants may be a single family, one person living alone, two or more families living together, or any other group of related or unrelated persons who share living arrangements, and includes shelters for homeless persons.</P>
+<P><I>Shelter</I> means a dwelling unit or units whose principal purpose is to house on a temporary basis individuals who may or may not be related to one another and who are not living in nursing homes, prisons, or similar institutional care facilities.</P>
+<P><I>Single-Family Dwelling Unit</I> means a structure containing no more than one dwelling unit.</P>
+<P><I>Skirting</I> means material used to border the bottom of a dwelling unit to prevent infiltration.</P>
+<P><I>State</I> means each of the States, the District of Columbia, American Samoa, Guam, Commonwealth of the Northern Mariana Islands, Commonwealth of Puerto Rico, and the Virgin Islands.</P>
+<P><I>Subgrantee</I> means an entity managing a weatherization project which receives a grant of funds awarded under this part from a grantee.</P>
+<P><I>Support Office Director</I> means the Director of the DOE Field Support Office with the responsibility for grant administration or any official to whom that function may be redelegated by the Assistant Secretary.</P>
+<P><I>Total Program Allocations</I> means the annual appropriation less funds reserved for training and technical assistance.</P>
+<P><I>Tribal Organization</I> means the recognized governing body of any Indian tribe or any legally established organization of Native Americans which is controlled, sanctioned, or chartered by such governing body.</P>
+<P><I>Unit of General Purpose Local Government</I> means any city, county, town, parish, village, or other general purpose political subdivision of a State.</P>
+<P><I>Vestibule</I> means an enclosure built around a primary entry to a dwelling unit.</P>
+<P><I>Weatherization Materials</I> mean:</P>
+<P>(1) Caulking and weatherstripping of doors and windows;</P>
+<P>(2) Furnace efficiency modifications including, but not limited to&#x2014;</P>
+<P>(i) Replacement burners, furnaces, or boilers or any combination thereof;</P>
+<P>(ii) Devices for minimizing energy loss through heating system, chimney, or venting devices; and</P>
+<P>(iii) Electrical or mechanical furnace ignition systems which replace standing gas pilot lights;</P>
+<P>(3) Cooling efficiency modifications including, but not limited to&#x2014;</P>
+<P>(i) Replacement air conditioners;</P>
+<P>(ii) Ventilation equipment;</P>
+<P>(iii) Screening and window films; and</P>
+<P>(iv) Shading devices.</P>
+<P><I>Weatherization Project</I> means a project conducted in a single geographical area which undertakes to weatherize dwelling units that are energy inefficient.</P>
+<CITA TYPE="N">[49 FR 3629, Jan. 27, 1984, as amended at 50 FR 712, Jan. 4, 1985; 50 FR 49917, Dec. 5, 1985; 55 FR 41325, Oct. 10, 1990; 58 FR 12525, Mar. 4, 1993; 60 FR 29480, June 5, 1995; 65 FR 77217, Dec. 8, 2000; 71 FR 35778, June 22, 2006; 74 FR 12539, Mar. 25, 2009]
+</CITA>
+</DIV8>
+
+<DIV8 N="440.10" TYPE="SECTION" hierarchy_metadata="{&quot;path&quot;:&quot;/on/_SUBSTITUTE_DATE_/title-10/section-440.10&quot;,&quot;citation&quot;:&quot;10 CFR 440.10&quot;}">
+<HEAD>&#xA7; 440.10 Allocation of funds.</HEAD>
+<P>(a) DOE shall allocate financial assistance for each State from sums appropriated for any fiscal year, upon annual application.</P>
+<P>(b) Based on total program allocations at or above the amount of $209,724,761, DOE shall determine the program allocation for each State from available funds as follows:</P>
+<P>(1) Allocate to each State a &#x201C;Base Allocation&#x201D; as listed in Table 1.</P>
+<DIV width="100%"><DIV class="gpotbl_div">
+<TABLE border="1" cellpadding="1" cellspacing="1" class="gpo_table" frame="void" width="100%">
+<CAPTION><P class="title">Base Allocation Table</P></CAPTION>
+<THEAD>
+<TR>
+<TH class="center border-bottom-single border-right-single">State</TH>
+<TH class="center border-bottom-single">Base<br/>allocation</TH>
+</TR>
+</THEAD>
+<TBODY>
+<TR>
+<TD class="left border-right-single">Alabama</TD>
+<TD class="right">$1,636,000</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Alaska</TD>
+<TD class="right">1,425,000</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Arizona</TD>
+<TD class="right">760,000</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Arkansas</TD>
+<TD class="right">1,417,000</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">California</TD>
+<TD class="right">4,404,000</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Colorado</TD>
+<TD class="right">4,574,000</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Connecticut</TD>
+<TD class="right">1,887,000</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Delaware</TD>
+<TD class="right">409,000</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">District of Columbia</TD>
+<TD class="right">487,000</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Florida</TD>
+<TD class="right">761,000</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Georgia</TD>
+<TD class="right">1,844,000</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Hawaii</TD>
+<TD class="right">120,000</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Idaho</TD>
+<TD class="right">1,618,000</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Illinois</TD>
+<TD class="right">10,717,000</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Indiana</TD>
+<TD class="right">5,156,000</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Iowa</TD>
+<TD class="right">4,032,000</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Kansas</TD>
+<TD class="right">1,925,000</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Kentucky</TD>
+<TD class="right">3,615,000</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Louisiana</TD>
+<TD class="right">912,000</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Maine</TD>
+<TD class="right">2,493,000</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Maryland</TD>
+<TD class="right">1,963,000</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Massachusetts</TD>
+<TD class="right">5,111,000</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Michigan</TD>
+<TD class="right">12,346,000</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Minnesota</TD>
+<TD class="right">8,342,000</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Mississippi</TD>
+<TD class="right">1,094,000</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Missouri</TD>
+<TD class="right">4,615,000</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Montana</TD>
+<TD class="right">2,123,000</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Nebraska</TD>
+<TD class="right">2,013,000</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Nevada</TD>
+<TD class="right">586,000</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">New Hampshire</TD>
+<TD class="right">1,193,000</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">New Jersey</TD>
+<TD class="right">3,775,000</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">New Mexico</TD>
+<TD class="right">1,519,000</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">New York</TD>
+<TD class="right">15,302,000</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">North Carolina</TD>
+<TD class="right">2,853,000</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">North Dakota</TD>
+<TD class="right">2,105,000</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Ohio</TD>
+<TD class="right">10,665,000</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Oklahoma</TD>
+<TD class="right">1,846,000</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Oregon</TD>
+<TD class="right">2,320,000</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Pennsylvania</TD>
+<TD class="right">11,457,000</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Rhode Island</TD>
+<TD class="right">878,000</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">South Carolina</TD>
+<TD class="right">1,130,000</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">South Dakota</TD>
+<TD class="right">1,561,000</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Tennessee</TD>
+<TD class="right">3,218,000</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Texas</TD>
+<TD class="right">2,999,000</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Utah</TD>
+<TD class="right">1,692,000</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Vermont</TD>
+<TD class="right">1,014,000</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Virginia</TD>
+<TD class="right">2,970,000</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Washington</TD>
+<TD class="right">3,775,000</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">West Virginia</TD>
+<TD class="right">2,573,000</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Wisconsin</TD>
+<TD class="right">7,061,000</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Wyoming</TD>
+<TD class="right">967,000</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">American Samoa</TD>
+<TD class="right">120,000</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Guam</TD>
+<TD class="right">120,000</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Puerto Rico</TD>
+<TD class="right">120,000</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Northern Mariana Islands</TD>
+<TD class="right">120,000</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Virgin Islands</TD>
+<TD class="right">120,000</TD>
+</TR>
+<TR>
+<TD class="left border-bottom-single border-right-single">Total</TD>
+<TD class="right border-bottom-single">171,858,000</TD>
+</TR>
+</TBODY>
+</TABLE>
+</DIV></DIV>
+<P>(2) Subtract 171,258,000 from total program allocations.</P>
+<P>(3) Calculate each State's formula share as follows:</P>
+<P>(i) Divide the number of &#x201C;Low Income&#x201D; households in each State by the number of &#x201C;Low Income&#x201D; households in the United States and multiply by 100.</P>
+<P>(ii) Divide the number of &#x201C;Heating Degree Days&#x201D; for each State by the median &#x201C;Heating Degree Days&#x201D; for all States.</P>
+<P>(iii) Divide the number of &#x201C;Cooling Degree Days&#x201D; for each State by the median &#x201C;Cooling Degree Days&#x201D; for all States, then multiply by 0.1.</P>
+<P>(iv) Calculate the sum of the two numbers from paragraph (b)(3)(ii) and (iii) of this section.</P>
+<P>(v) Divide the residential energy expenditures for each State by the number of households in the State.</P>
+<P>(vi) Divide the sum of the residential energy expenditures for the States in each Census division by the sum of the households for the States in that division.</P>
+<P>(vii) Divide the quotient from paragraph (b)(3)(v) of this section by the quotient from paragraph (b)(3)(vi) of this section.</P>
+<P>(viii) Multiply the quotient from paragraph (b)(3)(vii) of this section for each State by the residential energy expenditures per low-income household for its respective Census division.</P>
+<P>(ix) Divide the product from paragraph (b)(3)(viii) of this section for each State by the median of the products of all States.</P>
+<P>(x) Multiply the results for paragraph (b)(3)(i), (iv) and (ix) of this section for each State.</P>
+<P>(xi) Divide the product in paragraph (b)(3)(x) of this section for each State by the sum of the products in paragraph (b)(3)(x) of this section for all States.</P>
+<P>(4) Calculate each State's program allocation as follows:</P>
+<P>(i) Multiply the remaining funds calculated in paragraph (b)(2) of this section by the formula share calculated in paragraph (b)(3)(xi) of this section,</P>
+<P>(ii) Add the base allocation from paragraph (b)(1) of this section to the product of paragraph (b)(4)(i) of this section.</P>
+<P>(c) Should total program allocations for any fiscal year fall below $209,724,761, then each State's program allocation shall be reduced from its allocated amount under a total program allocation of $209,724,761 by the same percentage as total program allocations for the fiscal year fall below $209,724,761.</P>
+<P>(d) All data sources used in the development of the formula are publicly available. The relevant data is available from the Bureau of the Census, the Department of Energy's Energy Information Administration and the National Oceanic and Atmospheric Administration.</P>
+<P>(e) Should updates to the data used in the formula become available in any fiscal year, these changes would be implemented in the formula in the following program year.</P>
+<P>(f) DOE may reduce the program allocation for a State by the amount DOE determines cannot be reasonably expended by a grantee to weatherize dwelling units during the budget period for which financial assistance is to be awarded. In reaching this determination, DOE will consider the amount of unexpended financial assistance currently available to a grantee under this part and the number of dwelling units which remains to be weatherized with the unexpended financial assistance.</P>
+<P>(g) DOE may increase the program allocation of a State by the amount DOE determines the grantee can expend to weatherize additional dwelling units during the budget period for which financial assistance is to be awarded.</P>
+<P>(h) The Support Office Director shall notify each State of the program allocation for which that State is eligible to apply.</P>
+<CITA TYPE="N">[60 FR 29480, June 5, 1995, as amended at 74 FR 12539, Mar. 25, 2009]
+</CITA>
+</DIV8>
+
+<DIV8 N="440.11" TYPE="SECTION" hierarchy_metadata="{&quot;path&quot;:&quot;/on/_SUBSTITUTE_DATE_/title-10/section-440.11&quot;,&quot;citation&quot;:&quot;10 CFR 440.11&quot;}">
+<HEAD>&#xA7; 440.11 Native Americans.</HEAD>
+<P>(a) Notwithstanding any other provision of this part, the Support Office Director may determine, after taking into account the amount of funds made available to a State to carry out the purposes of this part, that:</P>
+<P>(1) The low-income members of an Indian tribe are not receiving benefits under this part equivalent to the assistance provided to other low-income persons in the State under this part and</P>
+<P>(2) The low-income members of such tribe would be better served by means of a grant made directly to provide such assistance.</P>
+<P>(b) In any State for which the Support Office Director shall have made the determination referred to in paragraph (a) of this section, the Support Office Director shall reserve from the sums that would otherwise be allocated to the State under this part not less than 100 percent, or more than 150 percent, of an amount which bears the same ratio to the State's allocation for the fiscal year involved as the population of all low-income Native Americans for whom a determination under paragraph (a) of this section has been made bears to the population of all low-income persons in the State.</P>
+<P>(c) The Support Office Director shall make the determination prescribed in paragraph (a) of this section in the event a State:</P>
+<P>(1) Does not apply within the sixty-day time period prescribed in &#xA7; 440.12(a);</P>
+<P>(2) Recommends that direct grants be made for low-income members of an Indian tribe as provided in &#xA7; 440.12(b)(5);</P>
+<P>(3) Files an application which DOE determines, in accordance with the procedures in &#xA7; 440.30, not to make adequate provision for the low-income members of an Indian tribe residing in the State; or</P>
+<P>(4) Has received grant funds and DOE determines, in accordance with the procedures in &#xA7; 440.30, that the State has failed to implement the procedures required by &#xA7; 440.16(6).</P>
+<P>(d) Any sums reserved by the Support Office Director pursuant to paragraph (b) of this section shall be granted to the tribal organization serving the individuals for whom the determination has been made, or where there is no tribal organization, to such other entity as the Support Office Director determines is able to provide adequate weatherization assistance pursuant to this part. Where the Support Office Director intends to make a grant to an organization to perform services benefiting more than one Indian tribe, the approval of each Indian tribe shall be a prerequisite for the issuance of a notice of grant award.</P>
+<P>(e) Within 30 days after the Support Office Director has reserved funds pursuant to paragraph (b) of this section, the Support Office Director shall give written notice to the tribal organization or other qualified entity of the amount of funds reserved and its eligibility to apply therefor.</P>
+<P>(f) Such tribal organization or other qualified entity shall thereafter be treated as a unit of general purpose local government eligible to apply for funds hereunder, pursuant to the provisions of &#xA7; 440.13.</P>
+<CITA TYPE="N">[49 FR 3629, Jan. 27, 1984, as amended at 58 FR 12529, Mar. 4, 1993]
+</CITA>
+</DIV8>
+
+<DIV8 N="440.12" TYPE="SECTION" hierarchy_metadata="{&quot;path&quot;:&quot;/on/_SUBSTITUTE_DATE_/title-10/section-440.12&quot;,&quot;citation&quot;:&quot;10 CFR 440.12&quot;}">
+<HEAD>&#xA7; 440.12 State application.</HEAD>
+<P>(a) To be eligible for financial assistance under this part, a State shall submit an application to DOE in conformity with the requirements of this part not later than 60 days after the date of notice to apply is received from the Support Office Director. After receipt of an application for financial assistance or for approval of an amendment to a State plan, the Support Office Director may request the State to submit within a reasonable period of time any revisions necessary to make the application complete or to bring the application into compliance with the requirements of this part. The Support Office Director shall attempt to resolve any dispute over the application informally and to seek voluntary compliance. If a State fails to submit timely appropriate revisions to complete the application, the Support Office Director may reject the application as incomplete in a written decision, including a statement of reasons, which shall be subject to administrative review under &#xA7; 440.30 of this part.</P>
+<P>(b) Each application shall include:</P>
+<P>(1) The name and address of the State agency or office responsible for administering the program;</P>
+<P>(2) A copy of the final State plan prepared after notice and a public hearing in accordance with &#xA7; 440.14(a), except that an application by a local applicant need not include a copy of the final State plan;</P>
+<P>(3) The budget for total funds applied for under the Act, which shall include a justification and explanation of any amounts requested for expenditure pursuant to &#xA7; 440.18(d) for State administration;</P>
+<P>(4) The total number of dwelling units proposed to be weatherized with grant funds during the budget period for which assistance is to be awarded&#x2014;</P>
+<P>(i) With financial assistance previously obligated under this part, and</P>
+<P>(ii) With the program allocation to the State;</P>
+<P>(5) A recommendation that a tribal organization be treated as a local applicant eligible to submit an application pursuant to &#xA7; 440.13(b), if such a recommendation is to be made;</P>
+<P>(6) A monitoring plan which shall indicate the method used by the State to insure the quality of work and adequate financial management control at the subgrantee level;</P>
+<P>(7) A training and technical assistance plan which shall indicate how funds for training and technical assistance will be used; and</P>
+<P>(8) Any further information which the Secretary finds necessary to determine whether an application meets the requirements of this part.</P>
+<P>(c) On or before 60 days from the date that a timely filed application is complete, the Support Office Director shall decide whether DOE shall approve the application. The Support Office Director may&#x2014;</P>
+<P>(1) Approve the application in whole or in part to the extent that the application conforms to the requirements of this part;</P>
+<P>(2) Approve the application in whole or in part subject to special conditions designed to ensure compliance with the requirements of this part; or</P>
+<P>(3) Disapprove the application if it does not conform to the requirements of this part.</P>
+<APPRO TYPE="N">(Approved by the Office of Management and Budget under control number 1904-0047)
+</APPRO>
+<CITA TYPE="N">[49 FR 3629, Jan. 27, 1984, as amended at 50 FR 712, Jan. 4, 1985; 55 FR 41325, Oct. 10, 1990; 58 FR 12529, Mar. 4, 1993; 60 FR 29481, June 5, 1995]
+</CITA>
+</DIV8>
+
+<DIV8 N="440.13" TYPE="SECTION" hierarchy_metadata="{&quot;path&quot;:&quot;/on/_SUBSTITUTE_DATE_/title-10/section-440.13&quot;,&quot;citation&quot;:&quot;10 CFR 440.13&quot;}">
+<HEAD>&#xA7; 440.13 Local applications.</HEAD>
+<P>(a) The Support Office Director shall give written notice to all local applicants throughout a State of their eligibility to apply for financial assistance under this part in the event:</P>
+<P>(1) A State, within which a local applicant is situated, fails to submit an application within 60 days after notice in accordance with &#xA7; 440.12(a) or</P>
+<P>(2) The Support Office Director finally disapproves the application of a State, and, under &#xA7; 440.30, either no appeal is filed or the Support Office Director's decision is affirmed.</P>
+<P>(b) To be eligible for financial assistance, a local applicant shall submit an application pursuant to &#xA7; 440.12(b) to the Support Office Director within 30 days after receiving the notice referred to in paragraph (a) of this section.</P>
+<P>(c) In the event one or more local applicants submits an application for financial assistance to carry out projects in the same geographical area, the Support Office Director shall hold a public hearing with the same procedures that apply under section &#xA7; 440.14(a).</P>
+<P>(d) Based on the information provided by a local applicant and developed in any hearing held under paragraph (c) of this section, the Support Office Director shall determine in writing whether to award a grant to carry out one or more weatherization projects.</P>
+<P>(e) If there is an adverse decision in whole or in part under paragraph (d) of this section, that decision is subject to administrative review under &#xA7; 440.30 of this part.</P>
+<P>(f) If, after a State application has been finally disapproved by DOE and the Support Office Director approves local applications under this section, the Support Office Director may reject a new State application in whole or in part as disruptive and untimely without prejudice to submission of an application for the next program year.</P>
+<APPRO TYPE="N">(Approved by the Office of Management and Budget under control number 1904-0047)
+</APPRO>
+<CITA TYPE="N">[49 FR 3629, Jan. 27, 1984, as amended at 58 FR 12525, 12529, Mar. 4, 1993]
+</CITA>
+</DIV8>
+
+<DIV8 N="440.14" TYPE="SECTION" hierarchy_metadata="{&quot;path&quot;:&quot;/on/_SUBSTITUTE_DATE_/title-10/section-440.14&quot;,&quot;citation&quot;:&quot;10 CFR 440.14&quot;}">
+<HEAD>&#xA7; 440.14 State plans.</HEAD>
+<P>(a) Before submitting to DOE an application, a State must provide at least 10 days notice of a hearing to inform prospective subgrantees, and must conduct one or more public hearings to receive comments on a proposed State plan. The notice for the hearing must specify that copies of the plan are available and state how the public may obtain them. The State must prepare a transcript of the hearings and accept written submission of views and data for the record.</P>
+<P>(b) The proposed State plan must:</P>
+<P>(1) Identify and describe proposed weatherization projects, including a statement of proposed subgrantees and the amount of funding each will receive;</P>
+<P>(2) Address the other items contained in paragraph (c) of this section; and</P>
+<P>(3) Be made available throughout the State prior to the hearing.</P>
+<P>(c) After the hearing, the State must prepare a final State plan that identifies and describes:</P>
+<P>(1) The production schedule for the State indicating projected expenditures and the number of dwelling units, including previously weatherized units which are expected to be weatherized annually during the program year;</P>
+<P>(2) The climatic conditions within the State;</P>
+<P>(3) The type of weatherization work to be done;</P>
+<P>(4) An estimate of the amount of energy to be conserved;</P>
+<P>(5) Each area to be served by a weatherization project within the State, and must include for each area:</P>
+<P>(i) The tentative allocation;</P>
+<P>(ii) The number of dwelling units expected to be weatherized during the program year; and</P>
+<P>(iii) Sources of labor.</P>
+<P>(6) How the State plan is to be implemented, including:</P>
+<P>(i) An analysis of the existence and effectiveness of any weatherization project being carried out by a subgrantee;</P>
+<P>(ii) An explanation of the method used to select each area served by a weatherization project;</P>
+<P>(iii) The extent to which priority will be given to the weatherization of single-family or other high energy-consuming dwelling units;</P>
+<P>(iv) The amount of non-Federal resources to be applied to the program;</P>
+<P>(v) The amount of Federal resources, other than DOE weatherization grant funds, to be applied to the program;</P>
+<P>(vi) The amount of weatherization grant funds allocated to the State under this part;</P>
+<P>(vii) The expected average cost per dwelling to be weatherized, taking into account the total number of dwellings to be weatherized and the total amount of funds, Federal and non-Federal, expected to be applied to the program;</P>
+<P>(viii) The average amount of the DOE funds specified in &#xA7; 440.18(c)(1) through (9) to be applied to any dwelling unit;</P>
+<P>(ix) [Reserved]</P>
+<P>(x) The procedures used by the State for providing additional administrative funds to qualified subgrantees as specified in &#xA7; 440.18(d);</P>
+<P>(xi) Procedures for determining the most cost-effective measures in a dwelling unit;</P>
+<P>(xii) The definition of &#x201C;low-income&#x201D; which the State has chosen for determining eligibility for use statewide in accordance with &#xA7; 440.22(a);</P>
+<P>(xiii) The definition of &#x201C;children&#x201D; which the State has chosen consistent with &#xA7; 440.3; and</P>
+<P>(xiv) The amount of Federal funds and how they will be used to increase the amount of weatherization assistance that the State obtains from non-Federal sources, including private sources, and the expected leveraging effect to be accomplished.</P>
+<CITA TYPE="N">[65 FR 77217, Dec. 8, 2000, as amended at 66 FR 58366, Nov. 21, 2001]
+</CITA>
+</DIV8>
+
+<DIV8 N="440.15" TYPE="SECTION" hierarchy_metadata="{&quot;path&quot;:&quot;/on/_SUBSTITUTE_DATE_/title-10/section-440.15&quot;,&quot;citation&quot;:&quot;10 CFR 440.15&quot;}">
+<HEAD>&#xA7; 440.15 Subgrantees.</HEAD>
+<P>(a) The grantee shall ensure that:</P>
+<P>(1) Each subgrantee is a CAA or other public or nonprofit entity;</P>
+<P>(2) Each subgrantee is selected on the basis of public comment received during a public hearing conducted pursuant to &#xA7; 440.14(a) and other appropriate findings regarding:</P>
+<P>(i) The subgrantee's experience and performance in weatherization or housing renovation activities;</P>
+<P>(ii) The subgrantee's experience in assisting low-income persons in the area to be served; and</P>
+<P>(iii) The subgrantee's capacity to undertake a timely and effective weatherization program.</P>
+<P>(3) In selecting a subgrantee, preference is given to any CAA or other public or nonprofit entity which has, or is currently administering, an effective program under this part or under title II of the Economic Opportunity Act of 1964, with program effectiveness evaluated by consideration of factors including, but not necessarily limited to, the following:</P>
+<P>(i) The extent to which the past or current program achieved or is achieving weatherization goals in a timely fashion;</P>
+<P>(ii) The quality of work performed by the subgrantee;</P>
+<P>(iii) The number, qualifications, and experience of the staff members of the subgrantee; and</P>
+<P>(iv) The ability of the subgrantee to secure volunteers, training participants, public service employment workers, and other Federal or State training programs.</P>
+<P>(b) The grantee shall ensure that the funds received under this part will be allocated to the entities selected in accordance with paragraph (a) of this section, such that funds will be allocated to areas on the basis of the relative need for a weatherization project by low-income persons.</P>
+<P>(c) If DOE finds that a subgrantee selected to undertake weatherization activities under this part has failed to comply substantially with the provisions of the Act or this part and should be replaced, such finding shall be treated as a finding under &#xA7; 440.30(i) for purposes of &#xA7; 440.30.</P>
+<P>(d) Any new or additional subgrantee shall be selected at a hearing in accordance with &#xA7; 440.14(a) and upon the basis of the criteria in paragraph (a) of this section.</P>
+<P>(e) A State may terminate financial assistance under a subgrant agreement for a grant period only in accordance with established State procedures that provide to the subgrantee appropriate notice of the State's reasons for termination and afford the subgrantee an adequate opportunity to be heard.</P>
+<CITA TYPE="N">[49 FR 3629, Jan. 27, 1984, as amended at 55 FR 41326, Oct. 10, 1990; 58 FR 12526, Mar. 4, 1993; 65 FR 77218, Dec. 8, 2000]
+</CITA>
+</DIV8>
+
+<DIV8 N="440.16" TYPE="SECTION" hierarchy_metadata="{&quot;path&quot;:&quot;/on/_SUBSTITUTE_DATE_/title-10/section-440.16&quot;,&quot;citation&quot;:&quot;10 CFR 440.16&quot;}">
+<HEAD>&#xA7; 440.16 Minimum program requirements.</HEAD>
+<P>Prior to the expenditure of any grant funds each grantee shall develop, publish, and implement procedures to ensure that:</P>
+<P>(a) No dwelling unit may be weatherized without documentation that the dwelling unit is an eligible dwelling unit as provided in &#xA7; 440.22;</P>
+<P>(b) Priority is given to identifying and providing weatherization assistance to:</P>
+<P>(1) Elderly persons;</P>
+<P>(2) Persons with disabilities;</P>
+<P>(3) Families with children;</P>
+<P>(4) High residential energy users; and</P>
+<P>(5) Households with a high energy burden.</P>
+<P>(c) Financial assistance provided under this part will be used to supplement, and not supplant, State or local funds, and, to the maximum extent practicable as determined by DOE, to increase the amounts of these funds that would be made available in the absence of Federal funds provided under this part;</P>
+<P>(d) To the maximum extent practicable, the grantee will secure the services of volunteers when such personnel are generally available, training participants and public service employment workers, other Federal or State training program workers, to work under the supervision of qualified supervisors and foremen;</P>
+<P>(e) To the maximum extent practicable, the use of weatherization assistance shall be coordinated with other Federal, State, local, or privately funded programs in order to improve energy efficiency and to conserve energy;</P>
+<P>(f) The low-income members of an Indian tribe shall receive benefits equivalent to the assistance provided to other low-income persons within a State unless the grantee has made the recommendation provided in &#xA7; 440.12(b)(5);</P>
+<P>(g) No dwelling unit may be reported to DOE as completed until all weatherization materials have been installed and the subgrantee, or its authorized representative, has performed a final inspection(s) including any mechanical work performed and certified that the work has been completed in a workmanlike manner and in accordance with the priority determined by the audit procedures required by &#xA7; 440.21; and</P>
+<P>(h) Subgrantees limit expenditure of funds under this part for installation of materials (other than weatherization materials) to abate energy-related health and safety hazards, to a list of types of such hazards, permissible abatement materials and their costs which is submitted, and updated as necessary at the same time as an annual application under &#xA7; 440.12 of this part and which DOE shall approve if&#x2014;</P>
+<P>(1) Elimination of such hazards are necessary before, or as a result of, installation of weatherization materials; and</P>
+<P>(2) The grantee sets forth a limitation on the percent of average dwelling unit costs which may be used to abate such hazards which is reasonable in light of the primary energy conservation purpose of this part;</P>
+<P>(i) The benefits of weatherization to occupants of rental units are protected in accordance with &#xA7; 440.22(b)(3) of this part.</P>
+<APPRO TYPE="N">(Approved by the Office of Management and Budget under control number 1904-0047)
+</APPRO>
+<CITA TYPE="N">[49 FR 3629, Jan. 27, 1984, as amended at 58 FR 12526, Mar. 4, 1993; 65 FR 77218, Dec. 8, 2000]
+</CITA>
+</DIV8>
+
+<DIV8 N="440.17" TYPE="SECTION" hierarchy_metadata="{&quot;path&quot;:&quot;/on/_SUBSTITUTE_DATE_/title-10/section-440.17&quot;,&quot;citation&quot;:&quot;10 CFR 440.17&quot;}">
+<HEAD>&#xA7; 440.17 Policy Advisory Council.</HEAD>
+<P>(a) Prior to the expenditure of any grant funds, a State policy advisory council, or a State commission or council which serves the same functions as a State policy advisory council, must be established by a State or by the Regional Office Director if a State does not participate in the Program which:</P>
+<P>(1) Has special qualifications and sensitivity with respect to solving the problems of low-income persons, including the weatherization and energy conservation problems of these persons;</P>
+<P>(2) Is broadly representative of organizations and agencies, including consumer groups that represent low-income persons, particularly elderly and handicapped low-income persons and low-income Native Americans, in the State or geographical area in question; and</P>
+<P>(3) Has responsibility for advising the appropriate official or agency administering the allocation of financial assistance in the State or area with respect to the development and implementation of a weatherization assistance program.</P>
+<P>(b) Any person employed in any State Weatherization Program may also be a member of an existing commission or council, but must abstain from reviewing and approving activities associated with the DOE Weatherization Assistance Program.</P>
+<P>(c) States which opt to utilize an existing commission or council must certify to DOE, as a part of the annual application, of the council's or commission's independence in reviewing and approving activities associated with the DOE Weatherization Assistance Program.</P>
+<CITA TYPE="N">[49 FR 3629, Jan. 27, 1984, as amended at 58 FR 12529, Mar. 4, 1993; 65 FR 77218, Dec. 8, 2000]
+</CITA>
+</DIV8>
+
+<DIV8 N="440.18" TYPE="SECTION" hierarchy_metadata="{&quot;path&quot;:&quot;/on/_SUBSTITUTE_DATE_/title-10/section-440.18&quot;,&quot;citation&quot;:&quot;10 CFR 440.18&quot;}">
+<HEAD>&#xA7; 440.18 Allowable expenditures.</HEAD>
+<P>(a) Except as adjusted, the expenditure of financial assistance provided under this part for labor, weatherization materials, and related matters included in paragraphs (c)(1) through (9) of this section shall not exceed an average of $6,500 per dwelling unit weatherized in the State, except as adjusted in paragraph (c) of this section.</P>
+<P>(b) The expenditure of financial assistance provided under this part for labor, weatherization materials, and related matters for a renewable energy system, shall not exceed an average of $3,000 per dwelling unit.</P>
+<P>(c) The $6,500 average will be adjusted annually by DOE beginning in calendar year 2010 and the $3,000 average for renewable energy systems will be adjusted annually by DOE beginning in calendar year 2007, by increasing the limitations by an amount equal to:</P>
+<P>(1) The limitation amount for the previous year, multiplied by</P>
+<P>(2) The lesser of:</P>
+<P>(i) The percentage increase in the Consumer Price Index (all items, United States city average) for the most recent calendar year completed before the beginning of the year for which the determination is being made, or</P>
+<P>(ii) Three percent.</P>
+<P>(3) For the purposes of determining the average cost per dwelling limitation, costs for the purchase of vehicles or other certain types of equipment as defined in 10 CFR part 600 may be amortized over the useful life of the vehicle or equipment.</P>
+<P>(d) Allowable expenditures under this part include only:</P>
+<P>(1) The cost of purchase and delivery of weatherization materials;</P>
+<P>(2) Labor costs, in accordance with &#xA7; 440.19;</P>
+<P>(3) Transportation of weatherization materials, tools, equipment, and work crews to a storage site and to the site of weatherization work;</P>
+<P>(4) Maintenance, operation, and insurance of vehicles used to transport weatherization materials;</P>
+<P>(5) Maintenance of tools and equipment;</P>
+<P>(6) The cost of purchasing vehicles, except that any purchase of vehicles must be referred to DOE for prior approval in every instance.</P>
+<P>(7) Employment of on-site supervisory personnel;</P>
+<P>(8) Storage of weatherization materials, tools, and equipment;</P>
+<P>(9) The cost of incidental repairs if such repairs are necessary to make the installation of weatherization materials effective;</P>
+<P>(10) The cost of liability insurance for weatherization projects for personal injury and for property damage;</P>
+<P>(11) The cost of carrying out low-cost/no-cost weatherization activities in accordance with &#xA7; 440.20;</P>
+<P>(12) The cost of weatherization program financial audits as required by &#xA7; 440.23(d);</P>
+<P>(13) Allowable administrative expenses under paragraph (d) of this section; and</P>
+<P>(14) Funds used for leveraging activities in accordance with &#xA7; 440.14(b)(9)(xiv); and</P>
+<P>(15) The cost of eliminating health and safety hazards elimination of which is necessary before, or because of, installation of weatherization materials.</P>
+<P>(e) Not more than 10 percent of any grant made to a State may be used by the grantee and subgrantees for administrative purposes in carrying out duties under this part, except that not more than 5 percent may be used by the State for such purposes, and not less than 5 percent must be made available to subgrantees by States. A State may provide in its annual plan for recipients of grants of less than $350,000 to use up to an additional 5 percent of such grants for administration if the State has determined that such recipient requires such additional amount to implement effectively the administrative requirements established by DOE pursuant to this part.</P>
+<P>(f) No grant funds awarded under this part shall be used for any of the following purposes:</P>
+<P>(1) To weatherize a dwelling unit which is designated for acquisition or clearance by a Federal, State, or local program within 12 months from the date weatherization of the dwelling unit would be scheduled to be completed; or</P>
+<P>(2) To install or otherwise provide weatherization materials for a dwelling unit weatherized previously with grant funds under this part, except:</P>
+<P>(i) As provided under &#xA7; 440.20;</P>
+<P>(ii) If such dwelling unit has been damaged by fire, flood, or act of God and repair of the damage to weatherization materials is not paid for by insurance; or</P>
+<P>(iii) That dwelling units partially weatherized under this part or under other Federal programs during the period September 30, 1975, through September 30, 1993, may receive further financial assistance for weatherization under this part. While DOE will continue to require these homes to be reported separately, States may count these homes as completions for the purposes of compliance with the per-home expenditure limit in &#xA7; 440.18. Each dwelling unit must receive a new energy audit which takes into account any previous energy conservation improvements to the dwelling.</P>
+<CITA TYPE="N">[58 FR 12526, Mar. 4, 1993, as amended at 65 FR 77218, Dec. 8, 2000; 66 FR 58366, Nov. 21, 2001; 71 FR 35778, June 22, 2006; 74 FR 12540, Mar. 25, 2009]
+</CITA>
+</DIV8>
+
+<DIV8 N="440.19" TYPE="SECTION" hierarchy_metadata="{&quot;path&quot;:&quot;/on/_SUBSTITUTE_DATE_/title-10/section-440.19&quot;,&quot;citation&quot;:&quot;10 CFR 440.19&quot;}">
+<HEAD>&#xA7; 440.19 Labor.</HEAD>
+<P>Payments for labor costs under &#xA7; 440.18(c)(2) must consist of:</P>
+<P>(a) Payments permitted by the Department of Labor to supplement wages paid to training participants, public service employment workers, or other Federal or State training programs; and</P>
+<P>(b) Payments to employ labor or to engage a contractor (particularly a nonprofit organization or a business owned by disadvantaged individuals which performs weatherization services), provided a grantee has determined an adequate number of volunteers, training participants, public service employment workers, or other Federal or State training programs are not available to weatherize dwelling units for a subgrantee under the supervision of qualified supervisors.</P>
+<CITA TYPE="N">[65 FR 77218, Dec. 8, 2000]
+</CITA>
+</DIV8>
+
+<DIV8 N="440.20" TYPE="SECTION" hierarchy_metadata="{&quot;path&quot;:&quot;/on/_SUBSTITUTE_DATE_/title-10/section-440.20&quot;,&quot;citation&quot;:&quot;10 CFR 440.20&quot;}">
+<HEAD>&#xA7; 440.20 Low-cost/no-cost weatherization activities.</HEAD>
+<P>(a) An eligible dwelling unit may be weatherized without regard to the limitations contained in &#xA7; 440.18 (e)(2) or &#xA7; 440.21(b) from funds designated by the grantee for carrying out low-cost/no-cost weatherization activities provided:</P>
+<P>(1) Inexpensive weatherization materials are used, such as water flow controllers, furnace or cooling filters, or items which are primarily directed toward reducing infiltration, including weatherstripping, caulking, glass patching, and insulation for plugging and</P>
+<P>(2) No labor paid with funds provided under this part is used to install weatherization materials referred to in paragraph (a)(1) of this section.</P>
+<P>(b) A maximum of 10 percent of the amount allocated to a subgrantee, not to exceed $50 in materials costs per dwelling unit, may be expended to carry out low-cost/no-cost weatherization activities, unless the Support Office Director approves a higher expenditure per dwelling unit.</P>
+<CITA TYPE="N">[49 FR 3629, Jan. 27, 1984, as amended at 50 FR 713, Jan. 4, 1985; 58 FR 12529, Mar. 4, 1993]
+</CITA>
+</DIV8>
+
+<DIV8 N="440.21" TYPE="SECTION" hierarchy_metadata="{&quot;path&quot;:&quot;/on/_SUBSTITUTE_DATE_/title-10/section-440.21&quot;,&quot;citation&quot;:&quot;10 CFR 440.21&quot;}">
+<HEAD>&#xA7; 440.21 Weatherization materials standards and energy audit procedures.</HEAD>
+<P>(a) Paragraph (b) of this section describes the required standards for weatherization materials. Paragraph (c)(1) of this section describes the performance and quality standards for renewable energy systems. Paragraph (c)(2) of this section specifies the procedures and criteria that are used for considering a petition from a manufacturer requesting the Secretary to certify an item as a renewable energy system. Paragraphs (d) and (e) of this section describe the cost-effectiveness tests that weatherization materials must pass before they may be installed in an eligible dwelling unit. Paragraph (f) of this section lists the other energy audit requirements that do not pertain to cost-effectiveness tests of weatherization materials. Paragraphs (g) and (h) of this section describe the use of priority lists and presumptively cost-effective general heat waste reduction materials as part of a State's energy audit procedures. Paragraph (i) of this section explains that a State's energy audit procedures and priority lists must be re-approved by DOE every five years.</P>
+<P>(b) Only weatherization materials which are listed in appendix A to this part and which meet or exceed standards prescribed in appendix A to this part may be purchased with funds provided under this part. However, DOE may approve an unlisted material upon application from any State.</P>
+<P>(c)(1) A system or technology shall not be considered by DOE to be a renewable energy system under this part unless:</P>
+<P>(i) It will result in a reduction in oil or natural gas consumption;</P>
+<P>(ii) It will not result in an increased use of any item which is known to be, or reasonably expected to be, environmentally hazardous or a threat to public health or safety;</P>
+<P>(iii) Available Federal subsidies do not make such a specification unnecessary or inappropriate (in light of the most advantageous allocation of economic resources); and</P>
+<P>(iv) If a combustion rated system, it has a thermal efficiency rating of at least 75 percent; or, in the case of a solar system, it has a thermal efficiency rating of at least 15 percent.</P>
+<P>(2) Any manufacturer may submit a petition to DOE requesting the Secretary to certify an item as a renewable energy system.</P>
+<P>(i) Petitions should be submitted to: Weatherization Assistance Program, Office of Energy Efficiency and Renewable, Mail Stop EE-2K, 1000 Independence Avenue, SW., Washington, DC 20585.</P>
+<P>(ii) A petition for certification of an item as a renewable energy system must be accompanied by information demonstrating that the item meets the criteria in paragraph (c)(1) of this section.</P>
+<P>(iii) DOE may publish a document in the <E T="04">Federal Register</E> that invites public comment on a petition.</P>
+<P>(iv) DOE shall notify the petitioner of the Secretary's action on the request within one year after the filing of a complete petition, and shall publish notice of approvals and denials in the <E T="04">Federal Register.</E></P>
+<P>(d) Except for materials to eliminate health and safety hazards allowable under &#xA7; 440.18(c)(15), each individual weatherization material and package of weatherization materials installed in an eligible dwelling unit must be cost-effective. These materials must result in energy cost savings over the lifetime of the measure(s), discounted to present value, that equal or exceed the cost of materials, installation, and on-site supervisory personnel as defined by the Department. States have the option of requiring additional related costs to be included in the determination of cost-effectiveness. The cost of incidental repairs must be included in the cost of the package of measures installed in a dwelling.</P>
+<P>(e) The energy audit procedures must assign priorities among individual weatherization materials in descending order of their cost-effectiveness according to paragraph (d) of this section after:</P>
+<P>(1) Adjusting for interaction between architectural and mechanical weatherization materials by using generally accepted engineering methods to decrease the estimated fuel cost savings for a lower priority weatherization material in light of fuel cost savings for a related higher priority weatherization material; and</P>
+<P>(2) Eliminating any weatherization materials that are no longer cost-effective, as adjusted under paragraph (e)(1) of this section.</P>
+<P>(f) The energy audit procedures also must&#x2014;</P>
+<P>(1) Compute the cost of fuel saved per year by taking into account the climatic data of the area where the dwelling unit is located, where the base temperature that determines the number of heating or cooling degree days (if used) reasonably approximates conditions when operation of heating and cooling equipment is required to maintain comfort, and must otherwise use reasonable energy estimating methods and assumptions;</P>
+<P>(2) Determine existing energy use and energy requirements of the dwelling unit from actual energy bills or by generally accepted engineering calculations;</P>
+<P>(3) Address significant heating and cooling needs;</P>
+<P>(4) Make provision for the use of advanced diagnostic and assessment techniques which DOE has determined are consistent with sound engineering practices;</P>
+<P>(5) Identify health and safety hazards to be abated with DOE funds in compliance with the State's DOE-approved health and safety procedures under &#xA7; 440.16(h);</P>
+<P>(6) Treat the dwelling unit as a whole system by examining its heating and cooling system, its air exchange system, and its occupants' living habits and needs, and making necessary adjustments to the priority of weatherization materials with adequate documentation of the reasons for such an adjustment; and</P>
+<P>(7) Be specifically approved by DOE for use on each major dwelling type that represents a significant portion of the State's weatherization program in light of the varying energy audit requirements of different dwelling types including single-family dwellings, multi-family buildings, and mobile homes.</P>
+<P>(g) For similar dwelling units without unusual energy-consuming characteristics, energy audits may be accomplished by using a priority list developed by conducting, in compliance with paragraphs (b) through (f) of this section, site-specific energy audits of a representative subset of these dwelling units. For DOE approval, States must describe how the priority list was developed, how the subset of similar homes was determined, and circumstances that will require site-specific audits rather than the use of the priority lists. States also must provide the input data and list of weatherization measures recommended by the energy audit software or manual methods for several dwelling units from the subset of similar units.</P>
+<P>(h) States may use, as a part of an energy audit, general heat waste reduction weatherization materials that DOE has determined to be generally cost-effective. States may request approval to use general heat waste materials not listed in DOE policy guidance by providing documentation of their cost-effectiveness and a description of the circumstances under which such materials will be used.</P>
+<P>(i) States must resubmit their energy audit procedures (and priority lists, if applicable, under certain conditions) to DOE for approval every five years. States must also resubmit to DOE, for approval every five years, their list of general heat waste materials in addition to those approved by DOE in policy guidance, if applicable. Policy guidance will describe the information States must submit to DOE and the circumstances that reduce or increase documentation requirements.</P>
+<CITA TYPE="N">[65 FR 77218, Dec. 8, 2000, as amended at 71 FR 35778, June 22, 2006]
+</CITA>
+</DIV8>
+
+<DIV8 N="440.22" TYPE="SECTION" hierarchy_metadata="{&quot;path&quot;:&quot;/on/_SUBSTITUTE_DATE_/title-10/section-440.22&quot;,&quot;citation&quot;:&quot;10 CFR 440.22&quot;}">
+<HEAD>&#xA7; 440.22 Eligible dwelling units.</HEAD>
+<P>(a) A dwelling unit shall be eligible for weatherization assistance under this part if it is occupied by a family unit:</P>
+<P>(1) Whose income is at or below 200 percent of the poverty level determined in accordance with criteria established by the Director of the Office of Management and Budget,</P>
+<P>(2) Which contains a member who has received cash assistance payments under Title IV or XVI of the Social Security Act or applicable State or local law at any time during the 12-month period preceding the determination of eligibility for weatherization assistance; or</P>
+<P>(3) If the State elects, is eligible for assistance under the Low-Income Home Energy Assistance Act of 1981, provided that such basis is at least 200 percent of the poverty level determined in accordance with criteria established by the Director of the Office of Management and Budget.</P>
+<P>(b) A subgrantee may weatherize a building containing rental dwelling units using financial assistance for dwelling units eligible for weatherization assistance under paragraph (a) of this section, where:</P>
+<P>(1) The subgrantee has obtained the written permission of the owner or his agent;</P>
+<P>(2) Not less than 66 percent (50 percent for duplexes and four-unit buildings, and certain eligible types of large multi-family buildings) of the dwelling units in the building:</P>
+<P>(i) Are eligible dwelling units, or</P>
+<P>(ii) Will become eligible dwelling units within 180 days under a Federal, State, or local government program for rehabilitating the building or making similar improvements to the building; and</P>
+<P>(3) The grantee has established procedures for dwellings which consist of a rental unit or rental units to ensure that:</P>
+<P>(i) The benefits of weatherization assistance in connection with such rental units, including units where the tenants pay for their energy through their rent, will accrue primarily to the low-income tenants residing in such units;</P>
+<P>(ii) For a reasonable period of time after weatherization work has been completed on a dwelling containing a unit occupied by an eligible household, the tenants in that unit (including households paying for their energy through their rent) will not be subjected to rent increases unless those increases are demonstrably related to matters other than the weatherization work performed;</P>
+<P>(iii) The enforcement of paragraph (b)(3)(ii) of this section is provided through procedures established by the State by which tenants may file complaints, and owners, in response to such complaints, shall demonstrate that the rent increase concerned is related to matters other than the weatherization work performed; and</P>
+<P>(iv) No undue or excessive enhancement shall occur to the value of the dwelling units.</P>
+<P>(4)(i) A building containing rental dwelling units meets the requirements of paragraph (b)(2), and paragraphs (b)(3)(ii) and (b)(3)(iv), of this section if it is included on the most recent list posted by DOE of Assisted Housing and Public Housing buildings identified by the U.S. Department of Housing and Urban Development as meeting those requirements.</P>
+<P>(ii) A building containing rental dwelling units meets the requirements of paragraph (b)(2), and paragraph (b)(3)(iv), of this section if it is included on the most recent list posted by DOE of Assisted Housing and Public Housing buildings identified by the U.S. Department of Housing and Urban Development as meeting those requirements.</P>
+<P>(iii) A building containing rental dwelling units meets the requirement of paragraph (b)(2) of this section if it is included on the most recent list posted by DOE of Low Income Housing Tax Credit buildings identified by the U.S. Department of Housing and Urban Development as meeting that requirement and of Rural Housing Service Multifamily Housing buildings identified by the U.S. Department of Agriculture as meeting that requirement.</P>
+<P>(iv) For buildings identified under paragraphs (b)(4)(i), (ii) and (iii) of this section, States will continue to be responsible for ensuring compliance with the remaining requirements of this section, and States shall establish requirements and procedures to ensure such compliance in accordance with this section.</P>
+<P>(c) In order to secure the Federal investment made under this part and address the issues of eviction from and sale of property receiving weatherization materials under this part, States may seek landlord agreement to placement of a lien or to other contractual restrictions;</P>
+<P>(d) As a condition of having assistance provided under this part with respect to multifamily buildings, a State may require financial participation, when feasible, from the owners of such buildings. Such financial participation shall not be reported as program income, nor will it be treated as if it were appropriated funds. The funds contributed by the landlord shall be expended in accordance with the agreement between the landlord and the weatherization agency.</P>
+<P>(e) In devising procedures under paragraph (b)(3)(iii) of this section, States should consider requiring use of alternative dispute resolution procedures including arbitration.</P>
+<P>(f) A State may weatherize shelters. For the purpose of determining how many dwelling units exist in a shelter, a grantee may count each 800 square feet of the shelter as a dwelling unit or it may count each floor of the shelter as a dwelling unit.</P>
+<CITA TYPE="N">[58 FR 12528, Mar. 4, 1993, as amended at 65 FR 77219, Dec. 8, 2000; 74 FR 12540, Mar. 25, 2009; 75 FR 3856, Jan. 25, 2010]
+</CITA>
+</DIV8>
+
+<DIV8 N="440.23" TYPE="SECTION" hierarchy_metadata="{&quot;path&quot;:&quot;/on/_SUBSTITUTE_DATE_/title-10/section-440.23&quot;,&quot;citation&quot;:&quot;10 CFR 440.23&quot;}">
+<HEAD>&#xA7; 440.23 Oversight, training, and technical assistance.</HEAD>
+<P>(a) The Secretary and the appropriate Support Office Director, in coordination with the Secretary of Health and Human Services, shall monitor and evaluate the operation of projects carried out by CAA's receiving financial assistance under this part through on-site inspections, or through other means, in order to ensure the effective provision of weatherization assistance for the dwelling units of low-income persons.</P>
+<P>(b) DOE shall also carry out periodic evaluations of a program and weatherization projects that are not carried out by a CAA and that are receiving financial assistance under this part.</P>
+<P>(c) The Secretary and the appropriate Support Office Director, the Comptroller General of the United States, and for a weatherization project carried out by a CAA, the Secretary of Health and Human Services or any of their duly authorized representatives, shall have access to any books, documents, papers, information, and records of any weatherization project receiving financial assistance under the Act for the purpose of audit and examination.</P>
+<P>(d) Each grantee shall ensure that audits by or on behalf of subgrantees are conducted with reasonable frequency, on a continuing basis, or at scheduled intervals, usually annually, but not less frequently than every two years, in accordance with 10 CFR part 600, and OMB Circular 110, Attachment F, as applicable.</P>
+<P>(e) The Secretary may reserve from the funds appropriated for any fiscal year an amount not to exceed 20 percent to provide, directly or indirectly, training and technical assistance to any grantee or subgrantee. Such training and technical assistance may include providing information concerning conservation practices to occupants of eligible dwelling units.</P>
+<CITA TYPE="N">[49 FR 3629, Jan. 27, 1984, as amended at 58 FR 12529, Mar. 4, 1993; 74 FR 12540, Mar. 25, 2009]
+</CITA>
+</DIV8>
+
+<DIV8 N="440.24" TYPE="SECTION" hierarchy_metadata="{&quot;path&quot;:&quot;/on/_SUBSTITUTE_DATE_/title-10/section-440.24&quot;,&quot;citation&quot;:&quot;10 CFR 440.24&quot;}">
+<HEAD>&#xA7; 440.24 Recordkeeping.</HEAD>
+<P>Each grantee or subgrantee receiving Federal financial assistance under this part shall keep such records as DOE shall require, including records which fully disclose the amount and disposition by each grantee and subgrantee of the funds received, the total cost of a weatherization project or the total expenditure to implement the State plan for which assistance was given or used, the source and amount of funds for such project or program not supplied by DOE, the average costs incurred in weatherization of individual dwelling units, the average size of the dwelling being weatherized, the average income of households receiving assistance under this part, and such other records as DOE deems necessary for an effective audit and performance evaluation. Such recordkeeping shall be in accordance with the DOE Financial Assistance Rule, 10 CFR part 600, and any further requirements of this part.</P>
+<CITA TYPE="N">[58 FR 12529, Mar. 4, 1993]
+</CITA>
+</DIV8>
+
+<DIV8 N="440.25" TYPE="SECTION" hierarchy_metadata="{&quot;path&quot;:&quot;/on/_SUBSTITUTE_DATE_/title-10/section-440.25&quot;,&quot;citation&quot;:&quot;10 CFR 440.25&quot;}">
+<HEAD>&#xA7; 440.25 Reports.</HEAD>
+<P>DOE may require any recipient of financial assistance under this part to provide, in such form as may be prescribed, such reports or answers in writing to specific questions, surveys, or questionnaires as DOE determines to be necessary to carry out its responsibilities or the responsibilities of the Secretary of Health and Human Services under this part.</P>
+<APPRO TYPE="N">(Approved by the Office of Management and Budget under control number 1901-0127)
+</APPRO>
+</DIV8>
+
+<DIV8 N="440.26-440.29" TYPE="SECTION" hierarchy_metadata="{&quot;path&quot;:&quot;/on/_SUBSTITUTE_DATE_/title-10/section-440.26-440.29&quot;,&quot;citation&quot;:&quot;10 CFR 440.26-440.29&quot;}">
+<HEAD>&#xA7;&#xA7; 440.26-440.29 [Reserved]</HEAD>
+</DIV8>
+
+<DIV8 N="440.30" TYPE="SECTION" hierarchy_metadata="{&quot;path&quot;:&quot;/on/_SUBSTITUTE_DATE_/title-10/section-440.30&quot;,&quot;citation&quot;:&quot;10 CFR 440.30&quot;}">
+<HEAD>&#xA7; 440.30 Administrative review.</HEAD>
+<P>(a) An applicant shall have 20 days from the date of receipt of a decision under &#xA7; 440.12 or &#xA7; 440.13 to file a notice requesting administrative review. If an applicant does not timely file such a notice, the decision under &#xA7; 440.12 or &#xA7; 440.13 shall become final for DOE.</P>
+<P>(b) A notice requesting administrative review shall be filed with the Support Office Director and shall be accompanied by a written statement containing supporting arguments and requesting, if desired, the opportunity for a public hearing.</P>
+<P>(c) A notice or any other document shall be deemed filed under this section upon receipt.</P>
+<P>(d) On or before 15 days from receipt of a notice requesting administrative review which is timely filed, the Support Office Director shall forward to the Deputy Assistant Secretary, the notice requesting administrative review, the decision under &#xA7; 440.12 or &#xA7; 440.13 as to which administrative review is sought, a draft recommended final decision for the concurrence of the Deputy Assistant Secretary, and any other relevant material.</P>
+<P>(e) If the applicant requests a public hearing, the Deputy Assistant Secretary, within 15 days, shall give actual notice to the State and <E T="04">Federal Register</E> notice of the date, place, time, and procedures which shall apply to the public hearing. Any public hearing under this section shall be informal and legislative in nature.</P>
+<P>(f) On or before 45 days from receipt of documents under paragraph (d) of this section or the conclusion of the public hearing, whichever is later, the Deputy Assistant Secretary shall concur in, concur in as modified, or issue a substitute for the recommended decision of the Support Office Director.</P>
+<P>(g) On or before 15 days from the date of receipt of the determination under paragraph (f) of this section, the Governor may file an application, with a supporting statement of reasons, for discretionary review by the Assistant Secretary. On or before 15 days from filing, the Assistant Secretary shall send a notice to the Governor stating whether the Deputy Assistant Secretary's determination will be reviewed. If the Assistant Secretary grants review, a decision shall be issued no later than 60 days from the date review is granted. The Assistant Secretary may not issue a notice or decision under this paragraph without the concurrence of the DOE Office of General Counsel.</P>
+<P>(h) A decision under paragraph (f) of this section shall be final for DOE if there is no review under paragraph (g) of this section. If there is review under paragraph (g) of this section, the decision thereunder shall be final for DOE, and no appeal shall lie elsewhere in DOE.</P>
+<P>(i) Prior to the effective date of the termination of eligibility for further participation in the program because of failure to comply substantially with the requirements of the Act or of this part, a grantee shall have the right to written notice of the basis for the enforcement action and the opportunity for a public hearing notwithstanding any provisions to contrary of 10 CFR 600.26, 600.28(b), 600.29, 600.121(c), and 600.443. A notice under this paragraph shall be mailed by the Support Office Director by registered mail, return-receipt requested, to the State, local grantee, and other interested parties. To obtain a public hearing, the grantee must request an evidentiary hearing, with prior <E T="04">Federal Register</E> notice, in the election letter submitted under Rule 2 of 10 CFR 1024.4 and the request shall be granted notwithstanding any provisions of Rule 2 to the contrary.</P>
+<CITA TYPE="N">[55 FR 41326, Oct. 10, 1990, as amended at 58 FR 12529, Mar. 4, 1993]
+</CITA>
+</DIV8>
+
+<DIV9 N="Appendix A to Part 440" TYPE="APPENDIX" hierarchy_metadata="{&quot;path&quot;:&quot;/on/_SUBSTITUTE_DATE_/title-10/part-440/appendix-Appendix A to Part 440&quot;,&quot;citation&quot;:&quot;Appendix A to Part 440, Title 10&quot;}">
+<HEAD>Appendix A to Part 440&#x2014;Standards for Weatherization Materials
+</HEAD>
+<P>The following Government standards are produced by the Consumer Product Safety Commission and are published in title 16, Code of Federal Regulations:</P>
+<P>Thermal Insulating Materials for Building Elements Including Walls, Floors, Ceilings, Attics, and Roofs Insulation&#x2014;organic fiber&#x2014;conformance to Interim Safety Standard in 16 CFR part 1209;</P>
+<P>Fire Safety Requirements for Thermal Insulating Materials According to Insulation Use&#x2014;Attic Floor&#x2014;insulation materials intended for exposed use in attic floors shall be capable of meeting the same flammability requirements given for cellulose insulation in 16 CFR part 1209;</P>
+<P>Enclosed spaces&#x2014;insulation materials intended for use within enclosed stud or joist spaces shall be capable of meeting the smoldering combustion requirements in 16 CFR part 1209.</P>
+<P>The following standards which are not otherwise set forth in part 440 are incorporated by reference and made a part of part 440. The following standards have been approved for incorporation by reference by the Director of the Federal Register in accordance with 5 U.S.C. 552(a) and 1 CFR part 51. These materials are incorporated as they exist on April 5, 1993 and a notice of any change in these materials will be published in the <E T="04">Federal Register.</E> The standards incorporated by reference are available for inspection at the National Archives and Records Administration (NARA). For information on the availability of this material at NARA, call 202-741-6030, or go to: <I>http://www.archives.gov/federal_register/code_of_federal_regulations/ibr_locations.html.</I></P>
+<P>The standards incorporated by reference in part 440 can be obtained from the following sources:</P>
+<FP-1>Air Conditioning and Refrigeration Institute, 1501 Wilson Blvd., Arlington, VA 22209; (703) 524-8800.
+</FP-1>
+<FP-1>American Gas Association, 1515 Wilson Blvd., Arlington, VA 22209; (703) 841-8400.
+</FP-1>
+<FP-1>American National Standards Institute, Inc., 1430 Broadway, New York, NY 10018; (212) 642-4900.
+</FP-1>
+<FP-1>American Society of Mechanical Engineers, United Engineering Center, 345 East 47th Street, New York, NY 10017; (212) 705-7800.
+</FP-1>
+<FP-1>American Society for Testing and Materials, 1916 Race Street, Philadelphia, PA 19103; (215) 299-5400.
+</FP-1>
+<FP-1>American Architectural Manufacturers Association, 1540 East Dundee Road, Palatine, IL 60067; (708) 202-1350.
+</FP-1>
+<FP-1>Federal Specifications, General Services Administration, Specifications Section, Room 6654, 7th and D Streets, SW, Washington, DC 20407; (202) 708-5082.
+</FP-1>
+<FP-1>Gas Appliance Manufacturers Association, 1901 Moore St., Arlington, VA 22209; (703) 525-9565.
+</FP-1>
+<FP-1>National Electrical Manufacturers Association, 2101 L Street, NW, Suite 300, Washington, DC 20037; (202) 457-8400.
+</FP-1>
+<FP-1>National Fire Protection Association, Batterymarch Park, P.O. Box 9101, Quincy, MA 02269; (617) 770-3000.
+</FP-1>
+<FP-1>National Standards Association, 1200 Quince Orchard Blvd., Gaithersburg, MD 20878; (301) 590-2300. (NSA is a local contact for materials from ASTM).
+</FP-1>
+<FP-1>National Wood Window and Door Association, 1400 East Touhy Avenue, Des Plaines, IL 60018; (708) 299-5200.
+</FP-1>
+<FP-1>Sheet Metal and Air Conditioning Contractors Association, P.O. Box 221230, Chantilly, VA 22022-1230; (703) 803-2980.
+</FP-1>
+<FP-1>Steel Door Institute, 712 Lakewood Center North, 14600 Detroit Avenue, Cleveland, OH 44107; (216) 899-0100.
+</FP-1>
+<FP-1>Steel Window Institute, 1230 Keith Building, Cleveland, OH 44115; (216) 241-7333.
+</FP-1>
+<FP-1>Tubular Exchanger Manufacturers Association, 25 North Broadway, Tarrytown, NY 10591; (914) 332-0040.
+</FP-1>
+<FP-1>Underwriters Laboratories, Inc., P.O. Box 75530, Chicago, IL 60675-5330; (708) 272-8800.
+</FP-1>
+<P>More information regarding the standards in this reference can be obtained from the following sources:</P>
+<FP-1>Environmental Protection Agency, 401 M Street, NW, Washington, DC 20006; (202) 554-1080.
+</FP-1>
+<FP-1>National Institute of Standards and Technology, U.S. Department of Commerce, Gaithersburg, MD 20899, (301) 975-2000
+</FP-1>
+<FP-1>Weatherization Assistance Programs Division, Conservation and Renewable Energy, Mail Stop 5G-023, Forrestal Bldg, 1000 Independence Ave, SW, Washington, DC 20585; (202) 586-2207.
+</FP-1>
+<DIV width="100%"><DIV class="gpotbl_div">
+<TABLE border="1" cellpadding="1" cellspacing="1" class="gpo_table" frame="void" width="100%">
+<CAPTION><P class="title">Thermal Insulating Materials for Building Elements Including Walls, Floors, Ceilings, Attics, and Roofs</P><P class="headnote">[Standards for conformance]</P></CAPTION>
+<THEAD>
+</THEAD>
+<TBODY>
+<TR>
+<TD class="left border-right-single">Insulation&#x2014;mineral fiber:</TD>
+<TD class="left"/>
+</TR>
+<TR>
+<TD class="left border-right-single primary-indent-hanging-1">Blanket insulation</TD>
+<TD class="left">ASTM <sup>1</sup> C665-88.</TD>
+</TR>
+<TR>
+<TD class="left border-right-single primary-indent-hanging-1">Roof insulation board</TD>
+<TD class="left">ASTM C726-88.</TD>
+</TR>
+<TR>
+<TD class="left border-right-single primary-indent-hanging-1">Loose-fill insulation</TD>
+<TD class="left">ASTM C764-88.</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Insulation&#x2014;mineral cellular:</TD>
+<TD class="left"/>
+</TR>
+<TR>
+<TD class="left border-right-single primary-indent-hanging-1">Vermiculite loose-fill insulation</TD>
+<TD class="left">ASTM C516-80 (1990).</TD>
+</TR>
+<TR>
+<TD class="left border-right-single primary-indent-hanging-1">Perlite loose-fill insulation</TD>
+<TD class="left">ASTM C549-81 (1986).</TD>
+</TR>
+<TR>
+<TD class="left border-right-single primary-indent-hanging-1">Cellular glass insulation block</TD>
+<TD class="left">ASTM C552-88.</TD>
+</TR>
+<TR>
+<TD class="left border-right-single primary-indent-hanging-1">Perlite insulation board</TD>
+<TD class="left">ASTM C728-89a.</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Insulation&#x2014;organic fiber:</TD>
+<TD class="left"/>
+</TR>
+<TR>
+<TD class="left border-right-single primary-indent-hanging-1">Cellulosic fiber insulating board</TD>
+<TD class="left">ASTM C208-72 (1982).</TD>
+</TR>
+<TR>
+<TD class="left border-right-single primary-indent-hanging-1">Cellulose loose-fill insulation</TD>
+<TD class="left">ASTM C739-88.</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Insulation-organic cellular:</TD>
+<TD class="left"/>
+</TR>
+<TR>
+<TD class="left border-right-single primary-indent-hanging-1">Preformed block-type polystyrene insulation</TD>
+<TD class="left">ASTM C578-87a.</TD>
+</TR>
+<TR>
+<TD class="left border-right-single primary-indent-hanging-1">Rigid preformed polyurethane insulation board</TD>
+<TD class="left">ASTM C591-85.</TD>
+</TR>
+<TR>
+<TD class="left border-right-single primary-indent-hanging-1">Polyurethane or polyisocyanurate insulation board faced with aluminum foil on both sides</TD>
+<TD class="left">FS <sup>2</sup> HH-I-1972/1 (1981).</TD>
+</TR>
+<TR>
+<TD class="left border-right-single primary-indent-hanging-1">Polyurethane or polyisocyanurate insulation board faced with felt on both sides</TD>
+<TD class="left">FS HH-I-1972/2 (1981). And Amendment 1, October 3, 1985.</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Insulation&#x2014;composite boards:</TD>
+<TD class="left"/>
+</TR>
+<TR>
+<TD class="left border-right-single primary-indent-hanging-1">Mineral fiber and rigid cellular polyurethane composite roof insulation board</TD>
+<TD class="left">ASTM C726-88.</TD>
+</TR>
+<TR>
+<TD class="left border-right-single primary-indent-hanging-1">Perlite board and rigid cellular polyurethane composite roof insulation</TD>
+<TD class="left">ASTM C984-83.</TD>
+</TR>
+<TR>
+<TD class="left border-right-single primary-indent-hanging-1">Gypsum board and polyurethane or polisocyanurate composite board</TD>
+<TD class="left">FS HH-I-1972/4 (1981).</TD>
+</TR>
+<TR>
+<TD class="left border-bottom-single border-right-single">Materials used as a patch to reduce infiltration through the building envelope</TD>
+<TD class="left border-bottom-single">Commercially available.
+</TD>
+</TR>
+</TBODY>
+<TFOOT><TR><TD colspan="2"><sup>1</sup> ASTM indicates American Society for Testing and Materials.
+</TD></TR><TR><TD colspan="2"><sup>2</sup> FS indicates Federal Specifications.</TD></TR></TFOOT></TABLE>
+</DIV></DIV>
+<DIV width="100%"><DIV class="gpotbl_div">
+<TABLE border="1" cellpadding="1" cellspacing="1" class="gpo_table" frame="void" width="100%">
+<CAPTION><P class="title">Thermal Insulating Materials for Pipes, Ducts, and Equipment Such as Boilers and Furnaces</P><P class="headnote">[Standards for conformance]</P></CAPTION>
+<THEAD>
+</THEAD>
+<TBODY>
+<TR>
+<TD class="left border-right-single">Insulation&#x2014;mineral fiber:</TD>
+<TD class="left"/>
+</TR>
+<TR>
+<TD class="left border-right-single primary-indent-hanging-1">Preformed pipe insulation</TD>
+<TD class="left">ASTM <sup>1</sup> C547-77.</TD>
+</TR>
+<TR>
+<TD class="left border-right-single primary-indent-hanging-1">Blanket and felt insulation (industrial type)</TD>
+<TD class="left">ASTM C553-70 (1977).</TD>
+</TR>
+<TR>
+<TD class="left border-right-single primary-indent-hanging-1">Blanket insulation and blanket type pipe insulation (metal-mesh covered) (industrial type)</TD>
+<TD class="left">ASTM C592-80.</TD>
+</TR>
+<TR>
+<TD class="left border-right-single primary-indent-hanging-1">Block and board insulation</TD>
+<TD class="left">ASTM C612-83.</TD>
+</TR>
+<TR>
+<TD class="left border-right-single primary-indent-hanging-1">Spray applied fibrous insulation for elevated temperature</TD>
+<TD class="left">ASTM C720-89.</TD>
+</TR>
+<TR>
+<TD class="left border-right-single primary-indent-hanging-1">High-temperature fiber blanket insulation</TD>
+<TD class="left">ASTM C892-89.</TD>
+</TR>
+<TR>
+<TD class="left border-right-single primary-indent-hanging-1">Duct work insulation</TD>
+<TD class="left">Selected and applied according to ASTM C971-82.</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Insulation&#x2014;mineral cellular:</TD>
+<TD class="left"/>
+</TR>
+<TR>
+<TD class="left border-right-single primary-indent-hanging-1">Diatomaceous earth block and pipe insulation</TD>
+<TD class="left">ASTM C517-71 (1979)</TD>
+</TR>
+<TR>
+<TD class="left border-right-single primary-indent-hanging-1">Calcium silicate block and pipe insulation</TD>
+<TD class="left">ASTM C533-85 (1990).</TD>
+</TR>
+<TR>
+<TD class="left border-right-single primary-indent-hanging-1">Cellular glass insulation</TD>
+<TD class="left">ASTM C552-88.</TD>
+</TR>
+<TR>
+<TD class="left border-right-single primary-indent-hanging-1">Expanded perlite block and pipe insulation</TD>
+<TD class="left">ASTM C610-85.</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Insulation&#x2014;Organic Cellular:</TD>
+<TD class="left"/>
+</TR>
+<TR>
+<TD class="left border-right-single primary-indent-hanging-1">Preformed flexible elastomeric cellular insulation in sheet and tubular form</TD>
+<TD class="left">ASTM C534-88.</TD>
+</TR>
+<TR>
+<TD class="left border-right-single primary-indent-hanging-1">Unfaced preformed rigid cellular polyurethane insulation</TD>
+<TD class="left">ASTM C591-85.</TD>
+</TR>
+<TR>
+<TD class="left border-bottom-single border-right-single">Insulation skirting</TD>
+<TD class="left border-bottom-single">Commercially available.
+</TD>
+</TR>
+</TBODY>
+<TFOOT><TR><TD colspan="2"><sup>1</sup> ASTM indicates American Society for Testing and Materials.</TD></TR></TFOOT></TABLE>
+</DIV></DIV>
+<DIV width="100%"><DIV class="gpotbl_div">
+<TABLE border="1" cellpadding="1" cellspacing="1" class="gpo_table" frame="void" width="100%">
+<CAPTION><P class="title">Fire Safety Requirements for Insulating Materials According to Insulation Use</P><P class="headnote">[Standards for conformance]</P></CAPTION>
+<THEAD>
+</THEAD>
+<TBODY>
+<TR>
+<TD class="left border-right-single">Attic floor</TD>
+<TD class="left">Insulation materials intended for exposed use in attic floors shall be capable of meeting the same smoldering combustion requirements given for cellulose insulation in ASTM <sup>1</sup> C739-88.</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Enclosed space</TD>
+<TD class="left">Insulation materials intended for use within enclosed stud or joist spaces shall be capable of meeting the smoldering combustion requirements in ASTM C739-88.</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Exposed interior walls and ceilings</TD>
+<TD class="left">Insulation materials, including those with combustible facings, which remain exposed and serve as wall or ceiling interior finish, shall have a flame spread classification not to exceed 150 (per ASTM E84-89a).</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Exterior envelope walls and roofs</TD>
+<TD class="left">Exterior envelope walls and roofs containing thermal insulations shall meet applicable local government building code requirements for the complete wall or roof assembly.</TD>
+</TR>
+<TR>
+<TD class="left border-bottom-single border-right-single">Pipes, ducts, and equipment</TD>
+<TD class="left border-bottom-single">Insulation materials intended for use on pipes, ducts and equipment shall be capable of meeting a flame spread classification not to exceed 150 (per ASTM E84-89a).
+</TD>
+</TR>
+</TBODY>
+<TFOOT><TR><TD colspan="2"><sup>1</sup> ASTM indicates American Society for Testing and Materials.</TD></TR></TFOOT></TABLE>
+</DIV></DIV>
+<DIV width="100%"><DIV class="gpotbl_div">
+<TABLE border="1" cellpadding="1" cellspacing="1" class="gpo_table" frame="void" width="100%">
+<CAPTION><P class="title">Storm Windows</P><P class="headnote">[Standards for conformance]</P></CAPTION>
+<THEAD>
+</THEAD>
+<TBODY>
+<TR>
+<TD class="left border-right-single">Storm windows:</TD>
+<TD class="left"/>
+</TR>
+<TR>
+<TD class="left border-right-single primary-indent-hanging-1">Aluminum insulating storm windows</TD>
+<TD class="left">ANSI/AAMA <sup>1</sup> 1002.10-83.</TD>
+</TR>
+<TR>
+<TD class="left border-right-single primary-indent-hanging-1">Aluminum frame storm windows</TD>
+<TD class="left">ANSI/AAMA 1002.10-83.</TD>
+</TR>
+<TR>
+<TD class="left border-right-single primary-indent-hanging-1">Wood frame storm windows</TD>
+<TD class="left">ANSI/NWWDA <sup>2</sup> I.S. 2-87. (Section 3)</TD>
+</TR>
+<TR>
+<TD class="left border-right-single primary-indent-hanging-1">Rigid vinyl frame storm windows</TD>
+<TD class="left">ASTM <sup>3</sup> D4099-89.</TD>
+</TR>
+<TR>
+<TD class="left border-right-single primary-indent-hanging-1">Frameless plastic glazing storm</TD>
+<TD class="left">Required minimum thickness windows is 6 mil (.006 inches).</TD>
+</TR>
+<TR>
+<TD class="left border-bottom-single border-right-single">Movable insulation systems for windows</TD>
+<TD class="left border-bottom-single">Commercially available.
+</TD>
+</TR>
+</TBODY>
+<TFOOT><TR><TD colspan="2"><sup>1</sup> ANSI/AAMA indicates American National Standards Institute/American Architectural Manufacturers Association.
+</TD></TR><TR><TD colspan="2"><sup>2</sup> ANSI/NWWDA indicates American National Standards Institute/National Wood Window &amp; Door Association.
+</TD></TR><TR><TD colspan="2"><sup>3</sup> ASTM indicates American Society for Testing and Materials.</TD></TR></TFOOT></TABLE>
+</DIV></DIV>
+<DIV width="100%"><DIV class="gpotbl_div">
+<TABLE border="1" cellpadding="1" cellspacing="1" class="gpo_table" frame="void" width="100%">
+<CAPTION><P class="title">Storm Doors</P><P class="headnote">[Standards for conformance]</P></CAPTION>
+<THEAD>
+</THEAD>
+<TBODY>
+<TR>
+<TD class="left border-right-single">Storm doors&#x2014;Aluminum:</TD>
+<TD class="left"/>
+</TR>
+<TR>
+<TD class="left border-right-single primary-indent-hanging-1">Storm Doors</TD>
+<TD class="left">ANSI/AAMA <sup>1</sup> 1102.7-89.</TD>
+</TR>
+<TR>
+<TD class="left border-right-single primary-indent-hanging-1">Sliding glass storm doors</TD>
+<TD class="left">ANSI/AAMA 1002.10-83.</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Wood storm doors</TD>
+<TD class="left">ANSI/NWWDA <sup>2</sup> I.S. 6-86.</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Rigid vinyl storm doors</TD>
+<TD class="left">ASTM <sup>3</sup> D3678-88.</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Vestibules:</TD>
+<TD class="left"/>
+</TR>
+<TR>
+<TD class="left border-right-single primary-indent-hanging-1">Materials to construct vestibules</TD>
+<TD class="left">Commercially available.</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Replacement windows:</TD>
+<TD class="left"/>
+</TR>
+<TR>
+<TD class="left border-right-single primary-indent-hanging-1">Aluminum frame windows</TD>
+<TD class="left">ANSI/AAMA 101-88.</TD>
+</TR>
+<TR>
+<TD class="left border-right-single primary-indent-hanging-1">Steel frame windows</TD>
+<TD class="left">Steel Window Institute recommended specifications for steel windows, 1990.</TD>
+</TR>
+<TR>
+<TD class="left border-right-single primary-indent-hanging-1">Wood frame windows</TD>
+<TD class="left">ANSI/NWWDA I.S. 2-87.</TD>
+</TR>
+<TR>
+<TD class="left border-bottom-single border-right-single primary-indent-hanging-1">Rigid vinyl frame windows</TD>
+<TD class="left border-bottom-single">ASTM D4099-89.
+</TD>
+</TR>
+</TBODY>
+<TFOOT><TR><TD colspan="2"><sup>1</sup> ANSI/AAMA indicates American National Standards Institute/American Architectural Manufacturers Association.
+</TD></TR><TR><TD colspan="2"><sup>2</sup> ANSI/NWWDA indicates American National Standards Institute/National Wood Window &amp; Door Association.
+</TD></TR><TR><TD colspan="2"><sup>3</sup> ASTM indicates American Society for Testing and Materials.</TD></TR></TFOOT></TABLE>
+</DIV></DIV>
+<DIV width="100%"><DIV class="gpotbl_div">
+<TABLE border="1" cellpadding="1" cellspacing="1" class="gpo_table" frame="void" width="100%">
+<CAPTION><P class="title">Replacement Doors</P><P class="headnote">[Standards for conformance]</P></CAPTION>
+<THEAD>
+</THEAD>
+<TBODY>
+<TR>
+<TD class="left border-right-single">Replacement doors&#x2014;Hinged doors:</TD>
+<TD class="left"/>
+</TR>
+<TR>
+<TD class="left border-right-single primary-indent-hanging-1">Steel doors</TD>
+<TD class="left">ANSI/SDI <sup>1</sup> 100-1985.</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Wood doors:</TD>
+<TD class="left"/>
+</TR>
+<TR>
+<TD class="left border-right-single primary-indent-hanging-1">Flush doors</TD>
+<TD class="left">ANSI/NWWDA <sup>2</sup> I.S. 1-87. (exterior door provisions)</TD>
+</TR>
+<TR>
+<TD class="left border-right-single primary-indent-hanging-1">Pine, fir, hemlock and spruce doors</TD>
+<TD class="left">ANSI/NWWDA I.S. 6-86.</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Sliding patio doors:</TD>
+<TD class="left"/>
+</TR>
+<TR>
+<TD class="left border-right-single primary-indent-hanging-1">Aluminum doors</TD>
+<TD class="left">ANSI/AAMA <sup>3</sup> 101-88.</TD>
+</TR>
+<TR>
+<TD class="left border-bottom-single border-right-single primary-indent-hanging-1">Wood doors</TD>
+<TD class="left border-bottom-single">NWWDA I.S. 3-83.
+</TD>
+</TR>
+</TBODY>
+<TFOOT><TR><TD colspan="2"><sup>1</sup> ANSI/SDI indicates American National Standards Institute/Steel Door Institute.
+</TD></TR><TR><TD colspan="2"><sup>2</sup> ANSI/NWWDA indicates American National Standards Institute/National Wood Window &amp; Door Association.
+</TD></TR><TR><TD colspan="2"><sup>3</sup> ANSI/AAMA indicates American National Standards Institute/American Architectural Manufacturers Association.</TD></TR></TFOOT></TABLE>
+</DIV></DIV>
+<DIV width="100%"><DIV class="gpotbl_div">
+<TABLE border="1" cellpadding="1" cellspacing="1" class="gpo_table" frame="void" width="100%">
+<CAPTION><P class="title">Caulks and sealants:</P><P class="headnote">[Standards for conformance]</P></CAPTION>
+<THEAD>
+</THEAD>
+<TBODY>
+<TR>
+<TD class="left border-right-single">Caulks and sealants:</TD>
+<TD class="left"/>
+</TR>
+<TR>
+<TD class="left border-right-single primary-indent-hanging-1">Putty</TD>
+<TD class="left">FS <sup>1</sup> TT-P-00791B, October 16, 1969 and Amendment 2, March 23, 1971.</TD>
+</TR>
+<TR>
+<TD class="left border-right-single primary-indent-hanging-1">Glazing compounds for metal sash</TD>
+<TD class="left">ASTM <sup>2</sup> C669-75 (1989).</TD>
+</TR>
+<TR>
+<TD class="left border-right-single primary-indent-hanging-1">Oil and resin base caulks</TD>
+<TD class="left">ASTM C570-72 (1989).</TD>
+</TR>
+<TR>
+<TD class="left border-right-single primary-indent-hanging-1">Acrylic (solvent types) sealants</TD>
+<TD class="left">FS TT-S-00230C, February 2, 1970 and Amendment 2, October 9, 1970.</TD>
+</TR>
+<TR>
+<TD class="left border-right-single primary-indent-hanging-1">Butyl rubber sealants</TD>
+<TD class="left">FS TT-S-001657, October 8, 1970.</TD>
+</TR>
+<TR>
+<TD class="left border-right-single primary-indent-hanging-1">Chlorosulfonated polyethylene sealants</TD>
+<TD class="left">FS TT-S-00230C, February 2, 1970 and Amendment 2, October 9, 1970.</TD>
+</TR>
+<TR>
+<TD class="left border-right-single primary-indent-hanging-1">Latex sealing compounds</TD>
+<TD class="left">ASTM C834-76 (1986).</TD>
+</TR>
+<TR>
+<TD class="left border-right-single primary-indent-hanging-1">Elastomeric joint sealants (normally considered to include polysulfide, polyurethane, and silicone)</TD>
+<TD class="left">ASTM C920-87.</TD>
+</TR>
+<TR>
+<TD class="left border-bottom-single border-right-single primary-indent-hanging-1">Preformed gaskets and sealing materials</TD>
+<TD class="left border-bottom-single">ASTM C509-84.
+</TD>
+</TR>
+</TBODY>
+<TFOOT><TR><TD colspan="2"><sup>1</sup> FS indicates Federal Specifications.
+</TD></TR><TR><TD colspan="2"><sup>2</sup> ASTM indicates American Society for Testing and Materials.</TD></TR></TFOOT></TABLE>
+</DIV></DIV>
+<DIV width="100%"><DIV class="gpotbl_div">
+<TABLE border="1" cellpadding="1" cellspacing="1" class="gpo_table" frame="void" width="100%">
+<CAPTION><P class="title">Weatherstripping</P><P class="headnote">[Standards for conformance]</P></CAPTION>
+<THEAD>
+</THEAD>
+<TBODY>
+<TR>
+<TD class="left border-right-single">Weatherstripping</TD>
+<TD class="left">Commercially available.</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Vapor retarders</TD>
+<TD class="left">Selected according to the provisions cited in ASTM <sup>1</sup> C755-85 (1990). Permeance not greater than 1 perm when determined according to the desiccant method de- scribed in ASTM E96-90.</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Items to improve attic ventilation</TD>
+<TD class="left">Commercially available.</TD>
+</TR>
+<TR>
+<TD class="left border-bottom-single border-right-single">Clock thermostats</TD>
+<TD class="left border-bottom-single">NEMA <sup>2</sup> DC 3-1989.
+</TD>
+</TR>
+</TBODY>
+<TFOOT><TR><TD colspan="2"><sup>1</sup> ASTM indicates American Society for Testing and Materials.
+</TD></TR><TR><TD colspan="2"><sup>2</sup> NEMA indicates National Electrical Manufacturers Association.</TD></TR></TFOOT></TABLE>
+</DIV></DIV>
+<DIV width="100%"><DIV class="gpotbl_div">
+<TABLE border="1" cellpadding="1" cellspacing="1" class="gpo_table" frame="void" width="100%">
+<CAPTION><P class="title">Heat Exchangers</P><P class="headnote">[Standards for conformance]</P></CAPTION>
+<THEAD>
+</THEAD>
+<TBODY>
+<TR>
+<TD class="left border-right-single">Heat exchangers, water-to-water and steam-to-water</TD>
+<TD class="left">ASME <sup>1</sup> Boiler and Pressure Vessel Code, 1992, Sections II, V, VIII, IX, and X, as applicable to pressure vessels. Standards of Tubular Exchanger Manufacturers Association, Seventh Edition, 1988.</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Heat exchangers with gas-fired appliances <sup>2</sup></TD>
+<TD class="left">Conformance to AGA <sup>3</sup> Requirements for Heat Reclaimer Devices for Use with Gas-Fired Appliances No. 1-80, June 1, 1980. AGA Laboratories Certification Seal.</TD>
+</TR>
+<TR>
+<TD class="left border-bottom-single border-right-single">Heat pump water heating heat recovery systems</TD>
+<TD class="left border-bottom-single">Electrical components to be listed by UL. <sup>4</sup>
+</TD>
+</TR>
+</TBODY>
+<TFOOT><TR><TD colspan="2"><sup>1</sup> ASME indicates American Society of Mechanical Engineers.
+</TD></TR><TR><TD colspan="2"><sup>2</sup> The heat reclaimer is for installation in a section of the vent connector from appliances equipped with draft hoods or appliances equipped with powered burners or induced draft and not equipped with a draft hood.
+</TD></TR><TR><TD colspan="2"><sup>3</sup> AGA indicates American Gas Association.
+</TD></TR><TR><TD colspan="2"><sup>4</sup> UL indicates Underwriters Laboratories.</TD></TR></TFOOT></TABLE>
+</DIV></DIV>
+<DIV width="100%"><DIV class="gpotbl_div">
+<TABLE border="1" cellpadding="1" cellspacing="1" class="gpo_table" frame="void" width="100%">
+<CAPTION><P class="title">Boiler/Furnace Control Systems</P><P class="headnote">[Standards for conformance]</P></CAPTION>
+<THEAD>
+</THEAD>
+<TBODY>
+<TR>
+<TD class="left border-right-single">Automatic set back thermostats</TD>
+<TD class="left">Listed by UL. <sup>1</sup> Conformance to NEMA <sup>2</sup> DC 3-1989.</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Line voltage or low voltage room thermostats</TD>
+<TD class="left">NEMA DC 3-1989.</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Automatic gas ignition systems</TD>
+<TD class="left">ANSI <sup>3</sup> Z21.21-1987 and Z21.21a-1989. AGA <sup>4</sup> Laboratories Certification Seal.</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Energy management systems</TD>
+<TD class="left">Listed by UL.</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Hydronic boiler controls</TD>
+<TD class="left">Listed by UL.</TD>
+</TR>
+<TR>
+<TD class="left border-bottom-single border-right-single">Other burner controls</TD>
+<TD class="left border-bottom-single">Listed by UL.
+</TD>
+</TR>
+</TBODY>
+<TFOOT><TR><TD colspan="2"><sup>1</sup> UL indicates Underwriters Laboratories.
+</TD></TR><TR><TD colspan="2"><sup>2</sup> NEMA indicates National Electrical Manufacturers Association.
+</TD></TR><TR><TD colspan="2"><sup>3</sup> ANSI indicates American National Standards Institute.
+</TD></TR><TR><TD colspan="2"><sup>4</sup> AGA indicates American Gas Association.</TD></TR></TFOOT></TABLE>
+</DIV></DIV>
+<DIV width="100%"><DIV class="gpotbl_div">
+<TABLE border="1" cellpadding="1" cellspacing="1" class="gpo_table" frame="void" width="100%">
+<CAPTION><P class="title">Water Heater Modifications</P><P class="headnote">[Standards for conformance]</P></CAPTION>
+<THEAD>
+</THEAD>
+<TBODY>
+<TR>
+<TD class="left border-right-single">Insulate tank and distribution piping</TD>
+<TD class="left">(See insulation section of this appendix).</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Install heat traps on inlet and outlet piping</TD>
+<TD class="left">Applicable local plumbing code.</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Install/replace water heater heating elements</TD>
+<TD class="left">Listed by UL. <sup>1</sup></TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Electric, freeze-prevention tape for pipes</TD>
+<TD class="left">Listed by UL.</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Reduce thermostat settings</TD>
+<TD class="left">State or local recommendations.</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Install stack damper, gas-fueled</TD>
+<TD class="left">ANS1 <sup>2</sup> Z21.66-1988, including Exhibits A&amp;B, and ANSI Z223.1-1988.</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Install stack damper, oil-fueled</TD>
+<TD class="left">UL 17, November 28, 1988, and NFPA <sup>3</sup> 31-1987.</TD>
+</TR>
+<TR>
+<TD class="left border-bottom-single border-right-single">Install water flow modifiers</TD>
+<TD class="left border-bottom-single">Commercially available.
+</TD>
+</TR>
+</TBODY>
+<TFOOT><TR><TD colspan="2"><sup>1</sup> UL indicates Underwriters Laboratories.
+</TD></TR><TR><TD colspan="2"><sup>2</sup> ANSI indicates American National Standards Institute.
+</TD></TR><TR><TD colspan="2"><sup>3</sup> NFPA indicates National Fire Prevention Association.</TD></TR></TFOOT></TABLE>
+</DIV></DIV>
+<DIV width="100%"><DIV class="gpotbl_div">
+<TABLE border="1" cellpadding="1" cellspacing="1" class="gpo_table" frame="void" width="100%">
+<CAPTION><P class="title">Waste Heat Recovery Devices</P><P class="headnote">[Standards for conformance]</P></CAPTION>
+<THEAD>
+</THEAD>
+<TBODY>
+<TR>
+<TD class="left border-right-single">Desuperheater/water heaters</TD>
+<TD class="left">ARI <sup>1</sup> 470-1987.</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Condensing heat exchangers</TD>
+<TD class="left">Commercially available components and in new heating furnace systems to manufacturers' specifications.</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Condensing heat exchangers</TD>
+<TD class="left">Commercially available (Commercial, multi-story building, with teflon-lined tubes institutional) to manufacturers' specifications.</TD>
+</TR>
+<TR>
+<TD class="left border-bottom-single border-right-single">Energy recovery equipment</TD>
+<TD class="left border-bottom-single">Energy Recovery Equipment and Systems Air-to-Air (1978) Sheet Metal and Air-Conditioning Contractors National Association (SMACNA). <sup>2</sup>
+</TD>
+</TR>
+</TBODY>
+<TFOOT><TR><TD colspan="2"><sup>1</sup> ARI indicates Air Conditioning and Refrigeration Institute.
+</TD></TR><TR><TD colspan="2"><sup>2</sup> SMACNA denotes Sheet Metal and Air Conditioning Contractors' National Association.</TD></TR></TFOOT></TABLE>
+</DIV></DIV>
+<DIV width="100%"><DIV class="gpotbl_div">
+<TABLE border="1" cellpadding="1" cellspacing="1" class="gpo_table" frame="void" width="100%">
+<CAPTION><P class="title">Boiler Repair and Modifications/Efficiency Improvements</P><P class="headnote">[Standards for conformance]</P></CAPTION>
+<THEAD>
+</THEAD>
+<TBODY>
+<TR>
+<TD class="left border-right-single">Install gas conversion burners</TD>
+<TD class="left">ANSI <sup>1</sup> Z21.8-1984, (for gas or oil-fired systems) ANSI Z21.17-1984, ANSI Z21.17a-1990, and ANSI Z223.1-1988. AGA <sup>2</sup> Laboratories Certification seal.</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Replace oil burner</TD>
+<TD class="left">UL <sup>3</sup> 296, February 28, 1989 Revision and NFPA <sup>4</sup> 31-1987.</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Install burners (oil/gas)</TD>
+<TD class="left">ANSI Z223.1-1988 for gas equipment and NFPA 31-1987 for oil equipment.</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Re-adjust boiler water temperature or install automatic boiler temperature reset control</TD>
+<TD class="left">ASME <sup>5</sup> CSD-1-1988, ASME CSD-1a-1989, ANSI Z223.1-1988, and NFPA 31-1987.</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Replace/modify boilers</TD>
+<TD class="left">ASME Boiler and Pressure Vessel Code, 1992, Sections II, IV, V, VI, VIII, IX, and X. Boilers must be Institute of Boilers and Radiation Manufacturers (IBR) equipment.</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Clean heat exchanger, adjust burner air shutter(s), check smoke no. on oil-fueled equipment. Check operation of pump(s) and replacement filters</TD>
+<TD class="left">Per manufacturers' instructions.</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Repair combustion chambers</TD>
+<TD class="left">Refractory linings may be required for conversions.</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Replace heat exchangers, tubes</TD>
+<TD class="left">Protection from flame contact with conversion burners by refractory shield.</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Install/replace thermostatic radiator valves</TD>
+<TD class="left">Commercially available. One pipe steam systems require air vents on each radiator; see manufacturers' requirements.</TD>
+</TR>
+<TR>
+<TD class="left border-bottom-single border-right-single">Install boiler duty cycle control system</TD>
+<TD class="left border-bottom-single">Commercially available. NFPA 70, National Electrical Code (NEC) 1993 and local electrical codes provisions for wiring.
+</TD>
+</TR>
+</TBODY>
+<TFOOT><TR><TD colspan="2"><sup>1</sup> ANSI indicates American National Standards Institute.
+</TD></TR><TR><TD colspan="2"><sup>2</sup> AGA indicates American Gas Association.
+</TD></TR><TR><TD colspan="2"><sup>3</sup> UL indicates Underwriters Laboratories.
+</TD></TR><TR><TD colspan="2"><sup>4</sup> NFPA indicates National Fire Prevention Association.
+</TD></TR><TR><TD colspan="2"><sup>5</sup> ANSI/ASME indicates American National Standards Institute/American Society of Mechanical Engineers.</TD></TR></TFOOT></TABLE>
+</DIV></DIV>
+<DIV width="100%"><DIV class="gpotbl_div">
+<TABLE border="1" cellpadding="1" cellspacing="1" class="gpo_table" frame="void" width="100%">
+<CAPTION><P class="title">Heating and Cooling System Repairs and Tune-ups/Efficiency Improvements</P><P class="headnote">[Standards for conformance]</P></CAPTION>
+<THEAD>
+</THEAD>
+<TBODY>
+<TR>
+<TD class="left border-right-single">Install duct insulation</TD>
+<TD class="left">FS <sup>1</sup> HH-I-558C, January 7, 1992 (see insulation sections of this appendix).</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Reduce input of burner; derate gas-fueled equipment</TD>
+<TD class="left">Local utility company and procedures if applicable for gas-fueled furnaces and ANSI <sup>2</sup> Z223.1-1988 (NFPA <sup>3</sup> 54-1988) including appendix H.</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Repair/replace oil-fired equipment</TD>
+<TD class="left">NFPA 31-1987.</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Replace combustion chamber in oil-fired furnaces or boilers</TD>
+<TD class="left">NFPA 31-1987.</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Clean heat exchanger and adjust burner: adjust air shutter and check CO<sub>2</sub> and stack temperature. Clean or replace air filter on forced air furnace</TD>
+<TD class="left">ANSI Z223.1-1988 (NFPA 54-1988) including appendix H.</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Install vent dampers for gas-fueled heating systems</TD>
+<TD class="left">Applicable sections of ANSI Z223.1-1988 (NFPA 54-1988) including appendices H, I, J, and K. ANSI Z21.66-1988 and exhibits A &amp; B for electrically operated dampers.</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Install vent dampers for oil-fueled heating systems</TD>
+<TD class="left">Applicable sections of NFPA 31-1987 for installation and in conformance with UL <sup>4</sup> 17, November 28, 1988.</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Reduce excess combustion air:</TD>
+<TD class="left"/>
+</TR>
+<TR>
+<TD class="left border-right-single primary-indent-hanging-1">A: Reduce vent connector size of gas-fueled appliances</TD>
+<TD class="left">ANSI Z223.1-1988 (NFPA 54-1988) part 9 and appendices G &amp; H.</TD>
+</TR>
+<TR>
+<TD class="left border-right-single primary-indent-hanging-1">B: Adjust barometric draft regulator for oil fuels</TD>
+<TD class="left">NFPA 31-1987 and per manufacturers' (furnace or boiler) instructions.</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Replace constant burning pilot with electric ignition device on gas-fueled furnaces or boilers</TD>
+<TD class="left">ANSI Z21.71-1981, Z21.71a-1985, and Z21.71b-1989.</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Readjust fan switch on forced air gas or oil-fueled furnaces</TD>
+<TD class="left">Applicable sections and appendix H of ANSI Z223.1-1988 (NFPA 54-1988) for gas furnaces and NFPA 31-1987 for oil furnaces.</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Replace burners</TD>
+<TD class="left">See power burners (oil/gas).</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Install/replace duct furnaces (gas)</TD>
+<TD class="left">ANSI Z223.1-1988 (NFPA 54-1988).</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Install/replace heat pumps</TD>
+<TD class="left">Listed by UL.</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Replace air diffusers, intakes, registers, and grilles</TD>
+<TD class="left">Commercially available.</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Install/replace warm air heating metal ducts</TD>
+<TD class="left">Commercially available.</TD>
+</TR>
+<TR>
+<TD class="left border-bottom-single border-right-single">Filter alarm units</TD>
+<TD class="left border-bottom-single">Commercially available.
+</TD>
+</TR>
+</TBODY>
+<TFOOT><TR><TD colspan="2"><sup>1</sup> FS indicates Federal Specifications.
+</TD></TR><TR><TD colspan="2"><sup>2</sup> ANSI indicates American National Standards Institute.
+</TD></TR><TR><TD colspan="2"><sup>3</sup> NFPA indicates National Fire Prevention Association.
+</TD></TR><TR><TD colspan="2"><sup>4</sup> UL indicates Underwriters Laboratories.</TD></TR></TFOOT></TABLE>
+</DIV></DIV>
+<DIV width="100%"><DIV class="gpotbl_div">
+<TABLE border="1" cellpadding="1" cellspacing="1" class="gpo_table" frame="void" width="100%">
+<CAPTION><P class="title">Replacement Furnaces, Boilers, and Wood Stoves</P><P class="headnote">[Standards for conformance]</P></CAPTION>
+<THEAD>
+</THEAD>
+<TBODY>
+<TR>
+<TD class="left border-right-single">Chimneys, fireplaces, vents and solid fuel burning appliances</TD>
+<TD class="left">NFPA <sup>1</sup> 211-1988.</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Gas-fired furnaces</TD>
+<TD class="left">ANS1 <sup>2</sup> Z21.47-1987, Z21.47a-1988, and Z21.47b-1989. ANSI Z223.1-1988 (NFPA 54-1988).</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Oil-fired furnaces</TD>
+<TD class="left">UL <sup>3</sup> 727, August 27, 1991 Revision and NFPA 31-1987.</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Liquified petroleum gas storage</TD>
+<TD class="left">NFPA 58-1989.</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Ventilation fans:</TD>
+<TD class="left"/>
+</TR>
+<TR>
+<TD class="left border-bottom-single border-right-single primary-indent-hanging-1">Including electric attic, ceiling, and whole house fans</TD>
+<TD class="left border-bottom-single">UL 507, August 23, 1990 Revision.
+</TD>
+</TR>
+</TBODY>
+<TFOOT><TR><TD colspan="2"><sup>1</sup> NFPA indicates National Fire Prevention Association.
+</TD></TR><TR><TD colspan="2"><sup>2</sup> ANSI indicates American National Standards Institute.
+</TD></TR><TR><TD colspan="2"><sup>3</sup> UL indicates Underwriters Laboratories.</TD></TR></TFOOT></TABLE>
+</DIV></DIV>
+<DIV width="100%"><DIV class="gpotbl_div">
+<TABLE border="1" cellpadding="1" cellspacing="1" class="gpo_table" frame="void" width="100%">
+<CAPTION><P class="title">Air Conditioners and Cooling Equipment</P><P class="headnote">[Standards for conformance]</P></CAPTION>
+<THEAD>
+</THEAD>
+<TBODY>
+<TR>
+<TD class="left border-right-single">Air conditioners:</TD>
+<TD class="left"/>
+</TR>
+<TR>
+<TD class="left border-right-single primary-indent-hanging-1">Central air conditioners</TD>
+<TD class="left">ARI <sup>1</sup> 210/240-1989.</TD>
+</TR>
+<TR>
+<TD class="left border-right-single primary-indent-hanging-1">Room size units</TD>
+<TD class="left">ANSI/AHAM <sup>2</sup> RAC-1-1982.</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Other cooling equipment:</TD>
+<TD class="left"/>
+</TR>
+<TR>
+<TD class="left border-bottom-single border-right-single primary-indent-hanging-1">Including evaporative coolers, heat pumps and other equipment</TD>
+<TD class="left border-bottom-single">UL <sup>3</sup> 1995, November 30, 1990. <sup>4</sup>
+</TD>
+</TR>
+</TBODY>
+<TFOOT><TR><TD colspan="2"><sup>1</sup> ARI indicates Air Conditioning and Refrigeration Institute.
+</TD></TR><TR><TD colspan="2"><sup>2</sup> AHAM/ANSI indicates American Home Appliance Manufacturers/American National Standards Institute.
+</TD></TR><TR><TD colspan="2"><sup>3</sup> UL indicates Underwriters Laboratories.
+</TD></TR><TR><TD colspan="2"><sup>4</sup> This standard is a general standard covering many different types of heating and cooling equipment.</TD></TR></TFOOT></TABLE>
+</DIV></DIV>
+<DIV width="100%"><DIV class="gpotbl_div">
+<TABLE border="1" cellpadding="1" cellspacing="1" class="gpo_table" frame="void" width="100%">
+<CAPTION><P class="title">Screens, Window Films, and Reflective Materials</P><P class="headnote">[Standards for conformance]</P></CAPTION>
+<THEAD>
+</THEAD>
+<TBODY>
+<TR>
+<TD class="left border-right-single">Insect screens</TD>
+<TD class="left">Commercially available.</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Window films</TD>
+<TD class="left">Commercially available.</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Shade screens:</TD>
+<TD class="left"/>
+</TR>
+<TR>
+<TD class="left border-right-single primary-indent-hanging-1">Fiberglass shade screens</TD>
+<TD class="left">Commercially available.</TD>
+</TR>
+<TR>
+<TD class="left border-right-single primary-indent-hanging-1">Polyester shade screens</TD>
+<TD class="left">Commercially available.</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Rigid awnings:</TD>
+<TD class="left"/>
+</TR>
+<TR>
+<TD class="left border-right-single primary-indent-hanging-1">Wood rigid awnings</TD>
+<TD class="left">Commercially available.</TD>
+</TR>
+<TR>
+<TD class="left border-right-single primary-indent-hanging-1">Metal rigid awnings</TD>
+<TD class="left">Commercially available.</TD>
+</TR>
+<TR>
+<TD class="left border-right-single">Louver systems:</TD>
+<TD class="left"/>
+</TR>
+<TR>
+<TD class="left border-right-single primary-indent-hanging-1">Wood louver systems</TD>
+<TD class="left">Commercially available.</TD>
+</TR>
+<TR>
+<TD class="left border-right-single primary-indent-hanging-1">Metal louver systems</TD>
+<TD class="left">Commercially available.</TD>
+</TR>
+<TR>
+<TD class="left border-bottom-single border-right-single">Industrial-grade white paint used as a heat-reflective measure on awnings, window louvers, doors, and exterior duct work (exposed)</TD>
+<TD class="left border-bottom-single">Commercially available.</TD>
+</TR>
+</TBODY>
+</TABLE>
+</DIV></DIV>
+<CITA TYPE="N">[58 FR 12529, Mar. 4, 1993, as amended at 69 FR 18803, Apr. 9, 2004]
+</CITA>
+</DIV9>
+
+</DIV5>

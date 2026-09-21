@@ -1,0 +1,21 @@
+{
+  "id": "cdctc-ty2025",
+  "program": "cdctc",
+  "label": "Child and Dependent Care Credit, tax year 2025",
+  "taxYear": 2025,
+  "effectiveFrom": "2025-01-01",
+  "effectiveTo": "2025-12-31",
+  "status": "complete",
+  "source": "https://www.irs.gov/taxtopics/tc602",
+  "sourceCitation": "IRC 21. The expense caps and the rate schedule are statutory and are not adjusted for inflation.",
+  "readOn": "2026-09-21",
+  "expenseCapOne": 3000,
+  "expenseCapTwoOrMore": 6000,
+  "maxRate": 0.35,
+  "minRate": 0.2,
+  "rateFloorAgi": 15000,
+  "rateStepAgi": 2000,
+  "rateStep": 0.01,
+  "minRateAgi": 43000,
+  "note": "35 percent of qualifying expenses at an income of $15,000 or below, falling by one percentage point for each $2,000 of income above that, down to 20 percent at $43,000."
+}

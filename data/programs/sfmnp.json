@@ -1,0 +1,27 @@
+{
+  "id": "sfmnp",
+  "name": "Senior Farmers' Market Nutrition Program",
+  "shortName": "Senior Farmers' Market",
+  "administeredBy": "USDA, through state and tribal agencies",
+  "applyUrl": "https://www.fna.usda.gov/sfmnp/senior-farmers-market-nutrition-program",
+  "ruleType": "fpgThreshold",
+  "thresholdFamily": "sfmnp",
+  "valueBasis": "Seasonal coupons for fresh produce at farmers' markets.",
+  "criteria": [
+    {
+      "id": "sfmnp.member_60_plus",
+      "scope": "member",
+      "type": "noul",
+      "instructions": "Is this household member aged 60 or older? This programme defines a senior as 60 or over.",
+      "askIfUnsure": "Is this person 60 or older?",
+      "criteria": {
+        "true": "yes, 60 or older",
+        "false": "no"
+      }
+    }
+  ],
+  "computed": [
+    "sfmnp.income_test"
+  ],
+  "verdict": "member_60_plus AND income_test"
+}

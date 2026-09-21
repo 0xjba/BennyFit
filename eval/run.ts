@@ -34,7 +34,15 @@ const PROGRAMS = [
   'medicare_savings',
   'extra_help',
   'medicaid',
+  'chip',
   'state_eitc',
+  'cdctc',
+  'va_pension',
+  'summer_ebt',
+  'sfmnp',
+  'cacfp',
+  'fdpir',
+  'wap',
 ] as const;
 
 function loadGold(): GoldHousehold[] {
@@ -237,8 +245,23 @@ async function main() {
     }
   }
 
+  // A perfect score is not a good result, it is a broken test. The fixture reads the
+  // same household facts the oracle answers from, so when every program scores 100%
+  // the harness is measuring that two halves of the test agree with each other rather
+  // than measuring anything about a decision model. Say so rather than publish it.
+  const perfect = Object.values(summary.balancedAccuracyByProgram).filter((v) => v >= 0.999);
+  const circular =
+    engine.isFixture && perfect.length >= Object.keys(summary.balancedAccuracyByProgram).length - 1;
+
   const results = {
     runAt: new Date().toISOString(),
+    circular,
+    circularNote: circular
+      ? 'Every program scored at or near 100% against the local fixture. The fixture and ' +
+        'the answers it is scored against are both derived from the same stored household ' +
+        'facts, so this measures the harness agreeing with itself, not accuracy. These ' +
+        'figures must not be published until a real engine has been run.'
+      : null,
     engine: engine.name,
     isFixture: engine.isFixture,
     tau,
@@ -272,6 +295,13 @@ async function main() {
     console.log(
       '\nThese numbers come from the local fixture, not from a decision model. They ' +
         'show the harness works; they measure nothing about a model.'
+    );
+  }
+  if (circular) {
+    console.log(
+      '\nWARNING: every program scored at or near 100%. The fixture answers from the same ' +
+        'household facts the scoring uses, so this is the test agreeing with itself. Do not ' +
+        'publish these figures.'
     );
   }
 }

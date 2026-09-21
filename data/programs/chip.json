@@ -1,0 +1,41 @@
+{
+  "id": "chip",
+  "name": "CHIP children's health coverage",
+  "shortName": "CHIP",
+  "administeredBy": "State agencies, with federal funding",
+  "applyUrl": "https://www.healthcare.gov/medicaid-chip/childrens-health-insurance-program/",
+  "ruleType": "fpgThreshold",
+  "thresholdFamily": "chip",
+  "valueBasis": "Low-cost health coverage for children. Not a payment, so no dollar figure is estimated.",
+  "criteria": [
+    {
+      "id": "chip.has_child",
+      "scope": "household",
+      "type": "noul",
+      "instructions": "Does the household include a child under 19?",
+      "askIfUnsure": "Do you have children under 19?",
+      "criteria": {
+        "true": "yes",
+        "false": "no"
+      }
+    },
+    {
+      "id": "chip.child_uninsured",
+      "scope": "household",
+      "type": "noul",
+      "instructions": "Is any child in the household without health coverage? CHIP is for children who are not already covered.",
+      "askIfUnsure": "Are your children without health insurance?",
+      "criteria": {
+        "true": "yes",
+        "false": "no"
+      },
+      "presumption": "true",
+      "assumption": "the children are not already covered by other insurance",
+      "assumptionStrength": "material"
+    }
+  ],
+  "computed": [
+    "chip.income_test"
+  ],
+  "verdict": "has_child AND child_uninsured AND income_test"
+}

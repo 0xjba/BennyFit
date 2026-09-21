@@ -41,13 +41,17 @@ import {
   fpgAnnual,
   fpgThresholdEligibility,
   medicareSavingsEligibility,
+  dependentCareCredit,
+  veteransPension,
 } from '@/lib/compute-programs';
 import {
+  cdctcThresholdsFor,
   ctcThresholdsFor,
   fpgProgramConfig,
   medicareThresholdsFor,
   povertyGuidelines,
   stateRulesFor,
+  vaPensionThresholdsFor,
 } from '@/lib/thresholds';
 
 const AS_OF = '2026-09-21';
@@ -77,6 +81,7 @@ export interface GoldFacts {
   filingStatus: FilingStatus;
   claimantAge: number;
   childAges: number[];
+  wartimeVeteran: boolean;
   investmentIncome: number;
   lifelinePrograms: string[];
   onTribalLands: boolean;
@@ -266,6 +271,42 @@ function truthFor(f: GoldFacts): {
     annualValueCents: stateCredit > 0 ? stateCredit : null,
   };
 
+  const schoolAge = f.childAges.some((a) => a >= 5 && a <= 18);
+  const sfmnp = fpgResult('sfmnp', f.claimantAge >= 60, 'someone aged 60 or over');
+  const cacfp = fpgResult('cacfp', f.dependentCareMonthly > 0, 'someone in care');
+  const wap = fpgResult('wap', !f.allMembersHomeless, 'lives in a home');
+  const summerEbt = fpgResult('summer_ebt', schoolAge, 'a school-age child');
+  const fdpirR = fpgResult('fdpir', f.onTribalLands, 'lives on or near a reservation');
+  const chip = fpgResult('chip', f.childAges.length > 0, 'a child under 19');
+
+  const vaPension = veteransPension(
+    {
+      dependents: Math.max(0, f.householdSize - 1),
+      annualIncomeCents: annualIncome,
+      netWorthCents: dollars(f.savings),
+      annualMedicalCents: dollars(f.medicalMonthly * 12),
+      careLevel: 'neither',
+    },
+    vaPensionThresholdsFor(AS_OF)
+  );
+  const vaResult = {
+    eligible: f.wartimeVeteran && vaPension.eligible,
+    annualValueCents: f.wartimeVeteran ? vaPension.annualValueCents : null,
+  };
+
+  const cdctc = dependentCareCredit(
+    {
+      annualCareExpensesCents: dollars(f.dependentCareMonthly * 12),
+      qualifyingPeople: f.childAges.length,
+      agiAnnualCents: annualIncome,
+    },
+    cdctcThresholdsFor(AS_OF)
+  );
+  const cdctcResult = {
+    eligible: f.dependentCareMonthly > 0 && cdctc.eligible,
+    annualValueCents: f.dependentCareMonthly > 0 ? cdctc.annualValueCents : null,
+  };
+
   const extra: Record<string, { eligible: boolean; annualValueCents: number | null }> = {
     ctc,
     wic,
@@ -277,6 +318,14 @@ function truthFor(f: GoldFacts): {
     extra_help: extraHelp,
     medicaid,
     state_eitc: stateEitc,
+    chip,
+    sfmnp,
+    cacfp,
+    wap,
+    summer_ebt: summerEbt,
+    fdpir: fdpirR,
+    va_pension: vaResult,
+    cdctc: cdctcResult,
   };
 
   const truth: GoldHousehold['truth'] = {
@@ -429,6 +478,7 @@ function renderParagraph(f: GoldFacts, o: RenderOptions = {}): string {
     );
   }
   if (f.onTribalLands) parts.push('We live on tribal land');
+  if (f.wartimeVeteran) parts.push(pick(['I served in the Army during wartime', 'I am a veteran', 'I served in the military years ago']));
 
   return parts.map((p, i) => (i === 0 ? p : p)).join('. ').replace(/\.\./g, '.') + '.';
 }
@@ -456,6 +506,7 @@ function baseFacts(): GoldFacts {
     filingStatus: 'other',
     claimantAge: 35,
     childAges: [],
+    wartimeVeteran: false,
     investmentIncome: 0,
     lifelinePrograms: [],
     onTribalLands: false,
@@ -486,6 +537,9 @@ function elderlyOnFixedIncome(): GoldFacts {
   f.state = pick(STATES);
   f.claimantAge = between(62, 84);
   f.hasElderlyOrDisabled = true;
+  // About a fifth of older households here are wartime veterans, which is the only
+  // route into the pension.
+  f.wartimeVeteran = rand() < 0.2;
   f.unearnedMonthly = between(850, 1450, 25);
   f.rentMonthly = between(500, 900, 25);
   f.utilitiesMonthly = rand() < 0.7 ? between(70, 190, 10) : 0;

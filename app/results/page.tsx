@@ -23,6 +23,16 @@ const LABELS: Record<string, string> = {
   head_start: 'Head Start',
   medicare_savings: 'Medicare Savings Programs',
   extra_help: 'Extra Help with drug costs',
+  medicaid: 'Medicaid',
+  chip: 'CHIP',
+  state_eitc: 'State earned income credit',
+  cdctc: 'Child and Dependent Care Credit',
+  va_pension: 'Veterans Pension',
+  summer_ebt: 'Summer EBT',
+  sfmnp: "Senior Farmers' Market",
+  cacfp: 'CACFP',
+  fdpir: 'FDPIR',
+  wap: 'Weatherization',
 };
 
 function percent(value: number): string {
@@ -51,17 +61,27 @@ export default function Results() {
         </div>
       </section>
 
-      {results?.isFixture && (
+      {results?.circular ? (
+        <section className="shell-narrow" style={{ marginBottom: 20 }}>
+          <div className="notice">
+            <strong>This run scored itself, so there is no accuracy figure yet.</strong>{' '}
+            Every program came out at or near 100%, which is not a good result — it is a
+            broken test. The preview build answers from the same stored household facts
+            that the scoring compares against, so the two halves of the test agree with
+            each other and measure nothing about a decision model. The harness detects
+            this and refuses to publish the numbers. Real figures follow the first run
+            against the live service.
+          </div>
+        </section>
+      ) : results?.isFixture ? (
         <section className="shell-narrow" style={{ marginBottom: 20 }}>
           <div className="notice">
             <strong>These figures are from a preview build.</strong> They were produced by
-            a local test harness rather than the live service, and that harness was tuned
-            while looking at the cases it got wrong — which flatters it. They show the
-            measurement process works. They are not yet a measurement of the product, and
-            they will be replaced by figures from a production run.
+            a local test harness rather than the live service. They show the measurement
+            process works. They are not yet a measurement of the product.
           </div>
         </section>
-      )}
+      ) : null}
 
       <section className="band" style={{ paddingTop: 48 }}>
         <div className="shell-narrow">
@@ -76,7 +96,7 @@ export default function Results() {
             fact that decides the outcome, and households phrased awkwardly on purpose.
           </p>
 
-          {results && (
+          {results && !results.circular && (
             <ul className="steps" style={{ marginTop: 26 }}>
               {Object.entries(results.balancedAccuracyByProgram).map(([program, value]) => (
                 <li key={program}>
@@ -120,9 +140,11 @@ export default function Results() {
             </ul>
           )}
 
-          {!results && (
+          {(!results || results.circular) && (
             <p style={{ color: 'var(--ink-2)', marginTop: 20 }}>
-              No validation run has been recorded yet.
+              {results?.circular
+                ? 'Per-program figures are withheld until a run against the live service produces them.'
+                : 'No validation run has been recorded yet.'}
             </p>
           )}
         </div>

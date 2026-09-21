@@ -1,0 +1,27 @@
+{
+  "id": "summer_ebt",
+  "name": "Summer EBT (SUN Bucks)",
+  "shortName": "Summer EBT",
+  "administeredBy": "USDA, through participating states and tribes",
+  "applyUrl": "https://www.fna.usda.gov/sun-bucks",
+  "ruleType": "fpgThreshold",
+  "thresholdFamily": "summer_ebt",
+  "valueBasis": "$120 for each eligible child per summer, to replace school meals during the break.",
+  "criteria": [
+    {
+      "id": "summer_ebt.school_age_child",
+      "scope": "household",
+      "type": "noul",
+      "instructions": "Does the household include a school-age child, roughly 5 to 18?",
+      "askIfUnsure": "Do you have children of school age?",
+      "criteria": {
+        "true": "yes",
+        "false": "no"
+      }
+    }
+  ],
+  "computed": [
+    "summer_ebt.income_test"
+  ],
+  "verdict": "school_age_child AND income_test"
+}

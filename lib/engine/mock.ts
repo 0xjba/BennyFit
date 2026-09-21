@@ -140,6 +140,25 @@ const CUES: Record<string, { true?: string[]; false?: string[]; options?: Record
   'extra_help.on_medicare': { true: ['medicare'], false: [] },
   'ctc.child_under_17': { true: [], false: [] },
   'ctc.child_ssn': { true: [], false: [] },
+
+  'medicaid.already_enrolled': { true: ['medicaid'], false: [] },
+  'state_eitc.files_state_return': { true: [], false: [] },
+  'sfmnp.member_60_plus': { true: [], false: [] },
+  'cacfp.in_care': { true: ['daycare', 'child care', 'childcare', 'head start', 'adult day'], false: [] },
+  'wap.has_home': { true: ['rent', 'mortgage', 'apartment', 'house'], false: ['homeless', 'shelter'] },
+  'summer_ebt.school_age_child': { true: ['school', 'kindergarten', 'grade'], false: [] },
+  'fdpir.near_reservation': { true: ['reservation', 'tribal'], false: [] },
+  'chip.has_child': { true: ['kids', 'children', 'my son', 'my daughter', 'my child'], false: [] },
+  'chip.child_uninsured': { true: [], false: ['insured', 'have coverage'] },
+  'va_pension.wartime_veteran': { true: ['veteran', 'served in', 'military', 'army', 'navy', 'marines', 'air force'], false: [] },
+  'va_pension.care_level': {
+    options: {
+      aid_and_attendance: ['need help with', 'aid and attendance', 'caregiver'],
+      housebound: ['housebound', 'cannot leave', "can't leave"],
+      neither: [],
+    },
+  },
+  'cdctc.care_to_work': { true: ['daycare', 'child care', 'childcare', 'babysitter', 'after school'], false: [] },
 };
 
 /** A stable hash, so the same state and criterion always produce the same answer. */
@@ -267,11 +286,13 @@ function answerFor(state: string, id: string, options: string[]): EngineAnswer {
       case 'head_start.child_under_5':
         return youngest === null ? null : ['true', youngest < 5];
       case 'csfp.member_60_plus':
+      case 'sfmnp.member_60_plus':
         return oldest === null ? null : ['true', oldest >= 60];
       case 'medicare_savings.on_medicare':
       case 'extra_help.on_medicare':
         return oldest === null ? null : ['true', oldest >= 65];
       case 'school_meals.children_in_school':
+      case 'summer_ebt.school_age_child':
         return ages.length === 0 ? null : ['true', ages.some((a) => a >= 5 && a <= 18)];
       case 'ctc.child_under_17':
         return youngest === null ? null : ['true', youngest < 17];

@@ -183,6 +183,8 @@ export interface StepOptions {
   asOf?: string;
   tau?: number;
   maxQuestions?: number;
+  /** Questions already put and declined, which must not be offered again. */
+  skipped?: string[];
 }
 
 /**
@@ -214,7 +216,9 @@ export async function screenStep(
   const answers = response.answers;
   const verdicts = evaluate(state, answers);
 
-  const asked = new Set(replies.map((r) => r.instanceId));
+  // Both answered and declined questions are out: offering a skipped one again would
+  // stall the loop on the first thing the household did not want to answer.
+  const asked = new Set([...replies.map((r) => r.instanceId), ...(options.skipped ?? [])]);
   const next =
     replies.length >= maxQuestions
       ? null
@@ -283,13 +287,16 @@ export async function screen(paragraph: string, options: ScreenOptions): Promise
     const question = candidate.criterion.askIfUnsure;
     const reply = await options.askUser(question, candidate.criterion);
 
-    // A skipped question is still a question that was put, and must not be put again.
+    // A declined question is still a question that was put. The loop moves on to the
+    // next one worth asking rather than stopping at the first refusal.
     if (reply === null) {
       skipped.add(candidate.criterion.instanceId);
-      const remaining = { ...options, tau, maxQuestions };
-      step = await screenStep(paragraph, [...replies], remaining);
-      // Selection would offer the same criterion again, so stop rather than loop.
-      if (step.next && skipped.has(step.next.criterion.instanceId)) break;
+      step = await screenStep(paragraph, [...replies], {
+        ...options,
+        tau,
+        maxQuestions,
+        skipped: [...skipped],
+      });
       continue;
     }
 
@@ -304,7 +311,12 @@ export async function screen(paragraph: string, options: ScreenOptions): Promise
       confidenceBefore: candidate.confidence,
     });
 
-    step = await screenStep(paragraph, replies, { ...options, tau, maxQuestions });
+    step = await screenStep(paragraph, replies, {
+      ...options,
+      tau,
+      maxQuestions,
+      skipped: [...skipped],
+    });
     recordPass();
   }
 

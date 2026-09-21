@@ -194,6 +194,44 @@ export function oracleReply(instanceId: string, f: GoldFacts): string | null {
     case 'lifeline.one_per_household':
       return 'No, nobody here has that already.';
 
+    case 'va_pension.wartime_veteran':
+      return f.wartimeVeteran
+        ? 'Yes, I served during wartime.'
+        : 'No, nobody here served in the military.';
+
+    case 'va_pension.care_level':
+      return 'Neither of those applies to me.';
+
+    case 'cdctc.care_to_work':
+    case 'cacfp.in_care':
+      return f.dependentCareMonthly > 0
+        ? `Yes, $${Math.round(f.dependentCareMonthly)} a month for care so I can work.`
+        : 'No, I do not pay for any care.';
+
+    case 'wap.has_home':
+      return f.allMembersHomeless ? 'No, we do not have a place right now.' : 'Yes, we rent.';
+
+    case 'summer_ebt.school_age_child':
+    case 'chip.has_child':
+      return f.childAges.length > 0
+        ? `Yes, they are aged ${f.childAges.join(' and ')}.`
+        : 'No, there are no children here.';
+
+    case 'chip.child_uninsured':
+      return f.childAges.length > 0 ? 'They do not have any coverage at the moment.' : null;
+
+    case 'fdpir.near_reservation':
+      return f.onTribalLands ? 'Yes, we live on tribal land.' : 'No, not near a reservation.';
+
+    case 'sfmnp.member_60_plus':
+      return f.claimantAge >= 60 ? 'Yes, I am over 60.' : 'No, nobody here is 60 yet.';
+
+    case 'medicaid.already_enrolled':
+      return f.lifelinePrograms.includes('medicaid') ? 'Yes, I have Medicaid.' : 'No, I do not.';
+
+    case 'state_eitc.files_state_return':
+      return 'Yes, I file a state return.';
+
     default:
       return null;
   }

@@ -35,6 +35,20 @@
       "monthlyValue": null,
       "valueNote": "Meals are free at or below 130 percent of the poverty guideline and reduced price up to 185 percent. The saving is the price of a breakfast and lunch each school day, which the district sets, so no amount is estimated here."
     },
+    "summer_ebt": {
+      "fpgMultiple": 1.85,
+      "basis": "annual",
+      "source": "https://www.fna.usda.gov/sun-bucks",
+      "citation": "Children eligible for free or reduced price school meals, or categorically through SNAP, TANF, FDPIR or Medicaid, receive Summer EBT",
+      "adjunctivePrograms": [
+        "snap",
+        "tanf",
+        "fdpir",
+        "medicaid"
+      ],
+      "monthlyValue": 10.0,
+      "valueNote": "$120 for each eligible child per summer, issued as $40 a month across three months. State participation is voluntary, so a household in a state that has not taken it up receives nothing."
+    },
     "csfp": {
       "fpgMultiple": 1.3,
       "basis": "annual",
@@ -44,6 +58,42 @@
       "monthlyValue": null,
       "valueNote": "A monthly box of food for people aged 60 and over. USDA does not publish a per-participant dollar value, so no amount is estimated here."
     },
+    "sfmnp": {
+      "fpgMultiple": 1.85,
+      "basis": "annual",
+      "source": "https://www.ecfr.gov/current/title-7/part-249",
+      "citation": "7 CFR 249 \u2014 household income not more than 185 percent of the annual poverty income guidelines, or automatic eligibility through another means-tested programme; a senior is 60 or older",
+      "adjunctivePrograms": [
+        "snap",
+        "medicaid",
+        "tanf",
+        "ssi"
+      ],
+      "monthlyValue": null,
+      "valueNote": "A seasonal coupon book for fresh produce at farmers' markets. The amount is set by the state within a federal range, so no figure is estimated here."
+    },
+    "cacfp": {
+      "fpgMultiple": 1.85,
+      "basis": "annual",
+      "source": "https://www.ecfr.gov/current/title-7/part-226",
+      "citation": "7 CFR 226 \u2014 eligibility standards comparable to the National School Lunch Program, that is households at or below 185 percent of the federal poverty level",
+      "adjunctivePrograms": [
+        "snap",
+        "tanf",
+        "fdpir"
+      ],
+      "monthlyValue": null,
+      "valueNote": "Pays for meals served in child care, Head Start and adult day care. The benefit goes to the provider and lowers what a family pays, so no household figure is estimated here."
+    },
+    "fdpir": {
+      "fpgMultiple": 1.3,
+      "basis": "annual",
+      "source": "https://www.fna.usda.gov/fdpir",
+      "citation": "An alternative to SNAP for households on or near reservations, with income limits set at the SNAP level. A household cannot receive both in the same month.",
+      "adjunctivePrograms": [],
+      "monthlyValue": null,
+      "valueNote": "A monthly food package instead of SNAP, not in addition to it."
+    },
     "liheap": {
       "fpgMultiple": 1.5,
       "basis": "annual",
@@ -52,6 +102,19 @@
       "adjunctivePrograms": [],
       "monthlyValue": null,
       "valueNote": "States set both the income limit, anywhere from 110 to 150 percent of poverty, and the size of the payment. 150 percent is the federal ceiling, so this screens the widest possible eligibility rather than your state's."
+    },
+    "wap": {
+      "fpgMultiple": 2.0,
+      "basis": "annual",
+      "source": "https://www.ecfr.gov/current/title-10/part-440",
+      "citation": "10 CFR 440.3 \u2014 low income means at or below 200 percent of the poverty level",
+      "adjunctivePrograms": [
+        "snap",
+        "ssi",
+        "tanf"
+      ],
+      "monthlyValue": null,
+      "valueNote": "Insulation, sealing and heating repairs paid for outright rather than a payment. The work done depends on the home, so no figure is estimated here."
     },
     "head_start": {
       "fpgMultiple": 1.0,
@@ -64,6 +127,15 @@
       ],
       "monthlyValue": null,
       "valueNote": "Early education and child care rather than a payment. Programs may also enrol families between 100 and 130 percent of poverty, so a household just above the line may still qualify locally."
+    },
+    "chip": {
+      "fpgMultiple": 2.0,
+      "basis": "annual",
+      "source": "https://www.healthcare.gov/medicaid-chip/childrens-health-insurance-program/",
+      "citation": "States set their own CHIP limit, commonly around 200 percent of poverty and higher in many states, so this screens at a conservative floor",
+      "adjunctivePrograms": [],
+      "monthlyValue": null,
+      "valueNote": "Low-cost health coverage for children. The limit is set by each state and is higher than this in many of them, so a household just above it may still qualify where it lives."
     }
   }
 }

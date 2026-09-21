@@ -1,0 +1,27 @@
+{
+  "id": "cacfp",
+  "name": "Child and Adult Care Food Program",
+  "shortName": "CACFP",
+  "administeredBy": "USDA, through care providers",
+  "applyUrl": "https://www.fna.usda.gov/cacfp",
+  "ruleType": "fpgThreshold",
+  "thresholdFamily": "cacfp",
+  "valueBasis": "Pays for meals served in child care, Head Start and adult day care.",
+  "criteria": [
+    {
+      "id": "cacfp.in_care",
+      "scope": "household",
+      "type": "noul",
+      "instructions": "Does anyone in this household attend child care, a Head Start programme, or adult day care?",
+      "askIfUnsure": "Does anyone here go to child care, Head Start, or adult day care?",
+      "criteria": {
+        "true": "yes",
+        "false": "no"
+      }
+    }
+  ],
+  "computed": [
+    "cacfp.income_test"
+  ],
+  "verdict": "in_care AND income_test"
+}

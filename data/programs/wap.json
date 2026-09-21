@@ -1,0 +1,30 @@
+{
+  "id": "wap",
+  "name": "Weatherization Assistance Program",
+  "shortName": "Weatherization",
+  "administeredBy": "US Department of Energy, through state agencies",
+  "applyUrl": "https://www.energy.gov/scep/wap/weatherization-assistance-program",
+  "ruleType": "fpgThreshold",
+  "thresholdFamily": "wap",
+  "valueBasis": "Insulation, draught sealing and heating repairs, paid for outright.",
+  "criteria": [
+    {
+      "id": "wap.has_home",
+      "scope": "household",
+      "type": "noul",
+      "instructions": "Does the household live in a home that could be weatherised, whether they own it or rent it?",
+      "askIfUnsure": "Do you live in a house or apartment, whether you own or rent?",
+      "criteria": {
+        "true": "yes",
+        "false": "no"
+      },
+      "presumption": "true",
+      "assumption": "you live in a home that could be weatherised",
+      "assumptionStrength": "routine"
+    }
+  ],
+  "computed": [
+    "wap.income_test"
+  ],
+  "verdict": "has_home AND income_test"
+}

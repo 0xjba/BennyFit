@@ -14,6 +14,9 @@ import { join } from 'node:path';
 
 export interface ResultsSummary {
   runAt: string | null;
+  /** True when the run scored so well it is measuring itself rather than a model. */
+  circular: boolean;
+  circularNote: string | null;
   engine: string;
   isFixture: boolean;
   tau: number;
@@ -23,6 +26,7 @@ export interface ResultsSummary {
   underspecifiedCount: number;
   balancedAccuracyByProgram: Record<string, number>;
   questionRelevance: number;
+  questionAskedAtAllRate: number;
   medianCriteriaPerHousehold: number;
   medianWallClockMs: number;
   medianQuestionsAsked: number;
@@ -38,6 +42,8 @@ export function readResults(): ResultsSummary | null {
 
     return {
       runAt: parsed.runAt,
+      circular: Boolean(parsed.circular),
+      circularNote: parsed.circularNote ?? null,
       engine: parsed.engine ?? 'unknown',
       isFixture: Boolean(parsed.isFixture),
       tau: parsed.tau,
@@ -47,6 +53,7 @@ export function readResults(): ResultsSummary | null {
       underspecifiedCount: parsed.underspecifiedCount ?? 0,
       balancedAccuracyByProgram: parsed.balancedAccuracyByProgram ?? {},
       questionRelevance: parsed.questionRelevance ?? 0,
+      questionAskedAtAllRate: parsed.questionAskedAtAllRate ?? 0,
       medianCriteriaPerHousehold: parsed.medianCriteriaPerHousehold ?? 0,
       medianWallClockMs: parsed.medianWallClockMs ?? 0,
       medianQuestionsAsked: parsed.medianQuestionsAsked ?? 0,

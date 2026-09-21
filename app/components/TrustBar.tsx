@@ -16,6 +16,21 @@ const LABELS: Record<string, string> = {
  * anything, so the second figure is never a click away from the first.
  */
 export function TrustBar({ results }: { results: ResultsSummary | null }) {
+  if (results?.circular) {
+    return (
+      <footer className="trustbar">
+        <div className="trustbar-inner">
+          <span className="preview-flag">PREVIEW</span>
+          <span>
+            Accuracy not yet measurable — the preview build scores itself. Real figures
+            follow the first run against the live service.
+          </span>
+          <Link href="/results">Why</Link>
+        </div>
+      </footer>
+    );
+  }
+
   if (!results) {
     return (
       <footer className="trustbar">

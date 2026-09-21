@@ -21,6 +21,9 @@ import medicare2026 from '@/data/thresholds/medicare-2026.json';
 import ctcTy2025 from '@/data/thresholds/ctc-ty2025.json';
 import ctcTy2026 from '@/data/thresholds/ctc-ty2026.json';
 import states2026 from '@/data/thresholds/states-2026.json';
+import vaPension2026 from '@/data/thresholds/va-pension-2026.json';
+import cdctcTy2025 from '@/data/thresholds/cdctc-ty2025.json';
+import cdctcTy2026 from '@/data/thresholds/cdctc-ty2026.json';
 
 export type SetStatus = 'complete' | 'partial';
 
@@ -213,7 +216,14 @@ export function standardDeductionFor(
 // The programs added beyond the original three
 // ---------------------------------------------------------------------------
 
-import type { CtcThresholds, FpgProgramConfig, FpgTable, MedicareThresholds } from './compute-programs';
+import type {
+  CdctcThresholds,
+  CtcThresholds,
+  FpgProgramConfig,
+  FpgTable,
+  MedicareThresholds,
+  VaPensionThresholds,
+} from './compute-programs';
 
 const FPG_PROGRAM_SETS = [fpgPrograms2026] as unknown as (Dated & {
   id: string;
@@ -285,4 +295,15 @@ export function stateRulesFor(state: string | null, isoDate: string): StateRules
 
 export function stateSources(isoDate: string): Record<string, string> {
   return pick(STATE_SETS, isoDate, 'state').sources;
+}
+
+const VA_SETS = [vaPension2026] as unknown as (Dated & { id: string } & VaPensionThresholds)[];
+const CDCTC_SETS = [cdctcTy2025, cdctcTy2026] as unknown as (Dated & { id: string } & CdctcThresholds)[];
+
+export function vaPensionThresholdsFor(isoDate: string): VaPensionThresholds {
+  return pick(VA_SETS, isoDate, 'Veterans Pension');
+}
+
+export function cdctcThresholdsFor(isoDate: string): CdctcThresholds {
+  return pick(CDCTC_SETS, isoDate, 'dependent care credit');
 }

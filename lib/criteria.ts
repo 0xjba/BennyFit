@@ -24,6 +24,14 @@ import medicareSavings from '@/data/programs/medicare_savings.json';
 import extraHelp from '@/data/programs/extra_help.json';
 import medicaid from '@/data/programs/medicaid.json';
 import stateEitc from '@/data/programs/state_eitc.json';
+import sfmnp from '@/data/programs/sfmnp.json';
+import cacfp from '@/data/programs/cacfp.json';
+import wap from '@/data/programs/wap.json';
+import summerEbt from '@/data/programs/summer_ebt.json';
+import fdpir from '@/data/programs/fdpir.json';
+import chip from '@/data/programs/chip.json';
+import vaPension from '@/data/programs/va_pension.json';
+import cdctc from '@/data/programs/cdctc.json';
 
 export type CriterionType = 'noul' | 'choice' | 'score';
 export type Scope = 'household' | 'member' | 'child';
@@ -100,7 +108,9 @@ export interface Program {
     | 'medicareSavings'
     | 'extraHelp'
     | 'medicaid'
-    | 'stateEitc';
+    | 'stateEitc'
+    | 'vaPension'
+    | 'cdctc';
   valueBasis: string;
   criteria: Criterion[];
   computed: string[];
@@ -128,7 +138,15 @@ const PROGRAMS = [
   medicareSavings,
   extraHelp,
   medicaid,
+  chip,
   stateEitc,
+  cdctc,
+  vaPension,
+  summerEbt,
+  sfmnp,
+  cacfp,
+  fdpir,
+  wap,
 ] as unknown as Program[];
 
 // ---------------------------------------------------------------------------
