@@ -8,6 +8,11 @@
  * everything would otherwise score 80%.
  *
  * Usage:  npx tsx eval/run.ts [--tau 0.5] [--max-questions 3] [--sweep]
+ *                              [--pilot N] [--out eval/other-results.json]
+ *
+ * ENGINE=baseline runs the general-purpose model through the same loop. --pilot N runs
+ * N development households only, writes nothing unless --out is given, and never
+ * touches the held-out half: it is for measuring cost before a full run.
  */
 
 import { readFileSync, writeFileSync } from 'node:fs';
@@ -217,6 +222,8 @@ async function main() {
   const tau = Number(args[args.indexOf('--tau') + 1]) || DEFAULT_TAU;
   const maxQuestions = Number(args[args.indexOf('--max-questions') + 1]) || DEFAULT_MAX_QUESTIONS;
   const sweep = args.includes('--sweep');
+  const pilot = args.includes('--pilot') ? Number(args[args.indexOf('--pilot') + 1]) : 0;
+  const outArg = args.includes('--out') ? args[args.indexOf('--out') + 1] : null;
 
   const households = loadGold();
   const engine = engineFromEnv();
@@ -249,14 +256,47 @@ async function main() {
 
   // With the local fixture this still runs, to prove the loop works end to end, but its
   // accuracy is not reported: the fixture answers from the same facts the scoring uses.
-  const rows = await runOnce(engine.isFixture ? households : holdout, engine, tau, maxQuestions);
+  // A pilot takes one household from each slice of the development half in turn, so a
+  // handful still covers every kind of household.
+  const development = households.filter((h) => h.split === 'dev');
+  const pilotSet = (() => {
+    const bySlice = new Map<string, GoldHousehold[]>();
+    for (const h of development) bySlice.set(h.slice, [...(bySlice.get(h.slice) ?? []), h]);
+    const out: GoldHousehold[] = [];
+    for (let i = 0; out.length < pilot; i++) {
+      let added = false;
+      for (const group of bySlice.values()) {
+        if (group[i] && out.length < pilot) { out.push(group[i]); added = true; }
+      }
+      if (!added) break;
+    }
+    return out;
+  })();
+
+  const usage = { calls: 0, inputTokens: 0, outputTokens: 0 };
+  const metered: EngineClient = {
+    name: engine.name,
+    isFixture: engine.isFixture,
+    async ask(request) {
+      const response = await engine.ask(request);
+      usage.calls++;
+      usage.inputTokens += response.usage.inputTokens;
+      usage.outputTokens += response.usage.outputTokens;
+      return response;
+    },
+  };
+
+  const scoredSet = pilot > 0 ? pilotSet : engine.isFixture ? households : holdout;
+  const rows = await runOnce(scoredSet, metered, tau, maxQuestions);
   const summary = summarise(rows);
 
   const tauSweep: { tau: number; questionRelevance: number; meanBalancedAccuracy: number; medianQuestions: number }[] = [];
-  if (sweep) {
-    console.log('\nsweeping tau...');
+  if (sweep && pilot === 0) {
+    // Tuned on the development half only. Sweeping over the held-out half would pick
+    // the threshold that scores best on the very households it is then scored on.
+    console.log('\nsweeping tau on the development half...');
     for (const candidate of [0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8]) {
-      const sweepRows = await runOnce(households, engine, candidate, maxQuestions);
+      const sweepRows = await runOnce(development, metered, candidate, maxQuestions);
       const s = summarise(sweepRows);
       const mean =
         Object.values(s.balancedAccuracyByProgram).reduce((a, b) => a + b, 0) / PROGRAMS.length;
@@ -303,10 +343,12 @@ async function main() {
       },
     },
     endToEnd: {
-      measured: !engine.isFixture,
-      scoredOn: engine.isFixture ? 'not scored' : 'held-out half',
-      households: engine.isFixture ? 0 : holdout.length,
+      measured: !engine.isFixture && pilot === 0,
+      scoredOn: engine.isFixture ? 'not scored' : pilot > 0 ? `pilot of ${pilot} development households` : 'held-out half',
+      households: engine.isFixture ? 0 : scoredSet.length,
     },
+    usage,
+    generationFaults: 'faultTotals' in engine ? (engine as { faultTotals: unknown }).faultTotals : null,
     circular,
     circularNote: circular
       ? 'Every program scored at or near 100% against the local fixture. The fixture and ' +
@@ -324,8 +366,14 @@ async function main() {
     perHousehold: rows,
   };
 
-  const path = join(process.cwd(), 'eval', 'results.json');
-  writeFileSync(path, JSON.stringify(results, null, 2) + '\n');
+  // A pilot is a cost check, not a result: it writes only where it is told to.
+  const path = outArg ? join(process.cwd(), outArg) : pilot > 0 ? null : join(process.cwd(), 'eval', 'results.json');
+  if (path) writeFileSync(path, JSON.stringify(results, null, 2) + '\n');
+  console.log(
+    `\nusage: ${usage.calls} calls, ${usage.inputTokens.toLocaleString()} input tokens, ` +
+      `${usage.outputTokens.toLocaleString()} output tokens over ${scoredSet.length} households` +
+      (results.generationFaults ? `\ngeneration faults: ${JSON.stringify(results.generationFaults)}` : '')
+  );
 
   console.log('\nbalanced accuracy by program (120 fully specified households):');
   for (const program of PROGRAMS) {
@@ -341,7 +389,7 @@ async function main() {
   console.log(`median wall clock: ${summary.medianWallClockMs.toFixed(1)}ms  (engine ${summary.medianEngineMs.toFixed(1)}ms)`);
   console.log(`median questions asked: ${summary.medianQuestionsAsked}`);
   console.log(`annual value surfaced: $${summary.totalAnnualValueSurfaced.toLocaleString('en-US')} of $${summary.totalAnnualValueAvailable.toLocaleString('en-US')} available`);
-  console.log(`\nwrote eval/results.json`);
+  console.log(path ? `\nwrote ${path.replace(process.cwd() + "/", "")}` : "\npilot: nothing written");
 
   if (engine.isFixture) {
     console.log(

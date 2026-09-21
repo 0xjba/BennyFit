@@ -9,17 +9,27 @@
 import { MockEngine } from './mock';
 import { RemoteEngine } from './remote';
 import { EngineClient } from './types';
+import { GenerationEngine, generationLanes } from './generation';
 
 export * from './types';
 export { MockEngine } from './mock';
 export { RemoteEngine, WIRE_FORMAT_UNCONFIRMED } from './remote';
 
-export type EngineName = 'jev' | 'openjev' | 'fixture';
+export type EngineName = 'jev' | 'openjev' | 'fixture' | 'baseline';
 
 export function engineFromEnv(env: NodeJS.ProcessEnv = process.env): EngineClient {
   const requested = (env.ENGINE ?? '').toLowerCase() as EngineName | '';
 
   if (requested === 'fixture') return new MockEngine();
+
+  // The general-purpose model writing JSON, run through the same loop as the typed
+  // engine so the two are scored by identical code. Only ever chosen explicitly.
+  if (requested === 'baseline') {
+    if (!env.OPENROUTER_API_KEY) {
+      throw new Error('ENGINE=baseline was requested but OPENROUTER_API_KEY is not set.');
+    }
+    return new GenerationEngine(generationLanes(env).frontier);
+  }
 
   // TYPESAFE_API_KEY is the name TypeSafe's own SDKs read; JEV_API_KEY still works.
   const jevKey = env.TYPESAFE_API_KEY ?? env.JEV_API_KEY;

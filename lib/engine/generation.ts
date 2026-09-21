@@ -20,7 +20,16 @@
  * example would be evidence of nothing but the fabrication.
  */
 
-import { EngineQuestion, EngineUnavailable } from './types';
+import {
+  EngineAnswer,
+  EngineClient,
+  EngineQuestion,
+  EngineRequest,
+  EngineResponse,
+  EngineUnavailable,
+  argmax,
+  confidenceOf,
+} from './types';
 
 export type GenerationFault = 'unparseable' | 'missing' | 'crossWired' | 'invented';
 
@@ -42,6 +51,8 @@ export interface GenerationResult {
   usage: { inputTokens: number; outputTokens: number };
   faults: Record<GenerationFault, number>;
   parsed: boolean;
+  /** Whether the answer was constrained by a JSON schema listing each criterion's options. */
+  structured: boolean;
 }
 
 export interface GenerationConfig {
@@ -50,9 +61,64 @@ export interface GenerationConfig {
   model: string;
   apiKey: string | undefined;
   timeoutMs?: number;
+  /**
+   * Constrain the reply with a JSON schema whose every answer is an enum of that
+   * criterion's own options. On by default, because it is how a careful team would
+   * build this today, and a comparison against free-form JSON would be answered with
+   * "you did not turn on structured outputs". It makes invented and cross-wired
+   * answers impossible, which leaves the comparison on accuracy, confidence, speed
+   * and cost.
+   */
+  structured?: boolean;
 }
 
-function buildPrompt(state: string, questions: Record<string, EngineQuestion>): string {
+/**
+ * Criterion ids as JSON property names. Ids like `eitc.child_age#1` carry characters
+ * some providers reject in schema property names, so each is mapped to a safe key and
+ * back. The prompt uses the same keys, so the model sees one name per criterion.
+ */
+export function safeKeys(ids: string[]): { toSafe: Map<string, string>; toId: Map<string, string> } {
+  const toSafe = new Map<string, string>();
+  const toId = new Map<string, string>();
+  for (const id of ids) {
+    let key = id.replace(/[^A-Za-z0-9_.-]/g, '_').slice(0, 60);
+    while (toId.has(key)) key = `${key}_`;
+    toSafe.set(id, key);
+    toId.set(key, id);
+  }
+  return { toSafe, toId };
+}
+
+export function answerSchema(
+  questions: Record<string, EngineQuestion>,
+  toSafe: Map<string, string>
+): Record<string, unknown> {
+  const properties: Record<string, unknown> = {};
+  for (const [id, question] of Object.entries(questions)) {
+    const options = Array.isArray(question.criteria) ? question.criteria : Object.keys(question.criteria);
+    properties[toSafe.get(id)!] = {
+      type: 'object',
+      properties: {
+        choice: { type: 'string', enum: options },
+        confidence: { type: 'number' },
+      },
+      required: ['choice', 'confidence'],
+      additionalProperties: false,
+    };
+  }
+  return {
+    type: 'object',
+    properties,
+    required: Object.keys(properties),
+    additionalProperties: false,
+  };
+}
+
+function buildPrompt(
+  state: string,
+  questions: Record<string, EngineQuestion>,
+  keyOf: (id: string) => string = (id) => id
+): string {
   const lines: string[] = [
     'You are screening a household for federal benefit programs.',
     'Below is a description of the household, followed by a list of criteria.',
@@ -71,7 +137,7 @@ function buildPrompt(state: string, questions: Record<string, EngineQuestion>): 
     const options = Array.isArray(question.criteria)
       ? question.criteria
       : Object.entries(question.criteria).map(([k, v]) => `${k} (${v})`);
-    lines.push(`- ${id}: ${question.instructions}`);
+    lines.push(`- ${keyOf(id)}: ${question.instructions}`);
     lines.push(`  options: ${options.join(' | ')}`);
   }
 
@@ -212,7 +278,11 @@ export class GenerationBaseline {
       );
     }
 
-    const prompt = buildPrompt(state, questions);
+    const structured = this.config.structured ?? true;
+    const { toSafe, toId } = safeKeys(Object.keys(questions));
+    const prompt = structured
+      ? buildPrompt(state, questions, (id) => toSafe.get(id)!)
+      : buildPrompt(state, questions);
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), this.config.timeoutMs ?? 120000);
     const started = performance.now();
@@ -228,6 +298,18 @@ export class GenerationBaseline {
           model: this.config.model,
           messages: [{ role: 'user', content: prompt }],
           temperature: 0,
+          max_tokens: 8000,
+          ...(structured
+            ? {
+                response_format: {
+                  type: 'json_schema',
+                  json_schema: { name: 'screening_answers', strict: true, schema: answerSchema(questions, toSafe) },
+                },
+                // Route only to providers that honour the schema, rather than silently
+                // falling back to one that ignores it.
+                provider: { require_parameters: true },
+              }
+            : {}),
         }),
         signal: controller.signal,
       });
@@ -243,7 +325,14 @@ export class GenerationBaseline {
       const body = await response.json();
       const elapsedMs = performance.now() - started;
       const text: string = body?.choices?.[0]?.message?.content ?? '';
-      const parsed = extractJson(text);
+      const extracted = extractJson(text);
+      // Under a schema the keys are the safe ones; map them back to criterion ids.
+      const parsed =
+        structured && extracted && typeof extracted === 'object'
+          ? Object.fromEntries(
+              Object.entries(extracted as Record<string, unknown>).map(([k, v]) => [toId.get(k) ?? k, v])
+            )
+          : extracted;
 
       if (parsed === null) {
         const { answers, faults } = classify({}, questions);
@@ -257,6 +346,7 @@ export class GenerationBaseline {
           },
           faults: { ...faults, unparseable: 1 },
           parsed: false,
+          structured,
         };
       }
 
@@ -271,6 +361,7 @@ export class GenerationBaseline {
         },
         faults,
         parsed: true,
+        structured,
       };
     } catch (error) {
       if (error instanceof EngineUnavailable) throw error;
@@ -296,10 +387,10 @@ export class GenerationBaseline {
  * not trained to generate text (TypeSafe's jaggedness notes say so), so with only a Jev
  * key this lane does not run.
  *
- * The second is a general-purpose model writing JSON, the way most teams would build
- * this today. It defaults to Claude Haiku 4.5: capable enough that its faults cannot be
- * put down to a weak model, cheap enough to run on every validation household. It does
- * not answer "the strongest model would not do that"; that needs a separate run on one.
+ * The second is a general-purpose model writing JSON under a schema, the way most teams
+ * would build this today. It defaults to Claude Sonnet 5: strong enough that its
+ * results cannot be put down to a weak model, cheap enough to run on every validation
+ * household.
  */
 export function generationLanes(env: NodeJS.ProcessEnv = process.env): {
   sameModel: GenerationBaseline;
@@ -315,8 +406,71 @@ export function generationLanes(env: NodeJS.ProcessEnv = process.env): {
     frontier: new GenerationBaseline({
       name: 'general-purpose model, generating JSON',
       baseUrl: env.OPENROUTER_BASE_URL ?? 'https://openrouter.ai/api/v1',
-      model: env.OPENROUTER_MODEL || 'anthropic/claude-haiku-4.5',
+      model: env.OPENROUTER_MODEL || 'anthropic/claude-sonnet-5',
       apiKey: env.OPENROUTER_API_KEY,
+      structured: env.OPENROUTER_STRUCTURED !== '0',
     }),
   };
+}
+
+/**
+ * The generation baseline behind the same interface as the typed engine.
+ *
+ * This is what makes the comparison fair: the baseline runs through the identical
+ * loop, with the same parser, rules, follow-up questions and answer key, and only the
+ * source of the answers changes.
+ *
+ * A generating model returns one option and a confidence it wrote itself, not a
+ * distribution. That number is spread into one the loop can use: the chosen option
+ * gets the stated confidence (never less than an even share, or the choice would
+ * flip), and the rest is split evenly. This is how a team would have to use such a
+ * model, and it is the thing being compared. An answer that is missing or unusable
+ * becomes an even distribution, which the loop treats as unknown, the same as a typed
+ * answer it cannot trust.
+ */
+export class GenerationEngine implements EngineClient {
+  readonly isFixture = false;
+  readonly faultTotals: Record<GenerationFault, number> = { unparseable: 0, missing: 0, crossWired: 0, invented: 0 };
+  /** Self-reported confidence alongside the answer chosen, for calibration. */
+  readonly selfReports: { criterionId: string; choice: string; confidence: number }[] = [];
+
+  constructor(private readonly baseline: GenerationBaseline) {}
+
+  get name(): string {
+    return `${this.baseline.model} (generating JSON)`;
+  }
+
+  async ask(request: EngineRequest): Promise<EngineResponse> {
+    const result = await this.baseline.run(request.state, request.questions);
+    for (const k of Object.keys(this.faultTotals) as GenerationFault[]) this.faultTotals[k] += result.faults[k];
+
+    const answers: Record<string, EngineAnswer> = {};
+    for (const [id, question] of Object.entries(request.questions)) {
+      const options = Array.isArray(question.criteria) ? question.criteria : Object.keys(question.criteria);
+      const a = result.answers[id];
+      let probabilities: Record<string, number>;
+      if (a && a.choice && options.includes(a.choice)) {
+        const even = 1 / options.length;
+        const stated = a.selfReportedConfidence ?? 1;
+        const top = options.length === 1 ? 1 : Math.max(stated, even + 1e-6);
+        probabilities = Object.fromEntries(
+          options.map((o) => [o, o === a.choice ? top : (1 - top) / (options.length - 1)])
+        );
+        if (a.selfReportedConfidence !== null) {
+          this.selfReports.push({ criterionId: id, choice: a.choice, confidence: a.selfReportedConfidence });
+        }
+      } else {
+        probabilities = Object.fromEntries(options.map((o) => [o, 1 / options.length]));
+      }
+      answers[id] = { choice: argmax(probabilities), probabilities, confidence: confidenceOf(probabilities) };
+    }
+
+    return {
+      model: result.model,
+      answers,
+      usage: result.usage,
+      elapsedMs: result.elapsedMs,
+      passes: 1,
+    };
+  }
 }
