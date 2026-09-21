@@ -1,42 +1,51 @@
-# bennyfit
+# BennyFit
 
-A benefits screener. You describe your household once, in your own words, and every
-eligibility criterion for three federal programs is read off that one description in a
-single pass. Where the description does not settle something that changes the outcome,
-you get one question rather than three application forms.
+Describe a household in a few sentences and BennyFit screens it for U.S. federal and state benefit programs at once, asking a follow-up question only where the answer could change what the household gets.
 
-The programs are SNAP, the Earned Income Tax Credit and Lifeline. They were chosen
-because each has a federal rule set with a primary-source table behind it, and because
-they chain: SNAP enrollment is itself a Lifeline qualifier, so one answer about SSI can
-settle criteria in two programs at once.
+**Live:** [bennyfit.vercel.app](https://bennyfit.vercel.app) · **Demo:** [/demo](https://bennyfit.vercel.app/demo) · **Research:** [/research](https://bennyfit.vercel.app/research) · **Technical report:** [PDF](public/research/bennyfit-technical-report.pdf)
 
 ---
 
-## What is actually new here
+## Research
 
-A decision model returns, for each criterion, a probability distribution over the
-options that criterion offers. Systems built on this treat those probabilities as the
-output — the answer, plus a confidence to display or threshold on.
+**Screening Households for U.S. Benefit Programs from a Short Description: A Typed-Readout Decision Model Compared with Schema-Constrained Generation.** Jobin Ayathil, September 2026.
 
-Here they are a control signal. A flat distribution is the model reporting that the
-description does not decide that criterion, and the system's job is then to work out
-which of those unsettled criteria is worth a person's time to answer.
+Read it [as a PDF](public/research/bennyfit-technical-report.pdf) or [page by page on the site](https://bennyfit.vercel.app/research). A shorter write-up is in [docs/post.md](docs/post.md).
 
-Uncertainty on its own is not a reason to ask. A criterion is worth asking about only
-when forcing each of its options in turn changes the total dollars across all three
-programs. That is the whole definition:
+<!-- generated:results:start -->
+Jev against Claude Sonnet 5 run through the identical pipeline (same descriptions, rules, questions, follow-up loop and answer key; Sonnet's reply held to a schema of each question's own options), on 49 held-out households:
 
-```
-voi(c) = max over options o of  total(evaluate(state, answers with c pinned to o))
-       − min over options o of  total(evaluate(state, answers with c pinned to o))
-```
+| | Jev | Claude Sonnet 5 |
+|---|---|---|
+| Verdicts right, households stating every fact | 816 of 819 (99.63%) | 812 of 819 (99.15%) |
+| Verdicts right, households missing a deciding fact | 201 of 210 (95.7%) | 209 of 210 (99.5%) |
+| Median time to a full result | 2.2 s | 35.3 s |
+| Billed cost per household | $0.00057 | $0.195 |
 
-A criterion with `voi = 0` is never asked, however uncertain the model is about it.
-Among those that do move money, the largest is asked first, and ties break toward the
-criterion that settles the most programs at once. After each answer the entire state is
-re-read rather than patched, because one fact can settle criteria across several
-programs, and re-reading everything is one batched pass rather than one generation per
-criterion.
+- On households stating every fact the two are statistically indistinguishable (exact McNemar p = 0.34); Jev was 15.7× faster and 345× cheaper per household.
+- On households missing a deciding fact, Sonnet was more accurate (p = 0.021), because it asked the maximum three questions in 33 of 49 households. A *not stated* option was added in response; it has been measured on development households only.
+- Ranking follow-ups by expected value cut questions from 81 to 51 on the held-out households, with fully specified accuracy at 99.51%.
+- Reading fresh descriptions: code with Jev choosing among candidates read 96.0% of hand-labelled facts, against 83.2% for pattern-matching code alone.
+- Rules: 34 of 34 hand-computed cases agree with their primary sources.
+<!-- generated:results:end -->
+
+Every number above, in the report and in the post, is generated from the committed run files by `research/data.ts`; none is typed by hand. The report covers the method, the confidence intervals and the limitations, starting with the main one: the validation households are synthetic.
+
+---
+
+## How it works
+
+Eligibility is mostly arithmetic, and the arithmetic stays in code. What needs a model is judgement about the text: whether "I get about $1,025 a month" is wages or Social Security, whether rent includes heat, whether a child is under 13.
+
+- **Rules in code.** Every threshold is stored with the period it applies to and the page it was read from, in integer cents. The table in force on the screening date is selected; when a new year's table is not yet published, the previous one is used with a visible notice. State rules are applied for SNAP broad-based categorical eligibility, Medicaid expansion and state earned income credits.
+- **Judgements as typed questions.** Each program is a set of criteria, each a yes/no or a choice with a fixed set of options, instantiated per household member. Jev, TypeSafe's typed-readout model, answers every criterion for a household in one request and returns a probability distribution over each question's options rather than generated text.
+- **Presumptions and "not stated".** Facts nobody mentions (a Social Security number, for example) carry a declared presumption that is shown with the verdict as a condition. Where a description is silent, a *not stated* option lets the model say so, and the question is then asked instead of guessed.
+- **Choosing a follow-up.** For each open question the rules are rerun with each possible answer. Questions are ranked by the expected change in the household's annual benefits, each answer weighted by how likely it is, and one expected to move less than $25 a year is not asked. At most three are asked.
+- **Reading the description.** Code finds every span that could be an amount of money; the model says what each one is (pay, rent, a utility bill, child care) and how often it is paid; code copies the number and does every sum. The model never writes a figure. Household size and children are counted in code and cross-checked against the model; if they disagree, the household is asked.
+
+<!-- generated:programs:start -->
+**Programs (21):** SNAP, EITC, Child Tax Credit, Lifeline, WIC, School meals, CSFP, LIHEAP, Head Start, Medicare Savings, Extra Help, Medicaid, CHIP, State EITC, Dependent Care Credit, Veterans Pension, Summer EBT, Senior Farmers' Market, CACFP, FDPIR, Weatherization. State rules across 51 jurisdictions.
+<!-- generated:programs:end -->
 
 ---
 
@@ -47,184 +56,101 @@ npm install
 npm run dev
 ```
 
-With no API key the local fixture answers, and every surface says so. The fixture is a
-keyword matcher, not a model; it exists so the loop, the interfaces and the evaluation
-harness can run without a key.
+With no API key the local fixture answers, and every page says so. The fixture is a keyword matcher, not a model; it lets the loop, the pages and the evaluation harness run offline.
 
-To use a real engine, copy `.env.example` to `.env.local` and set one of:
+To use Jev, copy `.env.example` to `.env.local`, remove `ENGINE=fixture`, and set:
 
 ```bash
-ENGINE=openjev
-OPENJEV_API_KEY=...
-
-# or
-ENGINE=jev
-JEV_API_KEY=...
+TYPESAFE_API_KEY=...        # console.typesafe.ai/keys; the model is pinned to jev-1.13.0
 ```
 
-Both speak the same wire API, so the swap is one variable. The key is read in the route
-handler and never reaches the browser.
+The key is read on the server and never reaches the browser. Optional settings:
 
-```bash
-npm test                        # 37 tests
-npx tsx eval/run.ts             # run the gold set, write eval/results.json
-npx tsx eval/run.ts --sweep     # also sweep tau
-npx tsx scripts/generate-gold.ts        # regenerate the gold set
-python3 scripts/derive-thresholds.py    # re-derive the FY2027 income standards
-```
-
-Three surfaces: `/` is the screener, `/demo` puts the conventional path beside it, and
-`/method` explains what the numbers mean.
-
----
-
-## The numbers
-
-Run `npx tsx eval/run.ts` and read `eval/results.json`. The accuracy strip at the bottom
-of every page reads from that file, and says "not yet evaluated" when it is missing
-rather than showing a zero.
-
-**These figures currently come from the local fixture.** They demonstrate that the
-harness runs. They measure nothing about any model, and the fixture's keyword cues were
-adjusted while looking at gold-set failures, which is a form of fitting. Every number
-below has to be produced again against a real engine before it means anything.
-
-| Metric | What it is |
+| Variable | Purpose |
 |---|---|
-| Balanced accuracy, per program | Mean of the true-positive and true-negative rates, over the 120 fully specified households. Plain accuracy is not reported as the headline because the set is four-fifths eligible for SNAP and answering "eligible" to everything would score 80% on it. |
-| Question relevance | Share of the 30 underspecified households where the first question asked was the fact the description deliberately withheld. |
-| Criteria per household | Resolved in one batched pass. Scales with household size, because the EITC child tests are genuinely per child. |
-| Wall clock | Measured, not claimed. |
+| `OPENROUTER_API_KEY`, `OPENROUTER_MODEL` | The general-purpose baseline (default `anthropic/claude-sonnet-5`), used by the evaluation and by the live comparison lane |
+| `BASELINE_LANES=on` | Turns the live comparison lane on in `/demo`. Off by default: it costs about $0.20 a screening |
+| `RATE_LIMIT_PER_VISITOR`, `RATE_LIMIT_WINDOW_MINUTES`, `RATE_LIMIT_PER_DAY` | Limits on the public screening route (defaults 30 per 10 minutes, 5,000 a day), counted per server instance |
 
-τ, the confidence at or above which an answer counts as settled, was swept from 0.2 to
-0.8 rather than picked. Balanced accuracy is flat from 0.2 through 0.6; relevance is
-highest below 0.5 and collapses above 0.6, where the loop starts re-asking about the
-income period it had already read correctly. The value in use sits in the middle of the
-plateau. It is provisional until swept against a real engine.
+### Pages
 
----
-
-## Where the figures come from
-
-Every dollar amount in `data/thresholds/` carries the URL it was read from and the date
-it was read. `sources/SOURCES.md` lists them, and `sources/raw/` holds copies of the
-documents so the figures stay checkable offline.
-
-- SNAP FY2026 allotments, deductions, income standards and minimum allotment: the USDA
-  COLA memos for FY2026.
-- SNAP mechanics — deduction order, the 8.31% standard deduction rule, the shelter cap
-  exemption, the 30% contribution and its rounding, the 8%-of-the-one-person-allotment
-  minimum: 7 CFR 273.8 through 273.10, retrieved through the eCFR API.
-- EITC tax years 2025 and 2026: Revenue Procedures 2024-40 and 2025-32.
-- Poverty guidelines: HHS ASPE, 2026.
-- Lifeline income table, qualifying programs and benefit amounts: USAC.
-
-Two things worth recording, because third-party summaries get them wrong:
-
-**The minimum SNAP allotment is $24, not $23.** The FY2026 memo says $24, and the
-regulation independently derives it: 8% of the $298 one-person maximum allotment is
-$23.84.
-
-**A married claimant filing separately is not barred from the EITC.** IRC 32(d) admits
-one who is legally separated, or who lived apart from their spouse for the last six
-months of the year with a qualifying child living with them, and both revenue procedures
-apply the non-joint thresholds to exactly that person.
-
-### What could not be obtained
-
-The SNAP FY2027 COLA memo. Its page exists and was last updated in August 2026, but it
-carries no tables, nothing is linked from the COLA index, and every candidate document
-URL returns 404. Search results quote specific FY2027 figures attributed to a USDA
-guidance-portal PDF that will not open. **Those figures are deliberately absent from this
-code.**
-
-What is present for FY2027 is the income standards, derived from the 2026 poverty
-guidelines by `scripts/derive-thresholds.py`. The rule — monthly limit is the annual
-guideline times the percentage, divided by twelve, rounded up — reproduces all 33
-published FY2026 figures, and the script refuses to emit anything unless it does. The
-allotment and deduction tables are `null`, the set is marked `partial`, and the code
-refuses to compute a benefit from a partial set. On 1 October 2026 the fiscal year turns
-over and the app falls back to the FY2026 tables with a visible notice saying benefit
-amounts are likely understated, rather than inventing a table or refusing to run.
+| Route | What it is |
+|---|---|
+| `/` | Landing page |
+| `/demo` | The screener |
+| `/compare` | One description beside the per-program forms it replaces |
+| `/results` | How accuracy is measured, and the current figures |
+| `/research` | The author, the measured comparison, and the report in a page-turning reader |
 
 ---
 
-## How it is put together
+## Evaluation
 
-```
-data/programs/*.json     every eligibility criterion, as data
-data/thresholds/*.json   every dollar figure, keyed by the period it is in effect
-data/gold/               150 synthetic households with verdicts
-lib/compute.ts           the arithmetic; nothing here is ever sent to the engine
-lib/criteria.ts          loading, validating and instantiating the criteria
-lib/evaluate.ts          state plus answers to verdicts
-lib/voi.ts               which question is worth asking
-lib/loop.ts              the driver
-lib/engine/              one interface, adapters for Jev and OpenJev, a local fixture
-eval/                    the harness and its output
-sources/                 where every figure came from
+Three things are measured separately, because they fail in different ways.
+
+1. **Rules.** Hand-computed cases, each with its expected figure worked out from a primary source (`eval/conformance.ts`).
+2. **Reading.** Descriptions written the way people write, labelled by hand. A held-out set is scored once; once any code is changed in response to it, it joins the development set and a new one is written (`eval/extraction.ts`, `eval/extraction-holdout.ts`).
+3. **End to end.** Synthetic households, every third one held out. The confidence threshold is chosen on the development households by a rule fixed in advance; the held-out households are scored once per version of the system (`eval/run.ts`).
+
+```bash
+npm test                                       # unit tests
+npx tsx eval/run.ts                            # rules, reading, and end to end (held-out households)
+npx tsx eval/run.ts --sweep-only               # choose the confidence threshold on the development households
+npx tsx eval/run.ts --dev                      # score the development households, for changing the system
+npx tsx eval/run.ts --pilot 5                  # five development households, to measure cost first
+ENGINE=baseline npx tsx eval/run.ts --out eval/baseline-results.json   # the general-purpose baseline
+npx tsx eval/read-dev.ts                       # code parser against code plus Jev, development set
 ```
 
-The program files are the substance. A criterion carries separate text for the model and
-for a person, an effect describing declaratively how an answer changes the verdict, and
-a citation. They are validated at load rather than at request time, so a verdict
-expression naming a criterion that does not exist stops the process starting instead of
-producing a wrong verdict for one unlucky household.
+### Rebuilding the research
 
-Money is integer cents throughout. The federal rounding steps disagree with each other —
-SNAP carries net income to the cent while rounding the household's 30% contribution up to
-the next dollar — and those distinctions do not survive floating point.
+```bash
+npx tsx research/data.ts        # every number, from the committed run files
+python3 research/charts.py      # every figure, from research/data.json
+npx tsx research/build.ts       # the report: HTML, then PDF with Chrome, then page images
+npx tsx research/post.ts        # docs/post.md
+npx tsx research/readme.ts      # the generated sections of this README
+```
 
-Criteria have a scope. Household-scoped ones appear once; member- and child-scoped ones
-appear once per person, because the underlying rules are per person. Whether a child
-meets the EITC residency test is a fact about that child, and answering it once for a
-household would get it wrong.
-
-### Presumptions
-
-Some criteria ask about facts a narrative never states. Nobody writes "I have a Social
-Security number valid for employment" when describing their household, and reading
-silence as a no disqualified nearly every household from the EITC. Such criteria declare
-a presumption: what a screening should assume in the absence of evidence. The interface
-shows a presumed answer as presumed, and presumed criteria rank below every other
-candidate when choosing a question, since the presumption is a declaration that silence
-has a known meaning.
+`research/build.ts` needs Google Chrome, `pdftoppm` (poppler) and ImageMagick; `research/charts.py` needs matplotlib.
 
 ---
 
-## Known limitations
+## Where the rules come from
 
-- **Federal floor only.** 42 states and DC raise the SNAP gross limit through broad-based
-  categorical eligibility and many drop the asset test. This under-screens in those
-  states, and says so on screen. A state selector is not built.
-- **Mixed income is split evenly.** When a household has both earned and unearned income
-  and does not say how much of each, the split is assumed to be half and the result notes
-  it. Only the earned half attracts the 20% deduction, so the real figure may differ.
-- **The gold set is synthetic**, written from structured facts. That makes its verdicts
-  checkable and also makes its prose cleaner than how people actually write.
-- **The wire format is unconfirmed.** The request shape came from OpenJev's README, which
-  states Jev compatibility. `lib/engine/remote.ts` lists what to re-check against Jev's
-  own documentation once a key exists.
-- **Confidence is treated as a ranking, not a probability.** It is conditional on the
-  options supplied and is not calibrated. It is never displayed as a percentage and never
-  described as a chance of qualifying.
-- **No investment income is parsed.** The EITC investment income cliff is asked about but
-  the figure is not extracted from the description, so that criterion relies on the
-  answer rather than on a parsed amount.
+Every dollar figure in `data/thresholds/` records the URL it was read from and the date it was read. [`sources/SOURCES.md`](sources/SOURCES.md) lists them, and `sources/raw/` keeps copies of the documents so every figure stays checkable offline: USDA cost-of-living memos and 7 CFR 273 for SNAP, IRS revenue procedures for the tax credits, HHS poverty guidelines, USAC for Lifeline, medicare.gov and va.gov for Medicare programs and the Veterans Pension, and the published state tables for state rules.
 
-## What is deliberately not built
-
-State-specific rules, Medicaid, the Child Tax Credit, WIC, filing, document upload,
-saving anything a user types, and any language other than English.
+The SNAP tables for fiscal year 2027 had not been published when this was built. The income standards are derived from the 2026 poverty guidelines by `scripts/derive-thresholds.py`, which refuses to emit anything unless its rule reproduces every published FY2026 figure; the allotment tables are left empty, and from 1 October 2026 the screener uses the FY2026 tables with a notice that benefit amounts are likely understated.
 
 ---
 
-## On screen at all times
+## Layout
 
-> This is a screening estimate from federal rules, not an eligibility determination.
-> Your state's rules may differ. Apply through the official link to find out.
+```
+data/programs/      every eligibility criterion, as data
+data/thresholds/    every dollar figure, keyed by the period it is in effect
+data/gold/          the synthetic validation households and their verdicts
+lib/compute*.ts     the arithmetic
+lib/criteria.ts     loading, validating and instantiating criteria
+lib/evaluate.ts     state and answers to verdicts
+lib/voi.ts          which question is worth asking
+lib/read.ts         reading a description with candidates and the model
+lib/loop.ts         the screening loop
+lib/engine/         Jev, the general-purpose baseline, and the local fixture
+eval/               the harness, its results, and every recorded run
+research/           the scripts that build the report, its data and figures
+sources/            where every figure came from
+```
 
-> Nothing you type is stored.
+---
 
-Both are true of the implementation: there is no database, no analytics on the household
-text, and the route that runs the loop keeps no session.
+## Limitations
+
+- **Synthetic households.** Descriptions were generated from stored facts, and the answer key is computed by the same rules code the system uses. The figures measure reading, judgement and question choice against a known key, not agreement with agency decisions, and real descriptions are messier.
+- **Screening, not determination.** Results are estimates with a link to each program's own application. State rules cover SNAP, Medicaid and state earned income credits; other programs use federal limits, which some states and agencies raise.
+- **English only.**
+- **Privacy.** BennyFit stores nothing a person types. The text is sent to the model provider to be read, so the demo asks people to describe a made-up household.
+
+---
+
+Built by [Jobin Ayathil](https://www.linkedin.com/in/0xjba/) · [GitHub](https://github.com/0xjba) · jobinb6444@gmail.com
