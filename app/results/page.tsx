@@ -231,7 +231,7 @@ export default function Results() {
             <>
               <p className="big-figure">
                 {percent(engineRun.meanBalancedAccuracy)}
-                <span> mean balanced accuracy across {Object.keys(engineRun.balancedAccuracyByProgram).length} programs</span>
+                <span> mean balanced accuracy across the {engineRun.estimablePrograms} programs the held-out set can test</span>
               </p>
               <p style={{ color: 'var(--ink-2)', marginTop: 8 }}>
                 The {engineRun.households} households held back for this, run through the
@@ -308,15 +308,15 @@ export default function Results() {
               )}
               {baselineRun && (
                 <p style={{ color: 'var(--ink-2)', marginTop: 14 }}>
-                  The comparison is a general-purpose model doing the same job the way a careful
-                  team would build it today: the same paragraph, the same rules, the same
-                  follow-up loop and answer key, with its reply held to a schema that allows
-                  only each rule&rsquo;s own options. The two are close on accuracy. The general
-                  model&rsquo;s misses cluster in one place: five times it read &ldquo;rent with
-                  utilities included&rdquo; as not paying for heating, where the rule says
-                  energy paid through the rent counts. It was more thorough about asking for a
-                  missing fact at some point, partly because it asked the maximum three
-                  questions every time. The larger differences are time and cost.
+                  The comparison swaps only the source of answers: Claude Sonnet 5 answers the
+                  same questions about the same paragraph, through the same rules, follow-up loop
+                  and answer key, with its reply held to a schema that allows only each rule&rsquo;s
+                  own options. Most of its misses are one misreading: it took &ldquo;rent with
+                  utilities included&rdquo; as not paying for heating, where the rule says energy
+                  paid through the rent counts. It asked more questions, partly because its
+                  stated confidence often fell below a threshold set for the other model. A second
+                  configuration, all questions in one request without a schema, is in the{' '}
+                  <Link href="/research">technical report</Link>, with the method and limits.
                 </p>
               )}
               <details className="disclosure">
@@ -326,7 +326,7 @@ export default function Results() {
                     <li key={program}>
                       <span>{LABELS[program] ?? program}</span>
                       <span className="amt">
-                        {percent(value)}
+                        {value === null ? 'not estimable: no eligible or no ineligible household' : percent(value)}
                       </span>
                     </li>
                   ))}

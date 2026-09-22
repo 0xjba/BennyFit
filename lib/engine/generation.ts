@@ -63,11 +63,10 @@ export interface GenerationConfig {
   timeoutMs?: number;
   /**
    * Constrain the reply with a JSON schema whose every answer is an enum of that
-   * criterion's own options. On by default, because it is how a careful team would
-   * build this today, and a comparison against free-form JSON would be answered with
-   * "you did not turn on structured outputs". It makes invented and cross-wired
-   * answers impossible, which leaves the comparison on accuracy, confidence, speed
-   * and cost.
+   * criterion's own options, which makes invented and cross-wired answers
+   * impossible. On by default. Under a schema a whole household exceeds the provider's
+   * grammar limit, so the criteria go in batches; with it off, every criterion goes in
+   * one request and answers are validated in code. The report compares both.
    */
   structured?: boolean;
   /**

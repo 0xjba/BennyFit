@@ -17,6 +17,8 @@ import { runConformance } from '@/eval/conformance';
 import { EXTRACTION_CASES } from '@/eval/extraction';
 import { HOLDOUT_CASES } from '@/eval/extraction-holdout';
 import { HERO_FIGURES } from '@/lib/hero';
+import { balancedByProgram, meanEstimable } from '@/lib/balanced';
+import { existsSync } from 'node:fs';
 
 const root = process.cwd();
 const read = (p: string) => JSON.parse(readFileSync(join(root, p), 'utf8'));
@@ -54,7 +56,6 @@ const median = (xs: number[]) => {
   const m = Math.floor(s.length / 2);
   return s.length === 0 ? 0 : s.length % 2 ? s[m] : (s[m - 1] + s[m]) / 2;
 };
-const mean = (xs: number[]) => xs.reduce((a, b) => a + b, 0) / Math.max(1, xs.length);
 
 // ---------------------------------------------------------------- one run
 
@@ -74,6 +75,10 @@ function summariseRun(run: { perHousehold: Row[]; balancedAccuracyByProgram: Rec
   const specified = rows.filter((r) => r.slice !== 'underspecified');
   const under = rows.filter((r) => r.slice === 'underspecified');
   const programs = Object.keys(run.balancedAccuracyByProgram);
+  // Recomputed from the verdicts: a program with no eligible or no ineligible
+  // household is not estimable and is left out of the mean.
+  const byProgram = balancedByProgram(specified, programs);
+  const eligibleCounts = Object.fromEntries(programs.map((p) => [p, specified.filter((r) => r.truth[p]).length]));
   const count = (set: Row[]) => {
     let right = 0;
     let total = 0;
@@ -101,8 +106,12 @@ function summariseRun(run: { perHousehold: Row[]; balancedAccuracyByProgram: Rec
     specifiedHouseholds: specified.length,
     underspecifiedHouseholds: under.length,
     programs: programs.length,
-    meanBalancedAccuracy: mean(Object.values(run.balancedAccuracyByProgram)),
-    balancedAccuracyByProgram: run.balancedAccuracyByProgram,
+    meanBalancedAccuracy: meanEstimable(byProgram).mean,
+    estimablePrograms: meanEstimable(byProgram).programs,
+    balancedAccuracyByProgram: byProgram,
+    eligibleCounts,
+    /** Underspecified households with at least one wrong verdict. */
+    underspecifiedHouseholdsWrong: under.filter((r) => programs.some((p) => r.predicted[p] !== r.truth[p])).length,
     specified: count(specified),
     underspecified: count(under),
     questionsTotal: questions.reduce((a, b) => a + b, 0),
@@ -133,13 +142,15 @@ const sweep = read('eval/tau-sweep.json');
 const readingSix = read('eval/reading-holdout.json');
 
 const jevCompared = summariseRun(compared);
+// The baseline run as one request per pass, without a schema or batching.
+const single = existsSync(join(root, 'eval/baseline-single-results.json')) ? read('eval/baseline-single-results.json') : null;
 const sonnet = summariseRun(baseline);
 const jevFinal = summariseRun(final);
 
 // Paired comparison: the same households x 21 programs, each verdict right or wrong,
 // for the fully specified households and, separately, the underspecified ones.
-const byId = new Map<string, Row>(baseline.perHousehold.map((r: Row) => [r.id, r]));
-function paired(underspecified: boolean) {
+function paired(underspecified: boolean, against: { perHousehold: Row[] } = baseline) {
+  const byId = new Map<string, Row>(against.perHousehold.map((r: Row) => [r.id, r]));
   let bothRight = 0, onlyJev = 0, onlySonnet = 0, bothWrong = 0;
   for (const r of compared.perHousehold as Row[]) {
     if ((r.slice === 'underspecified') !== underspecified) continue;
@@ -252,6 +263,19 @@ const data = {
     firstRunWrong: summariseRun(firstRun).specified.wrong,
     paired: paired(false),
     pairedUnderspecified: paired(true),
+    single: single
+      ? {
+          run: summariseRun(single),
+          paired: paired(false, single),
+          pairedUnderspecified: paired(true, single),
+          ratios: {
+            speed: summariseRun(single).medianSeconds / jevCompared.medianSeconds,
+            cost: summariseRun(single).costPerHouseholdUSD! / jevCompared.costPerHouseholdUSD!,
+          },
+          generationFaults: single.generationFaults,
+        }
+      : null,
+    baselineConfidence: existsSync(join(root, 'eval/runs/baseline-confidence.json')) ? read('eval/runs/baseline-confidence.json') : null,
     ratios: {
       speed: sonnet.medianSeconds / jevCompared.medianSeconds,
       cost: sonnet.costPerHouseholdUSD! / jevCompared.costPerHouseholdUSD!,

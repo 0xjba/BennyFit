@@ -10,6 +10,19 @@
  */
 
 import { readFileSync } from 'node:fs';
+import { balancedByProgram, meanEstimable, type VerdictRow } from './balanced';
+
+/**
+ * Balanced accuracy recomputed from the per-household verdicts where a run records
+ * them, so a program the set never tested reads as not estimable in every run,
+ * including runs recorded before that rule existed.
+ */
+function byProgramOf(parsed: Record<string, unknown>): Record<string, number | null> {
+  const stored = (parsed.balancedAccuracyByProgram ?? {}) as Record<string, number | null>;
+  const rows = parsed.perHousehold as VerdictRow[] | undefined;
+  if (!rows || rows.length === 0) return stored;
+  return balancedByProgram(rows.filter((r) => r.slice !== 'underspecified'), Object.keys(stored));
+}
 import { join } from 'node:path';
 
 export interface ResultsSummary {
@@ -40,7 +53,7 @@ export interface ResultsSummary {
   n: number;
   specifiedCount: number;
   underspecifiedCount: number;
-  balancedAccuracyByProgram: Record<string, number>;
+  balancedAccuracyByProgram: Record<string, number | null>;
   questionRelevance: number;
   questionAskedAtAllRate: number;
   medianCriteriaPerHousehold: number;
@@ -72,7 +85,7 @@ export function readResults(): ResultsSummary | null {
       n: parsed.n,
       specifiedCount: parsed.specifiedCount ?? 0,
       underspecifiedCount: parsed.underspecifiedCount ?? 0,
-      balancedAccuracyByProgram: parsed.balancedAccuracyByProgram ?? {},
+      balancedAccuracyByProgram: byProgramOf(parsed),
       questionRelevance: parsed.questionRelevance ?? 0,
       questionAskedAtAllRate: parsed.questionAskedAtAllRate ?? 0,
       medianCriteriaPerHousehold: parsed.medianCriteriaPerHousehold ?? 0,
@@ -91,8 +104,10 @@ export interface RunSummary {
   engine: string;
   households: number;
   specifiedCount: number;
-  balancedAccuracyByProgram: Record<string, number>;
+  balancedAccuracyByProgram: Record<string, number | null>;
   meanBalancedAccuracy: number;
+  /** Programs where balanced accuracy is defined, and so enter the mean. */
+  estimablePrograms: number;
   medianWallClockMs: number;
   medianQuestionsAsked: number;
   usage: { calls: number; inputTokens: number; outputTokens: number };
@@ -109,15 +124,16 @@ export interface RunSummary {
 }
 
 function summaryOf(parsed: Record<string, unknown>): RunSummary {
-  const byProgram = (parsed.balancedAccuracyByProgram ?? {}) as Record<string, number>;
-  const values = Object.values(byProgram);
+  const byProgram = byProgramOf(parsed);
+  const { mean, programs: estimablePrograms } = meanEstimable(byProgram);
   const endToEnd = (parsed.endToEnd ?? {}) as { households?: number };
   return {
     engine: String(parsed.engine ?? 'unknown'),
     households: endToEnd.households ?? 0,
     specifiedCount: Number(parsed.specifiedCount ?? 0),
     balancedAccuracyByProgram: byProgram,
-    meanBalancedAccuracy: values.length ? values.reduce((a, b) => a + b, 0) / values.length : 0,
+    meanBalancedAccuracy: mean,
+    estimablePrograms,
     medianWallClockMs: Number(parsed.medianWallClockMs ?? 0),
     medianQuestionsAsked: Number(parsed.medianQuestionsAsked ?? 0),
     usage: (parsed.usage as RunSummary['usage']) ?? { calls: 0, inputTokens: 0, outputTokens: 0 },

@@ -15,6 +15,9 @@ export const metadata = {
 const J = data.endToEnd.jevCompared;
 const B = data.endToEnd.sonnet;
 const F = data.endToEnd.jevFinal;
+// The one-request baseline is the fairer comparison, so the headline ratios use it.
+const S = data.endToEnd.single!.run;
+const RS = data.endToEnd.single!.ratios;
 const six = data.reading.editions.filter((e) => e.edition === 6);
 const codeSix = six.find((e) => e.reader === 'code')!;
 const jevSix = six.find((e) => e.reader === 'code+jev')!;
@@ -72,35 +75,39 @@ export default function Research() {
           <div className="band-head center">
             <span className="eyebrow">What the measurements say</span>
             <h2>
-              The same answers, {data.endToEnd.ratios.speed.toFixed(1)}&times; faster and{' '}
-              {Math.round(data.endToEnd.ratios.cost)}&times; cheaper.
+              Fewer errors, {RS.speed.toFixed(0)}&times; faster and {Math.round(RS.cost)}&times;
+              cheaper.
             </h2>
             <p>
               BennyFit runs every eligibility judgement through Jev, TypeSafe&rsquo;s typed-readout
-              model. We put Claude Sonnet 5 through the identical pipeline, on the same held-out
-              households, and measured both.
+              model. We put Claude Sonnet 5 through the identical pipeline in two configurations,
+              on the same held-out households, and measured all three.
             </p>
           </div>
           <div className="statrow">
             <div>
-              <span className="n">{data.endToEnd.ratios.speed.toFixed(1)}&times;</span>
+              <span className="n">{RS.speed.toFixed(0)}&times;</span>
               <span className="k">
                 faster to a full screening: {J.medianSeconds.toFixed(1)} s against{' '}
-                {B.medianSeconds.toFixed(1)} s with Claude Sonnet 5
+                {S.medianSeconds.toFixed(1)} s for Claude Sonnet 5 ({B.medianSeconds.toFixed(1)} s
+                under a schema)
               </span>
             </div>
             <div>
-              <span className="n">{Math.round(data.endToEnd.ratios.cost)}&times;</span>
+              <span className="n">{Math.round(RS.cost)}&times;</span>
               <span className="k">
-                cheaper per household: ${J.costPerHouseholdUSD!.toFixed(5)} against $
-                {B.costPerHouseholdUSD!.toFixed(3)}, as billed
+                cheaper per household: ${J.costPerHouseholdUSD!.toFixed(5)} at list price against $
+                {S.costPerHouseholdUSD!.toFixed(3)} billed (${B.costPerHouseholdUSD!.toFixed(3)} under
+                a schema)
               </span>
             </div>
             <div>
-              <span className="n">{pct(J.specified.right / J.specified.total)}</span>
+              <span className="n">
+                {J.specified.wrong} of {J.specified.total}
+              </span>
               <span className="k">
-                of verdicts right on held-out households, against{' '}
-                {pct(B.specified.right / B.specified.total)} for Claude Sonnet 5
+                verdicts wrong on held-out households, against {B.specified.wrong} and{' '}
+                {S.specified.wrong} for Claude Sonnet 5 in the two configurations
               </span>
             </div>
             <div>
@@ -141,7 +148,7 @@ export default function Research() {
               <p>
                 Jev answers all of a household&rsquo;s checks in a single request, each as a
                 probability over a fixed set of options. A general-purpose model writing the same
-                answers had to be split into batches to stay within its schema limits.
+                answers under a schema had to be split into batches to stay within its limits.
               </p>
             </div>
             <div className="tile">
@@ -162,9 +169,12 @@ export default function Research() {
           </div>
           <p className="disclaimer" style={{ marginTop: 30, textAlign: 'center' }}>
             Measured on {J.households} synthetic held-out households, {J.programs} programs each.
-            The accuracy difference is not statistically significant, and on households missing a
-            deciding fact the general-purpose model did better; the report below covers both,
-            with the method and every limitation. <Link href="/results">Results</Link>
+            The error counts are small, the difference from the schema configuration is not
+            statistically significant, and on households missing a deciding fact Jev reached a
+            wrong verdict more often ({J.underspecifiedHouseholdsWrong} of{' '}
+            {J.underspecifiedHouseholds} households, against {B.underspecifiedHouseholdsWrong} and{' '}
+            {S.underspecifiedHouseholdsWrong}). The report below covers all of it, with the method
+            and every limitation. <Link href="/results">Results</Link>
           </p>
         </div>
       </section>

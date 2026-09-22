@@ -17,7 +17,6 @@ const J = d.endToEnd.jevCompared;
 const B = d.endToEnd.sonnet;
 const F = d.endToEnd.jevFinal;
 const P = d.endToEnd.paired;
-const PU = d.endToEnd.pairedUnderspecified;
 const ed = (e: number, reader = 'code') => d.reading.editions.find((x: { edition: number; reader: string }) => x.edition === e && x.reader === reader);
 const pct = (x: number, digits = 1) => `${(x * 100).toFixed(digits)}%`;
 const code6 = ed(6);
@@ -26,12 +25,15 @@ const incomeCode = d.reading.sixByField.code.incomeMonthly;
 const incomeJev = d.reading.sixByField.withEngine.incomeMonthly;
 const early = [1, 2, 3, 4, 5].map((e) => ed(e).rate);
 const stages = d.development.stages;
+const S = d.endToEnd.single.run;
+const PS = d.endToEnd.single.paired;
+const RS = d.endToEnd.single.ratios;
+const BC = d.endToEnd.baselineConfidence;
 const liheapErrors = B.errors.filter((e: { program: string }) => e.program === 'liheap').length;
 const words = ['no', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'];
 const word = (n: number) => words[n] ?? String(n);
-const cap = (t: string) => t[0].toUpperCase() + t.slice(1);
 
-const post = `# Same verdicts, ${d.endToEnd.ratios.speed.toFixed(1)}× faster and ${Math.round(d.endToEnd.ratios.cost)}× cheaper: screening ${d.setup.programs} benefit programs with a typed-readout model
+const post = `# Fewer errors, ${RS.speed.toFixed(0)}× faster, ${Math.round(RS.cost)}× cheaper: screening ${d.setup.programs} benefit programs with a typed-readout model
 
 *Every measured number in this post is generated from the evaluation files in the repository (\`research/data.json\`, commit ${d.commit}). The technical report has the method, the confidence intervals and every limitation: https://bennyfit.vercel.app/research*
 
@@ -53,25 +55,27 @@ For those, BennyFit uses Jev, TypeSafe's typed-readout model. You send it the de
 
 ## Against a general-purpose model doing the same job
 
-To see what the typed readout buys, I ran Claude Sonnet 5 through the identical pipeline: same descriptions, same rules, same questions, same follow-up loop, same answer key. Its reply was held to a JSON schema allowing only each question's own options, the way a careful team would build this today. Both were scored once on ${J.households} held-out households that nothing had been tuned against.
+To see what the typed readout buys, I swapped only the source of answers: Claude Sonnet 5 answering the same questions about the same descriptions, through the same rules, follow-up loop and answer key. I ran it two ways. Once with its reply held to a JSON schema allowing only each question's own options, which for a whole household exceeded the provider's schema limit and had to go out in batches of ${d.setup.baselineBatchSize}. And once with every question in a single request and the answers checked in code, which is close to asking the model for every fact at once and applying the rules yourself. All three were scored once on ${J.households} held-out households that nothing had been tuned against.
 
-| | Jev | Claude Sonnet 5 |
-|---|---|---|
-| Verdicts right, households that state every fact | ${J.specified.right} of ${J.specified.total} (${pct(J.specified.right / J.specified.total, 2)}) | ${B.specified.right} of ${B.specified.total} (${pct(B.specified.right / B.specified.total, 2)}) |
-| Verdicts right, households missing a deciding fact | ${J.underspecified.right} of ${J.underspecified.total} (${pct(J.underspecified.right / J.underspecified.total)}) | ${B.underspecified.right} of ${B.underspecified.total} (${pct(B.underspecified.right / B.underspecified.total)}) |
-| Median time to a full result | ${J.medianSeconds.toFixed(1)} s | ${B.medianSeconds.toFixed(1)} s |
-| Billed cost per household | $${J.costPerHouseholdUSD.toFixed(5)} | $${B.costPerHouseholdUSD.toFixed(3)} |
-| Follow-up questions asked, in total | ${J.questionsTotal} | ${B.questionsTotal} |
+| | Jev | Sonnet 5, schema, batched | Sonnet 5, one request |
+|---|---|---|---|
+| Wrong verdicts, households that state every fact (of ${J.specified.total}) | ${J.specified.wrong} | ${B.specified.wrong} | ${S.specified.wrong} |
+| Households missing a fact that ended with a wrong verdict (of ${J.underspecifiedHouseholds}) | ${J.underspecifiedHouseholdsWrong} | ${B.underspecifiedHouseholdsWrong} | ${S.underspecifiedHouseholdsWrong} |
+| Median time to a full result | ${J.medianSeconds.toFixed(1)} s | ${B.medianSeconds.toFixed(1)} s | ${S.medianSeconds.toFixed(1)} s |
+| Cost per household | $${J.costPerHouseholdUSD.toFixed(5)} (list price) | $${B.costPerHouseholdUSD.toFixed(3)} (billed) | $${S.costPerHouseholdUSD.toFixed(3)} (billed) |
+| Follow-up questions asked, in total | ${J.questionsTotal} | ${B.questionsTotal} | ${S.questionsTotal} |
 
-On households that state every fact, the two are statistically indistinguishable: Jev alone was right on ${P.onlyJev} verdicts, Sonnet alone on ${P.onlySonnet} (exact McNemar p = ${P.mcnemarP.toFixed(2)}). ${cap(word(liheapErrors))} of Sonnet's ${word(B.specified.wrong)} errors were one misreading, rent that included utilities read as not paying for heating, where the rule says heat paid through rent counts.
+The error counts are small, so read them carefully. Against the schema configuration, the difference is not statistically significant (exact McNemar p = ${P.mcnemarP.toFixed(2)}): with that few disagreements the test can't tell, which is not the same as the two being equal. Against the one-request configuration it is (p = ${PS.mcnemarP.toFixed(3)}), but every one of Sonnet's ${S.specified.wrong} errors there, and ${word(liheapErrors)} of its ${word(B.specified.wrong)} under the schema, is the same misreading: rent that included utilities read as not paying for heating, where the rule says heat paid through rent counts. That's one criterion's wording meeting one model, not a general gap.
 
-The difference is time and cost: Jev was ${d.endToEnd.ratios.speed.toFixed(1)} times faster and ${Math.round(d.endToEnd.ratios.cost)} times cheaper per household. Part of that is the interface. Jev answers every question in one request and bills only the input. Sonnet had to write each answer out, and a schema for a whole household exceeded its provider's grammar limit, so each pass went out in batches of ${d.setup.baselineBatchSize} questions, each repeating the household description.
+Where there is a clear gap is time and cost: Jev was ${RS.speed.toFixed(0)} to ${d.endToEnd.ratios.speed.toFixed(0)} times faster and ${Math.round(RS.cost)} to ${Math.round(d.endToEnd.ratios.cost)} times cheaper per household. Part of that is the interface (every question in one request, billed on input only) and part is simply the two providers' prices, and the ratio moves with how the pipeline is built, as the two Sonnet configurations show.
 
-## Where the general-purpose model did better
+## Where Jev fell short
 
-On households missing a deciding fact, Sonnet was more accurate, and the difference is significant (p = ${PU.mcnemarP.toFixed(3)}). It asked the maximum three questions in ${B.questionsHistogram[3]} of ${B.households} households, so it more often reached the missing fact. Jev's miss was different: for "I get about $1,025 a month" it answered where the money came from with high confidence, even though the description never says, so no question was asked.
+Every one of the households missing a fact withholds the same thing: whether the income comes from a job or from benefits. Jev ended up with a wrong verdict in ${J.underspecifiedHouseholdsWrong} of those ${J.underspecifiedHouseholds} households. For "I get about $1,025 a month" it answered where the money came from with high confidence, even though the description never says, so no question was asked.
 
-The fix follows from how a typed readout works. A closed question with no way to say "the text doesn't say" forces a choice. That question now has a *not stated* option; when Jev picks it, the answer is treated as open and gets asked. On the development households this raised how often the deciding fact was asked first from ${pct(stages[2].questionRelevance, 0)} to ${pct(stages[3].questionRelevance, 0)}. It was prompted by held-out errors, so it has not been scored on the held-out households, and I am not claiming a held-out number for it.
+Sonnet under the schema did better here (${B.underspecifiedHouseholdsWrong} of ${J.underspecifiedHouseholds}), but mostly because of the threshold rather than its reading: its stated confidences were often below the bar set for Jev (${Math.round(BC.batchedSchema.belowTauShare * 100)}% of its answers), so it asked the maximum three questions in ${B.questionsHistogram[3]} of ${B.households} households and stumbled onto the missing fact more often. In one request it was more confident, asked fewer questions, and landed at ${S.underspecifiedHouseholdsWrong} of ${J.underspecifiedHouseholds}.
+
+The fix for Jev follows from how a typed readout works. A closed question with no way to say "the text doesn't say" forces a choice. That question now has a *not stated* option; when Jev picks it, the answer is treated as open and gets asked. On the development households this raised how often the deciding fact was asked first from ${pct(stages[2].questionRelevance, 0)} to ${pct(stages[3].questionRelevance, 0)}. It was prompted by held-out errors, so it has not been scored on the held-out households, and I am not claiming a held-out number for it.
 
 ## Choosing which question to ask
 
@@ -93,7 +97,7 @@ Four errors in the rules themselves turned up along the way, each now pinned by 
 
 - The households are synthetic, and the answer key is computed by the same rules code BennyFit uses. These figures measure reading, judgement and question choice against a known key, not agreement with agency decisions, and real descriptions are messier.
 - The samples are small: ${J.specifiedHouseholds} fully specified and ${J.underspecifiedHouseholds} underspecified held-out households.
-- Both models give slightly different answers from run to run, and the comparison is with one general-purpose model.
+- Both models give slightly different answers from run to run, the comparison is with one general-purpose model, and its question-asking ran on a threshold chosen for Jev.
 - The 6%, 11% and 18% are from a trial of human assistance. They are why this is worth building, not something BennyFit has achieved.
 
 Demo: https://bennyfit.vercel.app/demo

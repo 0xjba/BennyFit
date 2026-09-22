@@ -1,0 +1,23 @@
+{
+  "tau": 0.3,
+  "statedNeededToClearTau": {
+    "twoOptions": 0.8107022946293742,
+    "fourOptions": 0.6843061411466584
+  },
+  "batchedSchema": {
+    "answers": 10785,
+    "belowTau": 3744,
+    "belowTauShare": 0.34714881780250345,
+    "statedMedian": 0.85,
+    "statedP25": 0.7,
+    "statedP75": 0.95
+  },
+  "singleRequest": {
+    "answers": 7817,
+    "belowTau": 2349,
+    "belowTauShare": 0.3004989126263272,
+    "statedMedian": 0.9,
+    "statedP25": 0.8,
+    "statedP75": 0.9
+  }
+}

@@ -103,6 +103,10 @@ save(fig, "fig3-reading-by-field")
 # ---- Figure 4: per-program balanced accuracy, Jev vs Sonnet ------------------
 jb = DATA["endToEnd"]["jevCompared"]["balancedAccuracyByProgram"]
 sb = DATA["endToEnd"]["sonnet"]["balancedAccuracyByProgram"]
+single = DATA["endToEnd"].get("single")
+s1b = single["run"]["balancedAccuracyByProgram"] if single else None
+eligible = DATA["endToEnd"]["jevCompared"]["eligibleCounts"]
+SINGLE = "#b89a5e"  # the baseline without schema or batching
 names = {
     "snap": "SNAP", "eitc": "EITC", "ctc": "CTC", "lifeline": "Lifeline", "wic": "WIC",
     "school_meals": "School meals", "csfp": "CSFP", "liheap": "LIHEAP", "head_start": "Head Start",
@@ -111,31 +115,41 @@ names = {
     "summer_ebt": "Summer EBT", "sfmnp": "SFMNP", "cacfp": "CACFP", "fdpir": "FDPIR", "wap": "Weatherization",
 }
 progs = list(jb.keys())
-fig, ax = plt.subplots(figsize=(6.2, 3.3))
+fig, ax = plt.subplots(figsize=(6.2, 3.5))
 for i, p in enumerate(progs):
     y = len(progs) - 1 - i
-    ax.plot([sb[p] * 100, jb[p] * 100], [y, y], color=LIGHT, lw=1, zorder=1)
-    ax.scatter(sb[p] * 100, y, marker="s", s=16, color=OTHER, zorder=2, label="Claude Sonnet 5" if i == 0 else None)
+    if jb[p] is None:
+        ax.text(88.2, y, "not estimable: no eligible household", va="center", fontsize=7, color=GREY)
+        continue
+    vals = [v for v in [sb[p], jb[p], s1b[p] if s1b else None] if v is not None]
+    ax.plot([min(vals) * 100, max(vals) * 100], [y, y], color=LIGHT, lw=1, zorder=1)
+    ax.scatter(sb[p] * 100, y, marker="s", s=16, color=OTHER, zorder=2, label="Claude Sonnet 5, batched schema" if i == 0 else None)
+    if s1b and s1b[p] is not None:
+        ax.scatter(s1b[p] * 100, y, marker="^", s=18, color=SINGLE, zorder=2, label="Claude Sonnet 5, one request" if i == 0 else None)
     ax.scatter(jb[p] * 100, y, marker="o", s=16, color=ACCENT, zorder=3, label="Jev" if i == 0 else None)
-ax.set_yticks(range(len(progs)), [names.get(p, p) for p in reversed(progs)])
+ax.set_yticks(range(len(progs)), [f"{names.get(p, p)} ({eligible[p]})" for p in reversed(progs)])
 ax.set_xlim(88, 100.8)
-ax.set_xlabel("Balanced accuracy on held-out households (%)")
-ax.legend(frameon=False, loc="lower left")
+ax.set_xlabel("Balanced accuracy on held-out households (%); eligible households in brackets")
+ax.legend(frameon=False, loc="lower left", fontsize=7)
 save(fig, "fig4-per-program")
 
 # ---- Figure 5: time and cost per household ------------------------------------
 j = DATA["endToEnd"]["jevCompared"]
 s = DATA["endToEnd"]["sonnet"]
-fig, axes = plt.subplots(1, 2, figsize=(6.2, 2.0))
+runs = [("Jev", j, ACCENT), ("Sonnet 5, batched", s, OTHER)]
+if single:
+    runs.append(("Sonnet 5, one request", single["run"], SINGLE))
+fig, axes = plt.subplots(1, 2, figsize=(6.2, 0.55 * len(runs) + 1.0))
 for ax, key, label, fmt in [
     (axes[0], "medianSeconds", "Median seconds to a full result", "{:.1f} s"),
-    (axes[1], "costPerHouseholdUSD", "Billed cost per household (USD, log scale)", "${:.4f}"),
+    (axes[1], "costPerHouseholdUSD", "Cost per household (USD, log scale)", "${:.4f}"),
 ]:
-    vals = [j[key], s[key]]
-    ax.barh([1, 0], vals, color=[ACCENT, OTHER], height=0.55)
-    ax.set_yticks([1, 0], ["Jev", "Claude Sonnet 5"])
+    ys = list(range(len(runs) - 1, -1, -1))
+    vals = [r[1][key] for r in runs]
+    ax.barh(ys, vals, color=[r[2] for r in runs], height=0.55)
+    ax.set_yticks(ys, [r[0] for r in runs])
     ax.set_title(label, loc="left")
-    for y, v in zip([1, 0], vals):
+    for y, v in zip(ys, vals):
         ax.text(v * (1.15 if key == "costPerHouseholdUSD" else 1.02), y, fmt.format(v), va="center", fontsize=7.5)
     if key == "costPerHouseholdUSD":
         ax.set_xscale("log")

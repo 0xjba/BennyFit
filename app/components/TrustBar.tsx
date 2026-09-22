@@ -1,6 +1,7 @@
 import Link from 'next/link';
 
 import { ResultsSummary } from '@/lib/results';
+import { meanEstimable } from '@/lib/balanced';
 
 /**
  * The strip along the bottom of the product.
@@ -55,15 +56,9 @@ export function TrustBar({ results }: { results: ResultsSummary | null }) {
       <div className="trustbar-inner">
         {results.isFixture && <span className="preview-flag">PREVIEW</span>}
         <span>
-          Right verdict on held-out households{' '}
-          <strong>
-            {(
-              (100 * Object.values(results.balancedAccuracyByProgram).reduce((a, b) => a + b, 0)) /
-              Math.max(1, Object.keys(results.balancedAccuracyByProgram).length)
-            ).toFixed(1)}
-            %
-          </strong>{' '}
-          across {Object.keys(results.balancedAccuracyByProgram).length} programs
+          Mean balanced accuracy on held-out households{' '}
+          <strong>{(100 * meanEstimable(results.balancedAccuracyByProgram).mean).toFixed(1)}%</strong>{' '}
+          across the {meanEstimable(results.balancedAccuracyByProgram).programs} programs the set can test
         </span>
         {results.conformance && (
           <span>

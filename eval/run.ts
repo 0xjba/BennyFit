@@ -24,6 +24,7 @@ import { EngineClient } from '@/lib/engine/types';
 import { DEFAULT_MAX_QUESTIONS, DEFAULT_TAU, screen } from '@/lib/loop';
 import type { GoldHousehold } from '@/scripts/generate-gold';
 import { oracleReply } from './oracle';
+import { balancedByProgram, meanEstimable } from '@/lib/balanced';
 import { runConformance } from './conformance';
 import { runExtraction } from './extraction';
 import { HOLDOUT_CASES, HOLDOUT_WRITTEN } from './extraction-holdout';
@@ -224,9 +225,8 @@ function summarise(rows: PerHousehold[]) {
   );
 
   return {
-    balancedAccuracyByProgram: Object.fromEntries(
-      PROGRAMS.map((p) => [p, balancedAccuracyByProgram[p].balanced])
-    ),
+    // Null where a program has no eligible or no ineligible households: not estimable.
+    balancedAccuracyByProgram: balancedByProgram(specified, [...PROGRAMS]),
     accuracyDetail: balancedAccuracyByProgram,
     accuracyBySlice,
     questionRelevance: withGap.length === 0 ? 0 : relevantFirst.length / withGap.length,
@@ -327,7 +327,7 @@ async function main() {
     const sweepResults: { tau: number; meanBalancedAccuracy: number; questionRelevance: number; medianQuestions: number }[] = [];
     for (const candidate of [0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8]) {
       const s = summarise(await runOnce(development, metered, candidate, maxQuestions));
-      const mean = Object.values(s.balancedAccuracyByProgram).reduce((a, b) => a + b, 0) / PROGRAMS.length;
+      const mean = meanEstimable(s.balancedAccuracyByProgram).mean;
       sweepResults.push({ tau: candidate, meanBalancedAccuracy: mean, questionRelevance: s.questionRelevance, medianQuestions: s.medianQuestionsAsked });
       console.log(`  tau=${candidate}  balanced accuracy=${(mean * 100).toFixed(2)}%  relevance=${(s.questionRelevance * 100).toFixed(1)}%  median questions=${s.medianQuestionsAsked}`);
     }
@@ -363,7 +363,7 @@ async function main() {
       const sweepRows = await runOnce(development, metered, candidate, maxQuestions);
       const s = summarise(sweepRows);
       const mean =
-        Object.values(s.balancedAccuracyByProgram).reduce((a, b) => a + b, 0) / PROGRAMS.length;
+        meanEstimable(s.balancedAccuracyByProgram).mean;
       tauSweep.push({
         tau: candidate,
         questionRelevance: s.questionRelevance,
@@ -381,9 +381,9 @@ async function main() {
   // same household facts the oracle answers from, so when every program scores 100%
   // the harness is measuring that two halves of the test agree with each other rather
   // than measuring anything about a decision model. Say so rather than publish it.
-  const perfect = Object.values(summary.balancedAccuracyByProgram).filter((v) => v >= 0.999);
-  const circular =
-    engine.isFixture && perfect.length >= Object.keys(summary.balancedAccuracyByProgram).length - 1;
+  const estimable = Object.values(summary.balancedAccuracyByProgram).filter((v): v is number => v !== null);
+  const perfect = estimable.filter((v) => v >= 0.999);
+  const circular = engine.isFixture && perfect.length >= estimable.length - 1;
 
   const pct = (a: number, b: number) => (b === 0 ? 0 : a / b);
   const results = {

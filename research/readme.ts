@@ -14,22 +14,25 @@ const J = d.endToEnd.jevCompared;
 const B = d.endToEnd.sonnet;
 const F = d.endToEnd.jevFinal;
 const P = d.endToEnd.paired;
-const PU = d.endToEnd.pairedUnderspecified;
 const pct = (x: number, digits = 1) => `${(x * 100).toFixed(digits)}%`;
 const ed = (e: number, reader = 'code') => d.reading.editions.find((x: { edition: number; reader: string }) => x.edition === e && x.reader === reader);
 
-const results = `Jev against Claude Sonnet 5 run through the identical pipeline (same descriptions, rules, questions, follow-up loop and answer key; Sonnet's reply held to a schema of each question's own options), on ${J.households} held-out households:
+const S = d.endToEnd.single.run;
+const PS = d.endToEnd.single.paired;
+const RS = d.endToEnd.single.ratios;
 
-| | Jev | Claude Sonnet 5 |
-|---|---|---|
-| Verdicts right, households stating every fact | ${J.specified.right} of ${J.specified.total} (${pct(J.specified.right / J.specified.total, 2)}) | ${B.specified.right} of ${B.specified.total} (${pct(B.specified.right / B.specified.total, 2)}) |
-| Verdicts right, households missing a deciding fact | ${J.underspecified.right} of ${J.underspecified.total} (${pct(J.underspecified.right / J.underspecified.total)}) | ${B.underspecified.right} of ${B.underspecified.total} (${pct(B.underspecified.right / B.underspecified.total)}) |
-| Median time to a full result | ${J.medianSeconds.toFixed(1)} s | ${B.medianSeconds.toFixed(1)} s |
-| Billed cost per household | $${J.costPerHouseholdUSD.toFixed(5)} | $${B.costPerHouseholdUSD.toFixed(3)} |
+const results = `Jev against Claude Sonnet 5 in the identical pipeline (same descriptions, rules, questions, follow-up loop and answer key), in two configurations, on ${J.households} held-out households:
 
-- On households stating every fact the two are statistically indistinguishable (exact McNemar p = ${P.mcnemarP.toFixed(2)}); Jev was ${d.endToEnd.ratios.speed.toFixed(1)}× faster and ${Math.round(d.endToEnd.ratios.cost)}× cheaper per household.
-- On households missing a deciding fact, Sonnet was more accurate (p = ${PU.mcnemarP.toFixed(3)}), because it asked the maximum three questions in ${B.questionsHistogram[3]} of ${B.households} households. A *not stated* option was added in response; it has been measured on development households only.
-- Ranking follow-ups by expected value cut questions from ${J.questionsTotal} to ${F.questionsTotal} on the held-out households, with fully specified accuracy at ${pct(F.specified.right / F.specified.total, 2)}.
+| | Jev | Sonnet 5, schema, batched | Sonnet 5, one request |
+|---|---|---|---|
+| Wrong verdicts, households stating every fact (of ${J.specified.total}) | ${J.specified.wrong} | ${B.specified.wrong} | ${S.specified.wrong} |
+| Households missing a fact with a wrong verdict (of ${J.underspecifiedHouseholds}) | ${J.underspecifiedHouseholdsWrong} | ${B.underspecifiedHouseholdsWrong} | ${S.underspecifiedHouseholdsWrong} |
+| Median time to a full result | ${J.medianSeconds.toFixed(1)} s | ${B.medianSeconds.toFixed(1)} s | ${S.medianSeconds.toFixed(1)} s |
+| Cost per household | $${J.costPerHouseholdUSD.toFixed(5)} (list price) | $${B.costPerHouseholdUSD.toFixed(3)} (billed) | $${S.costPerHouseholdUSD.toFixed(3)} (billed) |
+
+- Against the schema configuration the error difference is not significant (exact McNemar p = ${P.mcnemarP.toFixed(2)}); against the one-request configuration it is (p = ${PS.mcnemarP.toFixed(3)}), but those errors are all one misreading of a single criterion. Jev was ${RS.speed.toFixed(0)} to ${d.endToEnd.ratios.speed.toFixed(0)}× faster and ${Math.round(RS.cost)} to ${Math.round(d.endToEnd.ratios.cost)}× cheaper per household.
+- The households missing a fact all withhold the same one (whether income is earned). Jev answered it confidently instead of asking more often than the baselines; a *not stated* option was added in response and has been measured on development households only.
+- Ranking follow-ups by expected value cut questions from ${J.questionsTotal} to ${F.questionsTotal} on the held-out households.
 - Reading fresh descriptions: code with Jev choosing among candidates read ${pct(ed(6, 'code+jev').rate)} of hand-labelled facts, against ${pct(ed(6).rate)} for pattern-matching code alone.
 - Rules: ${d.setup.conformance.passed} of ${d.setup.conformance.total} hand-computed cases agree with their primary sources.`;
 
