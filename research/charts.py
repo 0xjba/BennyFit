@@ -115,11 +115,13 @@ names = {
     "summer_ebt": "Summer EBT", "sfmnp": "SFMNP", "cacfp": "CACFP", "fdpir": "FDPIR", "wap": "Weatherization",
 }
 progs = list(jb.keys())
-fig, ax = plt.subplots(figsize=(6.2, 3.5))
+_all = [v for m in [jb, sb, s1b or {}] for v in m.values() if v is not None]
+LOW = min(88, (int(min(_all) * 100) // 5) * 5 - 2)
+fig, ax = plt.subplots(figsize=(6.2, 3.7))
 for i, p in enumerate(progs):
     y = len(progs) - 1 - i
     if jb[p] is None:
-        ax.text(88.2, y, "not estimable: no eligible household", va="center", fontsize=7, color=GREY)
+        ax.text(LOW + 0.3, y, "not estimable: no eligible household", va="center", fontsize=7, color=GREY)
         continue
     vals = [v for v in [sb[p], jb[p], s1b[p] if s1b else None] if v is not None]
     ax.plot([min(vals) * 100, max(vals) * 100], [y, y], color=LIGHT, lw=1, zorder=1)
@@ -128,9 +130,9 @@ for i, p in enumerate(progs):
         ax.scatter(s1b[p] * 100, y, marker="^", s=18, color=SINGLE, zorder=2, label="Claude Sonnet 5, one request" if i == 0 else None)
     ax.scatter(jb[p] * 100, y, marker="o", s=16, color=ACCENT, zorder=3, label="Jev" if i == 0 else None)
 ax.set_yticks(range(len(progs)), [f"{names.get(p, p)} ({eligible[p]})" for p in reversed(progs)])
-ax.set_xlim(88, 100.8)
+ax.set_xlim(LOW, 100.8)
 ax.set_xlabel("Balanced accuracy on held-out households (%); eligible households in brackets")
-ax.legend(frameon=False, loc="lower left", fontsize=7)
+ax.legend(frameon=False, loc="lower center", bbox_to_anchor=(0.45, 1.0), ncol=3, fontsize=7)
 save(fig, "fig4-per-program")
 
 # ---- Figure 5: time and cost per household ------------------------------------

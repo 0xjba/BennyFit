@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-09-21T18:22:04.253Z",
-  "commit": "31e4f33",
+  "generatedAt": "2026-09-22T06:49:13.337Z",
+  "commit": "fd21c8b",
   "setup": {
     "programs": 21,
     "programNames": [
@@ -293,7 +293,8 @@
       "specifiedHouseholds": 39,
       "underspecifiedHouseholds": 10,
       "programs": 21,
-      "meanBalancedAccuracy": 0.9956934956934957,
+      "meanBalancedAccuracy": 0.9954781704781706,
+      "estimablePrograms": 20,
       "balancedAccuracyByProgram": {
         "snap": 1,
         "eitc": 1,
@@ -314,9 +315,33 @@
         "summer_ebt": 1,
         "sfmnp": 1,
         "cacfp": 1,
-        "fdpir": 1,
+        "fdpir": null,
         "wap": 1
       },
+      "eligibleCounts": {
+        "snap": 29,
+        "eitc": 13,
+        "ctc": 13,
+        "lifeline": 29,
+        "wic": 6,
+        "school_meals": 10,
+        "csfp": 3,
+        "liheap": 29,
+        "head_start": 5,
+        "medicare_savings": 2,
+        "extra_help": 2,
+        "medicaid": 12,
+        "chip": 13,
+        "state_eitc": 6,
+        "cdctc": 5,
+        "va_pension": 1,
+        "summer_ebt": 10,
+        "sfmnp": 3,
+        "cacfp": 6,
+        "fdpir": 0,
+        "wap": 29
+      },
+      "underspecifiedHouseholdsWrong": 4,
       "specified": {
         "right": 816,
         "total": 819,
@@ -383,7 +408,8 @@
       "specifiedHouseholds": 39,
       "underspecifiedHouseholds": 10,
       "programs": 21,
-      "meanBalancedAccuracy": 0.9944519082450117,
+      "meanBalancedAccuracy": 0.9941745036572623,
+      "estimablePrograms": 20,
       "balancedAccuracyByProgram": {
         "snap": 1,
         "eitc": 1,
@@ -404,9 +430,33 @@
         "summer_ebt": 1,
         "sfmnp": 1,
         "cacfp": 0.9848484848484849,
-        "fdpir": 1,
+        "fdpir": null,
         "wap": 1
       },
+      "eligibleCounts": {
+        "snap": 29,
+        "eitc": 13,
+        "ctc": 13,
+        "lifeline": 29,
+        "wic": 6,
+        "school_meals": 10,
+        "csfp": 3,
+        "liheap": 29,
+        "head_start": 5,
+        "medicare_savings": 2,
+        "extra_help": 2,
+        "medicaid": 12,
+        "chip": 13,
+        "state_eitc": 6,
+        "cdctc": 5,
+        "va_pension": 1,
+        "summer_ebt": 10,
+        "sfmnp": 3,
+        "cacfp": 6,
+        "fdpir": 0,
+        "wap": 29
+      },
+      "underspecifiedHouseholdsWrong": 1,
       "specified": {
         "right": 812,
         "total": 819,
@@ -493,7 +543,8 @@
       "specifiedHouseholds": 39,
       "underspecifiedHouseholds": 10,
       "programs": 21,
-      "meanBalancedAccuracy": 0.9938619938619938,
+      "meanBalancedAccuracy": 0.9935550935550935,
+      "estimablePrograms": 20,
       "balancedAccuracyByProgram": {
         "snap": 1,
         "eitc": 1,
@@ -514,9 +565,33 @@
         "summer_ebt": 1,
         "sfmnp": 1,
         "cacfp": 1,
-        "fdpir": 1,
+        "fdpir": null,
         "wap": 1
       },
+      "eligibleCounts": {
+        "snap": 29,
+        "eitc": 13,
+        "ctc": 13,
+        "lifeline": 29,
+        "wic": 6,
+        "school_meals": 10,
+        "csfp": 3,
+        "liheap": 29,
+        "head_start": 5,
+        "medicare_savings": 2,
+        "extra_help": 2,
+        "medicaid": 12,
+        "chip": 13,
+        "state_eitc": 6,
+        "cdctc": 5,
+        "va_pension": 1,
+        "summer_ebt": 10,
+        "sfmnp": 3,
+        "cacfp": 6,
+        "fdpir": 0,
+        "wap": 29
+      },
+      "underspecifiedHouseholdsWrong": 4,
       "specified": {
         "right": 815,
         "total": 819,
@@ -602,6 +677,229 @@
       "bothWrong": 0,
       "mcnemarP": 0.021484375000000003
     },
+    "single": {
+      "run": {
+        "households": 49,
+        "specifiedHouseholds": 39,
+        "underspecifiedHouseholds": 10,
+        "programs": 21,
+        "meanBalancedAccuracy": 0.9879310344827588,
+        "estimablePrograms": 20,
+        "balancedAccuracyByProgram": {
+          "snap": 1,
+          "eitc": 1,
+          "ctc": 1,
+          "lifeline": 1,
+          "wic": 1,
+          "school_meals": 1,
+          "csfp": 1,
+          "liheap": 0.7586206896551724,
+          "head_start": 1,
+          "medicare_savings": 1,
+          "extra_help": 1,
+          "medicaid": 1,
+          "chip": 1,
+          "state_eitc": 1,
+          "cdctc": 1,
+          "va_pension": 1,
+          "summer_ebt": 1,
+          "sfmnp": 1,
+          "cacfp": 1,
+          "fdpir": null,
+          "wap": 1
+        },
+        "eligibleCounts": {
+          "snap": 29,
+          "eitc": 13,
+          "ctc": 13,
+          "lifeline": 29,
+          "wic": 6,
+          "school_meals": 10,
+          "csfp": 3,
+          "liheap": 29,
+          "head_start": 5,
+          "medicare_savings": 2,
+          "extra_help": 2,
+          "medicaid": 12,
+          "chip": 13,
+          "state_eitc": 6,
+          "cdctc": 5,
+          "va_pension": 1,
+          "summer_ebt": 10,
+          "sfmnp": 3,
+          "cacfp": 6,
+          "fdpir": 0,
+          "wap": 29
+        },
+        "underspecifiedHouseholdsWrong": 3,
+        "specified": {
+          "right": 805,
+          "total": 819,
+          "wrong": 14,
+          "falsePositive": 0,
+          "falseNegative": 14,
+          "ci": [
+            0.9715124674279981,
+            0.9897905776733879
+          ]
+        },
+        "underspecified": {
+          "right": 207,
+          "total": 210,
+          "wrong": 3,
+          "falsePositive": 0,
+          "falseNegative": 3,
+          "ci": [
+            0.9588478946044763,
+            0.9951298846579344
+          ]
+        },
+        "questionsTotal": 62,
+        "questionsMedian": 0,
+        "questionsHistogram": [
+          25,
+          3,
+          4,
+          17
+        ],
+        "usefulQuestions": {
+          "moved": 13,
+          "answered": 62,
+          "rate": 0.20967741935483872
+        },
+        "questionRelevance": 0.4,
+        "askedAtAllRate": 0.6,
+        "medianSeconds": 29.261259208000034,
+        "medianCriteria": 54,
+        "usage": {
+          "calls": 138,
+          "inputTokens": 759569,
+          "outputTokens": 500622
+        },
+        "billedUSD": 5.1363,
+        "costPerHouseholdUSD": 0.10482244897959184,
+        "tau": 0.3,
+        "errors": [
+          {
+            "id": "gh-009",
+            "program": "liheap",
+            "predicted": false
+          },
+          {
+            "id": "gh-012",
+            "program": "liheap",
+            "predicted": false
+          },
+          {
+            "id": "gh-015",
+            "program": "liheap",
+            "predicted": false
+          },
+          {
+            "id": "gh-018",
+            "program": "liheap",
+            "predicted": false
+          },
+          {
+            "id": "gh-021",
+            "program": "liheap",
+            "predicted": false
+          },
+          {
+            "id": "gh-024",
+            "program": "liheap",
+            "predicted": false
+          },
+          {
+            "id": "gh-027",
+            "program": "liheap",
+            "predicted": false
+          },
+          {
+            "id": "gh-030",
+            "program": "liheap",
+            "predicted": false
+          },
+          {
+            "id": "gh-063",
+            "program": "liheap",
+            "predicted": false
+          },
+          {
+            "id": "gh-072",
+            "program": "liheap",
+            "predicted": false
+          },
+          {
+            "id": "gh-081",
+            "program": "liheap",
+            "predicted": false
+          },
+          {
+            "id": "gh-084",
+            "program": "liheap",
+            "predicted": false
+          },
+          {
+            "id": "gh-096",
+            "program": "liheap",
+            "predicted": false
+          },
+          {
+            "id": "gh-139",
+            "program": "liheap",
+            "predicted": false
+          }
+        ]
+      },
+      "paired": {
+        "bothRight": 802,
+        "onlyJev": 14,
+        "onlySonnet": 3,
+        "bothWrong": 0,
+        "mcnemarP": 0.012725830078125007
+      },
+      "pairedUnderspecified": {
+        "bothRight": 198,
+        "onlyJev": 3,
+        "onlySonnet": 9,
+        "bothWrong": 0,
+        "mcnemarP": 0.14599609375000014
+      },
+      "ratios": {
+        "speed": 13.006010855952342,
+        "cost": 185.4259927797834
+      },
+      "generationFaults": {
+        "unparseable": 0,
+        "missing": 0,
+        "crossWired": 0,
+        "invented": 0
+      }
+    },
+    "baselineConfidence": {
+      "tau": 0.3,
+      "statedNeededToClearTau": {
+        "twoOptions": 0.8107022946293742,
+        "fourOptions": 0.6843061411466584
+      },
+      "batchedSchema": {
+        "answers": 10785,
+        "belowTau": 3744,
+        "belowTauShare": 0.34714881780250345,
+        "statedMedian": 0.85,
+        "statedP25": 0.7,
+        "statedP75": 0.95
+      },
+      "singleRequest": {
+        "answers": 7817,
+        "belowTau": 2349,
+        "belowTauShare": 0.3004989126263272,
+        "statedMedian": 0.9,
+        "statedP25": 0.8,
+        "statedP75": 0.9
+      }
+    },
     "ratios": {
       "speed": 15.700592325806046,
       "cost": 344.97111913357406,
@@ -624,7 +922,7 @@
           "answered": 167,
           "rate": 0.2155688622754491
         },
-        "meanBalancedAccuracy": 0.9970343013821276,
+        "meanBalancedAccuracy": 0.9968860164512339,
         "specifiedWrong": 7,
         "underspecifiedAccuracy": 0.9952380952380953,
         "questionRelevance": 0.35
@@ -637,7 +935,7 @@
           "answered": 112,
           "rate": 0.26785714285714285
         },
-        "meanBalancedAccuracy": 0.9966857385335647,
+        "meanBalancedAccuracy": 0.9965200254602429,
         "specifiedWrong": 6,
         "underspecifiedAccuracy": 0.9928571428571429,
         "questionRelevance": 0.4
@@ -650,7 +948,7 @@
           "answered": 115,
           "rate": 0.23478260869565218
         },
-        "meanBalancedAccuracy": 0.9963639882118143,
+        "meanBalancedAccuracy": 0.9961821876224051,
         "specifiedWrong": 7,
         "underspecifiedAccuracy": 0.9952380952380953,
         "questionRelevance": 0.45
@@ -663,7 +961,7 @@
           "answered": 113,
           "rate": 0.2920353982300885
         },
-        "meanBalancedAccuracy": 0.9950501743980005,
+        "meanBalancedAccuracy": 0.9948026831179005,
         "specifiedWrong": 9,
         "underspecifiedAccuracy": 0.9952380952380953,
         "questionRelevance": 0.35
@@ -676,7 +974,7 @@
           "answered": 111,
           "rate": 0.2882882882882883
         },
-        "meanBalancedAccuracy": 0.9953719247197507,
+        "meanBalancedAccuracy": 0.9951405209557382,
         "specifiedWrong": 8,
         "underspecifiedAccuracy": 0.9928571428571429,
         "questionRelevance": 0.45
@@ -693,7 +991,7 @@
         },
         "questionRelevance": 0.35,
         "specifiedWrong": 7,
-        "meanBalancedAccuracy": 0.9970343013821276
+        "meanBalancedAccuracy": 0.9968860164512339
       },
       {
         "stage": "+ $25 floor",
@@ -705,7 +1003,7 @@
         },
         "questionRelevance": 0.4,
         "specifiedWrong": 6,
-        "meanBalancedAccuracy": 0.9966857385335647
+        "meanBalancedAccuracy": 0.9965200254602429
       },
       {
         "stage": "+ candidate reading",
@@ -717,7 +1015,7 @@
         },
         "questionRelevance": 0.4,
         "specifiedWrong": 6,
-        "meanBalancedAccuracy": 0.9966857385335647
+        "meanBalancedAccuracy": 0.9965200254602429
       },
       {
         "stage": "+ not-stated option, Medicare gate",
@@ -729,7 +1027,7 @@
         },
         "questionRelevance": 0.6,
         "specifiedWrong": 3,
-        "meanBalancedAccuracy": 0.9969806763285024
+        "meanBalancedAccuracy": 0.9968297101449275
       }
     ]
   }

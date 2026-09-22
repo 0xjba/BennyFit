@@ -10,23 +10,23 @@ BennyFit takes that effort away. Describe a household in a few sentences and it 
 
 ## Research
 
-**Screening Households for U.S. Benefit Programs from a Short Description: A Typed-Readout Decision Model Compared with Schema-Constrained Generation.** Jobin Ayathil, September 2026.
+**Screening Households for U.S. Benefit Programs from a Short Description: A Typed-Readout Decision Model Compared with Generative Baselines.** Jobin Ayathil, version 2, September 2026.
 
 Read it [as a PDF](public/research/bennyfit-technical-report.pdf) or [page by page on the site](https://bennyfit.vercel.app/research). A shorter write-up is in [docs/post.md](docs/post.md).
 
 <!-- generated:results:start -->
-Jev against Claude Sonnet 5 run through the identical pipeline (same descriptions, rules, questions, follow-up loop and answer key; Sonnet's reply held to a schema of each question's own options), on 49 held-out households:
+Jev against Claude Sonnet 5 in the identical pipeline (same descriptions, rules, questions, follow-up loop and answer key), in two configurations, on 49 held-out households:
 
-| | Jev | Claude Sonnet 5 |
-|---|---|---|
-| Verdicts right, households stating every fact | 816 of 819 (99.63%) | 812 of 819 (99.15%) |
-| Verdicts right, households missing a deciding fact | 201 of 210 (95.7%) | 209 of 210 (99.5%) |
-| Median time to a full result | 2.2 s | 35.3 s |
-| Billed cost per household | $0.00057 | $0.195 |
+| | Jev | Sonnet 5, schema, batched | Sonnet 5, one request |
+|---|---|---|---|
+| Wrong verdicts, households stating every fact (of 819) | 3 | 7 | 14 |
+| Households missing a fact with a wrong verdict (of 10) | 4 | 1 | 3 |
+| Median time to a full result | 2.2 s | 35.3 s | 29.3 s |
+| Cost per household | $0.00057 (list price) | $0.195 (billed) | $0.105 (billed) |
 
-- On households stating every fact the two are statistically indistinguishable (exact McNemar p = 0.34); Jev was 15.7× faster and 345× cheaper per household.
-- On households missing a deciding fact, Sonnet was more accurate (p = 0.021), because it asked the maximum three questions in 33 of 49 households. A *not stated* option was added in response; it has been measured on development households only.
-- Ranking follow-ups by expected value cut questions from 81 to 51 on the held-out households, with fully specified accuracy at 99.51%.
+- Against the schema configuration the error difference is not significant (exact McNemar p = 0.34); against the one-request configuration it is (p = 0.013), but those errors are all one misreading of a single criterion. Jev was 13 to 16× faster and 185 to 345× cheaper per household.
+- The households missing a fact all withhold the same one (whether income is earned). Jev answered it confidently instead of asking more often than the baselines; a *not stated* option was added in response and has been measured on development households only.
+- Ranking follow-ups by expected value cut questions from 81 to 51 on the held-out households.
 - Reading fresh descriptions: code with Jev choosing among candidates read 96.0% of hand-labelled facts, against 83.2% for pattern-matching code alone.
 - Rules: 34 of 34 hand-computed cases agree with their primary sources.
 <!-- generated:results:end -->
