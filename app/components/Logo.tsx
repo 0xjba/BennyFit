@@ -1,14 +1,23 @@
 /**
- * The BennyFit mark.
+ * The BennyFit mark: Benny.
  *
- * An original angular composition: two bold parallel shards rising to the right with a
- * small detached shard above, set in a rounded badge. The angular, slashed geometry is
- * the influence; the shapes are drawn here rather than borrowed.
+ * A tilted head with a flick at the crown and a single slanted eye, set in a rounded
+ * badge. The family it belongs to is the angular, one-eyed assistant mascot; the
+ * silhouette, the flick and the proportions are drawn here rather than borrowed from
+ * any of them.
  *
- * Sharp inside a soft container is the whole idea — a friendly surface over rules that
- * are anything but. The badge carries the mint; the glyph is cut out of it in ink,
- * because mint on white is far too light to read as type.
+ * The eye is a hole in the head rather than a shape on top of it, so the glyph carries
+ * its own contrast: in the badge the mint shows through, and anywhere else the mark
+ * takes the colour it is given and the eye stays legible.
  */
+
+const HEAD =
+  'M10.2 7.8 L7.8 3.6 L14.1 5.3 C14.9 5.1 15.7 5 16.5 5 C22 5 26.3 9.3 26.3 15 ' +
+  'C26.3 21.5 21.6 26.9 15.5 26.9 C10.1 26.9 6 22.6 6 17 C6 13.4 7.7 10.2 10.2 7.8 Z';
+
+const EYE =
+  'M12.1 16.4 L20.9 12.6 C21.5 12.3 22.1 12.6 22.3 13.2 C22.6 13.8 22.3 14.5 21.7 14.7 ' +
+  'L12.9 18.5 C12.3 18.8 11.7 18.5 11.4 17.9 C11.2 17.3 11.5 16.6 12.1 16.4 Z';
 
 export function BennyMark({
   size = 28,
@@ -19,45 +28,29 @@ export function BennyMark({
   variant?: 'badge' | 'glyph';
   title?: string;
 }) {
-  const shards = (
-    <>
-      <path d="M5 26.5 L15.2 7 L21 7 L10.8 26.5 Z" />
-      <path d="M14.2 26.5 L24.4 7 L30 7 L19.8 26.5 Z" opacity="0.58" />
-      <path d="M24.5 1.5 L30 1.5 L27.8 5.6 L22.3 5.6 Z" />
-    </>
-  );
+  const common = {
+    width: size,
+    height: size,
+    viewBox: '0 0 32 32',
+    role: title ? ('img' as const) : ('presentation' as const),
+    'aria-hidden': title ? undefined : true,
+    'aria-label': title,
+  };
 
   if (variant === 'glyph') {
     return (
-      <svg
-        width={size}
-        height={size}
-        viewBox="0 0 32 32"
-        fill="currentColor"
-        role={title ? 'img' : 'presentation'}
-        aria-hidden={title ? undefined : true}
-        aria-label={title}
-      >
+      <svg {...common} fill="currentColor">
         {title && <title>{title}</title>}
-        {shards}
+        <path d={`${HEAD} ${EYE}`} fillRule="evenodd" />
       </svg>
     );
   }
 
   return (
-    <svg
-      width={size}
-      height={size}
-      viewBox="0 0 32 32"
-      role={title ? 'img' : 'presentation'}
-      aria-hidden={title ? undefined : true}
-      aria-label={title}
-    >
+    <svg {...common}>
       {title && <title>{title}</title>}
       <rect width="32" height="32" rx="9" fill="var(--mint)" />
-      <g fill="var(--ink)" transform="translate(16 16) scale(0.74) translate(-16 -16)">
-        {shards}
-      </g>
+      <path d={`${HEAD} ${EYE}`} fillRule="evenodd" fill="var(--ink)" />
     </svg>
   );
 }
